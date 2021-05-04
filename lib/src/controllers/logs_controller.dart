@@ -1,0 +1,85 @@
+import 'package:fitness_app/src/models/logs.dart';
+import 'package:fitness_app/src/repositories/logs_repo.dart' as logsRepo;
+import '../repositories/user_repo.dart' as userRepo;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class LogsController extends GetxController {
+  var getAlert = false.obs;
+  Logs newLog = new Logs();
+  List<Logs> logs = List<Logs>().obs;
+
+  LogsController() {}
+
+  void getUserLogs(String userId) async {
+    logs.clear();
+    final Stream<Logs> stream = await logsRepo.getUserLogs(userId);
+
+    stream.listen(
+      (Logs _log) {
+        if (_log.id != null) {
+          logs.insert(0, _log);
+        }
+      },
+      onError: (e) {
+        print("Logs Controller Error: $e");
+      },
+      onDone: () {
+        print("done fetching logs");
+      },
+    );
+  }
+
+  void addLog() async {
+    Get.back();
+    logsRepo.addLog(newLog).then((log) {
+      if (log.id != null && log.id.isNotEmpty) {
+        logs.insert(0, log);
+        Get.snackbar(
+          "Success",
+          "Log created successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      print("Logs Controller Error: $e");
+    }).whenComplete(() {});
+  }
+
+  void updateLogStatus({String id, String status}) {
+    logsRepo.updateLogStatus(id, status).then((updated) {
+      if (updated) {
+        getUserLogs(userRepo.currentUser.value.id);
+        Get.snackbar(
+          "Success",
+          "Status updated successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      print("Logs Controller Error: $e");
+    }).whenComplete(() {});
+  }
+
+  void deleteLog(String id) {
+    Get.back();
+    logsRepo.deleteLog(id).then((deleted) {
+      if (deleted) {
+        getUserLogs(userRepo.currentUser.value.id);
+        Get.snackbar(
+          "Success",
+          "Deleted successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      print("Logs Controller Error: $e");
+    }).whenComplete(() {});
+  }
+}

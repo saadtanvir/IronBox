@@ -26,7 +26,6 @@ class _RecommendedCaroouselState extends State<RecommendedCaroousel> {
         scrollDirection: Axis.horizontal,
         itemCount: recommendedPlansImages.length,
         itemBuilder: (context, index) {
-          print("returing carousel");
           return GestureDetector(
             onTap: () {},
             child: RecommendedCardWidget(

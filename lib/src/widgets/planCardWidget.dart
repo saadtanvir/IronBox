@@ -1,15 +1,15 @@
 import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:fitness_app/src/models/category.dart';
+import 'package:fitness_app/src/models/plan.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
 class PlanCardWidget extends StatelessWidget {
-  String name;
-  String imgURL;
-  String planDuration;
-  PlanCardWidget(
-      {@required this.name, @required this.imgURL, this.planDuration});
+  Plan plan;
+  PlanCardWidget(this.plan);
   @override
   Widget build(BuildContext context) {
-    print("printing card");
+    // print("printing card");
     return Container(
       height: 150.0,
       margin: EdgeInsets.only(bottom: 10.0),
@@ -17,7 +17,8 @@ class PlanCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(15.0)),
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: NetworkImage(imgURL),
+          image: NetworkImage(
+              "${GlobalConfiguration().get('storage_base_url')}${plan.imgUrl}"),
         ),
       ),
       child: Row(
@@ -29,32 +30,27 @@ class PlanCardWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
                 child: Text(
-                  "$name",
+                  "${plan.name}",
                   overflow: TextOverflow.ellipsis,
                   style: Helper.of(context).textStyle(font: FontWeight.bold),
                 ),
               ),
             ),
           ),
-          planDuration == null
-              ? SizedBox()
-              : Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
-                      child: Text(
-                        "$planDuration",
-                        overflow: TextOverflow.ellipsis,
-                        style: Helper.of(context).textStyle(
-                          font: FontWeight.bold,
-                          size: 12.0,
-                        ),
-                      ),
-                    ),
-                  ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
+                child: Text(
+                  "${plan.duration} days",
+                  overflow: TextOverflow.ellipsis,
+                  style: Helper.of(context).textStyle(font: FontWeight.bold),
                 ),
+              ),
+            ),
+          ),
         ],
       ),
     );

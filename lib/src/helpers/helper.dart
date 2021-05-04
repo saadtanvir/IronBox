@@ -1,8 +1,18 @@
+import 'dart:async';
+
+import 'package:fitness_app/src/widgets/circularProgressIndicator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pedometer/pedometer.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class Helper {
   BuildContext context;
+  DateTime currentBackPressTime;
 
   // Helper();
   Helper.of(BuildContext _context) {
@@ -32,5 +42,115 @@ class Helper {
       return TextStyle(
           color: color.withOpacity(1.0), fontSize: size, fontWeight: font);
     }
+  }
+
+  static RegExp passwordRegExp() {
+    return new RegExp(r'[_!@#$%^&*(),.?":{}|<>]');
+  }
+
+  static FocusNode getFocusNode() {
+    FocusNode fn = new FocusNode();
+    return fn;
+  }
+
+  // for mapping data retrieved form json array
+  static getData(Map<String, dynamic> data) {
+    return data['data'] ?? [];
+  }
+
+  static Uri getUri(String path) {
+    String _path = Uri.parse(GlobalConfiguration().get("api_base_url")).path;
+    if (!_path.endsWith('/')) {
+      _path += '/';
+    }
+    Uri uri = Uri(
+        scheme: Uri.parse(GlobalConfiguration().get("api_base_url")).scheme,
+        host: Uri.parse(GlobalConfiguration().get("api_base_url")).host,
+        port: Uri.parse(GlobalConfiguration().get("api_base_url")).port,
+        path: _path + path);
+    return uri;
+  }
+
+  // remove new line '\n' from string
+  static String trimNewLine(String input) {
+    String result = "";
+    if (!input.contains('\n')) {
+      return input;
+    } else {
+      for (int i = 0; i < input.length; i++) {
+        if (input[i] != '\n') {
+          result += input[i];
+        }
+      }
+      return result;
+    }
+  }
+
+  static BorderRadius senderMessageBoxRadius() {
+    return BorderRadius.only(
+        topLeft: Radius.circular(15.0),
+        topRight: Radius.circular(15.0),
+        bottomLeft: Radius.circular(15.0));
+  }
+
+  static BorderRadius receiverMessageBoxRadius() {
+    return BorderRadius.only(
+        topLeft: Radius.circular(15.0),
+        topRight: Radius.circular(15.0),
+        bottomRight: Radius.circular(15.0));
+  }
+
+  // return 12hr time from Datetime
+  static String get12hrTime(DateTime now) {
+    String formattedTime = DateFormat.jm().format(now);
+    return formattedTime;
+  }
+
+  static String getMessageTime(DateTime messageTime) {
+    int differenceInDay = DateTime.now().difference(messageTime).inDays;
+    String timeWithMonthDay = DateFormat.MMMMd().format(messageTime);
+    String formattedTime = DateFormat.jm().format(messageTime);
+    String monthDayTime = "$timeWithMonthDay $formattedTime";
+
+    return differenceInDay > 0 ? monthDayTime : formattedTime;
+  }
+
+  static OverlayEntry overlayLoader(context) {
+    OverlayEntry loader = OverlayEntry(builder: (context) {
+      final size = MediaQuery.of(context).size;
+      return Positioned(
+        height: size.height,
+        width: size.width,
+        top: 0,
+        left: 0,
+        child: Material(
+          // set opacity of color to make
+          // background screen blur type
+          color: Theme.of(context).primaryColor.withOpacity(0.3),
+          child: CustomCircularProgressIndicator(height: 200),
+        ),
+      );
+    });
+    return loader;
+  }
+
+  static hideLoader(OverlayEntry loader) {
+    Timer(Duration(milliseconds: 500), () {
+      try {
+        loader?.remove();
+      } catch (e) {}
+    });
+  }
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      // Fluttertoast.showToast(msg: "Tap again to leave");
+      return Future.value(false);
+    }
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    return Future.value(true);
   }
 }

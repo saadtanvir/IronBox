@@ -1,18 +1,66 @@
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:pedometer/pedometer.dart';
 import '../helpers/app_constants.dart' as Constants;
+import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class UserDetailsCardWidget extends StatefulWidget {
-  // it receives user object
-  // final User user;
-  // initialize in constructor
   @override
   _UserDetailsCardWidgetState createState() => _UserDetailsCardWidgetState();
 }
 
 class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
+  Stream<StepCount> _stepCountStream;
+  Stream<PedestrianStatus> _pedestrianStatusStream;
+  var steps = 0.obs;
+
+  // counting steps
+  void listenForStepCount() async {
+    // add permissions for ios
+    // in info p list
+    // if step count is not accurate
+    // follow below link
+    // https://blog.maskys.com/implementing-a-daily-step-count-pedometer-in-flutter/
+    print("listening for step count");
+    _stepCountStream = await Pedometer.stepCountStream;
+    _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
+    _stepCountStream.listen(_getTodaySteps).onError(_onError);
+    _pedestrianStatusStream
+        .listen(_onPedestrianStatusChanged)
+        .onError(_onPedestrianStatusError);
+  }
+
+  void _onDone() => print("Finished pedometer tracking");
+  void _onError(error) => print("Pedometer Error: $error");
+  void _getTodaySteps(StepCount event) async {
+    // This is where we'll write our logic
+    print("Total steps");
+    print(event.steps);
+    print(event.timeStamp.toString());
+    steps.value = event.steps;
+  }
+
+  void _onPedestrianStatusChanged(PedestrianStatus event) {
+    /// Handle status changed
+    String status = event.status;
+    DateTime timeStamp = event.timeStamp;
+    print(event.status);
+  }
+
+  void _onPedestrianStatusError(error) {
+    /// Handle the error
+  }
+
+  @override
+  void initState() {
+    listenForStepCount();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +100,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                         );
                       },
                       imageUrl:
-                          'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                          '${GlobalConfiguration().get('storage_base_url')}${userRepo.currentUser.value.avatar}',
                       imageBuilder: (context, imageProvider) {
                         return Container(
                           height: 74,
@@ -67,6 +115,23 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                           ),
                         );
                       },
+                      errorWidget: (context, error, d) {
+                        print(error.toString());
+                        print(d.toString());
+                        return Container(
+                          height: 74,
+                          width: 74,
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(5),
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  "assets/img/profile_placeholder.png"),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Expanded(
@@ -76,18 +141,18 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Saad",
+                          "${userRepo.currentUser.value.name}",
                           style: Helper.of(context).textStyle(size: 20.0),
                         ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Text(
-                          "Lahore, Pakistan",
-                          overflow: TextOverflow.ellipsis,
-                          style: Helper.of(context)
-                              .textStyle(size: 18.0, colorOpacity: 0.9),
-                        ),
+                        // SizedBox(
+                        //   height: 5.0,
+                        // ),
+                        // Text(
+                        //   "Lahore, Pakistan",
+                        //   overflow: TextOverflow.ellipsis,
+                        //   style: Helper.of(context)
+                        //       .textStyle(size: 18.0, colorOpacity: 0.9),
+                        // ),
                       ],
                     ),
                   )
@@ -113,7 +178,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                   CircularPercentIndicator(
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 70.0,
+                    radius: 80.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -121,11 +186,14 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     center: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "1825",
-                          style: Helper.of(context)
-                              .textStyle(size: 12.0, font: FontWeight.bold),
-                        ),
+                        Obx(() {
+                          return Text(
+                            "${steps.value}",
+                            overflow: TextOverflow.ellipsis,
+                            style: Helper.of(context)
+                                .textStyle(size: 12.0, font: FontWeight.bold),
+                          );
+                        }),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -144,12 +212,12 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     ),
                   ),
                   SizedBox(
-                    width: 20.0,
+                    width: 40.0,
                   ),
                   CircularPercentIndicator(
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 70.0,
+                    radius: 80.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -180,12 +248,12 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     ),
                   ),
                   SizedBox(
-                    width: 20.0,
+                    width: 40.0,
                   ),
                   CircularPercentIndicator(
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 70.0,
+                    radius: 80.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -224,7 +292,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Welcom Saad",
+                    "Welcome ${userRepo.currentUser.value.name}",
                     style: Helper.of(context)
                         .textStyle(size: 20.0, font: FontWeight.bold),
                   ),

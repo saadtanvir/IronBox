@@ -1,13 +1,17 @@
+import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:fitness_app/src/pages/dietPackages.dart';
 import 'package:fitness_app/src/pages/home.dart';
+import 'package:fitness_app/src/pages/logs.dart';
 import 'package:fitness_app/src/pages/trainingPackages.dart';
 import 'package:fitness_app/src/pages/workoutPackages.dart';
+import 'package:fitness_app/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
+import '../helpers/app_constants.dart' as Constants;
 
 class BottomNavigationBarPages extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   int currentTab;
   Widget currentPage = Home();
-  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   BottomNavigationBarPages({this.currentTab}) {
     if (currentTab == null) {
       currentTab = 0;
@@ -26,29 +30,35 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
       switch (tabItem) {
         case 0:
           {
-            widget.currentPage = Home();
+            print("Displaying Home Page from btm nav");
+            widget.currentPage = Home(
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 1:
           {
-            widget.currentPage = TrainingPackages();
+            // app category index is 0
+            // and name is training
+            widget.currentPage =
+                TrainingPackages(Constants.appCategoriesName[0]);
           }
           break;
         case 2:
           {
-            widget.currentPage = WorkoutPackages();
+            widget.currentPage =
+                WorkoutPackages(Constants.appCategoriesName[1]);
           }
           break;
         case 3:
           {
-            widget.currentPage = DietPackages();
+            widget.currentPage = DietPackages(Constants.appCategoriesName[2]);
           }
           break;
         case 4:
           {
-            widget.currentPage = Center(child: Text("logs"));
-            // widget.currentPage =
-            //     FavoritesWidget(parentScaffoldKey: widget.scaffoldKey);
+            // widget.currentPage = Center(child: Text("logs"));
+            widget.currentPage = LogsScreen();
           }
           break;
       }
@@ -57,31 +67,34 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    print("inside btm nav init function");
     _selectTab(widget.currentTab);
     super.initState();
   }
 
+  // Link:
+  // https://stackoverflow.com/questions/52598900/flutter-bottomnavigationbar-rebuilds-page-on-change-of-tab
+
   @override
   Widget build(BuildContext context) {
+    // call this func
+    // so that widget rebuilds properly
+    _selectTab(widget.currentTab);
     return Scaffold(
       key: widget.scaffoldKey,
+      drawer: DrawerWidget(),
       body: widget.currentPage,
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).primaryColor,
-        // selectedFontSize: 10,
-        // unselectedFontSize: 10,
-        // iconSize: 22,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        // selectedIconTheme: IconThemeData(size: 25),
-        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
         currentIndex: widget.currentTab,
         onTap: (int i) {
           print("icon tapped $i");
           this._selectTab(i);
         },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).primaryColor,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
         items: [
           _bottomNavBarItem(icon: Icon(Icons.home_outlined)),
           _bottomNavBarItem(icon: Icon(Icons.show_chart)),

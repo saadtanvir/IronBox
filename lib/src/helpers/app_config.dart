@@ -10,7 +10,7 @@ class AppTheme {
     focusColor: Constants.primaryColor,
     scaffoldBackgroundColor: Constants.scaffoldColor,
     floatingActionButtonTheme:
-        FloatingActionButtonThemeData(backgroundColor: Colors.black),
+        FloatingActionButtonThemeData(backgroundColor: Constants.primaryColor),
     appBarTheme: AppBarTheme(
         brightness: Brightness.light,
         actionsIconTheme:

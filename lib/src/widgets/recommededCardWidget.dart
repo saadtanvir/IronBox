@@ -10,9 +10,11 @@ class RecommendedCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Helper.of(context).getScreenWidth() * 0.45,
+      width: Helper.of(context).getScreenWidth() * 0.40,
       margin: EdgeInsets.only(left: 10.0),
+      // color: Colors.brown,
       child: Card(
+        // color: Colors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
@@ -30,13 +32,13 @@ class RecommendedCardWidget extends StatelessWidget {
                       topRight: Radius.circular(10)),
                   child: CachedNetworkImage(
                     height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                    // width: double.infinity,
+                    fit: BoxFit.fill,
                     imageUrl: imgURL,
                     placeholder: (context, url) => Image.asset(
                       'assets/img/loading.gif',
-                      fit: BoxFit.contain,
-                      width: double.infinity,
+                      fit: BoxFit.fill,
+                      // width: double.infinity,
                       height: 150,
                     ),
                     errorWidget: (context, url, error) => Icon(Icons.error),
@@ -52,7 +54,7 @@ class RecommendedCardWidget extends StatelessWidget {
             ),
             Positioned(
               top: 120.0,
-              left: 50.0,
+              left: 55,
               child: ClipOval(
                 child: Material(
                   elevation: 10.0,

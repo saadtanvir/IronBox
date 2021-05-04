@@ -40,12 +40,12 @@ class _LoginWidgetState extends State<LoginWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                keyboardType: TextInputType.text,
-                onSaved: (input) => _email = input,
-                validator: (input) =>
-                    !input.contains('@') ? Constants.invalidEmail : null,
+                keyboardType: TextInputType.emailAddress,
+                onSaved: (input) => _con.user.email = input,
+                // validator: (input) =>
+                //     GetUtils.isEmail(input) ? null : Constants.invalidEmail,
                 decoration: InputDecoration(
-                  labelText: Constants.enterEmail,
+                  labelText: Constants.enterEmailPhoneUsername,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   labelStyle: TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
@@ -63,9 +63,9 @@ class _LoginWidgetState extends State<LoginWidget> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 obscureText: true,
-                onSaved: (input) => _password = input,
-                validator: (input) =>
-                    input.length < 4 ? Constants.incorrectPassword : null,
+                onSaved: (input) => _con.user.password = input,
+                // validator: (input) =>
+                //     input.length < 4 ? Constants.incorrectPassword : null,
                 decoration: InputDecoration(
                   labelText: Constants.enterPassword,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -84,11 +84,13 @@ class _LoginWidgetState extends State<LoginWidget> {
               SizedBox(height: 15.0),
               TextButton(
                   onPressed: () async {
+                    FocusScope.of(context).requestFocus(new FocusNode());
                     if (!_loginFormKey.currentState.validate()) {
                       return;
                     } else if (_loginFormKey.currentState.validate()) {
                       _loginFormKey.currentState.save();
-                      await _validate();
+                      // await _validate();
+                      _con.login(context);
                     }
                   },
                   child: Text(

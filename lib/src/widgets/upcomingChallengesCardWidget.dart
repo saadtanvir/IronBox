@@ -1,5 +1,6 @@
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
+import '../helpers/app_constants.dart' as Constants;
 
 class UpcomingChallengesWidget extends StatefulWidget {
   @override
@@ -32,10 +33,10 @@ class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "UPCOMING CHALLENGES",
+                  Constants.upcomingChallenges,
                   style: Helper.of(context).textStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor,
+                      font: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10.0,

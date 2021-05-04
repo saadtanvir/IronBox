@@ -5,26 +5,39 @@ import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
 
 class SplashController extends GetxController {
   ValueNotifier<bool> userAuth = new ValueNotifier(false);
-  SplashController() {}
+  SplashController() {
+    print("in splash controller init");
+    userRepo.currentUser.addListener(() {
+      print("in current user listener splash controller");
+      if (userRepo.currentUser.value.userToken != null) {
+        print("current user is not null");
+        userAuth.value = true;
+        // userAuth.notifyListeners();
+      } else {
+        print("current user is null");
+        userAuth.value = false;
+        userAuth.notifyListeners();
+      }
+    });
+  }
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    print("inside init of splash controller");
 
-    userRepo.currentUser.addListener(() {
-      if (userRepo.currentUser.value.auth != null &&
-          userRepo.currentUser.value.auth == true) {
-        print("current user is not null");
-        print(userRepo.currentUser.value.auth);
-        userAuth.value = true;
-      } else {
-        userAuth.value = false;
-      }
-      userAuth.notifyListeners();
-    });
-
-    // userAuth.value = userRepo.currentUser.value.auth != null ? true : false;
-    // userAuth.notifyListeners();
-    super.onInit();
+    // print("in splash controller init");
+    // userRepo.currentUser.addListener(() {
+    //   print("in current user listener splash controller");
+    //   if (userRepo.currentUser.value.userToken != null) {
+    //     print("current user is not null");
+    //     userAuth.value = true;
+    //     userAuth.notifyListeners();
+    //   } else {
+    //     print("current user is null");
+    //     userAuth.value = false;
+    //     userAuth.notifyListeners();
+    //   }
+    // });
+    // super.onInit();
   }
 }

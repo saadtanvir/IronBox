@@ -1,7 +1,10 @@
 import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:fitness_app/src/pages/signup.dart';
+import 'package:fitness_app/src/pages/stepper_signup.dart';
 import 'package:fitness_app/src/widgets/loginWidget.dart';
 import 'package:fitness_app/src/widgets/signupWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class CreateAccount extends StatefulWidget {
@@ -61,9 +64,18 @@ class _CreateAccountState extends State<CreateAccount>
               ),
               bottom: TabBar(
                 controller: _tabController,
+                onTap: (index) {
+                  if (index == 0) {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  }
+                },
                 tabs: _tabbarOptions.map((option) {
                   return Tab(
-                    child: Text("$option"),
+                    child: Text(
+                      "$option",
+                      style:
+                          Helper.of(context).textStyle(font: FontWeight.bold),
+                    ),
                   );
                 }).toList(),
               ),
@@ -76,22 +88,54 @@ class _CreateAccountState extends State<CreateAccount>
             switch (option) {
               case "Sign Up":
                 {
-                  return SignUpWidget();
+                  print("switching to signup");
+                  return _signupButton();
                 }
                 break;
               case "Log In":
                 {
-                  // move to login screen
+                  print("switching to login");
                   return LoginWidget();
                 }
                 break;
               default:
                 {
-                  return SignUpWidget();
+                  print("switching to signup");
+                  return _signupButton();
                 }
                 break;
             }
           }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _signupButton() {
+    return Container(
+      height: 20.0,
+      color: Theme.of(context).accentColor,
+      child: Center(
+        child: TextButton(
+          onPressed: () {
+            print("Get.to(Signup form)");
+            Get.to(StepperSignup());
+          },
+          child: Text(
+            Constants.signup_with_email,
+            style: TextStyle(color: Theme.of(context).accentColor),
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+                EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0)),
+            backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).scaffoldBackgroundColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              ),
+            ),
+          ),
         ),
       ),
     );

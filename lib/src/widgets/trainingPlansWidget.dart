@@ -1,11 +1,11 @@
 import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/widgets/planCardWidget.dart';
+import 'package:fitness_app/src/models/plan.dart';
+import 'package:fitness_app/src/widgets/categoryCardWidget.dart';
 import 'package:flutter/material.dart';
 
 class TrainingPlansWidget extends StatefulWidget {
-  // use this widget with Plans class
-  // make use of polymorphism
-  // receive object of Plans class
+  // receive list of plans
+
   @override
   _TrainingPlansWidgetState createState() => _TrainingPlansWidgetState();
 }
@@ -33,11 +33,7 @@ class _TrainingPlansWidgetState extends State<TrainingPlansWidget> {
           print("returing card widget");
           return GestureDetector(
             onTap: () {},
-            child: PlanCardWidget(
-              name: plansNames[index],
-              imgURL: plansImages[index],
-              planDuration: durations[index],
-            ),
+            child: Center(child: Text("Create separate card for them")),
           );
         },
       ),

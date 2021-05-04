@@ -1,0 +1,6 @@
+{
+    "base_url": "http://ironbox.mindwhizdev.co/",
+    "api_base_url": "http://ironbox.mindwhizdev.co/api/",
+    "storage_base_url": "http://ironbox.mindwhizdev.co/storage/",
+    "stripe_base_url": "https://api.stripe.com"
+}

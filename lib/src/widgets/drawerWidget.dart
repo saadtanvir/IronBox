@@ -1,0 +1,198 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:fitness_app/src/pages/create_acc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:global_configuration/global_configuration.dart';
+import '../helpers/app_constants.dart' as Constants;
+import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+
+class DrawerWidget extends StatefulWidget {
+  @override
+  _DrawerWidgetState createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  var trainerMode = userRepo.currentUser.value.role == Constants.joinAsA[1]
+      ? true.obs
+      : false.obs;
+
+  void _switchUserRole(bool value) {
+    // if value is true
+    // check trainee or trainer possibilities
+    // and switch screen accordingly
+    // update its value to true/false accordingly
+    if (value) {
+      // switch to trainer mode
+      // check if user has been registered
+      // as trainer or not
+      if (userRepo.currentUser.value.experience != null) {
+        // change value in shared prefs
+        // update UI
+
+        userRepo.setUserRole(Constants.joinAsA[1]);
+        trainerMode.value = value;
+      } else {
+        // go to mini registration page
+        // for trainer registration
+      }
+    } else {
+      // check if trainee exist of this user
+      // go back to trainee mode
+      if (userRepo.currentUser.value.injury != null) {
+        // change value in shared prefs
+        userRepo.setUserRole(Constants.joinAsA[0]);
+        trainerMode.value = value;
+        Get.offAllNamed('/BottomNavBarPage');
+      } else {
+        // register as a trainee also
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          Container(
+            height: Helper.of(context).getScreenHeight() * 0.25,
+            width: Helper.of(context).getScreenWidth(),
+            child: Card(
+              color: Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15.0),
+                    bottomRight: Radius.circular(15.0)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CachedNetworkImage(
+                    placeholder: (context, url) {
+                      return Container(
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(5),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage("assets/img/loading.gif"),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      );
+                    },
+                    imageUrl:
+                        '${GlobalConfiguration().get('storage_base_url')}${userRepo.currentUser.value.avatar}',
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(5),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    errorWidget: (context, error, d) {
+                      print(error.toString());
+                      print(d.toString());
+                      return Container(
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(5),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(
+                                "assets/img/profile_placeholder.png"),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    "${userRepo.currentUser.value.name}",
+                    style: Helper.of(context).textStyle(size: 15.0),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: Icon(
+              Icons.person,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Profile",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          Divider(
+            thickness: 2.0,
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Text(
+                    Constants.change_user_mode,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Obx(() {
+                  return CupertinoSwitch(
+                    onChanged: (value) {
+                      _switchUserRole(value);
+                    },
+                    value: trainerMode.value,
+                    activeColor: Theme.of(context).primaryColor,
+                  );
+                }),
+              )
+            ],
+          ),
+          ListTile(
+            onTap: () {
+              userRepo.removeCurrentUser().then((value) {
+                Get.offAll(CreateAccount());
+              });
+            },
+            leading: Icon(
+              Icons.logout,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Logout",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+        ],
+      ),
+    );
+  }
+}
