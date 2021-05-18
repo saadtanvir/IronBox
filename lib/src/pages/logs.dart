@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:flutter/services.dart';
 import 'package:fitness_app/src/controllers/logs_controller.dart';
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:fitness_app/src/models/logs.dart';
@@ -52,13 +52,14 @@ class _LogsScreenState extends State<LogsScreen> {
 
   @override
   void initState() {
-    if (userRepo.currentUser.value.id != null) {
-      _con.getUserLogs(userRepo.currentUser.value.id);
-    }
     _logFormKey = new GlobalKey<FormState>();
     _dateFormatter = DateFormat(dateFormat);
     _creationDate = _dateFormatter.format(DateTime.now());
     _calendarSelectedDate = _dateFormatter.format(DateTime.now());
+    if (userRepo.currentUser.value.userToken != null) {
+      _con.getUserLogs(userRepo.currentUser.value.id,
+          date: _calendarSelectedDate);
+    }
     super.initState();
   }
 
@@ -92,10 +93,9 @@ class _LogsScreenState extends State<LogsScreen> {
               height: Helper.of(context).getScreenHeight() * 0.45,
               child: CalendarDatePicker(
                 onDateChanged: (selectedDate) {
-                  print(_dateFormatter.format(selectedDate));
-                  // setState(() {
-                  //   _calendarSelectedDate = _dateFormatter.format(selectedDate);
-                  // });
+                  _calendarSelectedDate = _dateFormatter.format(selectedDate);
+                  _con.getUserLogs(userRepo.currentUser.value.id,
+                      date: _calendarSelectedDate);
                 },
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: 30)),
@@ -116,18 +116,28 @@ class _LogsScreenState extends State<LogsScreen> {
             ),
             // SizedBox(height: 5.0),
             Obx(() {
-              return _con.logs.isNotEmpty
-                  ? ShowLogsWidget(
-                      logsList: _con.logs,
-                      updateLogStatus: updateLogStatus,
-                      deleteLog: deleteLog,
-                    )
-                  : Padding(
+              return _con.logs.isEmpty && !_con.doneFetchingLogs.value
+                  ? Padding(
                       padding: const EdgeInsets.only(top: 50.0),
                       child: Center(
                         child: CircularProgressIndicator(),
                       ),
-                    );
+                    )
+                  : _con.logs.isEmpty && _con.doneFetchingLogs.value
+                      ? Center(
+                          heightFactor: 10.0,
+                          child: Text(
+                            "No logs for current date !",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        )
+                      : ShowLogsWidget(
+                          logsList: _con.logs,
+                          updateLogStatus: updateLogStatus,
+                          deleteLog: deleteLog,
+                        );
             }),
           ],
         ),

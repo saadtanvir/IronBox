@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 
 class PlansListWidget extends StatefulWidget {
   List<Plan> plans = List<Plan>();
-  PlansListWidget(this.plans);
+  Function planOnTap;
+  PlansListWidget(this.plans, this.planOnTap);
   @override
   _PlansListWidgetState createState() => _PlansListWidgetState();
 }
@@ -17,18 +18,21 @@ class _PlansListWidgetState extends State<PlansListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160.0 * widget.plans.length.toDouble(),
+      // color: Colors.yellow,
+      // height: 160.0 * widget.plans.length.toDouble(),
       width: Helper.of(context).getScreenWidth(),
       child: ListView.builder(
+        // padding: EdgeInsets.only(bottom: 10.0),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
         itemCount: widget.plans.length,
         itemBuilder: (context, index) {
-          print("returing card widget");
+          print("plan video URL: ${widget.plans[index].videoUrl}");
           return GestureDetector(
             onTap: () {
-              Get.to(AppPlanDetails(widget.plans[index]));
+              print(widget.plans[index].videoUrl);
+              widget.planOnTap(widget.plans[index]);
             },
             child: PlanCardWidget(widget.plans[index]),
           );

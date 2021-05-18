@@ -9,8 +9,9 @@ class RecommendedCardWidget extends StatelessWidget {
       {@required this.imgURL, @required this.recommendationName});
   @override
   Widget build(BuildContext context) {
+    // print(Helper.of(context).getScreenWidth() * 0.40);
     return Container(
-      width: Helper.of(context).getScreenWidth() * 0.40,
+      width: 144.0,
       margin: EdgeInsets.only(left: 10.0),
       // color: Colors.brown,
       child: Card(
@@ -54,7 +55,7 @@ class RecommendedCardWidget extends StatelessWidget {
             ),
             Positioned(
               top: 120.0,
-              left: 55,
+              left: 42,
               child: ClipOval(
                 child: Material(
                   elevation: 10.0,

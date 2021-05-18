@@ -1,4 +1,6 @@
 import 'package:fitness_app/src/controllers/plans_controller.dart';
+import 'package:fitness_app/src/models/plan.dart';
+import 'package:fitness_app/src/pages/appPlanDetails.dart';
 import 'package:fitness_app/src/widgets/plansListWidget.dart';
 import 'package:fitness_app/src/widgets/searchBarWidget.dart';
 import 'package:fitness_app/src/widgets/trainingPlansWidget.dart';
@@ -8,8 +10,9 @@ import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class WorkoutPackages extends StatefulWidget {
-  final String name;
-  WorkoutPackages(this.name);
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+  final String category;
+  WorkoutPackages(this.category, {this.parentScaffoldKey});
   @override
   _WorkoutPackagesState createState() => _WorkoutPackagesState();
 }
@@ -17,10 +20,18 @@ class WorkoutPackages extends StatefulWidget {
 class _WorkoutPackagesState extends State<WorkoutPackages> {
   PlansController _con = Get.put(PlansController());
 
+  void planOnTap(Plan p) {
+    Get.to(AppPlanDetails(p));
+  }
+
+  void searchPlan(String searchString) {
+    _con.searchPlan(searchString, widget.category);
+  }
+
   @override
   void initState() {
     print("inside init of workout packages.dart");
-    _con.getPlansByCategory(widget.name);
+    _con.getPlansByCategory(widget.category);
     super.initState();
   }
 
@@ -39,23 +50,35 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
           onPressed: () {
             // open drawer from pages file
             // using parent key
+            widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
-        actions: [
-          MessageIconWidget(),
-        ],
+        // actions: [
+        //   MessageIconWidget(),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SearchBarWidget(),
+            SearchBarWidget(searchPlan),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Obx(() {
-                return _con.plans.isEmpty
+                return _con.plans.isEmpty && !_con.doneFetchingPlans.value
                     ? CircularProgressIndicator(
                         backgroundColor: Theme.of(context).primaryColor)
-                    : PlansListWidget(_con.plans);
+                    : _con.plans.isEmpty && _con.doneFetchingPlans.value
+                        ? Center(
+                            heightFactor: 10.0,
+                            child: Text(
+                              "No plans to show !",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        : PlansListWidget(
+                            _con.plans.reversed.toList(), planOnTap);
               }),
             ),
           ],

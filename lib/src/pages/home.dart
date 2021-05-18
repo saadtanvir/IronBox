@@ -27,6 +27,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     print("inside init of Home Page");
+    _con.checkActivityRecognitionPermission();
+    _con.checkBodySensorPermission();
     super.initState();
   }
 
@@ -47,9 +49,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
-        actions: [
-          MessageIconWidget(),
-        ],
+        // actions: [
+        //   MessageIconWidget(),
+        // ],
       ),
       body: RefreshIndicator(
         onRefresh: () {
@@ -68,7 +70,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 padding: const EdgeInsets.all(20.0),
                 child: Constants.appCategories != null &&
                         Constants.appCategories.isNotEmpty
-                    ? CategoriesWidget(Constants.appCategories)
+                    ? CategoriesWidget()
                     : CircularProgressIndicator(),
               ),
               Padding(

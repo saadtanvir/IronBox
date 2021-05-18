@@ -12,13 +12,14 @@ class CustomCircularProgressIndicator extends StatefulWidget {
 
 class _CustomCircularProgressIndicatorState
     extends State<CustomCircularProgressIndicator>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Animation<double> animation;
   AnimationController animationController;
 
   void initState() {
     super.initState();
-    // animationController = AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
     animationController = AnimationController(vsync: this);
     CurvedAnimation curve =
         CurvedAnimation(parent: animationController, curve: Curves.easeOut);
@@ -28,7 +29,7 @@ class _CustomCircularProgressIndicatorState
           setState(() {});
         }
       });
-    Timer(Duration(seconds: 10), () {
+    Timer(Duration(seconds: 500), () {
       if (mounted) {
         animationController.forward();
       }
@@ -37,11 +38,12 @@ class _CustomCircularProgressIndicatorState
 
   @override
   void dispose() {
-//    Timer(Duration(seconds: 30), () {
-//      //if (mounted) {
-//      //}
-//    });
-    animationController.dispose();
+    Timer(Duration(seconds: 30), () {
+      if (mounted) {
+        animationController.dispose();
+      }
+    });
+    // animationController.dispose();
     super.dispose();
   }
 

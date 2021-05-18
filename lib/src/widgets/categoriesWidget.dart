@@ -6,37 +6,25 @@ import '../helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoriesWidget extends StatefulWidget {
-  List<Category> categories;
-  CategoriesWidget(this.categories);
-  @override
-  _CategoriesWidgetState createState() => _CategoriesWidgetState();
-}
-
-class _CategoriesWidgetState extends State<CategoriesWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160.0 * widget.categories.length.toDouble(),
+      height: 160.0 * Constants.appCategories.length.toDouble(),
       width: Helper.of(context).getScreenWidth(),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: widget.categories.length,
+        itemCount: Constants.appCategories.length,
         itemBuilder: (context, index) {
           // print("returing card widget");
           return GestureDetector(
             onTap: () {
               Get.to(UserPlans(Constants.appCategoriesName[index],
-                  widget.categories[index].name));
+                  Constants.appCategories[index].name));
             },
-            child: CategoryCardWidget(widget.categories[index]),
+            child: CategoryCardWidget(Constants.appCategories[index]),
           );
         },
       ),

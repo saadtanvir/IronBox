@@ -14,6 +14,7 @@ class User {
   String role;
   String userToken;
   String avatar;
+  String workout;
   int age;
   int isPremiumUser = 0;
   double height;
@@ -33,13 +34,14 @@ class User {
       name = jsonMap['name'] != null ? jsonMap['name'].toString() : '';
       userName = jsonMap['username'] != null ? jsonMap['username'] : '';
       email = jsonMap['email'] != null ? jsonMap['email'].toString() : '';
-      age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       phone = jsonMap['phone'] != null ? jsonMap['phone'] : '';
       password = jsonMap['password'] != null ? jsonMap['password'] : '';
       avatar = jsonMap['avatar'] != null ? jsonMap['avatar'] : '';
       injury = jsonMap['injury'] != null ? jsonMap['injury'] : '';
+      workout = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
+      age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       isPremiumUser = jsonMap['isPremiumUser'] != null
-          ? int.parse(jsonMap['isPremiumUser'].toString())
+          ? int.parse(jsonMap['isPremiumUser'])
           : 0;
       medicalBG = jsonMap['medicalBackground'] != null
           ? jsonMap['medicalBackground']
@@ -64,19 +66,19 @@ class User {
 
   Map toMap() {
     var map = new Map<String, dynamic>();
-    map["id"] = id;
+    // map["id"] = id;
     map["email"] = email;
     map["name"] = name;
     map["password"] = password;
     map["phone"] = phone;
     map["username"] = userName;
     map["usertype"] = role;
-    map["age"] = age;
-    map["avatar"] = avatar;
-    map["isPremiumUser"] = isPremiumUser;
+    map["age"] = age.toString();
+    // map["avatar"] = avatar;
+    // map["isPremiumUser"] = isPremiumUser;
     map["gender"] = gender;
-    map["height"] = height;
-    map["weight"] = weight;
+    map["height"] = height.toString();
+    map["weight"] = weight.toString();
     map["injury"] = injury;
     map["token"] = userToken;
     map["medicalBackground"] = medicalBG;

@@ -1,4 +1,5 @@
 import 'package:fitness_app/src/pages/T_homePage.dart';
+import 'package:fitness_app/src/pages/T_plans.dart';
 import 'package:fitness_app/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -9,7 +10,7 @@ class TrainerBottomNavBar extends StatefulWidget {
   Widget currentPage = TrainerHomePage();
   TrainerBottomNavBar({this.currentTab}) {
     if (currentTab == null) {
-      currentTab = 0;
+      currentTab = 1;
     }
   }
   @override
@@ -23,18 +24,17 @@ class _TrainerBottomNavBarState extends State<TrainerBottomNavBar> {
       switch (tabItem) {
         case 0:
           {
-            print("Displaying Home Page from btm nav");
-            widget.currentPage = TrainerHomePage(
+            widget.currentPage = TrainerPlans(
               parentScaffoldKey: widget.scaffoldKey,
             );
           }
           break;
         case 1:
           {
-            // app category index is 0
-            // and name is training
-            // widget.currentPage =
-            //     TrainingPackages(Constants.appCategoriesName[0]);
+            // print("Displaying Home Page from btm nav");
+            widget.currentPage = TrainerHomePage(
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 2:
@@ -43,24 +43,13 @@ class _TrainerBottomNavBarState extends State<TrainerBottomNavBar> {
             //     WorkoutPackages(Constants.appCategoriesName[1]);
           }
           break;
-        case 3:
-          {
-            // widget.currentPage = DietPackages(Constants.appCategoriesName[2]);
-          }
-          break;
-        case 4:
-          {
-            // widget.currentPage = Center(child: Text("logs"));
-            // widget.currentPage = LogsScreen();
-          }
-          break;
       }
     });
   }
 
   @override
   void initState() {
-    print("inside btm nav init function");
+    print("inside T btm nav init function");
     _selectTab(widget.currentTab);
     super.initState();
   }

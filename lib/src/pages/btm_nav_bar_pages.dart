@@ -40,19 +40,26 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           {
             // app category index is 0
             // and name is training
-            widget.currentPage =
-                TrainingPackages(Constants.appCategoriesName[0]);
+            widget.currentPage = TrainingPackages(
+              Constants.appCategoriesName[0],
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 2:
           {
-            widget.currentPage =
-                WorkoutPackages(Constants.appCategoriesName[1]);
+            widget.currentPage = WorkoutPackages(
+              Constants.appCategoriesName[1],
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 3:
           {
-            widget.currentPage = DietPackages(Constants.appCategoriesName[2]);
+            widget.currentPage = DietPackages(
+              Constants.appCategoriesName[2],
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 4:

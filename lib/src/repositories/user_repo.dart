@@ -14,7 +14,7 @@ ValueNotifier<User> currentUser = new ValueNotifier(User());
 
 Future<User> register(User user) async {
   // print(user.name);
-  String url = "${GlobalConfiguration().get("api_base_url")}register";
+  String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
   try {
     final client = new http.Client();
     final response = await client.post(
@@ -47,26 +47,10 @@ Future<User> register(User user) async {
   }
 }
 
-// Future<User> register2(User user) async {
-//   // print(user.name);
-//   try {
-//     String url = "https://mindwhiz.co/ironbox/public/index.php/api/register";
-//     Response response;
-//     var dio = Dio();
-//     response = await dio.post(url, data: user.toMap());
-//     print(response.statusCode);
-//     print(response.data);
-//     return currentUser.value;
-//   } catch (e) {
-//     print("error caught");
-//     print(e);
-//     return currentUser.value;
-//   }
-// }
-
 Future<User> login(User user) async {
+  final String url = "${GlobalConfiguration().get("api_base_url")}login";
+  print("URL FOR LOGIN: $url");
   try {
-    final String url = "${GlobalConfiguration().get("api_base_url")}login";
     final client = new http.Client();
     final response = await client.post(
       url,
@@ -80,11 +64,50 @@ Future<User> login(User user) async {
     print(response.body);
 
     Map responseBody = json.decode(response.body);
-    print(responseBody['data']['token']);
+    // print(responseBody['data']['token']);
 
     if (response.statusCode == 200 && responseBody['data']['token'] != null) {
       setCurrentUser(response.body);
       setUserRole(json.decode(response.body)['data']['usertype']);
+      currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+
+      return currentUser.value;
+    } else {
+      print("throws exception");
+      return currentUser.value;
+//    throw new Exception(response.body);
+    }
+//  return currentUser.value;
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return currentUser.value;
+  }
+}
+
+Future<User> updateUser(User u) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}registeruser/${u.id}";
+  try {
+    final client = new http.Client();
+    final response = await client.put(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(u.toMap()),
+    );
+    print("URL For Updating Current User: $url");
+    print(json.encode(u.toMap()));
+    print(response.statusCode);
+    print(response.body);
+
+    Map responseBody = json.decode(response.body);
+    // print(responseBody['data']['token']);
+
+    if (response.statusCode == 200 && responseBody['data'] != null) {
+      setCurrentUser(response.body);
+      // setUserRole(json.decode(response.body)['data']['usertype']);
       currentUser.value = User.fromJSON(json.decode(response.body)['data']);
 
       return currentUser.value;
@@ -109,20 +132,13 @@ void setCurrentUser(jsonString) async {
   }
 }
 
-// void setCurrentUser2(User user) async {
-//   if (user.userToken != null) {
-//     print("setting current user with token");
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     print(json.encode(currentUser.value));
-//     await prefs.setString('current_user', json.encode(currentUser.value));
-//   }
-// }
-
 Future<User> getCurrentUser() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   if (prefs.containsKey("current_user")) {
     print("User Repo: user found from shared prefs");
+    // next both statement will call listeners
+    currentUser.value.role = await prefs.getString("user_role");
     currentUser.value =
         User.fromJSON(json.decode(await prefs.get("current_user")));
     currentUser.value.auth = true;
@@ -136,23 +152,6 @@ Future<User> getCurrentUser() async {
   return currentUser.value;
 }
 
-// Future<User> getCurrentUser2() async {
-//   print("getting current user");
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-//   if (prefs.containsKey("current_user")) {
-//     print(json.decode(await prefs.get("current_user")));
-//     currentUser.value = json.decode(await prefs.get("current_user"));
-//     print(currentUser.value.id);
-//     print(currentUser.value.userToken);
-//     // currentUser.value.auth = true;
-//   } else {
-//     // currentUser.value.auth = false;
-//   }
-//   currentUser.notifyListeners();
-//   return currentUser.value;
-// }
-
 Future<void> removeCurrentUser() async {
   currentUser.value = new User();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -162,16 +161,8 @@ Future<void> removeCurrentUser() async {
 }
 
 void setUserRole(String role) async {
+  print("new user role is: $role");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString("user_role", role);
   currentUser.value.role = role;
 }
-
-// Future<String> getUserCurrentRole() async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   if (prefs.containsKey("user_role")) {
-//     return prefs.getString("user_role");
-//   } else {
-//     return currentUser.value.role.toString();
-//   }
-// }

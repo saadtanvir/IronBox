@@ -17,23 +17,25 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _redirectUser() {
     _con.userAuth.addListener(() {
-      // Get.offAllNamed('/BottomNavBarPage');
-
-      print("in user auth listener");
-      if (_con.userAuth.value) {
-        // check user role and redirect accordingly
-        // Get.offAll(Home());
-        if (userRepo.currentUser.value.role == Constants.joinAsA[0]) {
-          // its a trainee
-          print("redirecting to Trainee home page from splash screen");
-          Get.offAllNamed('/BottomNavBarPage');
-        } else if (userRepo.currentUser.value.role == Constants.joinAsA[1]) {
-          // its a trainer
+      if (SplashController.isCallingFromSplashController) {
+        print("in user auth listener");
+        if (_con.userAuth.value) {
+          print("Role: " + userRepo.currentUser.value.role);
+          if (userRepo.currentUser.value.role == Constants.joinAsA[0]) {
+            print("its a Trainee");
+            print("redirecting to Trainee home page from splash screen");
+            // userRepo.currentUser.re
+            Get.offAllNamed('/BottomNavBarPage');
+          } else if (userRepo.currentUser.value.role == Constants.joinAsA[1]) {
+            print("its a trainer");
+            Get.offAllNamed('/TrainerBtmNavBar');
+          }
+        } else {
+          print("redirecting to get started screen from splash screen");
+          Get.offAll(GetStartedScreen());
         }
-      } else {
-        print("redirecting to get started screen from splash screen");
-        Get.offAll(GetStartedScreen());
       }
+      SplashController.isCallingFromSplashController = false;
     });
   }
 
@@ -42,6 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     _redirectUser();
+    _con.checkNotificationPermission();
   }
 
   @override

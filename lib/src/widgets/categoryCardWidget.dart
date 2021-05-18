@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:fitness_app/src/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
 class CategoryCardWidget extends StatelessWidget {
   Category category;
@@ -11,17 +13,38 @@ class CategoryCardWidget extends StatelessWidget {
     return Container(
       height: 150.0,
       margin: EdgeInsets.only(bottom: 10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage("${category.backgroundImgUrl}"),
-        ),
-      ),
-      child: Row(
+      child: Stack(
         children: [
-          Expanded(
-            flex: 1,
+          CachedNetworkImage(
+            imageUrl: "${category.backgroundImgUrl}",
+            placeholder: (context, url) {
+              return Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  image: DecorationImage(
+                    image: AssetImage("assets/img/loading.gif"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              );
+            },
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              );
+            },
+          ),
+          Positioned(
+            bottom: 10.0,
+            // left: 10.0,
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Padding(

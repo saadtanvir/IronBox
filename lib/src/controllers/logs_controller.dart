@@ -7,13 +7,15 @@ import 'package:get/get.dart';
 class LogsController extends GetxController {
   var getAlert = false.obs;
   Logs newLog = new Logs();
+  var doneFetchingLogs = false.obs;
   List<Logs> logs = List<Logs>().obs;
 
   LogsController() {}
 
-  void getUserLogs(String userId) async {
+  void getUserLogs(String userId, {String date}) async {
+    doneFetchingLogs.value = false;
     logs.clear();
-    final Stream<Logs> stream = await logsRepo.getUserLogs(userId);
+    final Stream<Logs> stream = await logsRepo.getUserLogs(userId, date);
 
     stream.listen(
       (Logs _log) {
@@ -26,6 +28,7 @@ class LogsController extends GetxController {
       },
       onDone: () {
         print("done fetching logs");
+        doneFetchingLogs.value = true;
       },
     );
   }

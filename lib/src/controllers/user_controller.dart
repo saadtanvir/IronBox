@@ -3,6 +3,7 @@ import 'package:fitness_app/src/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../repositories/user_repo.dart' as userRepo;
+import '../helpers/app_constants.dart' as Constants;
 import '../services/firebase_methods.dart';
 import '../pages/create_acc.dart';
 
@@ -67,8 +68,13 @@ class UserController extends GetxController {
     Overlay.of(context).insert(loader);
     userRepo.login(user).then((value) {
       if (value.userToken != null) {
-        // go to home page
-        Get.offAllNamed('/BottomNavBarPage');
+        // check role
+        // redirect accordingly
+        if (value.role == Constants.joinAsA[0]) {
+          Get.offAllNamed('/BottomNavBarPage');
+        } else if (value.role == Constants.joinAsA[1]) {
+          Get.offAllNamed('/TrainerBtmNavBar');
+        }
       } else {
         Get.snackbar(
           "Login Failed !",
@@ -78,7 +84,7 @@ class UserController extends GetxController {
           colorText: Colors.white,
         );
       }
-      print(value.id);
+      // print(value.id);
     }).catchError((e) {
       print("error caught");
       print(e);
@@ -91,6 +97,44 @@ class UserController extends GetxController {
       );
     }).whenComplete(() {
       print("login process completed");
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void updateUser(BuildContext context, User currentUser) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    userRepo.updateUser(currentUser).then((value) {
+      print(value.role);
+      if (value.role == Constants.joinAsA[0]) {
+        Get.offAllNamed('/BottomNavBarPage');
+      } else if (value.role == Constants.joinAsA[1]) {
+        Get.offAllNamed('/TrainerBtmNavBar');
+      }
+    }).catchError((e) {
+      print("error caught");
+      print(e);
+      Get.snackbar(
+        "Registration Failed!",
+        "Check your internet connection",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }).whenComplete(() {
+      print("registration process completed");
+      Helper.hideLoader(loader);
+    });
+  }
+
+  Future<void> removeCurrentUser(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    userRepo.removeCurrentUser().then((value) {
+      Get.offAll(CreateAccount());
+    }).catchError((e) {
+      print("User Controller Error: $e");
+    }).whenComplete(() {
       Helper.hideLoader(loader);
     });
   }

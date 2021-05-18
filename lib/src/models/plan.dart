@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Plan {
   String id;
   String category;
@@ -8,7 +10,9 @@ class Plan {
   String description;
   String detail;
   String createdBy;
+  String imageBytes;
   double price;
+  File imageFile;
 
   Plan();
 
@@ -27,7 +31,7 @@ class Plan {
       imgUrl =
           jsonMap['bgImgUrl'] != null ? jsonMap['bgImgUrl'].toString() : '';
       videoUrl =
-          jsonMap['video_url'] != null ? jsonMap['vedio_url'].toString() : '';
+          jsonMap['video_url'] != null ? jsonMap['video_url'].toString() : '';
       description = jsonMap['description'] != null
           ? jsonMap['description'].toString()
           : '';

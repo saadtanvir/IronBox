@@ -1,37 +1,34 @@
-import 'package:fitness_app/src/controllers/plans_controller.dart';
 import 'package:fitness_app/src/models/plan.dart';
 import 'package:fitness_app/src/pages/appPlanDetails.dart';
+import 'package:fitness_app/src/widgets/T_createPlanWidget.dart';
+import 'package:fitness_app/src/widgets/T_planDetailsWidget.dart';
 import 'package:fitness_app/src/widgets/plansListWidget.dart';
 import 'package:fitness_app/src/widgets/searchBarWidget.dart';
-import 'package:fitness_app/src/widgets/trainingPlansWidget.dart';
-import 'package:fitness_app/src/widgets/showMessageIconWidget.dart';
+import 'package:fitness_app/src/controllers/plans_controller.dart';
+import '../helpers/app_constants.dart' as Constants;
+import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../helpers/app_constants.dart' as Constants;
 
-class DietPackages extends StatefulWidget {
+class TrainerPlans extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
-  final String category;
-  DietPackages(this.category, {this.parentScaffoldKey});
+  TrainerPlans({Key key, this.parentScaffoldKey}) : super(key: key);
   @override
-  _DietPackagesState createState() => _DietPackagesState();
+  _TrainerPlansState createState() => _TrainerPlansState();
 }
 
-class _DietPackagesState extends State<DietPackages> {
+class _TrainerPlansState extends State<TrainerPlans> {
   PlansController _con = Get.put(PlansController());
 
   void planOnTap(Plan p) {
-    Get.to(AppPlanDetails(p));
-  }
-
-  void searchPlan(String searchString) {
-    _con.searchPlan(searchString, widget.category);
+    Get.to(TrainerPlanDetailsWidget(p));
   }
 
   @override
   void initState() {
-    print("inside init of diet packages.dart");
-    _con.getPlansByCategory(widget.category);
+    if (userRepo.currentUser.value.userToken != null) {
+      _con.getTrainerPlans(userRepo.currentUser.value.id);
+    }
     super.initState();
   }
 
@@ -48,8 +45,6 @@ class _DietPackagesState extends State<DietPackages> {
           icon: new Icon(Icons.notes_rounded,
               color: Theme.of(context).accentColor),
           onPressed: () {
-            // open drawer from pages file
-            // using parent key
             widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
@@ -57,21 +52,29 @@ class _DietPackagesState extends State<DietPackages> {
         //   MessageIconWidget(),
         // ],
       ),
+      floatingActionButton: _floatingActionButton(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SearchBarWidget(searchPlan),
+            // pass onSubmit func
+            // update the widget below
+            // SearchBarWidget(),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(20.0),
               child: Obx(() {
                 return _con.plans.isEmpty && !_con.doneFetchingPlans.value
-                    ? CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor)
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50.0),
+                          child: CircularProgressIndicator(
+                              backgroundColor: Theme.of(context).primaryColor),
+                        ),
+                      )
                     : _con.plans.isEmpty && _con.doneFetchingPlans.value
                         ? Center(
-                            heightFactor: 10.0,
+                            heightFactor: 20.0,
                             child: Text(
-                              "No plans to show !",
+                              "You have not created any plan yet !",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -84,6 +87,22 @@ class _DietPackagesState extends State<DietPackages> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _floatingActionButton() {
+    return FloatingActionButton(
+      onPressed: () {
+        Get.to(
+          TrainerCreatePlanWidget(),
+          fullscreenDialog: true,
+        );
+      },
+      child: Icon(
+        Icons.add,
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      splashColor: Theme.of(context).accentColor.withOpacity(0.5),
     );
   }
 }

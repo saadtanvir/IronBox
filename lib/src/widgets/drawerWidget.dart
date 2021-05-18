@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitness_app/src/controllers/user_controller.dart';
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:fitness_app/src/pages/create_acc.dart';
+import 'package:fitness_app/src/widgets/T_miniRegistration.dart';
+import 'package:fitness_app/src/widgets/miniRegistrationWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,39 +17,45 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
+  UserController _con = Get.put(UserController());
   var trainerMode = userRepo.currentUser.value.role == Constants.joinAsA[1]
       ? true.obs
       : false.obs;
 
   void _switchUserRole(bool value) {
-    // if value is true
-    // check trainee or trainer possibilities
-    // and switch screen accordingly
-    // update its value to true/false accordingly
     if (value) {
-      // switch to trainer mode
-      // check if user has been registered
-      // as trainer or not
-      if (userRepo.currentUser.value.experience != null) {
-        // change value in shared prefs
-        // update UI
-
-        userRepo.setUserRole(Constants.joinAsA[1]);
-        trainerMode.value = value;
+      if (userRepo.currentUser.value.experience != null &&
+          userRepo.currentUser.value.experience.isNotEmpty) {
+        // update user role in db
+        // get new user obj
+        // set new user in sp
+        // redirect
+        userRepo.currentUser.value.role = Constants.joinAsA[1];
+        _con.updateUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page
-        // for trainer registration
+        // update user fields and role in db
+        // get new user obj
+        // set new user in sp
+        // redirect
+        Get.to(TrainerRegistrationForm(), fullscreenDialog: true);
       }
-    } else {
-      // check if trainee exist of this user
-      // go back to trainee mode
-      if (userRepo.currentUser.value.injury != null) {
-        // change value in shared prefs
-        userRepo.setUserRole(Constants.joinAsA[0]);
-        trainerMode.value = value;
-        Get.offAllNamed('/BottomNavBarPage');
+    } else if (!value) {
+      if (userRepo.currentUser.value.injury != null &&
+          userRepo.currentUser.value.injury.isNotEmpty) {
+        // update user role in db
+        // get new user obj
+        // set new user in sp
+        // redirect
+        userRepo.currentUser.value.role = Constants.joinAsA[0];
+        _con.updateUser(context, userRepo.currentUser.value);
       } else {
-        // register as a trainee also
+        // go to mini registration page
+        // update user fields and role in db
+        // get new user obj
+        // set new user in sp
+        // redirect
+        Get.to(TraineeRegistrationForm(), fullscreenDialog: true);
       }
     }
   }
@@ -133,20 +142,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           SizedBox(
             height: 10.0,
           ),
-          ListTile(
-            onTap: () {},
-            leading: Icon(
-              Icons.person,
-              color: Theme.of(context).focusColor.withOpacity(1),
-            ),
-            title: Text(
-              "Profile",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
-          Divider(
-            thickness: 2.0,
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: Icon(
+          //     Icons.person,
+          //     color: Theme.of(context).focusColor.withOpacity(1),
+          //   ),
+          //   title: Text(
+          //     "Profile",
+          //     style: Theme.of(context).textTheme.subtitle1,
+          //   ),
+          // ),
+          // Divider(
+          //   thickness: 2.0,
+          // ),
           Row(
             children: [
               Expanded(
@@ -175,9 +184,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           ListTile(
             onTap: () {
-              userRepo.removeCurrentUser().then((value) {
-                Get.offAll(CreateAccount());
-              });
+              _con.removeCurrentUser(context);
             },
             leading: Icon(
               Icons.logout,

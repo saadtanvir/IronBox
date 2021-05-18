@@ -24,7 +24,6 @@ class _StepperSignupState extends State<StepperSignup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _signupFormKey = new GlobalKey<FormState>();
   }

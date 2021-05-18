@@ -19,7 +19,7 @@ class _MessageIconWidgetState extends State<MessageIconWidget> {
               child: GestureDetector(
                 onTap: () {
                   // open messages screen
-                  Get.to(Messages());
+                  // Get.to(Messages());
                 },
                 child: Icon(
                   Icons.message_outlined,
@@ -27,21 +27,21 @@ class _MessageIconWidgetState extends State<MessageIconWidget> {
               ),
             ),
           ),
-          Positioned(
-            top: 10.0,
-            right: 2.0,
-            child: CircleAvatar(
-              backgroundColor: Theme.of(context).primaryColor,
-              radius: 8.0,
-              child: Text(
-                "2",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10.0,
-                ),
-              ),
-            ),
-          )
+          // Positioned(
+          //   top: 10.0,
+          //   right: 2.0,
+          //   child: CircleAvatar(
+          //     backgroundColor: Theme.of(context).primaryColor,
+          //     radius: 8.0,
+          //     child: Text(
+          //       "2",
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontSize: 10.0,
+          //       ),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

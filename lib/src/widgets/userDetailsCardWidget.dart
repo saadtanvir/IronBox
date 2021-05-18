@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
 import 'package:percent_indicator/percent_indicator.dart';
@@ -16,6 +19,7 @@ class UserDetailsCardWidget extends StatefulWidget {
 class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
+  Map<String, dynamic> stepMap = {};
   var steps = 0.obs;
 
   // counting steps
@@ -41,14 +45,24 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
     print("Total steps");
     print(event.steps);
     print(event.timeStamp.toString());
-    steps.value = event.steps;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("steps")) {
+      var lastCountedSteps = json.decode(await prefs.get("steps"));
+      print("last known steps: ${lastCountedSteps["steps"]}");
+      steps.value = Helper.calculateTodaySteps(event.steps,
+          lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));
+    } else {
+      steps.value = event.steps;
+    }
+    stepMap = {"steps": steps.value, "date": event.timeStamp.toString()};
+    await prefs.setString("steps", json.encode(stepMap));
   }
 
   void _onPedestrianStatusChanged(PedestrianStatus event) {
     /// Handle status changed
     String status = event.status;
     DateTime timeStamp = event.timeStamp;
-    print(event.status);
+    print("pedestrian status: ${event.status}");
   }
 
   void _onPedestrianStatusError(error) {
@@ -262,7 +276,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "45M",
+                          "${userRepo.currentUser.value.workout}m",
                           style: Helper.of(context)
                               .textStyle(size: 12.0, font: FontWeight.bold),
                         ),

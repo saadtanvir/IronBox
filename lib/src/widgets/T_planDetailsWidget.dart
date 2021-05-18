@@ -1,29 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fitness_app/src/controllers/plans_controller.dart';
 import 'package:fitness_app/src/models/plan.dart';
+import 'package:fitness_app/src/widgets/T_editPlanWidget.dart';
+import 'package:fitness_app/src/widgets/playYoutubeVideoWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 
-class AppPlanDetails extends StatefulWidget {
-  final Plan plan;
-  AppPlanDetails(this.plan);
+class TrainerPlanDetailsWidget extends StatefulWidget {
+  Plan plan;
+  TrainerPlanDetailsWidget(this.plan);
   @override
-  _AppPlanDetailsState createState() => _AppPlanDetailsState();
+  _TrainerPlanDetailsWidgetState createState() =>
+      _TrainerPlanDetailsWidgetState();
 }
 
-class _AppPlanDetailsState extends State<AppPlanDetails> {
-  PlansController _con = Get.put(PlansController());
+class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
   @override
   Widget build(BuildContext context) {
+    print(widget.plan.videoUrl);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 100),
+            // margin: EdgeInsets.only(bottom: 100),
             padding: EdgeInsets.only(bottom: 15),
             child: CustomScrollView(
               primary: true,
@@ -36,6 +38,18 @@ class _AppPlanDetailsState extends State<AppPlanDetails> {
                   elevation: 0,
                   iconTheme:
                       IconThemeData(color: Theme.of(context).primaryColor),
+                  actions: [
+                    FloatingActionButton(
+                      onPressed: () {
+                        Get.to(TrainerEditPlanWidget(widget.plan));
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      mini: true,
+                    )
+                  ],
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                     background: CachedNetworkImage(
@@ -66,7 +80,7 @@ class _AppPlanDetailsState extends State<AppPlanDetails> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    widget.plan?.name ?? '',
+                                    widget.plan?.name ?? 'N/A',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -145,6 +159,38 @@ class _AppPlanDetailsState extends State<AppPlanDetails> {
                           width: double.infinity,
                         ),
                         Text("${widget.plan.description}"),
+                        SizedBox(
+                          height: 15.0,
+                          width: double.infinity,
+                        ),
+                        Text(
+                          "Detail:",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                        ),
+                        Text("${widget.plan.detail}"),
+                        SizedBox(
+                          height: 15.0,
+                          width: double.infinity,
+                        ),
+                        Text(
+                          "Video:",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                        ),
+                        PlayYoutubeVideoWidget(widget.plan.videoUrl),
                       ],
                     ),
                   ),
@@ -152,40 +198,40 @@ class _AppPlanDetailsState extends State<AppPlanDetails> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 40.0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    if (userRepo.currentUser.value.id != null) {
-                      _con.buyPlan(
-                          context: context,
-                          planId: widget.plan.id,
-                          category: widget.plan.category,
-                          userId: userRepo.currentUser.value.id);
-                    }
-                  },
-                  child: Text(
-                    Constants.buyNow,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.symmetric(horizontal: 30.0)),
-                    backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).primaryColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 40.0,
+          //   child: Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     child: Center(
+          //       child: TextButton(
+          //         onPressed: () {
+          //           // if (userRepo.currentUser.value.id != null) {
+          //           //   _con.buyPlan(
+          //           //       context: context,
+          //           //       planId: widget.plan.id,
+          //           //       category: widget.plan.category,
+          //           //       userId: userRepo.currentUser.value.id);
+          //           // }
+          //         },
+          //         child: Text(
+          //           Constants.buyNow,
+          //           style: TextStyle(color: Colors.white),
+          //         ),
+          //         style: ButtonStyle(
+          //           padding: MaterialStateProperty.all<EdgeInsets>(
+          //               EdgeInsets.symmetric(horizontal: 30.0)),
+          //           backgroundColor: MaterialStateProperty.all(
+          //               Theme.of(context).primaryColor),
+          //           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          //             RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

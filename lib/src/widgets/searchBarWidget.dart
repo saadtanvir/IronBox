@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class SearchBarWidget extends StatelessWidget {
+  Function searchPlans;
+  SearchBarWidget(this.searchPlans);
+  TextEditingController _planSearchController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,10 +19,15 @@ class SearchBarWidget extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        controller: _planSearchController,
         keyboardType: TextInputType.text,
         // onSaved: (input) => _email = input,
-        validator: (input) =>
-            !input.contains('@') ? Constants.invalidEmail : null,
+        // validator: (input) =>
+        //     !input.contains('@') ? Constants.invalidEmail : null,
+        onFieldSubmitted: (String value) {
+          print(value);
+          searchPlans(value);
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
           fillColor: Theme.of(context).scaffoldBackgroundColor,
@@ -28,15 +36,17 @@ class SearchBarWidget extends StatelessWidget {
           labelStyle: Helper.of(context)
               .textStyle(size: 12.0, color: Theme.of(context).accentColor),
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          suffixIcon: Icon(
-            Icons.search,
-            color: Theme.of(context).primaryColor,
+          suffixIcon: GestureDetector(
+            onTap: () {
+              print(_planSearchController.text);
+              searchPlans(_planSearchController.text);
+            },
+            child: Icon(
+              Icons.search,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           border: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   width: 2.0,
-            //   color: Theme.of(context).accentColor.withOpacity(0.2),
-            // ),
             borderRadius: BorderRadius.all(
               Radius.circular(150.0),
             ),

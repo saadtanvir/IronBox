@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:global_configuration/global_configuration.dart';
 
-Future<Stream<Logs>> getUserLogs(String id) async {
+Future<Stream<Logs>> getUserLogs(String id, String date) async {
   Uri uri = Helper.getUri('logs');
   // Map<String, String> body = {"app_catagory": category};
-  Map<String, dynamic> _queryParams = {"user_id": id};
+  Map<String, dynamic> _queryParams = {"user_id": id, "createdat": date};
   uri = uri.replace(queryParameters: _queryParams);
   print("URI For Getting User Logs: ${uri.toString()}");
   try {

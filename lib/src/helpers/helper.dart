@@ -48,6 +48,10 @@ class Helper {
     return new RegExp(r'[_!@#$%^&*(),.?":{}|<>]');
   }
 
+  static RegExp youtubeUrlRegExp() {
+    return new RegExp(r"^(https?\:\/\/)?(www|m\.youtube\.com|youtu\.?be)\/.+$");
+  }
+
   static FocusNode getFocusNode() {
     FocusNode fn = new FocusNode();
     return fn;
@@ -113,6 +117,23 @@ class Helper {
     String monthDayTime = "$timeWithMonthDay $formattedTime";
 
     return differenceInDay > 0 ? monthDayTime : formattedTime;
+  }
+
+  static int calculateTodaySteps(
+      int totalSteps, int lastCountedSteps, DateTime lastRecordedDate) {
+    int todaySteps;
+    int differenceInDays = DateTime.now().difference(lastRecordedDate).inDays;
+    if (differenceInDays >= 1) {
+      if (totalSteps > lastCountedSteps) {
+        todaySteps = totalSteps - lastCountedSteps;
+        print("returning today's steps");
+        return todaySteps;
+      } else {
+        return lastCountedSteps;
+      }
+    } else {
+      return lastCountedSteps;
+    }
   }
 
   static OverlayEntry overlayLoader(context) {
