@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:fitness_app/src/controllers/user_controller.dart';
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class StepperSignup extends StatefulWidget {
@@ -21,6 +24,22 @@ class _StepperSignupState extends State<StepperSignup> {
   String _gender = "";
   int _currentIndex = 0;
   var _weightUnitValueO = Constants.weightUnits[0].obs;
+  File _imageFile;
+  var imageName = "".obs;
+  String planCategory;
+  final ImagePicker _picker = ImagePicker();
+
+  void _selectImage() async {
+    // await ImagePicker.getImage(source: imageSource, imageQuality: 50, maxHeight: 500.0, maxWidth: 500.0);
+    final pickedFile =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 60);
+    if (pickedFile != null) {
+      print(pickedFile.path);
+      _imageFile = File(pickedFile.path);
+      _con.user.avatarImageFile = _imageFile;
+      imageName.value = _imageFile.path.split('/').last;
+    }
+  }
 
   @override
   void initState() {
@@ -224,6 +243,73 @@ class _StepperSignupState extends State<StepperSignup> {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
               ),
+            ),
+            SizedBox(height: 15.0),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Obx(() {
+                    return imageName.isEmpty
+                        ? Container(
+                            height: 74,
+                            width: 74,
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(5),
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/img/profile_placeholder.png"),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          )
+                        : Container(
+                            height: 74,
+                            width: 74,
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(5),
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: FileImage(_imageFile),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
+                  }),
+                ),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () async {
+                      _selectImage();
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 5.0),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.grey[300],
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      Constants.choose_file,
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 15.0),
           ],
@@ -718,7 +804,8 @@ class _StepperSignupState extends State<StepperSignup> {
                   // Todo:
                   // create registerUser function in user controller
                   // call that function
-                  _con.registerUser(context);
+                  // _con.registerUser(context);
+                  _con.registerUserWithImage(context);
                 }
               },
               child: Text(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class User {
   String id;
   String name;
@@ -19,6 +21,7 @@ class User {
   int isPremiumUser = 0;
   double height;
   double weight;
+  File avatarImageFile;
   // to check if user is logged in or not
   bool auth;
 
@@ -36,7 +39,7 @@ class User {
       email = jsonMap['email'] != null ? jsonMap['email'].toString() : '';
       phone = jsonMap['phone'] != null ? jsonMap['phone'] : '';
       password = jsonMap['password'] != null ? jsonMap['password'] : '';
-      avatar = jsonMap['avatar'] != null ? jsonMap['avatar'] : '';
+      avatar = jsonMap['imgUrl'] != null ? jsonMap['imgUrl'] : '';
       injury = jsonMap['injury'] != null ? jsonMap['injury'] : '';
       workout = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
       age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
@@ -65,7 +68,7 @@ class User {
   }
 
   Map toMap() {
-    var map = new Map<String, dynamic>();
+    var map = new Map<String, String>();
     // map["id"] = id;
     map["email"] = email;
     map["name"] = name;

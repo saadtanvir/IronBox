@@ -39,6 +39,7 @@ class PlansController extends GetxController {
   }
 
   void getUserPlansByCategory(String category, String userId) async {
+    doneFetchingPlans.value = false;
     plans.clear();
     final Stream<Plan> stream =
         await planRepo.getUserPlansByCategory(category, userId);
@@ -52,6 +53,7 @@ class PlansController extends GetxController {
       },
       onDone: () {
         print("done fetching plans");
+        doneFetchingPlans.value = true;
       },
     );
   }

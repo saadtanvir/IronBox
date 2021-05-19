@@ -38,9 +38,18 @@ class _UserPlansState extends State<UserPlans> {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Obx(() {
-                return _con.plans.isEmpty
+                return _con.plans.isEmpty && !_con.doneFetchingPlans.value
                     ? Center(child: CircularProgressIndicator())
-                    : UserPlansListWidget(_con.plans);
+                    : _con.plans.isEmpty && _con.doneFetchingPlans.value
+                        ? Center(
+                            child: Text(
+                              "You have not bought any plan yet !",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        : UserPlansListWidget(_con.plans);
               }),
             )
           ],

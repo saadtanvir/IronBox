@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:fitness_app/src/helpers/app_constants.dart';
 import 'package:fitness_app/src/helpers/helper.dart';
 import 'package:fitness_app/src/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ValueNotifier<User> currentUser = new ValueNotifier(User());
@@ -38,6 +40,70 @@ Future<User> register(User user) async {
     } else {
       print("throws exception");
       throw new Exception(response.body);
+    }
+    return currentUser.value;
+  } catch (e) {
+    print("error caught");
+    print(e);
+    return currentUser.value;
+  }
+}
+
+Future<User> registerUserWithImage(User user) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
+  String imageType = user.avatarImageFile.path.split('.').last;
+
+  Map<String, String> body = {
+    "email": user.email,
+    "name": user.name,
+    "password": user.password,
+    "phone": user.phone,
+    "username": user.userName,
+    "usertype": user.role,
+    "age": user.age.toString(),
+    "gender": user.gender,
+    "isPremiumUser": user.isPremiumUser != null ? user.isPremiumUser.toString() : "0",
+    "height": user.height.toString(),
+    "weight": user.weight.toString(),
+    "token": user.userToken != null ? user.userToken : "",
+    "injury": user.injury != null ? user.injury : "",
+    "medicalBackground": user.medicalBG != null ? user.medicalBG : "",
+    "familyMedicalBackground":
+        user.familyMedicalBG != null ? user.familyMedicalBG : "",
+    "specializesIn": user.specializesIn != null ? user.specializesIn : "",
+    "experience": user.experience != null ? user.experience : "",
+  };
+
+  print(user.isPremiumUser);
+
+  print("URL FOR REGISTRING USER WITH IMAGE: $url");
+
+  try {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.fields.addAll(body);
+    request.files.add(await http.MultipartFile.fromPath(
+        "avatar", user.avatarImageFile.path,
+        contentType: MediaType("image", imageType)));
+
+    print(body);
+
+    var response = await request.send();
+    print(response);
+
+    var res = await http.Response.fromStream(response);
+
+    print(response.statusCode);
+    print(res.body);
+    Map responseBody = json.decode(res.body);
+    print(responseBody.containsKey("errors"));
+
+    if (response.statusCode == 200 && !responseBody.containsKey("errors")) {
+      setCurrentUser(res.body);
+      currentUser.value = User.fromJSON(json.decode(res.body)['data']);
+      print("user created successfully");
+    } else {
+      print("throws exception");
+      throw new Exception(res.body);
     }
     return currentUser.value;
   } catch (e) {

@@ -63,6 +63,57 @@ class UserController extends GetxController {
     });
   }
 
+  void registerUserWithImage(BuildContext context) {
+    print("in register with image function of user controller");
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    userRepo.registerUserWithImage(user).then((value) {
+      print(value.id);
+      if (value.id != null) {
+        // print(value.id);
+        // // add username and url to firebase collection user
+        // // under doc id = user id
+        // firebaseMethods.addUserToFirebase(
+        //     uid: value.id,
+        //     username: value.userName,
+        //     imgURL:
+        //         "https://th.bing.com/th/id/Rcbe9c6caa4f9030112f28aa9df8e33e2?rik=pCI5m%2fgWp8%2fWWw&riu=http%3a%2f%2fwww.lensmen.ie%2fwp-content%2fuploads%2f2015%2f02%2fProfile-Portrait-Photographer-in-Dublin-Ireland..jpg&ehk=Za7WF72x0pY8NyUrVRiYMesP9zQuTivFSKMmlY1CkUg%3d&risl=&pid=ImgRaw");
+
+        // Get.snackbar(
+        //   "Success",
+        //   "User registered successfully. You can login now.",
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   colorText: Colors.white,
+        // );
+        // Future.delayed(new Duration(seconds: 2)).then((value) {
+        //   Get.offAll(CreateAccount());
+        // });
+      } else {
+        Get.snackbar(
+          "Failed !",
+          "User already exist",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      print("registration failed");
+      print(e);
+      Get.snackbar(
+        "Failed !",
+        "Check your internet connection",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }).whenComplete(() {
+      print("registration process completed");
+      Helper.hideLoader(loader);
+    });
+  }
+
   void login(BuildContext context) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
