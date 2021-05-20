@@ -50,8 +50,9 @@ Future<User> register(User user) async {
 }
 
 Future<User> registerUserWithImage(User user) async {
+  print(user.avatarImageFile != null);
   String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
-  String imageType = user.avatarImageFile.path.split('.').last;
+
 
   Map<String, String> body = {
     "email": user.email,
@@ -81,9 +82,14 @@ Future<User> registerUserWithImage(User user) async {
   try {
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.fields.addAll(body);
-    request.files.add(await http.MultipartFile.fromPath(
-        "avatar", user.avatarImageFile.path,
-        contentType: MediaType("image", imageType)));
+
+    if(user.avatarImageFile != null)
+      {
+        String imageType = user.avatarImageFile.path.split('.').last;
+        request.files.add(await http.MultipartFile.fromPath(
+            "avatar", user.avatarImageFile.path,
+            contentType: MediaType("image", imageType)));
+      }
 
     print(body);
 

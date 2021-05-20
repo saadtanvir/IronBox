@@ -53,44 +53,39 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         //   MessageIconWidget(),
         // ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          print("Refresh Home");
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              UserDetailsCardWidget(),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: UpcomingChallengesWidget(),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            UserDetailsCardWidget(),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: UpcomingChallengesWidget(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Constants.appCategories != null &&
+                      Constants.appCategories.isNotEmpty
+                  ? CategoriesWidget()
+                  : CircularProgressIndicator(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Constants.appCategories != null &&
-                        Constants.appCategories.isNotEmpty
-                    ? CategoriesWidget()
-                    : CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
-                ),
-                child: ListTile(
-                  title: Text(
-                    Constants.capitalRecommended,
-                    style: Helper.of(context).textStyle(
-                      color: Theme.of(context).primaryColor,
-                      font: FontWeight.bold,
-                    ),
+              child: ListTile(
+                title: Text(
+                  Constants.capitalRecommended,
+                  style: Helper.of(context).textStyle(
+                    color: Theme.of(context).primaryColor,
+                    font: FontWeight.bold,
                   ),
                 ),
               ),
-              RecommendedCaroousel(),
-            ],
-          ),
+            ),
+            RecommendedCaroousel(),
+          ],
         ),
       ),
     );

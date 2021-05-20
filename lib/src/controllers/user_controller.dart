@@ -70,25 +70,25 @@ class UserController extends GetxController {
     userRepo.registerUserWithImage(user).then((value) {
       print(value.id);
       if (value.id != null) {
-        // print(value.id);
-        // // add username and url to firebase collection user
-        // // under doc id = user id
-        // firebaseMethods.addUserToFirebase(
-        //     uid: value.id,
-        //     username: value.userName,
-        //     imgURL:
-        //         "https://th.bing.com/th/id/Rcbe9c6caa4f9030112f28aa9df8e33e2?rik=pCI5m%2fgWp8%2fWWw&riu=http%3a%2f%2fwww.lensmen.ie%2fwp-content%2fuploads%2f2015%2f02%2fProfile-Portrait-Photographer-in-Dublin-Ireland..jpg&ehk=Za7WF72x0pY8NyUrVRiYMesP9zQuTivFSKMmlY1CkUg%3d&risl=&pid=ImgRaw");
+        print(value.id);
+        // add username and url to firebase collection user
+        // under doc id = user id
+        firebaseMethods.addUserToFirebase(
+            uid: value.id,
+            username: value.userName,
+            imgURL:
+                "https://th.bing.com/th/id/Rcbe9c6caa4f9030112f28aa9df8e33e2?rik=pCI5m%2fgWp8%2fWWw&riu=http%3a%2f%2fwww.lensmen.ie%2fwp-content%2fuploads%2f2015%2f02%2fProfile-Portrait-Photographer-in-Dublin-Ireland..jpg&ehk=Za7WF72x0pY8NyUrVRiYMesP9zQuTivFSKMmlY1CkUg%3d&risl=&pid=ImgRaw");
 
-        // Get.snackbar(
-        //   "Success",
-        //   "User registered successfully. You can login now.",
-        //   snackPosition: SnackPosition.BOTTOM,
-        //   backgroundColor: Colors.green,
-        //   colorText: Colors.white,
-        // );
-        // Future.delayed(new Duration(seconds: 2)).then((value) {
-        //   Get.offAll(CreateAccount());
-        // });
+        Get.snackbar(
+          "Success",
+          "User registered successfully. You can login now.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+        Future.delayed(new Duration(seconds: 2)).then((value) {
+          Get.offAll(CreateAccount());
+        });
       } else {
         Get.snackbar(
           "Failed !",
