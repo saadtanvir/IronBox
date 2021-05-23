@@ -28,7 +28,12 @@ class _SplashScreenState extends State<SplashScreen> {
             Get.offAllNamed('/BottomNavBarPage');
           } else if (userRepo.currentUser.value.role == Constants.joinAsA[1]) {
             print("its a trainer");
-            Get.offAllNamed('/TrainerBtmNavBar');
+            if (userRepo.currentUser.value.accountStatus == 1) {
+              Get.offAllNamed('/TrainerBtmNavBar');
+            } else {
+              print("Trainer not approved yet");
+              Get.offAllNamed('/TrainerUnApprovedAccount');
+            }
           }
         } else {
           print("redirecting to get started screen from splash screen");

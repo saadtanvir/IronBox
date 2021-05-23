@@ -10,7 +10,7 @@ import 'package:fitness_app/src/widgets/userDetailsCardWidget.dart';
 import 'package:fitness_app/src/pages/create_acc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pedometer/pedometer.dart';
+import 'package:intl/intl.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 
@@ -23,12 +23,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   HomeController _con = Get.put(HomeController());
+  DateFormat _dateFormatter;
+  String currentDate;
+  String dateFormat = "dd-MM-yyyy";
 
   @override
   void initState() {
     print("inside init of Home Page");
     _con.checkActivityRecognitionPermission();
     _con.checkBodySensorPermission();
+    _dateFormatter = DateFormat(dateFormat);
+    currentDate = _dateFormatter.format(DateTime.now());
+    if (userRepo.currentUser.value.userToken != null &&
+        userRepo.currentUser.value.userToken.isNotEmpty) {
+      _con.getUpComingChallenges(userRepo.currentUser.value.id, currentDate);
+    }
     super.initState();
   }
 
@@ -60,7 +69,45 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             UserDetailsCardWidget(),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: UpcomingChallengesWidget(),
+              child: Obx(() {
+                return _con.upComingChallenges.isEmpty &&
+                        !_con.doneFetchingChallenges.value
+                    ? CircularProgressIndicator()
+                    : _con.upComingChallenges.isEmpty &&
+                            _con.doneFetchingChallenges.value
+                        ? Container(
+                            width: Helper.of(context).getScreenWidth(),
+                            child: Card(
+                              elevation: 5.0,
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15.0),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Constants.upcomingChallenges,
+                                      style: Helper.of(context).textStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          font: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                        "You have no challenges to meet. Hurrah!"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : UpcomingChallengesWidget(_con.upComingChallenges);
+              }),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),

@@ -127,7 +127,7 @@ class _LogsScreenState extends State<LogsScreen> {
                       ? Center(
                           heightFactor: 10.0,
                           child: Text(
-                            "No logs for current date !",
+                            "No logs for selected date !",
                             style: TextStyle(
                               color: Colors.grey,
                             ),

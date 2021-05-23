@@ -90,12 +90,8 @@ Future<Stream<Plan>> getUserPlansByCategory(
   String category,
   String uid,
 ) async {
-  Uri uri = Helper.getUri('userplans');
-  // Map<String, String> body = {"app_catagory": category};
-  Map<String, dynamic> _queryParams = {
-    "app_catagory": category,
-    "user_id": uid
-  };
+  Uri uri = Helper.getUri('fetchplan');
+  Map<String, dynamic> _queryParams = {"category": category, "user_id": uid};
   uri = uri.replace(queryParameters: _queryParams);
   print("URI For Getting User Plans By Category: ${uri.toString()}");
   try {
@@ -106,13 +102,16 @@ Future<Stream<Plan>> getUserPlansByCategory(
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
-        .map((data) => Helper.getData(data))
+        .map((data) {
+          print("plans response: $data");
+          return Helper.getData(data);
+        })
         .expand((data) => (data as List))
         .map((data) {
-      print("printing plans data");
-      print(data);
-      return Plan.fromJSON(data);
-    });
+          print("printing plans data");
+          print(data);
+          return Plan.fromJSON(data);
+        });
   } on SocketException {
     print("Plan Repo Socket Exception: ");
     throw SocketException("Socket exception");

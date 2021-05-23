@@ -53,7 +53,6 @@ Future<User> registerUserWithImage(User user) async {
   print(user.avatarImageFile != null);
   String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
 
-
   Map<String, String> body = {
     "email": user.email,
     "name": user.name,
@@ -63,7 +62,10 @@ Future<User> registerUserWithImage(User user) async {
     "usertype": user.role,
     "age": user.age.toString(),
     "gender": user.gender,
-    "isPremiumUser": user.isPremiumUser != null ? user.isPremiumUser.toString() : "0",
+    "isPremiumUser":
+        user.isPremiumUser != null ? user.isPremiumUser.toString() : "0",
+    "accountStatus":
+        user.accountStatus != null ? user.accountStatus.toString() : "1",
     "height": user.height.toString(),
     "weight": user.weight.toString(),
     "token": user.userToken != null ? user.userToken : "",
@@ -83,13 +85,12 @@ Future<User> registerUserWithImage(User user) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.fields.addAll(body);
 
-    if(user.avatarImageFile != null)
-      {
-        String imageType = user.avatarImageFile.path.split('.').last;
-        request.files.add(await http.MultipartFile.fromPath(
-            "avatar", user.avatarImageFile.path,
-            contentType: MediaType("image", imageType)));
-      }
+    if (user.avatarImageFile != null) {
+      String imageType = user.avatarImageFile.path.split('.').last;
+      request.files.add(await http.MultipartFile.fromPath(
+          "avatar", user.avatarImageFile.path,
+          contentType: MediaType("image", imageType)));
+    }
 
     print(body);
 
@@ -147,9 +148,7 @@ Future<User> login(User user) async {
     } else {
       print("throws exception");
       return currentUser.value;
-//    throw new Exception(response.body);
     }
-//  return currentUser.value;
   } catch (e) {
     print("error caught");
     print(e.toString());
@@ -186,9 +185,7 @@ Future<User> updateUser(User u) async {
     } else {
       print("throws exception");
       return currentUser.value;
-//    throw new Exception(response.body);
     }
-//  return currentUser.value;
   } catch (e) {
     print("error caught");
     print(e.toString());

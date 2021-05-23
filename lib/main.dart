@@ -1,5 +1,6 @@
 import 'package:fitness_app/src/helpers/app_config.dart';
 import 'package:fitness_app/src/pages/T_btmNavBar.dart';
+import 'package:fitness_app/src/pages/T_unApprovedAccount.dart';
 import 'package:fitness_app/src/pages/btm_nav_bar_pages.dart';
 import 'package:fitness_app/src/pages/splash_screen.dart';
 import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
@@ -57,6 +58,11 @@ class _MyAppState extends State<MyApp> {
             name: "/TrainerBtmNavBar",
             page: () {
               return TrainerBottomNavBar();
+            }),
+        GetPage(
+            name: "/TrainerUnApprovedAccount",
+            page: () {
+              return TrainerUnApprovedAccount();
             }),
       ],
     );

@@ -26,7 +26,6 @@ class _StepperSignupState extends State<StepperSignup> {
   var _weightUnitValueO = Constants.weightUnits[0].obs;
   File _imageFile;
   var imageName = "".obs;
-  String planCategory;
   final ImagePicker _picker = ImagePicker();
 
   void _selectImage() async {
@@ -497,9 +496,11 @@ class _StepperSignupState extends State<StepperSignup> {
                 if (index == 0) {
                   setState(() {
                     _con.user.role = value.toString();
+
                     _isTrainee = true;
                     _isTrainer = false;
                     _roleSelected = true;
+                    _con.user.accountStatus = _isTrainee && !_isTrainer ? 1 : 0;
                   });
                 } else if (index == 1) {
                   setState(() {
@@ -507,6 +508,7 @@ class _StepperSignupState extends State<StepperSignup> {
                     _isTrainer = true;
                     _isTrainee = false;
                     _roleSelected = true;
+                    _con.user.accountStatus = !_isTrainee && _isTrainer ? 0 : 1;
                   });
                 } else {
                   // _con.user.role = value.toString();

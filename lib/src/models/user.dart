@@ -19,6 +19,7 @@ class User {
   String workout;
   int age;
   int isPremiumUser = 0;
+  int accountStatus = 0;
   double height;
   double weight;
   File avatarImageFile;
@@ -45,6 +46,9 @@ class User {
       age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       isPremiumUser = jsonMap['isPremiumUser'] != null
           ? int.parse(jsonMap['isPremiumUser'])
+          : 0;
+      accountStatus = jsonMap['accountStatus'] != null
+          ? int.parse(jsonMap['accountStatus'])
           : 0;
       medicalBG = jsonMap['medicalBackground'] != null
           ? jsonMap['medicalBackground']
@@ -78,7 +82,8 @@ class User {
     map["usertype"] = role;
     map["age"] = age.toString();
     // map["avatar"] = avatar;
-    // map["isPremiumUser"] = isPremiumUser;
+    map["isPremiumUser"] = isPremiumUser.toString();
+    map["accountStatus"] = accountStatus.toString();
     map["gender"] = gender;
     map["height"] = height.toString();
     map["weight"] = weight.toString();

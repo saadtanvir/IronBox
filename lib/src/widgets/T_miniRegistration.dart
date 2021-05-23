@@ -161,6 +161,7 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                             _trainerRegFormKey.currentState.save();
                             userRepo.currentUser.value.role =
                                 Constants.joinAsA[1];
+                            userRepo.currentUser.value.accountStatus = 0;
                             _con.updateUser(
                                 context, userRepo.currentUser.value);
                           }

@@ -1,9 +1,14 @@
 import 'package:fitness_app/src/models/category.dart';
+import 'package:fitness_app/src/models/logs.dart';
+import 'package:fitness_app/src/repositories/logs_repo.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../repositories/user_repo.dart' as userRepo;
 
 class HomeController extends GetxController {
   var categories = List<Category>().obs;
+  var upComingChallenges = List<String>().obs;
+  var doneFetchingChallenges = false.obs;
 
   HomeController() {
     // listenForStepCount();
@@ -33,6 +38,19 @@ class HomeController extends GetxController {
       bodySensorPermissionStatus = await bodySensorPermission.request();
       print("new permission status: ${bodySensorPermissionStatus.isGranted}");
     }
+  }
+
+  void getUpComingChallenges(String userId, String date) async {
+    doneFetchingChallenges.value = false;
+    final Stream<Logs> stream = await getUserLogs(userId, date);
+    stream.listen((Logs log) {
+      print(log.title);
+      upComingChallenges.add(log.title);
+    }, onError: (e) {
+      print(e);
+    }, onDone: () {
+      doneFetchingChallenges.value = true;
+    });
   }
 
   // Future<void> listenForCategories() async {

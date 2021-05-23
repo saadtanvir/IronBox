@@ -70,7 +70,6 @@ class UserController extends GetxController {
     userRepo.registerUserWithImage(user).then((value) {
       print(value.id);
       if (value.id != null) {
-        print(value.id);
         // add username and url to firebase collection user
         // under doc id = user id
         firebaseMethods.addUserToFirebase(
@@ -124,7 +123,12 @@ class UserController extends GetxController {
         if (value.role == Constants.joinAsA[0]) {
           Get.offAllNamed('/BottomNavBarPage');
         } else if (value.role == Constants.joinAsA[1]) {
-          Get.offAllNamed('/TrainerBtmNavBar');
+          if (value.accountStatus == 1) {
+            Get.offAllNamed('/TrainerBtmNavBar');
+          } else {
+            print("Trainer not approved yet");
+            Get.offAllNamed('/TrainerUnApprovedAccount');
+          }
         }
       } else {
         Get.snackbar(
@@ -157,10 +161,19 @@ class UserController extends GetxController {
     Overlay.of(context).insert(loader);
     userRepo.updateUser(currentUser).then((value) {
       print(value.role);
-      if (value.role == Constants.joinAsA[0]) {
-        Get.offAllNamed('/BottomNavBarPage');
-      } else if (value.role == Constants.joinAsA[1]) {
-        Get.offAllNamed('/TrainerBtmNavBar');
+      print(value.id);
+      if (value.id != null) {
+        if (value.role == Constants.joinAsA[0]) {
+          Get.offAllNamed('/BottomNavBarPage');
+        } else if (value.role == Constants.joinAsA[1]) {
+          print("its a trainer");
+          if (userRepo.currentUser.value.accountStatus == 1) {
+            Get.offAllNamed('/TrainerBtmNavBar');
+          } else {
+            print("Trainer not approved yet");
+            Get.offAllNamed('/TrainerUnApprovedAccount');
+          }
+        }
       }
     }).catchError((e) {
       print("error caught");
