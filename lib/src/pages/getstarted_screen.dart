@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/pages/create_acc.dart';
-import 'package:fitness_app/src/pages/create_acc_screen.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/pages/create_acc.dart';
+import 'package:ironbox/src/pages/create_acc_screen.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:get/get.dart';

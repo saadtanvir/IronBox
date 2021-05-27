@@ -1,9 +1,9 @@
-import 'package:fitness_app/src/controllers/user_controller.dart';
-import 'package:fitness_app/src/widgets/blockButtonWidget.dart';
+import 'package:ironbox/src/controllers/user_controller.dart';
+import 'package:ironbox/src/widgets/blockButtonWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:get/get.dart';
 
 class TrainerRegistrationForm extends StatefulWidget {

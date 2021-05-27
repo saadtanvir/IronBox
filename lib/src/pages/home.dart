@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:fitness_app/src/controllers/home_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/widgets/categoriesWidget.dart';
-import 'package:fitness_app/src/widgets/recommendedCarousel.dart';
-import 'package:fitness_app/src/widgets/upcomingChallengesCardWidget.dart';
-import 'package:fitness_app/src/widgets/showMessageIconWidget.dart';
-import 'package:fitness_app/src/widgets/userDetailsCardWidget.dart';
-import 'package:fitness_app/src/pages/create_acc.dart';
+import 'package:ironbox/src/controllers/home_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/widgets/categoriesWidget.dart';
+import 'package:ironbox/src/widgets/recommendedCarousel.dart';
+import 'package:ironbox/src/widgets/upcomingChallengesCardWidget.dart';
+import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
+import 'package:ironbox/src/widgets/userDetailsCardWidget.dart';
+import 'package:ironbox/src/pages/create_acc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +44,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

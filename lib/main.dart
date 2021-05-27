@@ -1,9 +1,9 @@
-import 'package:fitness_app/src/helpers/app_config.dart';
-import 'package:fitness_app/src/pages/T_btmNavBar.dart';
-import 'package:fitness_app/src/pages/T_unApprovedAccount.dart';
-import 'package:fitness_app/src/pages/btm_nav_bar_pages.dart';
-import 'package:fitness_app/src/pages/splash_screen.dart';
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/helpers/app_config.dart';
+import 'package:ironbox/src/pages/T_btmNavBar.dart';
+import 'package:ironbox/src/pages/T_unApprovedAccount.dart';
+import 'package:ironbox/src/pages/btm_nav_bar_pages.dart';
+import 'package:ironbox/src/pages/splash_screen.dart';
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';

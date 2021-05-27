@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/src/controllers/chats_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/message.dart';
-import 'package:fitness_app/src/widgets/availableChatsWidget.dart';
-import 'package:fitness_app/src/widgets/textMessageContainerWidget.dart';
+import 'package:ironbox/src/controllers/chats_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/message.dart';
+import 'package:ironbox/src/widgets/availableChatsWidget.dart';
+import 'package:ironbox/src/widgets/textMessageContainerWidget.dart';
 import 'package:flutter/scheduler.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;

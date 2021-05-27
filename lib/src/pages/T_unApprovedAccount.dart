@@ -1,4 +1,4 @@
-import 'package:fitness_app/src/widgets/drawerWidget.dart';
+import 'package:ironbox/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;

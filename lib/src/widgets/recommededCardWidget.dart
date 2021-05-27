@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedCardWidget extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/widgets/T_editPlanWidget.dart';
-import 'package:fitness_app/src/widgets/playYoutubeVideoWidget.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/widgets/T_editPlanWidget.dart';
+import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';

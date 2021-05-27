@@ -1,6 +1,8 @@
-import 'package:fitness_app/src/models/logs.dart';
-import 'package:fitness_app/src/repositories/logs_repo.dart' as logsRepo;
+import 'package:ironbox/src/models/logs.dart';
+import 'package:ironbox/src/repositories/logs_repo.dart' as logsRepo;
+import 'package:intl/intl.dart';
 import '../repositories/user_repo.dart' as userRepo;
+import '../helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,8 @@ class LogsController extends GetxController {
   var getAlert = false.obs;
   Logs newLog = new Logs();
   var doneFetchingLogs = false.obs;
+  String calendarSelectedDate =
+      DateFormat(Constants.dateStringFormat).format(DateTime.now());
   List<Logs> logs = List<Logs>().obs;
 
   LogsController() {}
@@ -34,7 +38,7 @@ class LogsController extends GetxController {
   }
 
   void addLog() async {
-    Get.back();
+    // Get.back();
     logsRepo.addLog(newLog).then((log) {
       if (log.id != null && log.id.isNotEmpty) {
         logs.insert(0, log);
@@ -54,7 +58,7 @@ class LogsController extends GetxController {
   void updateLogStatus({String id, String status}) {
     logsRepo.updateLogStatus(id, status).then((updated) {
       if (updated) {
-        getUserLogs(userRepo.currentUser.value.id);
+        getUserLogs(userRepo.currentUser.value.id, date: calendarSelectedDate);
         Get.snackbar(
           "Success",
           "Status updated successfully.",
@@ -69,10 +73,11 @@ class LogsController extends GetxController {
   }
 
   void deleteLog(String id) {
-    Get.back();
+    // Get.back();
+    logs.clear();
     logsRepo.deleteLog(id).then((deleted) {
       if (deleted) {
-        getUserLogs(userRepo.currentUser.value.id);
+        getUserLogs(userRepo.currentUser.value.id, date: calendarSelectedDate);
         Get.snackbar(
           "Success",
           "Deleted successfully.",

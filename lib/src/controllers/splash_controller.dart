@@ -1,8 +1,8 @@
-import 'package:fitness_app/src/pages/getstarted_screen.dart';
+import 'package:ironbox/src/pages/getstarted_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 
 class SplashController extends GetxController {
   ValueNotifier<bool> userAuth = new ValueNotifier(false);

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:fitness_app/src/helpers/app_constants.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/user.dart';
+import 'package:ironbox/src/helpers/app_constants.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -110,13 +110,14 @@ Future<User> registerUserWithImage(User user) async {
       print("user created successfully");
     } else {
       print("throws exception");
+      currentUser.value = User.fromJSON({});
       throw new Exception(res.body);
     }
     return currentUser.value;
   } catch (e) {
     print("error caught");
     print(e);
-    return currentUser.value;
+    return currentUser.value = User.fromJSON({});
   }
 }
 

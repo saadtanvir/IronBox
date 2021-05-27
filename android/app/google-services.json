@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:24940053205:android:36921f2e410151b431985c",
+        "android_client_info": {
+          "package_name": "co.mindwhiz.ironbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24940053205-v2bq42o1spkfd38ci6mpv3d4lg71tmr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.mindwhiz.ironbox",
+            "certificate_hash": "e462fa4a7eaf2a903698a5b45b5aede7155151c7"
+          }
+        },
+        {
+          "client_id": "24940053205-vl3se8co30harscattqm3ftobsc7epfg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZmeyXaLqXW8u1SvMxbiymuE6RbFLKOcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24940053205-vl3se8co30harscattqm3ftobsc7epfg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:24940053205:android:f65caa2ee2751ade31985c",
         "android_client_info": {
           "package_name": "com.example.fitness_app"

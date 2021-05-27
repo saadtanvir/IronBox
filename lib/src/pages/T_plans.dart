@@ -1,10 +1,10 @@
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/pages/appPlanDetails.dart';
-import 'package:fitness_app/src/widgets/T_createPlanWidget.dart';
-import 'package:fitness_app/src/widgets/T_planDetailsWidget.dart';
-import 'package:fitness_app/src/widgets/plansListWidget.dart';
-import 'package:fitness_app/src/widgets/searchBarWidget.dart';
-import 'package:fitness_app/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/pages/appPlanDetails.dart';
+import 'package:ironbox/src/widgets/T_createPlanWidget.dart';
+import 'package:ironbox/src/widgets/T_planDetailsWidget.dart';
+import 'package:ironbox/src/widgets/plansListWidget.dart';
+import 'package:ironbox/src/widgets/searchBarWidget.dart';
+import 'package:ironbox/src/controllers/plans_controller.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';

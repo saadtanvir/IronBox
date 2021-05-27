@@ -1,10 +1,10 @@
-import 'package:fitness_app/src/controllers/splash_controller.dart';
-import 'package:fitness_app/src/pages/create_acc_screen.dart';
-import 'package:fitness_app/src/pages/getstarted_screen.dart';
-import 'package:fitness_app/src/pages/home.dart';
+import 'package:ironbox/src/controllers/splash_controller.dart';
+import 'package:ironbox/src/pages/create_acc_screen.dart';
+import 'package:ironbox/src/pages/getstarted_screen.dart';
+import 'package:ironbox/src/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 
 class SplashScreen extends StatefulWidget {

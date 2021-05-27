@@ -1,6 +1,6 @@
-# fitness_app
+# ironbox
 
-A new Flutter application.
+Iron Box fitness application
 
 ## Getting Started
 

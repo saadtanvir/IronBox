@@ -1,10 +1,10 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/pages/dietPackages.dart';
-import 'package:fitness_app/src/pages/home.dart';
-import 'package:fitness_app/src/pages/logs.dart';
-import 'package:fitness_app/src/pages/trainingPackages.dart';
-import 'package:fitness_app/src/pages/workoutPackages.dart';
-import 'package:fitness_app/src/widgets/drawerWidget.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/pages/dietPackages.dart';
+import 'package:ironbox/src/pages/home.dart';
+import 'package:ironbox/src/pages/logs.dart';
+import 'package:ironbox/src/pages/trainingPackages.dart';
+import 'package:ironbox/src/pages/workoutPackages.dart';
+import 'package:ironbox/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 
@@ -65,7 +65,9 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
         case 4:
           {
             // widget.currentPage = Center(child: Text("logs"));
-            widget.currentPage = LogsScreen();
+            widget.currentPage = LogsScreen(
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
       }
@@ -75,6 +77,7 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
   @override
   void initState() {
     print("inside btm nav init function");
+    print("current tab: ${widget.currentTab}");
     _selectTab(widget.currentTab);
     super.initState();
   }
@@ -86,7 +89,8 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
   Widget build(BuildContext context) {
     // call this func
     // so that widget rebuilds properly
-    _selectTab(widget.currentTab);
+    // print("current tab: ${widget.currentTab}");
+    // _selectTab(widget.currentTab);
     return Scaffold(
       key: widget.scaffoldKey,
       drawer: DrawerWidget(),

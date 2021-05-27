@@ -1,4 +1,4 @@
-import 'package:fitness_app/src/models/category.dart';
+import 'package:ironbox/src/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -56,6 +56,7 @@ const String pound = "Pound";
 const String kg = "Kg";
 const String none = "None";
 const String joining_as_a = "Joining as a";
+const String dateStringFormat = "dd-MM-yyyy";
 
 // Messages
 const String invalidEmail = "Invalid email";

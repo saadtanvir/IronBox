@@ -1,10 +1,10 @@
-import 'package:fitness_app/src/controllers/plans_controller.dart';
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/pages/appPlanDetails.dart';
-import 'package:fitness_app/src/widgets/plansListWidget.dart';
-import 'package:fitness_app/src/widgets/searchBarWidget.dart';
-import 'package:fitness_app/src/widgets/trainingPlansWidget.dart';
-import 'package:fitness_app/src/widgets/showMessageIconWidget.dart';
+import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/pages/appPlanDetails.dart';
+import 'package:ironbox/src/widgets/plansListWidget.dart';
+import 'package:ironbox/src/widgets/searchBarWidget.dart';
+import 'package:ironbox/src/widgets/trainingPlansWidget.dart';
+import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;

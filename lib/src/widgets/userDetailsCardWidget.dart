@@ -1,15 +1,16 @@
 import 'dart:convert';
 
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:health/health.dart';
 
 class UserDetailsCardWidget extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
   Stream<PedestrianStatus> _pedestrianStatusStream;
   Map<String, dynamic> stepMap = {};
   var steps = 0.obs;
+  bool accessAuthorization1 = true;
 
   // counting steps
   void listenForStepCount() async {
@@ -69,9 +71,31 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
     /// Handle the error
   }
 
+  void fetchHealthData() async {
+    try {
+      HealthFactory healthFactory = new HealthFactory();
+
+      // Define the types to get.
+      List<HealthDataType> types = [
+        HealthDataType.STEPS,
+      ];
+      bool accessAuthorization =
+          await healthFactory.requestAuthorization(types).catchError((e) {
+        print(e.toString());
+      });
+      setState(() {
+        accessAuthorization1 = accessAuthorization;
+      });
+      print(accessAuthorization);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     listenForStepCount();
+    // fetchHealthData();
     super.initState();
   }
 
@@ -158,6 +182,10 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                           "${userRepo.currentUser.value.name}",
                           style: Helper.of(context).textStyle(size: 20.0),
                         ),
+                        Text(
+                          "$accessAuthorization1",
+                          style: Helper.of(context).textStyle(size: 20.0),
+                        )
                         // SizedBox(
                         //   height: 5.0,
                         // ),

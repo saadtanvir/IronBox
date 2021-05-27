@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/widgets/categoryCardWidget.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/widgets/categoryCardWidget.dart';
 import 'package:flutter/material.dart';
 
 class TrainingPlansWidget extends StatefulWidget {

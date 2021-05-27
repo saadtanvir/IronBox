@@ -1,4 +1,4 @@
-import 'package:fitness_app/src/pages/messages.dart';
+import 'package:ironbox/src/pages/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +19,7 @@ class _MessageIconWidgetState extends State<MessageIconWidget> {
               child: GestureDetector(
                 onTap: () {
                   // open messages screen
-                  // Get.to(Messages());
+                  Get.to(Messages());
                 },
                 child: Icon(
                   Icons.message_outlined,

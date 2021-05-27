@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/pages/T_homePage.dart';
-import 'package:fitness_app/src/pages/T_plans.dart';
-import 'package:fitness_app/src/widgets/drawerWidget.dart';
+import 'package:ironbox/src/pages/T_homePage.dart';
+import 'package:ironbox/src/pages/T_plans.dart';
+import 'package:ironbox/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 

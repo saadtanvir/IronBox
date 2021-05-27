@@ -1,8 +1,8 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/pages/signup.dart';
-import 'package:fitness_app/src/pages/stepper_signup.dart';
-import 'package:fitness_app/src/widgets/loginWidget.dart';
-import 'package:fitness_app/src/widgets/signupWidget.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/pages/signup.dart';
+import 'package:ironbox/src/pages/stepper_signup.dart';
+import 'package:ironbox/src/widgets/loginWidget.dart';
+import 'package:ironbox/src/widgets/signupWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;

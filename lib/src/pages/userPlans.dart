@@ -1,5 +1,5 @@
-import 'package:fitness_app/src/controllers/plans_controller.dart';
-import 'package:fitness_app/src/widgets/userPlansListWidget.dart';
+import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/widgets/userPlansListWidget.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/models/user.dart';
-import 'package:fitness_app/src/widgets/chattingScreenWidget.dart';
-import 'package:fitness_app/src/widgets/conversationTileWidget.dart';
+import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
+import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,5 @@
-import 'package:fitness_app/src/models/user.dart';
-import 'package:fitness_app/src/repositories/message_repo.dart' as messageRepo;
+import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/repositories/message_repo.dart' as messageRepo;
 import 'package:get/get.dart';
 
 class TrainerHomeController extends GetxController {

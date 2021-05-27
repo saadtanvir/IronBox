@@ -1,4 +1,4 @@
-import 'package:fitness_app/src/pages/signup.dart';
+import 'package:ironbox/src/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;

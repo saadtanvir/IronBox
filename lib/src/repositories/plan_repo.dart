@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/plan.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';

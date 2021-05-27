@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/models/message.dart';
-import 'package:fitness_app/src/models/user.dart';
-import 'package:fitness_app/src/services/firebase_methods.dart';
+import 'package:ironbox/src/models/message.dart';
+import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/services/firebase_methods.dart';
 import 'package:get/get.dart';
 
 class ChatsController extends GetxController {

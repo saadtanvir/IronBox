@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/pages/T_btmNavBar.dart';
-import 'package:fitness_app/src/repositories/plan_repo.dart' as planRepo;
-import 'package:fitness_app/src/services/stripe_payments.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/pages/T_btmNavBar.dart';
+import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
+import 'package:ironbox/src/services/stripe_payments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

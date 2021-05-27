@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_app/src/models/message.dart';
+import 'package:ironbox/src/models/message.dart';
 
 class FirebaseMethods {
   FirebaseFirestore _firebaseFirestoreInstance = FirebaseFirestore.instance;

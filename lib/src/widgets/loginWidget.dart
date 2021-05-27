@@ -1,5 +1,5 @@
-import 'package:fitness_app/src/controllers/user_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/controllers/user_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;

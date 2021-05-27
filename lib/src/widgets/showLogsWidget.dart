@@ -1,7 +1,6 @@
 import 'dart:math';
-
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/logs.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/logs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -60,6 +59,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                   onCancel: () {},
                   onConfirm: () {
                     widget.deleteLog(widget.logsList[_currentIndex].id);
+                    Get.back();
                   },
                 );
               },

@@ -1,4 +1,4 @@
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 
@@ -11,14 +11,6 @@ class UpcomingChallengesWidget extends StatefulWidget {
 }
 
 class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
-  // List<String> upcomingChallenges = [
-  //   "Stay hydrated",
-  //   "Workout 45min",
-  //   "3*15 pushups",
-  //   "Take your meal",
-  //   "15min jog",
-  //   "Hit gym twice",
-  // ];
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/services.dart';
-import 'package:fitness_app/src/controllers/logs_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/logs.dart';
-import 'package:fitness_app/src/widgets/showLogsWidget.dart';
-import 'package:fitness_app/src/widgets/showMessageIconWidget.dart';
+import 'package:ironbox/src/controllers/logs_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/logs.dart';
+import 'package:ironbox/src/widgets/showLogsWidget.dart';
+import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +13,8 @@ import '../helpers/app_constants.dart' as Constants;
 import 'package:intl/intl.dart';
 
 class LogsScreen extends StatefulWidget {
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+  LogsScreen({Key key, this.parentScaffoldKey}) : super(key: key);
   @override
   _LogsScreenState createState() => _LogsScreenState();
 }
@@ -21,7 +23,6 @@ class _LogsScreenState extends State<LogsScreen> {
   LogsController _con = Get.put(LogsController());
   TextEditingController _dateController = TextEditingController();
   GlobalKey<FormState> _logFormKey;
-  String dateFormat = "dd-MM-yyyy";
   DateFormat _dateFormatter;
   String _creationDate;
   String _calendarSelectedDate;
@@ -53,12 +54,13 @@ class _LogsScreenState extends State<LogsScreen> {
   @override
   void initState() {
     _logFormKey = new GlobalKey<FormState>();
-    _dateFormatter = DateFormat(dateFormat);
+    _dateFormatter = DateFormat(Constants.dateStringFormat);
     _creationDate = _dateFormatter.format(DateTime.now());
     _calendarSelectedDate = _dateFormatter.format(DateTime.now());
+    _con.calendarSelectedDate = _dateFormatter.format(DateTime.now());
     if (userRepo.currentUser.value.userToken != null) {
       _con.getUserLogs(userRepo.currentUser.value.id,
-          date: _calendarSelectedDate);
+          date: _con.calendarSelectedDate);
     }
     super.initState();
   }
@@ -78,11 +80,12 @@ class _LogsScreenState extends State<LogsScreen> {
           onPressed: () {
             // open drawer from pages file
             // using parent key
+            widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
-        actions: [
-          MessageIconWidget(),
-        ],
+        // actions: [
+        //   MessageIconWidget(),
+        // ],
       ),
       floatingActionButton: _floatingActionButton(),
       body: SingleChildScrollView(
@@ -94,8 +97,10 @@ class _LogsScreenState extends State<LogsScreen> {
               child: CalendarDatePicker(
                 onDateChanged: (selectedDate) {
                   _calendarSelectedDate = _dateFormatter.format(selectedDate);
+                  _con.calendarSelectedDate =
+                      _dateFormatter.format(selectedDate);
                   _con.getUserLogs(userRepo.currentUser.value.id,
-                      date: _calendarSelectedDate);
+                      date: _con.calendarSelectedDate);
                 },
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(Duration(days: 30)),
@@ -190,6 +195,7 @@ class _LogsScreenState extends State<LogsScreen> {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.5),
                         ),
+                        errorStyle: TextStyle(color: Colors.white),
                         contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -228,6 +234,7 @@ class _LogsScreenState extends State<LogsScreen> {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.5),
                         ),
+                        errorStyle: TextStyle(color: Colors.white),
                         contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -271,6 +278,7 @@ class _LogsScreenState extends State<LogsScreen> {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.5),
                         ),
+                        errorStyle: TextStyle(color: Colors.white),
                         contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -309,6 +317,7 @@ class _LogsScreenState extends State<LogsScreen> {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.5),
                         ),
+                        errorStyle: TextStyle(color: Colors.white),
                         contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -358,6 +367,7 @@ class _LogsScreenState extends State<LogsScreen> {
                                 userRepo.currentUser.value.id;
                             _logFormKey.currentState.save();
                             _con.addLog();
+                            Get.back();
                           }
                         }
                       },

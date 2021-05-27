@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fitness_app/src/widgets/circularProgressIndicator.dart';
+import 'package:ironbox/src/widgets/circularProgressIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

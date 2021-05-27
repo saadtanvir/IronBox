@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fitness_app/src/controllers/user_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
+import 'package:ironbox/src/controllers/user_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -486,9 +486,7 @@ class _StepperSignupState extends State<StepperSignup> {
           children: [
             DropdownButtonFormField(
               // onSaved: (input) => _con.user,
-              // validator: (input) => input.length < 3
-              //     ? S.of(context).should_be_more_than_3_letters
-              //     : null,
+              validator: (input) => _roleSelected ? null : "Select one",
               onChanged: (value) {
                 print(value);
                 int index = Constants.joinAsA.indexOf(value);
@@ -515,6 +513,7 @@ class _StepperSignupState extends State<StepperSignup> {
                   setState(() {
                     _isTrainer = false;
                     _isTrainee = false;
+                    _roleSelected = false;
                   });
                 }
               },

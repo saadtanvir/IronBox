@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fitness_app/src/controllers/user_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/pages/create_acc.dart';
-import 'package:fitness_app/src/widgets/T_miniRegistration.dart';
-import 'package:fitness_app/src/widgets/miniRegistrationWidget.dart';
+import 'package:ironbox/src/controllers/user_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/pages/create_acc.dart';
+import 'package:ironbox/src/widgets/T_miniRegistration.dart';
+import 'package:ironbox/src/widgets/miniRegistrationWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:fitness_app/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 
 class DrawerWidget extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/widgets/recommededCardWidget.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/widgets/recommededCardWidget.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedCaroousel extends StatefulWidget {

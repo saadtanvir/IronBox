@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/plan.dart';
-import 'package:fitness_app/src/widgets/planCardWidget.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/widgets/planCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

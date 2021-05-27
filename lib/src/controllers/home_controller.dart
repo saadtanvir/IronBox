@@ -1,6 +1,6 @@
-import 'package:fitness_app/src/models/category.dart';
-import 'package:fitness_app/src/models/logs.dart';
-import 'package:fitness_app/src/repositories/logs_repo.dart';
+import 'package:ironbox/src/models/category.dart';
+import 'package:ironbox/src/models/logs.dart';
+import 'package:ironbox/src/repositories/logs_repo.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../repositories/user_repo.dart' as userRepo;
@@ -42,10 +42,13 @@ class HomeController extends GetxController {
 
   void getUpComingChallenges(String userId, String date) async {
     doneFetchingChallenges.value = false;
+    upComingChallenges.clear();
     final Stream<Logs> stream = await getUserLogs(userId, date);
     stream.listen((Logs log) {
-      print(log.title);
-      upComingChallenges.add(log.title);
+      print(log.isCompleted);
+      if (log.isCompleted == 0) {
+        upComingChallenges.add(log.title);
+      }
     }, onError: (e) {
       print(e);
     }, onDone: () {

@@ -1,11 +1,11 @@
-import 'package:fitness_app/src/controllers/chats_controller.dart';
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/widgets/availableChatsWidget.dart';
-import 'package:fitness_app/src/widgets/chattingScreenWidget.dart';
-import 'package:fitness_app/src/widgets/conversationTileWidget.dart';
+import 'package:ironbox/src/controllers/chats_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/widgets/availableChatsWidget.dart';
+import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
+import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fitness_app/src/widgets/searchBarWidget.dart';
+import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class Messages extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:fitness_app/src/helpers/helper.dart';
-import 'package:fitness_app/src/models/message.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/message.dart';
 import 'package:flutter/material.dart';
 import '../repositories/user_repo.dart' as userRepo;
 
