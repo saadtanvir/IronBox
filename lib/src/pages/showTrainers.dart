@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
+import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import 'package:ironbox/src/widgets/trainersListWidget.dart';
 import '../controllers/user_controller.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -52,9 +53,9 @@ class _ShowTrainersState extends State<ShowTrainers> {
             widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
-        // actions: [
-        //   MessageIconWidget(),
-        // ],
+        actions: [
+          MessageIconWidget(),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

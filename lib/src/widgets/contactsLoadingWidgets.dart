@@ -28,11 +28,6 @@ class ContactsLoadingWidget extends StatelessWidget {
                   SizedBox(
                     height: 5.0,
                   ),
-                  // Text(
-                  //   "${contact.name}",
-                  //   overflow: TextOverflow.ellipsis,
-                  //   softWrap: false,
-                  // ),
                 ],
               ),
             ),

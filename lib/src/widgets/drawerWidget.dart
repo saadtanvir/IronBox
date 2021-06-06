@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/user.dart';
-import 'package:ironbox/src/pages/create_acc.dart';
 import 'package:ironbox/src/widgets/T_miniRegistration.dart';
 import 'package:ironbox/src/widgets/miniRegistrationWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 
@@ -72,6 +69,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             height: Helper.of(context).getScreenHeight() * 0.25,
             width: Helper.of(context).getScreenWidth(),
             child: Card(
+              margin: EdgeInsets.zero,
               color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -82,61 +80,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    placeholder: (context, url) {
-                      return Container(
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(5),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage("assets/img/loading.gif"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      );
-                    },
-                    imageUrl:
-                        '${GlobalConfiguration().get('storage_base_url')}${userRepo.currentUser.value.avatar}',
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(5),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
-                    errorWidget: (context, error, d) {
-                      print(error.toString());
-                      print(d.toString());
-                      return Container(
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(5),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/img/profile_placeholder.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  UserCircularAvatar(70.0, 70.0,
+                      "${userRepo.currentUser.value.avatar}", BoxFit.cover),
                   SizedBox(
                     height: 5.0,
                   ),
                   Text(
                     "${userRepo.currentUser.value.name}",
-                    style: Helper.of(context).textStyle(size: 15.0),
+                    style: Helper.of(context)
+                        .textStyle(size: 17.0, font: FontWeight.bold),
                   ),
                 ],
               ),
@@ -145,20 +97,22 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           SizedBox(
             height: 10.0,
           ),
-          // ListTile(
-          //   onTap: () {},
-          //   leading: Icon(
-          //     Icons.person,
-          //     color: Theme.of(context).focusColor.withOpacity(1),
-          //   ),
-          //   title: Text(
-          //     "Profile",
-          //     style: Theme.of(context).textTheme.subtitle1,
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 2.0,
-          // ),
+          ListTile(
+            onTap: () {
+              // go on user profile page
+            },
+            leading: Icon(
+              Icons.person,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Profile",
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          Divider(
+            thickness: 2.0,
+          ),
           Row(
             children: [
               Expanded(

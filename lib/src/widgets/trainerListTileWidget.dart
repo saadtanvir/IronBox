@@ -10,7 +10,6 @@ class TrainerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      hoverColor: Colors.grey,
       leading: UserCircularAvatar(85.0, 65.0, trainer.avatar, BoxFit.cover),
       title: Text("${trainer.name}"),
       subtitle: Text("${trainer.specializesIn}"),

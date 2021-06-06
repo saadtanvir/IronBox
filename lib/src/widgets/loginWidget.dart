@@ -41,7 +41,15 @@ class _LoginWidgetState extends State<LoginWidget> {
             children: [
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (input) => _con.user.email = input,
+                onSaved: (input) {
+                  if (GetUtils.isEmail(input)) {
+                    _con.user.email = input;
+                  } else if (input.startsWith("+92")) {
+                    _con.user.phone = input;
+                  } else {
+                    _con.user.userName = input;
+                  }
+                },
                 // validator: (input) =>
                 //     GetUtils.isEmail(input) ? null : Constants.invalidEmail,
                 decoration: InputDecoration(
