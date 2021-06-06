@@ -1,5 +1,7 @@
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/models/subscriptions.dart';
+
+import '../helpers/helper.dart';
+import '../models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../repositories/user_repo.dart' as userRepo;
@@ -9,10 +11,13 @@ import '../pages/create_acc.dart';
 
 class UserController extends GetxController {
   User user = new User();
+  Subscription subscription = new Subscription();
+  List<User> trainers = List<User>().obs;
   FirebaseMethods firebaseMethods = FirebaseMethods();
   OverlayEntry loader;
+  var doneFetchingTrainers = false.obs;
 
-  UserController() {}
+  UserController();
 
   void registerUser(BuildContext context) {
     print("in register function of user controller");
@@ -27,8 +32,8 @@ class UserController extends GetxController {
             uid: value.id, username: value.userName, imgURL: value.avatar);
 
         Get.snackbar(
-          "Success",
-          "User registered successfully. You can login now.",
+          Constants.success,
+          Constants.user_registered_successfully_you_can_login_now,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,
@@ -38,8 +43,8 @@ class UserController extends GetxController {
         });
       } else {
         Get.snackbar(
-          "Failed !",
-          "User already exist",
+          Constants.failed,
+          Constants.user_already_exist,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -48,8 +53,8 @@ class UserController extends GetxController {
     }).catchError((e) {
       print("registration failed");
       Get.snackbar(
-        "Failed !",
-        "Check your internet connection",
+        Constants.failed,
+        Constants.check_internet_connection,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -75,19 +80,19 @@ class UserController extends GetxController {
             uid: value.id, username: value.userName, imgURL: value.avatar);
 
         Get.snackbar(
-          "Success",
-          "User registered successfully. You can login now.",
+          Constants.success,
+          Constants.user_registered_successfully_you_can_login_now,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Future.delayed(new Duration(seconds: 2)).then((value) {
+        Future.delayed(new Duration(seconds: 1)).then((value) {
           Get.offAll(CreateAccount());
         });
       } else {
         Get.snackbar(
-          "Failed !",
-          "User already exist",
+          Constants.failed,
+          Constants.something_went_wrong,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -97,8 +102,8 @@ class UserController extends GetxController {
       print("registration failed");
       print(e);
       Get.snackbar(
-        "Failed !",
-        "Check your internet connection",
+        Constants.failed,
+        Constants.something_went_wrong,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -116,9 +121,9 @@ class UserController extends GetxController {
       if (value.userToken != null) {
         // check role
         // redirect accordingly
-        if (value.role == Constants.joinAsA[0]) {
+        if (value.isTrainee == "1") {
           Get.offAllNamed('/BottomNavBarPage');
-        } else if (value.role == Constants.joinAsA[1]) {
+        } else if (value.isTrainer == "1") {
           if (value.accountStatus == 1) {
             Get.offAllNamed('/TrainerBtmNavBar');
           } else {
@@ -128,8 +133,8 @@ class UserController extends GetxController {
         }
       } else {
         Get.snackbar(
-          "Login Failed !",
-          "User not found",
+          Constants.login_failed,
+          Constants.user_not_found,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -140,8 +145,8 @@ class UserController extends GetxController {
       print("error caught");
       print(e);
       Get.snackbar(
-        "Login Failed !",
-        "Check your internet connection",
+        Constants.login_failed,
+        Constants.check_internet_connection,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -155,6 +160,7 @@ class UserController extends GetxController {
   void updateUser(BuildContext context, User currentUser) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
+    print(currentUser.accountStatus);
     userRepo.updateUser(currentUser).then((value) {
       print(value.role);
       print(value.id);
@@ -175,8 +181,8 @@ class UserController extends GetxController {
       print("error caught");
       print(e);
       Get.snackbar(
-        "Registration Failed!",
-        "Check your internet connection",
+        Constants.registration_failed,
+        Constants.check_internet_connection,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -185,6 +191,30 @@ class UserController extends GetxController {
       print("registration process completed");
       Helper.hideLoader(loader);
     });
+  }
+
+  void fetchAllTrainers() async {
+    doneFetchingTrainers.value = false;
+    trainers.clear();
+    final Stream<User> stream = await userRepo.fetchAllTrainers();
+    stream.listen((User _user) {
+      // print(_user.isTrainer);
+      // print(_user.accountStatus);
+      // print(_user.id);
+      if (_user.id != userRepo.currentUser.value.id) {
+        trainers.add(_user);
+      }
+    }, onError: (e) {
+      print(e);
+    }, onDone: () {
+      print("done fetching trainers");
+      doneFetchingTrainers.value = true;
+    });
+  }
+
+  void subscribeTrainer() async {
+    bool isSubscribed = await userRepo.subscribeTrainer(subscription);
+    print(isSubscribed);
   }
 
   Future<void> removeCurrentUser(BuildContext context) async {

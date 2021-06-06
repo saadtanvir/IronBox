@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:ironbox/src/models/rating.dart';
+
 class User {
   String id;
   String name;
@@ -13,16 +15,22 @@ class User {
   String familyMedicalBG;
   String experience;
   String specializesIn;
+  String description;
   String role;
   String userToken;
   String avatar;
   String workout;
+  String isTrainer;
+  String isTrainee;
+  String price;
+  String videoUrl;
   int age;
   int isPremiumUser = 0;
   int accountStatus = 0;
   double height;
   double weight;
   File avatarImageFile;
+  Rating userRating;
   // to check if user is logged in or not
   bool auth;
 
@@ -44,6 +52,12 @@ class User {
       injury = jsonMap['injury'] != null ? jsonMap['injury'] : '';
       workout = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
       age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
+      isTrainee = jsonMap['is_trainee'] != null
+          ? jsonMap['is_trainee'].toString()
+          : "0";
+      isTrainer = jsonMap['is_trainer'] != null
+          ? jsonMap['is_trainer'].toString()
+          : "0";
       isPremiumUser = jsonMap['isPremiumUser'] != null
           ? int.parse(jsonMap['isPremiumUser'])
           : 0;
@@ -62,10 +76,18 @@ class User {
           jsonMap['weight'] != null ? double.parse(jsonMap['weight']) : 0.0;
       specializesIn =
           jsonMap['specializesIn'] != null ? jsonMap['specializesIn'] : '';
+      description =
+          jsonMap['description'] != null ? jsonMap['description'] : '';
+      videoUrl = jsonMap['videoUrl'] != null ? jsonMap['videoUrl'] : '';
       role = jsonMap['usertype'] != null ? jsonMap['usertype'] : '';
       gender = jsonMap['gender'] != null ? jsonMap['gender'] : '';
       experience = jsonMap['experience'] != null ? jsonMap['experience'] : '';
+      price = jsonMap['price'] != null ? jsonMap['price'] : '';
       userToken = jsonMap['token'] != null ? jsonMap['token'].toString() : null;
+      userRating =
+          jsonMap['ratings'] != null && (jsonMap['ratings'] as List).length > 0
+              ? Rating.fromJSON(jsonMap['ratings'][0])
+              : new Rating();
     } catch (e) {
       print("User Model Error: $e");
     }
@@ -83,16 +105,20 @@ class User {
     map["age"] = age.toString();
     // map["avatar"] = avatar;
     map["isPremiumUser"] = isPremiumUser.toString();
-    map["accountStatus"] = accountStatus.toString();
+    map["is_trainer"] = isTrainer;
+    map["is_trainee"] = isTrainee;
+    // map["accountStatus"] = accountStatus.toString();
     map["gender"] = gender;
     map["height"] = height.toString();
     map["weight"] = weight.toString();
     map["injury"] = injury;
-    map["token"] = userToken;
+    // map["token"] = userToken;
     map["medicalBackground"] = medicalBG;
     map["familyMedicalBackground"] = familyMedicalBG;
     map["specializesIn"] = specializesIn;
     map["experience"] = experience;
+    map["description"] = description;
+    map["videoUrl"] = videoUrl;
     return map;
   }
 }

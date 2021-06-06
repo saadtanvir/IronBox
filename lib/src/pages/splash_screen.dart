@@ -21,12 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
         print("in user auth listener");
         if (_con.userAuth.value) {
           print("Role: " + userRepo.currentUser.value.role);
-          if (userRepo.currentUser.value.role == Constants.joinAsA[0]) {
+          if (userRepo.currentUser.value.isTrainee == "1") {
             print("its a Trainee");
             print("redirecting to Trainee home page from splash screen");
             // userRepo.currentUser.re
             Get.offAllNamed('/BottomNavBarPage');
-          } else if (userRepo.currentUser.value.role == Constants.joinAsA[1]) {
+          } else if (userRepo.currentUser.value.isTrainer == "1") {
             print("its a trainer");
             if (userRepo.currentUser.value.accountStatus == 1) {
               Get.offAllNamed('/TrainerBtmNavBar');

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,6 +49,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("steps")) {
       var lastCountedSteps = json.decode(await prefs.get("steps"));
+      print("last recorded date: ${lastCountedSteps["date"]}");
       print("last known steps: ${lastCountedSteps["steps"]}");
       steps.value = Helper.calculateTodaySteps(event.steps,
           lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));

@@ -1,13 +1,10 @@
-import 'dart:async';
-
-import 'package:ironbox/src/controllers/home_controller.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/widgets/categoriesWidget.dart';
-import 'package:ironbox/src/widgets/recommendedCarousel.dart';
-import 'package:ironbox/src/widgets/upcomingChallengesCardWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
-import 'package:ironbox/src/widgets/userDetailsCardWidget.dart';
-import 'package:ironbox/src/pages/create_acc.dart';
+import '../controllers/home_controller.dart';
+import '../helpers/helper.dart';
+import '../widgets/categoriesWidget.dart';
+import '../widgets/recommendedCarousel.dart';
+import '../widgets/upcomingChallengesCardWidget.dart';
+import '../widgets/showMessageIconWidget.dart';
+import '../widgets/userDetailsCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -59,9 +56,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             widget.parentScaffoldKey.currentState.openDrawer();
           },
         ),
-        // actions: [
-        //   MessageIconWidget(),
-        // ],
+        actions: [
+          MessageIconWidget(),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -100,8 +97,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                     SizedBox(
                                       height: 10.0,
                                     ),
-                                    Text(
-                                        "You have no challenges to meet. Hurrah!"),
+                                    Text(Constants
+                                        .you_have_no_challenges_to_meet_hurrah),
                                   ],
                                 ),
                               ),

@@ -21,6 +21,7 @@ class CategoriesWidget extends StatelessWidget {
           // print("returing card widget");
           return GestureDetector(
             onTap: () {
+              // if (index == 0) {}
               Get.to(UserPlans(Constants.appCategoriesName[index],
                   Constants.appCategories[index].name));
             },

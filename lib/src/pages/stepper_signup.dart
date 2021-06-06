@@ -265,9 +265,8 @@ class _StepperSignupState extends State<StepperSignup> {
                           )
                         : Container(
                             height: 74,
-                            width: 74,
+                            width: 84,
                             decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.circular(5),
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: FileImage(_imageFile),
@@ -498,6 +497,8 @@ class _StepperSignupState extends State<StepperSignup> {
                     _isTrainee = true;
                     _isTrainer = false;
                     _roleSelected = true;
+                    _con.user.isTrainee = "1";
+                    _con.user.isTrainer = "0";
                     _con.user.accountStatus = _isTrainee && !_isTrainer ? 1 : 0;
                   });
                 } else if (index == 1) {
@@ -506,6 +507,8 @@ class _StepperSignupState extends State<StepperSignup> {
                     _isTrainer = true;
                     _isTrainee = false;
                     _roleSelected = true;
+                    _con.user.isTrainee = "0";
+                    _con.user.isTrainer = "1";
                     _con.user.accountStatus = !_isTrainee && _isTrainer ? 0 : 1;
                   });
                 } else {
@@ -551,14 +554,14 @@ class _StepperSignupState extends State<StepperSignup> {
                     height: 0.0,
                   )
                 : TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     maxLines: null,
                     onSaved: (input) => _con.user.experience = input,
                     validator: (input) =>
                         input.length < 1 ? Constants.invalidInput : null,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      labelText: Constants.experience,
+                      labelText: Constants.experience_in_years,
                       labelStyle: TextStyle(
                           color: Theme.of(context).secondaryHeaderColor,
                           fontWeight: FontWeight.bold),
@@ -572,9 +575,11 @@ class _StepperSignupState extends State<StepperSignup> {
                       ),
                     ),
                   ),
-            SizedBox(
-              height: 15.0,
-            ),
+            _isTrainer
+                ? SizedBox(
+                    height: 15.0,
+                  )
+                : SizedBox(height: 0.0),
             !_isTrainer
                 ? SizedBox(
                     height: 0.0,
@@ -600,6 +605,122 @@ class _StepperSignupState extends State<StepperSignup> {
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
                       ),
                     ),
+                  ),
+            _isTrainer
+                ? SizedBox(
+                    height: 15.0,
+                  )
+                : SizedBox(height: 0.0),
+            !_isTrainer
+                ? SizedBox(
+                    height: 0.0,
+                  )
+                : TextFormField(
+                    keyboardType: TextInputType.text,
+                    maxLines: null,
+                    maxLength: 350,
+                    onSaved: (input) => _con.user.description = input,
+                    validator: (input) =>
+                        input.length < 1 ? Constants.invalidInput : null,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: Constants.tell_us_about_yourself,
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontWeight: FontWeight.bold),
+                      contentPadding: EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2.0,
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.2)),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      ),
+                    ),
+                  ),
+            _isTrainer
+                ? SizedBox(
+                    height: 15.0,
+                  )
+                : SizedBox(height: 0.0),
+            !_isTrainer
+                ? SizedBox(
+                    height: 0.0,
+                  )
+                : TextFormField(
+                    keyboardType: TextInputType.text,
+                    maxLines: null,
+                    onSaved: (input) => _con.user.videoUrl = input,
+                    validator: (input) =>
+                        input.contains(Helper.youtubeUrlRegExp()) || input == ""
+                            ? null
+                            : "Not a valid youtube URL",
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: Constants.introductory_video,
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontWeight: FontWeight.bold),
+                      hintText: Constants.youtube_video_link,
+                      hintStyle: TextStyle(color: Colors.grey[300]),
+                      contentPadding: EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2.0,
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.2)),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      ),
+                    ),
+                  ),
+            _isTrainer
+                ? SizedBox(
+                    height: 15.0,
+                  )
+                : SizedBox(height: 0.0),
+            !_isTrainer
+                ? SizedBox(
+                    height: 0.0,
+                  )
+                : Row(
+                    children: [
+                      Text(
+                        "\$",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      SizedBox(
+                        width: 200.0,
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          onSaved: (input) => _con.user.price = input,
+                          validator: (input) =>
+                              input.length < 1 ? "required" : null,
+                          decoration: InputDecoration(
+                            labelText: Constants.price,
+                            labelStyle: TextStyle(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                fontWeight: FontWeight.bold),
+                            contentPadding: EdgeInsets.all(10),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2.0,
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.2)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
             // adding Trainee fields
             !_isTrainee

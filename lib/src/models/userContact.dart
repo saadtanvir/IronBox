@@ -1,15 +1,14 @@
 class UserContact {
   String contactId;
-  String contactImgUrl;
-  String contactUsername;
+  String createdAt;
 
   UserContact();
+  // UserContact.namedCon(this.contactId, this.createdAt);
 
   UserContact.fromMap(Map<String, dynamic> map) {
     try {
       contactId = map["id"];
-      contactImgUrl = map["imgUrl"];
-      contactUsername = map["username"];
+      createdAt = map['created_at'];
     } catch (e) {
       print("UserContact Model Error: $e");
     }
@@ -18,8 +17,7 @@ class UserContact {
   Map toMap() {
     var map = new Map<String, dynamic>();
     map["id"] = this.contactId;
-    map["imgUrl"] = this.contactImgUrl;
-    map["username"] = this.contactUsername;
+    map['created_at'] = this.createdAt;
     return map;
   }
 }

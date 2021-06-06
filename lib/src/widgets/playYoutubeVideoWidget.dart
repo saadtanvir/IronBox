@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 
 class PlayYoutubeVideoWidget extends StatefulWidget {
   String url;
-  PlayYoutubeVideoWidget(this.url);
+  // final double height;
+  final double width;
+  PlayYoutubeVideoWidget(this.url, {this.width});
   @override
   _PlayYoutubeVideoWidgetState createState() => _PlayYoutubeVideoWidgetState();
 }
@@ -44,6 +46,7 @@ class _PlayYoutubeVideoWidgetState extends State<PlayYoutubeVideoWidget> {
     return YoutubePlayerBuilder(
         player: YoutubePlayer(
           controller: _youtubePlayerController,
+          width: widget.width ?? double.infinity,
           showVideoProgressIndicator: true,
           progressIndicatorColor: Theme.of(context).primaryColor,
           progressColors: ProgressBarColors(

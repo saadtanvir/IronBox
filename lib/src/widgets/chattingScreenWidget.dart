@@ -5,6 +5,7 @@ import 'package:ironbox/src/models/message.dart';
 import 'package:ironbox/src/widgets/availableChatsWidget.dart';
 import 'package:ironbox/src/widgets/textMessageContainerWidget.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ import 'package:intl/intl.dart';
 
 class ChattingScreen extends StatefulWidget {
   // it will receive recipient info
+  final String userId;
+  final String imgUrl;
+  final String username;
+  ChattingScreen(this.userId, this.imgUrl, this.username);
   @override
   _ChattingScreenState createState() => _ChattingScreenState();
 }
@@ -39,19 +44,14 @@ class _ChattingScreenState extends State<ChattingScreen> {
           iconTheme: IconThemeData(color: Theme.of(context).accentColor),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 1.0),
-            child: CircleAvatar(
-              radius: 25.0,
-              backgroundImage: NetworkImage(
-                  "https://th.bing.com/th/id/Rcbe9c6caa4f9030112f28aa9df8e33e2?rik=pCI5m%2fgWp8%2fWWw&riu=http%3a%2f%2fwww.lensmen.ie%2fwp-content%2fuploads%2f2015%2f02%2fProfile-Portrait-Photographer-in-Dublin-Ireland..jpg&ehk=Za7WF72x0pY8NyUrVRiYMesP9zQuTivFSKMmlY1CkUg%3d&risl=&pid=ImgRaw"),
-            ),
+            child: UserCircularAvatar(
+                50.0, 50.0, "${widget.imgUrl}", BoxFit.cover),
           ),
           bottom: PreferredSize(
-            preferredSize: null,
+            preferredSize: Size.fromHeight(5.0),
             child: Text(
-              "Username",
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
+              "${widget.username}",
+              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
             ),
           ),
           centerTitle: true,
@@ -61,8 +61,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
         children: [
           Flexible(
             child: StreamBuilder<List<Message>>(
-              stream: _con.firebaseMethods
-                  .getMessages(sid: userRepo.currentUser.value.id, rid: "3"),
+              stream: _con.firebaseMethods.getMessages(
+                  sid: userRepo.currentUser.value.id, rid: "${widget.userId}"),
               builder: (context, messages) {
                 if (messages.hasData) {
                   if (messages.data.length > 0) {
@@ -83,7 +83,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                   } else {
                     return Center(
                       child: Text(
-                        "${Constants.check_internet_connection}",
+                        "Send your first message!",
                         style: TextStyle(
                           color: Colors.grey[400],
                         ),
@@ -147,7 +147,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
               if (_hasText.value) {
                 _con.message.body = _textMessageController.text;
                 _con.message.senderId = userRepo.currentUser.value.id;
-                _con.message.receiverId = "3";
+                _con.message.receiverId = "${widget.userId}";
                 _con.message.type = "Text";
                 _con.message.timeStamp = Helper.get12hrTime(DateTime.now());
                 _con.message.serverTime = Timestamp.now();

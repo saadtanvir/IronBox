@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/widgets/imageDialogWidget.dart';
+import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
+import 'package:ironbox/src/widgets/userCircularAatar.dart';
+
+class TrainerProfileCardWidget extends StatelessWidget {
+  final User trainer;
+  const TrainerProfileCardWidget({Key key, this.trainer}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        elevation: 10.0,
+        margin: EdgeInsets.zero,
+        color: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Column(
+            children: [
+              Container(
+                // height: 200,
+                // color: Colors.blue,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 15.0,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // show picture in dialogue
+                        Get.dialog(ImageDialogWidget("${trainer.avatar}"));
+                      },
+                      child: UserCircularAvatar(
+                          120.0, 100.0, "${trainer.avatar}", BoxFit.fill),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Text(
+                          "${trainer.name}",
+                          style: TextStyle(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${trainer.userRating.rating}",
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 15.0,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "\$${trainer.price}/mo",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.0,
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

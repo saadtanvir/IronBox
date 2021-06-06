@@ -1,4 +1,4 @@
-import 'package:ironbox/src/models/category.dart';
+import '../models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +20,9 @@ const String signup = "Sign Up";
 const String buyNow = "Buy Now";
 const String capitalRecommended = "RECOMMENDED";
 const String search = "Search";
+const String trainers = "Trainers";
+const String success = "Success";
+const String failed = "Failed !";
 const String taskTitle = "Task Title";
 const String weight_gain = "Weight Gain";
 const String title = "Title";
@@ -37,6 +40,8 @@ const String price = "Price";
 const String plan_name = "Plan Name";
 const String supporting_video_url = "Supporting video Url";
 const String youtube_your_video = "youtube.com/yourvideo";
+const String youtube_video_link = "Youtube video link";
+const String something_went_wrong = "Something went wrong";
 const String choose_file = "Choose file";
 const String upload_image = "Upload Image";
 const String due_date = "Due Date";
@@ -44,16 +49,20 @@ const String taskTime = "Task Time";
 const String duration = "Duration";
 const String create_a_task = "Create a task";
 const String create_plan = "Create Plan";
+const String subscribe = "Subscribe";
 const String forty_two_days = "42 Days";
 const String plan_duration = "Plan duration";
 const String days = "Days";
 const String phoneHint = "+92**********";
 const String experience = "Experience";
+const String experience_in_years = "Experience in years";
+const String introductory_video = "Introductory video";
 const String specializesIn = "Specializes in";
 const String signup_with_email = "SIGN UP WITH EMAIL";
 const String upcomingChallenges = "UPCOMING CHALLENGES";
 const String pound = "Pound";
 const String kg = "Kg";
+const String contact = "contacts";
 const String none = "None";
 const String joining_as_a = "Joining as a";
 const String dateStringFormat = "dd-MM-yyyy";
@@ -85,6 +94,9 @@ const String choose_background_image = "Choose Background Image";
 const String password_should_be_greater_than_seven =
     "Password should be greater than 7 characters";
 const String get_alert_for_this_task = "Get alert for this task";
+const String login_failed = "Login Failed !";
+const String user_not_found = "User not found";
+const String registration_failed = "Registration Failed!";
 const String username_should_be_min_four_char =
     "Username should be between 3 to 20 char";
 const String switch_to_trainer_mode = "Switch to Trainer mode";
@@ -92,12 +104,18 @@ const String change_user_mode = "Change user mode";
 const String username_shouldnt_contain_spaces =
     "Username shouldnt contain spaces, @, +";
 const String switch_to_trainee_mode = "Switch to Trainee mode";
+const String tell_us_about_yourself = "Tell us about yourself";
 const String this_field_cannt_be_empty = "This field cannt be empty";
 const String pass_should_contain_special_char =
     "Password should contain a special character";
 const String write_a_message = "Write a message";
 const String no_message_to_show = "No message to show.";
+const String you_have_no_challenges_to_meet_hurrah =
+    "You have no challenges to meet. Hurrah!";
+const String user_already_exist = "User already exist";
 const String check_internet_connection = "Check your internet connection !";
+const String user_registered_successfully_you_can_login_now =
+    "User registered successfully. You can login now.";
 
 // Colors
 const Color primaryColor = Color(0xffE13F3B);
@@ -132,8 +150,7 @@ Map<String, dynamic> trainingCategory = {
 Map<String, dynamic> workoutCategory = {
   "id": "1",
   "name": "Workout",
-  "bgImgUrl":
-      "https://www.bodybuilding.com/images/2016/june/ultimate-beginners-machine-workout-for-women-header-v2-960x540.jpg"
+  "bgImgUrl": "http://ironbox.mindwhizdev.co/storage/images/red1.jpg"
 };
 
 Map<String, dynamic> dietCategory = {

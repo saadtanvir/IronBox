@@ -19,7 +19,7 @@ class ConversationsListWidget extends StatelessWidget {
             // open chatting screen
             // pass current and clicked user
             FocusScope.of(context).unfocus();
-            Get.to(ChattingScreen(), transition: Transition.rightToLeft);
+            // Get.to(ChattingScreen(), transition: Transition.rightToLeft);
           },
           child: ConversationTileWidget(),
         );

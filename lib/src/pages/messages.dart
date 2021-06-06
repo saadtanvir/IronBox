@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ironbox/src/controllers/chats_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/userContact.dart';
+import 'package:ironbox/src/services/firebase_methods.dart';
 import 'package:ironbox/src/widgets/availableChatsWidget.dart';
 import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/searchBarWidget.dart';
+import 'package:ironbox/src/widgets/showUserContactsListWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
+import '../repositories/user_repo.dart' as userRepo;
 
 class Messages extends StatefulWidget {
   @override
@@ -16,11 +21,12 @@ class Messages extends StatefulWidget {
 class _MessagesState extends State<Messages> {
   ChatsController _con = Get.put(ChatsController());
   FocusNode _chatSearchFocusNode;
+  // FirebaseMethods firebaseMethods = FirebaseMethods();
 
   @override
   void initState() {
     _chatSearchFocusNode = new FocusNode();
-
+    _con.getContacts(userRepo.currentUser.value.id);
     super.initState();
   }
 
@@ -44,54 +50,78 @@ class _MessagesState extends State<Messages> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _searchBar(),
             SizedBox(
               height: 5.0,
             ),
-            Container(
-              height: Helper.of(context).getScreenHeight() * 0.15,
-              child: ListView.builder(
-                itemCount: 7,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    child: AvailableUserChatsWidget(),
-                  );
-                },
-              ),
-            ),
+            Obx(() {
+              return _con.contacts.isEmpty && !_con.doneFetchingContacts.value
+                  ? Center(child: CircularProgressIndicator())
+                  : _con.contacts.isEmpty && _con.doneFetchingContacts.value
+                      ? Text("You have no contacts!")
+                      : UserContactsListWidget(_con.contacts);
+            }),
             SizedBox(
               height: 5.0,
             ),
             Container(
-              // this will wrap in stream builder
-              // stream of user chats
-              // from firebase documents
-              // as new message send/receive
-              // new conversation will be added
-              child: ListView.separated(
-                itemCount: 9,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      // open chatting screen
-                      // pass current and clicked user
-                      FocusScope.of(context).unfocus();
-                      Get.to(ChattingScreen(),
-                          transition: Transition.rightToLeft);
-                    },
-                    child: ConversationTileWidget(),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider();
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _con.firebaseMethods
+                    .fetchContacts(userRepo.currentUser.value.id),
+                builder: (context, snapShot) {
+                  print(userRepo.currentUser.value.id);
+                  if (snapShot.hasData) {
+                    print(snapShot.data.docs);
+                    var contactDocs = snapShot.data.docs;
+
+                    if (contactDocs.isEmpty) {
+                      // no chats
+                      return Center(
+                          child: Text(
+                        "No chats to display!",
+                      ));
+                    } else {
+                      print("contacts list");
+                      print(contactDocs);
+                      return ListView.separated(
+                        itemCount: contactDocs.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          UserContact contact = new UserContact.fromMap(
+                              contactDocs[index].data());
+                          print(contact.contactId);
+                          return GestureDetector(
+                            onTap: () {
+                              // open chatting screen
+                              // pass current and clicked user
+                              FocusScope.of(context).unfocus();
+                              // Get.to(ChattingScreen(),
+                              //     transition: Transition.rightToLeft);
+                            },
+                            child: ConversationTileWidget(
+                              contactId: contact.contactId,
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider();
+                        },
+                      );
+                    }
+                  } else if (snapShot.hasError) {
+                    return Center(
+                        child: Text(
+                            "Something went wrong. Check your internet connection and try again"));
+                  } else {
+                    return Center(
+                      child: Text(
+                        "No chats. Start chatting now",
+                      ),
+                    );
+                  }
                 },
               ),
             ),

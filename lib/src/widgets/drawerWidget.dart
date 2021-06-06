@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/pages/create_acc.dart';
 import 'package:ironbox/src/widgets/T_miniRegistration.dart';
 import 'package:ironbox/src/widgets/miniRegistrationWidget.dart';
@@ -31,6 +32,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         // set new user in sp
         // redirect
         userRepo.currentUser.value.role = Constants.joinAsA[1];
+        print(userRepo.currentUser.value.toMap());
         _con.updateUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page
@@ -48,6 +50,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         // set new user in sp
         // redirect
         userRepo.currentUser.value.role = Constants.joinAsA[0];
+        print(userRepo.currentUser.value.toMap());
         _con.updateUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page

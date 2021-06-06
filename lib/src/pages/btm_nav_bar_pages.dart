@@ -2,6 +2,7 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/pages/dietPackages.dart';
 import 'package:ironbox/src/pages/home.dart';
 import 'package:ironbox/src/pages/logs.dart';
+import 'package:ironbox/src/pages/showTrainers.dart';
 import 'package:ironbox/src/pages/trainingPackages.dart';
 import 'package:ironbox/src/pages/workoutPackages.dart';
 import 'package:ironbox/src/widgets/drawerWidget.dart';
@@ -40,7 +41,11 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           {
             // app category index is 0
             // and name is training
-            widget.currentPage = TrainingPackages(
+            // widget.currentPage = TrainingPackages(
+            //   Constants.appCategoriesName[0],
+            //   parentScaffoldKey: widget.scaffoldKey,
+            // );
+            widget.currentPage = ShowTrainers(
               Constants.appCategoriesName[0],
               parentScaffoldKey: widget.scaffoldKey,
             );
