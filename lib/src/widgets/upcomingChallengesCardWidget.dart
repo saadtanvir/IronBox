@@ -16,6 +16,7 @@ class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
     return Container(
       width: Helper.of(context).getScreenWidth(),
       child: Card(
+          margin: EdgeInsets.zero,
           elevation: 5.0,
           color: Colors.white,
           shape: RoundedRectangleBorder(

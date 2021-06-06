@@ -3,6 +3,7 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -105,6 +106,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
       height: 300.0,
       width: Helper.of(context).getScreenWidth(),
       child: Card(
+        margin: EdgeInsets.zero,
         color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -122,55 +124,8 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) {
-                        return Container(
-                          height: 74,
-                          width: 74,
-                          decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(5),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage("assets/img/loading.gif"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      },
-                      imageUrl:
-                          '${GlobalConfiguration().get('storage_base_url')}${userRepo.currentUser.value.avatar}',
-                      imageBuilder: (context, imageProvider) {
-                        return Container(
-                          height: 74,
-                          width: 74,
-                          decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(5),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                      errorWidget: (context, error, d) {
-                        print(error.toString());
-                        print(d.toString());
-                        return Container(
-                          height: 74,
-                          width: 74,
-                          decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(5),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/img/profile_placeholder.png"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: UserCircularAvatar(80.0, 80.0,
+                        "${userRepo.currentUser.value.avatar}", BoxFit.cover),
                   ),
                   Expanded(
                     flex: 4,

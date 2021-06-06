@@ -5,6 +5,7 @@ import 'package:ironbox/src/models/userContact.dart';
 import 'package:ironbox/src/services/firebase_methods.dart';
 import 'package:ironbox/src/widgets/availableChatsWidget.dart';
 import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
+import 'package:ironbox/src/widgets/contactsLoadingWidgets.dart';
 import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,7 @@ class _MessagesState extends State<Messages> {
             ),
             Obx(() {
               return _con.contacts.isEmpty && !_con.doneFetchingContacts.value
-                  ? Center(child: CircularProgressIndicator())
+                  ? ContactsLoadingWidget()
                   : _con.contacts.isEmpty && _con.doneFetchingContacts.value
                       ? Text("You have no contacts!")
                       : UserContactsListWidget(_con.contacts);

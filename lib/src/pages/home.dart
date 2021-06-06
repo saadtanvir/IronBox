@@ -66,7 +66,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           children: [
             UserDetailsCardWidget(),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
               child: Obx(() {
                 return _con.upComingChallenges.isEmpty &&
                         !_con.doneFetchingChallenges.value
