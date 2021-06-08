@@ -50,6 +50,7 @@ const String duration = "Duration";
 const String create_a_task = "Create a task";
 const String create_plan = "Create Plan";
 const String subscribe = "Subscribe";
+const String unsubscribe = "Unsubscribe";
 const String forty_two_days = "42 Days";
 const String plan_duration = "Plan duration";
 const String days = "Days";

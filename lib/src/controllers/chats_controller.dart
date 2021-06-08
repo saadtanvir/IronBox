@@ -7,6 +7,7 @@ import '../repositories/user_repo.dart' as userRepo;
 
 class ChatsController extends GetxController {
   FirebaseMethods firebaseMethods = new FirebaseMethods();
+  User user = new User();
   List<User> contacts = List<User>();
   Message message = new Message();
   var messages = List<Message>().obs;
@@ -31,6 +32,10 @@ class ChatsController extends GetxController {
     }, onDone: () {
       doneFetchingContacts.value = true;
     });
+  }
+
+  void getUserDetails(String id) async {
+    user = await userRepo.getUserById(id);
   }
 
   void getFirebaseUser(String uid) async {

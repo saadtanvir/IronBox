@@ -2,14 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ironbox/src/controllers/chats_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/userContact.dart';
-import 'package:ironbox/src/services/firebase_methods.dart';
-import 'package:ironbox/src/widgets/availableChatsWidget.dart';
-import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import 'package:ironbox/src/widgets/contactsLoadingWidgets.dart';
 import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/widgets/showUserContactsListWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
@@ -61,7 +57,7 @@ class _MessagesState extends State<Messages> {
               return _con.contacts.isEmpty && !_con.doneFetchingContacts.value
                   ? ContactsLoadingWidget()
                   : _con.contacts.isEmpty && _con.doneFetchingContacts.value
-                      ? Text("You have no contacts!")
+                      ? Center(child: Text("You have no contacts!"))
                       : UserContactsListWidget(_con.contacts);
             }),
             SizedBox(
@@ -80,8 +76,11 @@ class _MessagesState extends State<Messages> {
                     if (contactDocs.isEmpty) {
                       // no chats
                       return Center(
-                          child: Text(
-                        "No chats to display!",
+                          child: Padding(
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: Text(
+                          "No chats to display!",
+                        ),
                       ));
                     } else {
                       print("contacts list");

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import '../models/user.dart';
 import '../widgets/imageDialogWidget.dart';
 import '../widgets/playYoutubeVideoWidget.dart';
 import '../widgets/userCircularAatar.dart';
+import '../helpers/app_constants.dart' as Constants;
 
-class TrainerProfileCardWidget extends StatelessWidget {
+class SubscribedTrainerProfileCardWidget extends StatelessWidget {
   final User trainer;
-  const TrainerProfileCardWidget({Key key, this.trainer}) : super(key: key);
+  const SubscribedTrainerProfileCardWidget(this.trainer, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +90,59 @@ class TrainerProfileCardWidget extends StatelessWidget {
                 height: 50.0,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "\$${trainer.price}/mo",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                        color: Theme.of(context).scaffoldBackgroundColor),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: () async {
+                        Get.to(ChattingScreen(
+                            trainer.id, trainer.avatar, trainer.userName));
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(horizontal: 10.0),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).scaffoldBackgroundColor),
+                        overlayColor: MaterialStateProperty.all(
+                          Theme.of(context).accentColor.withOpacity(0.3),
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        "Message",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // SizedBox(
+                  //   width: 30.0,
+                  // ),
+                  Expanded(
+                    flex: 1,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "\$${trainer.price}/mo",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0,
+                            color: Theme.of(context).scaffoldBackgroundColor),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 10.0,

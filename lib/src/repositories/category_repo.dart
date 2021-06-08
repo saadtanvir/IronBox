@@ -8,11 +8,8 @@ import 'package:http/http.dart' as http;
 
 Future<Stream<Category>> getCategories({String id}) async {
   print("getting categories");
-  Uri uri = Helper.getUri('catagories');
+  Uri uri = Helper.getUri('categories');
   print('URI for gettiing categories: ' + uri.toString());
-  // Map<String, dynamic> _queryParams = {};
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // uri = uri.replace(queryParameters: _queryParams);
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));

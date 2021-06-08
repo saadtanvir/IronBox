@@ -6,6 +6,7 @@ import 'package:ironbox/src/widgets/availableChatsWidget.dart';
 import 'package:ironbox/src/widgets/textMessageContainerWidget.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
+import 'package:ironbox/src/widgets/userProfile.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
 
   @override
   void initState() {
+    // get user with id
+    _con.getUserDetails(widget.userId);
     super.initState();
   }
 
@@ -44,8 +47,20 @@ class _ChattingScreenState extends State<ChattingScreen> {
           iconTheme: IconThemeData(color: Theme.of(context).accentColor),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 1.0),
-            child: UserCircularAvatar(
-                50.0, 50.0, "${widget.imgUrl}", BoxFit.cover),
+            child: GestureDetector(
+              onTap: () {
+                print(_con.user.id);
+                if (_con.user.id != null &&
+                    (_con.user.email != null && _con.user.email.isNotEmpty)) {
+                  Get.to(
+                      UserProfilePage(
+                          _con.user, _con.user.isTrainer == "1" ? true : false),
+                      transition: Transition.rightToLeft);
+                }
+              },
+              child: UserCircularAvatar(
+                  50.0, 50.0, "${widget.imgUrl}", BoxFit.cover),
+            ),
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(5.0),

@@ -4,6 +4,7 @@ import 'package:ironbox/src/repositories/logs_repo.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../repositories/user_repo.dart' as userRepo;
+import '../repositories/category_repo.dart' as categoryRepo;
 
 class HomeController extends GetxController {
   var categories = List<Category>().obs;
@@ -56,18 +57,18 @@ class HomeController extends GetxController {
     });
   }
 
-  // Future<void> listenForCategories() async {
-  //   print("fetching categories from home controller");
-  //   Stream<Category> stream = await categoryRepo.getCategories();
+  Future<void> listenForCategories() async {
+    print("fetching categories from home controller");
+    categories.clear();
+    Stream<Category> stream = await categoryRepo.getCategories();
 
-  //   stream.listen((Category _category) {
-  //     print(_category.backgroundImgUrl);
-  //     categories.add(_category);
-  //   }, onError: (a) {
-  //     print("Error thrown while getting categories");
-  //     print(a);
-  //   }, onDone: () {
-  //     print("Done fetching categories");
-  //   });
-  // }
+    stream.listen((Category _category) {
+      print(_category.backgroundImgUrl);
+      categories.add(_category);
+    }, onError: (e) {
+      print("Error thrown while getting categories: $e");
+    }, onDone: () {
+      print("Done fetching categories");
+    });
+  }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import '../helpers/app_constants.dart' as Constants;
+import '../repositories/user_repo.dart' as userRepo;
 
 class ConversationTileWidget extends StatefulWidget {
   final String contactId;
@@ -20,7 +21,6 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
 
   @override
   void initState() {
-    // _con.getFirebaseUser(widget.contactId);
     super.initState();
   }
 
@@ -30,26 +30,28 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
       future: _con.firebaseMethods.getFirebaseUser(widget.contactId),
       builder: (context, snapShot) {
         if (snapShot.hasData) {
-          Map<String, dynamic> firebaseUser = snapShot.data;
+          Map<String, dynamic> firebaseContact = snapShot.data;
           // print("name is ");
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               onTap: () {
                 Get.to(
-                    ChattingScreen(firebaseUser['id'], firebaseUser['imgURL'],
-                        firebaseUser['username']),
+                    ChattingScreen(firebaseContact['id'],
+                        firebaseContact['imgURL'], firebaseContact['username']),
                     transition: Transition.rightToLeft);
               },
               leading: UserCircularAvatar(
-                  60.0, 60.0, "${firebaseUser['imgURL']}", BoxFit.cover),
+                  60.0, 60.0, "${firebaseContact['imgURL']}", BoxFit.cover),
               title: Text(
-                "${firebaseUser['username']}",
+                "${firebaseContact['username']}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: LastMessageWidget(),
+              subtitle: LastMessageWidget(_con.firebaseMethods.getMessages(
+                  sid: userRepo.currentUser.value.id,
+                  rid: firebaseContact['id'])),
               // trailing: Text("15:23"),
             ),
           );
@@ -65,7 +67,8 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
             child: ListTile(
               leading: UserCircularAvatar(60.0, 60.0, "", BoxFit.cover),
               title: Text(""),
-              subtitle: LastMessageWidget(),
+              subtitle: LastMessageWidget(_con.firebaseMethods.getMessages(
+                  sid: userRepo.currentUser.value.id, rid: widget.contactId)),
               // trailing: Text("15:23"),
             ),
           );

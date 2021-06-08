@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
+import 'package:ironbox/src/widgets/userProfile.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 
@@ -100,6 +101,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             onTap: () {
               // go on user profile page
+              Get.to(UserProfilePage(
+                  userRepo.currentUser.value,
+                  userRepo.currentUser.value.role == Constants.joinAsA[1]
+                      ? true
+                      : false));
             },
             leading: Icon(
               Icons.person,

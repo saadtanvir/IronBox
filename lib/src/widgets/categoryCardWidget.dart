@@ -16,7 +16,8 @@ class CategoryCardWidget extends StatelessWidget {
       child: Stack(
         children: [
           CachedNetworkImage(
-            imageUrl: "${category.backgroundImgUrl}",
+            imageUrl:
+                "${GlobalConfiguration().get('storage_base_url')}${category.backgroundImgUrl}",
             placeholder: (context, url) {
               return Container(
                 height: 150,

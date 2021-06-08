@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
 import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
+import 'package:ironbox/src/widgets/subscribedTrainerProfile.dart';
 import 'package:ironbox/src/widgets/trainersListWidget.dart';
 import '../controllers/user_controller.dart';
 import '../helpers/app_constants.dart' as Constants;
+import '../repositories/user_repo.dart' as userRepo;
 
 class ShowTrainers extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
-  final String category;
-  ShowTrainers(this.category, {this.parentScaffoldKey});
+  // final String category;
+  ShowTrainers({this.parentScaffoldKey});
   @override
   _ShowTrainersState createState() => _ShowTrainersState();
 }
@@ -18,12 +20,24 @@ class ShowTrainers extends StatefulWidget {
 class _ShowTrainersState extends State<ShowTrainers> {
   UserController _con = Get.put(UserController());
 
-  void onTrainerTap(User trainer) {
-    // go to trainer profile details page
+  void onTrainerTap(User trainer) async {
+    // check whether trainer is subscribed or not
+    // if yes go to subscribed trainer profile
+    // if no then go to trainer profile page
     print(trainer.name);
-    Get.to(TrainerProfileDetails(
-      trainer: trainer,
-    ));
+
+    _con
+        .checkIsTrainerSubscribed(context,
+            uid: userRepo.currentUser.value.id, trainerId: trainer.id)
+        .then((value) {
+      if (value) {
+        Get.to(SubscribedTrainerProfile(trainer));
+      } else {
+        Get.to(TrainerProfileDetails(
+          trainer: trainer,
+        ));
+      }
+    });
   }
 
   @override

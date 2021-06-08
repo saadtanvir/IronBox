@@ -126,6 +126,15 @@ class FirebaseMethods {
     });
   }
 
+  // Stream<QuerySnapshot> getLastMessageBetween(
+  //     {@required String senderId, @required String receiverId}) {
+  //   return _messagesCollection
+  //       .doc(senderId)
+  //       .collection(receiverId)
+  //       .orderBy("serverTime", descending: false)
+  //       .snapshots();
+  // }
+
   Stream<QuerySnapshot> fetchContacts(String uid) {
     return _usersCollection.doc(uid).collection(Constants.contact).snapshots();
   }

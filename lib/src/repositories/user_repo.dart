@@ -237,6 +237,37 @@ Future<Stream<User>> fetchAllTrainers() async {
   }
 }
 
+Future<Stream<Subscription>> fetchUserSubscribedTrainers(String uid) async {
+  Uri uri = Helper.getUri('subscriptions/$uid');
+
+  print("URI For Getting Subscriptions: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing subscriptions data");
+          print(data);
+          return Subscription.fromJSON(data);
+        });
+  } on SocketException {
+    print("User Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("User Repo Error: $e");
+    return new Stream.value(new Subscription.fromJSON({}));
+  }
+}
+
 Future<Stream<User>> getUserContacts(String userId) async {
   Uri uri = Helper.getUri('contacts/$userId');
   // Map<String, dynamic> _queryParams = {"category": category};
@@ -273,6 +304,34 @@ Future<Stream<User>> getUserContacts(String userId) async {
   }
 }
 
+Future<User> getUserById(String uid) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
+  try {
+    final client = new http.Client();
+    final response = await client.get(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    Map jsonBody = json.decode(response.body);
+    print(jsonBody);
+
+    if (response.statusCode == 200 && !jsonBody.containsKey("errors")) {
+      return User.fromJSON(json.decode(response.body)['data'][0]);
+    } else {
+      print("throws exception");
+      return User.fromJSON({});
+    }
+  } catch (e) {
+    print("error caught");
+    print(e);
+    return User.fromJSON({});
+  }
+}
+
 Future<bool> subscribeTrainer(Subscription sub) async {
   String url = "${GlobalConfiguration().get("api_base_url")}subscriptions";
   try {
@@ -294,6 +353,40 @@ Future<bool> subscribeTrainer(Subscription sub) async {
 
     if (response.statusCode == 200) {
       print("trainer subscribed");
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<bool> isTrainerSubscribed(
+    {@required String uid, @required String trainerId}) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}subscriptions/trainer_id=$trainerId/trainee_id=$uid";
+  try {
+    final client = new http.Client();
+    final response = await client.get(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+    );
+    print("URL For Checking Trainer Subscription: $url");
+    print(response.statusCode);
+    print(response.body);
+
+    Map responseBody = json.decode(response.body);
+    // print(responseBody['data']['token']);
+
+    if (response.statusCode == 200) {
+      print("trainer already subscribed");
+
       return true;
     } else {
       print("throws exception");

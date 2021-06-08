@@ -1,4 +1,5 @@
 import 'package:ironbox/src/models/subscriptions.dart';
+import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
 
 import '../helpers/helper.dart';
 import '../models/user.dart';
@@ -13,9 +14,12 @@ class UserController extends GetxController {
   User user = new User();
   Subscription subscription = new Subscription();
   List<User> trainers = List<User>().obs;
+  List<Subscription> subscriptions = List<Subscription>().obs;
   FirebaseMethods firebaseMethods = FirebaseMethods();
   OverlayEntry loader;
   var doneFetchingTrainers = false.obs;
+  var doneFetchingSubscriptions = false.obs;
+  bool isTrainerSubscribed;
 
   UserController();
 
@@ -198,9 +202,6 @@ class UserController extends GetxController {
     trainers.clear();
     final Stream<User> stream = await userRepo.fetchAllTrainers();
     stream.listen((User _user) {
-      // print(_user.isTrainer);
-      // print(_user.accountStatus);
-      // print(_user.id);
       if (_user.id != userRepo.currentUser.value.id) {
         trainers.add(_user);
       }
@@ -212,9 +213,33 @@ class UserController extends GetxController {
     });
   }
 
+  void fetchUserSubscriptions(String uid) async {
+    doneFetchingSubscriptions.value = false;
+    subscriptions.clear();
+    final Stream<Subscription> stream =
+        await userRepo.fetchUserSubscribedTrainers(uid);
+    stream.listen((Subscription _userSub) {
+      subscriptions.add(_userSub);
+    }, onError: (e) {
+      print(e);
+    }, onDone: () {
+      print("done fetching trainers");
+      doneFetchingSubscriptions.value = true;
+    });
+  }
+
   void subscribeTrainer() async {
     bool isSubscribed = await userRepo.subscribeTrainer(subscription);
-    print(isSubscribed);
+    if (isSubscribed) {
+      Get.snackbar("Success", "Trainer Subscribed Successfully");
+      Get.offAllNamed('/BottomNavBarPage');
+    }
+  }
+
+  Future<bool> checkIsTrainerSubscribed(BuildContext context,
+      {@required String uid, @required String trainerId}) async {
+    return isTrainerSubscribed =
+        await userRepo.isTrainerSubscribed(uid: uid, trainerId: trainerId);
   }
 
   Future<void> removeCurrentUser(BuildContext context) async {

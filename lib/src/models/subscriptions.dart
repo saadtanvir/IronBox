@@ -18,7 +18,7 @@ class Subscription {
           : 0.0;
       startDate = jsonMap['start_date'] != null ? jsonMap['start_date'] : "";
       endDate = jsonMap['end_date'] != null ? jsonMap['end_date'] : "";
-      status = jsonMap['status'] != null ? jsonMap['status'] : "0";
+      status = jsonMap['status'] != null ? jsonMap['status'].toString() : "0";
       traineeId = jsonMap['trainee_id'] != null ? jsonMap['trainee_id'] : "";
       trainerId = jsonMap['trainer_id'] != null ? jsonMap['trainer_id'] : "";
       trainers = jsonMap['trainers'] != null &&

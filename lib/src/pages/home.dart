@@ -26,6 +26,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
+    _con.listenForCategories();
     print("inside init of Home Page");
     _con.checkActivityRecognitionPermission();
     _con.checkBodySensorPermission();
@@ -108,13 +109,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         : UpcomingChallengesWidget(_con.upComingChallenges);
               }),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Constants.appCategories != null &&
-                      Constants.appCategories.isNotEmpty
-                  ? CategoriesWidget()
-                  : CircularProgressIndicator(),
-            ),
+            Obx(() {
+              return _con.categories.isEmpty
+                  ? CircularProgressIndicator()
+                  : Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: CategoriesWidget(_con.categories),
+                    );
+            }),
             Padding(
               padding: const EdgeInsets.only(
                 left: 10.0,

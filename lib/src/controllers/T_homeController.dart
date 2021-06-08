@@ -1,5 +1,6 @@
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/repositories/message_repo.dart' as messageRepo;
+import '../repositories/user_repo.dart' as userRepo;
 import 'package:get/get.dart';
 
 class TrainerHomeController extends GetxController {
@@ -10,7 +11,7 @@ class TrainerHomeController extends GetxController {
   void getClientsList(String uid) async {
     print("fetching user contacts");
     doneFetchingClients.value = false;
-    final Stream<User> stream = await messageRepo.getUserContacts(uid);
+    final Stream<User> stream = await userRepo.getUserContacts(uid);
 
     stream.listen(
       (User _user) {

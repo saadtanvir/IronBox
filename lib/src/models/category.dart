@@ -10,7 +10,7 @@ class Category {
     try {
       id = jsonMap["id"].toString();
       name = jsonMap["name"].toString();
-      backgroundImgUrl = jsonMap["bgImgUrl"].toString();
+      backgroundImgUrl = jsonMap["cover_img"].toString();
     } catch (e) {
       print("Category Model Error: $e");
     }
@@ -20,7 +20,7 @@ class Category {
     var map = new Map<String, dynamic>();
     map["id"] = id;
     map["name"] = name;
-    map["bgImgUrl"] = backgroundImgUrl;
+    map["cover_img"] = backgroundImgUrl;
     return map;
   }
 }

@@ -5,27 +5,20 @@ import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileCardWidget.dart';
 import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
+import 'package:ironbox/src/widgets/subscribedTrainerProfileCardWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 
-class TrainerProfileDetails extends StatefulWidget {
+class SubscribedTrainerProfile extends StatefulWidget {
   final User trainer;
-  const TrainerProfileDetails({Key key, this.trainer}) : super(key: key);
+  const SubscribedTrainerProfile(this.trainer, {Key key}) : super(key: key);
 
   @override
-  _TrainerProfileDetailsState createState() => _TrainerProfileDetailsState();
+  _SubscribedTrainerProfileState createState() =>
+      _SubscribedTrainerProfileState();
 }
 
-class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
-  UserController _con = Get.put(UserController());
-  DateFormat _dateFormatter;
-
-  @override
-  void initState() {
-    _dateFormatter = DateFormat(Constants.dateStringFormat);
-    super.initState();
-  }
-
+class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +31,8 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TrainerProfileCardWidget(
-              trainer: widget.trainer,
+            SubscribedTrainerProfileCardWidget(
+              widget.trainer,
             ),
             SizedBox(
               height: 10.0,
@@ -183,7 +176,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
               padding: const EdgeInsets.all(8.0),
               child: PlayYoutubeVideoWidget(
                 "https://www.youtube.com/watch?v=f8fv4FuYyqM",
-                width: 350,
+                width: 390,
               ),
             ),
             SizedBox(
@@ -193,17 +186,17 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () async {
-                  _con.subscription.startDate =
-                      _dateFormatter.format(DateTime.now());
-                  _con.subscription.endDate = _dateFormatter
-                      .format(DateTime.now().add(new Duration(days: 29)));
-                  _con.subscription.subPrice =
-                      double.parse(widget.trainer.price);
-                  _con.subscription.status = "1";
-                  _con.subscription.trainerId = widget.trainer.id;
-                  _con.subscription.traineeId = userRepo.currentUser.value.id;
-                  // before subscribing trainer, verify payment
-                  _con.subscribeTrainer();
+                  // _con.subscription.startDate =
+                  //     _dateFormatter.format(DateTime.now());
+                  // _con.subscription.endDate = _dateFormatter
+                  //     .format(DateTime.now().add(new Duration(days: 29)));
+                  // _con.subscription.subPrice =
+                  //     double.parse(widget.trainer.price);
+                  // _con.subscription.status = "1";
+                  // _con.subscription.trainerId = widget.trainer.id;
+                  // _con.subscription.traineeId = userRepo.currentUser.value.id;
+                  // // before subscribing trainer, verify payment
+                  // _con.subscribeTrainer();
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
@@ -221,7 +214,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                   ),
                 ),
                 child: Text(
-                  Constants.subscribe,
+                  Constants.unsubscribe,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).scaffoldBackgroundColor,

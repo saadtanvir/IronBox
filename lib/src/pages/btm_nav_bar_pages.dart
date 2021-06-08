@@ -46,7 +46,6 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
             //   parentScaffoldKey: widget.scaffoldKey,
             // );
             widget.currentPage = ShowTrainers(
-              Constants.appCategoriesName[0],
               parentScaffoldKey: widget.scaffoldKey,
             );
           }
