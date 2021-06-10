@@ -22,6 +22,7 @@ class FirebaseMethods {
   // under doc id = user id
   Future<void> addUserToFirebase(
       {String uid, String username, String imgURL}) async {
+    print("creating user in firebase with id: $uid");
     print("adding user to firebase");
     Map<String, dynamic> userData = {
       "id": uid,
@@ -124,6 +125,55 @@ class FirebaseMethods {
       });
       return messages;
     });
+  }
+
+  Future<bool> unsubscribeTrainer(String uid, String trainerId) async {
+    print("unsubscribing from Firebase");
+    // deleteMessagesBetween(uid, trainerId);
+    print("user id is: $uid");
+    print("trainer id is: $trainerId");
+    try {
+      await _usersCollection
+          .doc(uid)
+          .collection(Constants.contact)
+          .doc(trainerId)
+          .delete();
+      await _usersCollection
+          .doc(trainerId)
+          .collection(Constants.contact)
+          .doc(uid)
+          .delete();
+      return true;
+    } catch (e) {
+      print("Firebase unsubscription error: $e");
+      return false;
+    }
+  }
+
+  Future<void> deleteMessagesBetween(String uid, String contactId) async {
+    try {
+      _messagesCollection
+          .doc(uid)
+          .collection(contactId)
+          .snapshots()
+          .map((QuerySnapshot snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.delete();
+        }
+      });
+
+      _messagesCollection
+          .doc(contactId)
+          .collection(uid)
+          .snapshots()
+          .map((QuerySnapshot snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.delete();
+        }
+      });
+    } catch (e) {
+      print("Firebase deleting messages error: $e");
+    }
   }
 
   // Stream<QuerySnapshot> getLastMessageBetween(

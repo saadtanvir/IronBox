@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
 import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
@@ -26,18 +27,10 @@ class _ShowTrainersState extends State<ShowTrainers> {
     // if no then go to trainer profile page
     print(trainer.name);
 
-    _con
-        .checkIsTrainerSubscribed(context,
-            uid: userRepo.currentUser.value.id, trainerId: trainer.id)
-        .then((value) {
-      if (value) {
-        Get.to(SubscribedTrainerProfile(trainer));
-      } else {
-        Get.to(TrainerProfileDetails(
-          trainer: trainer,
-        ));
-      }
-    });
+    _con.checkIsTrainerSubscribed(context,
+        uid: userRepo.currentUser.value.id,
+        trainerId: trainer.id,
+        trainer: trainer);
   }
 
   @override

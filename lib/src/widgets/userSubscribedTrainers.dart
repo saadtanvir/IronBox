@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
 import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
@@ -20,12 +21,14 @@ class SubscribedTrainers extends StatefulWidget {
 class _SubscribedTrainersState extends State<SubscribedTrainers> {
   UserController _con = Get.put(UserController());
 
-  void onTrainerTap(User trainer) {
+  void onTrainerTap(Subscription sub) {
     // go to trainer profile details page
-    print(trainer.name);
-    Get.to(SubscribedTrainerProfile(
-      trainer,
-    ));
+    print(sub.trainers.name);
+    Get.to(
+        SubscribedTrainerProfile(
+          sub,
+        ),
+        transition: Transition.rightToLeft);
   }
 
   @override

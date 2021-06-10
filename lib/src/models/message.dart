@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
+  // String id;
   String body;
   String type;
   String senderId;
@@ -12,6 +13,7 @@ class Message {
 
   Message.fromDocSnapshot(DocumentSnapshot doc) {
     try {
+      // id = doc.data()['id'];
       body = doc.data()["body"];
       type = doc.data()["type"];
       senderId = doc.data()["senderId"];

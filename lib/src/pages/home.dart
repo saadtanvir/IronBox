@@ -1,3 +1,4 @@
+import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../controllers/home_controller.dart';
 import '../helpers/helper.dart';
 import '../widgets/categoriesWidget.dart';
@@ -22,7 +23,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   HomeController _con = Get.put(HomeController());
   DateFormat _dateFormatter;
   String currentDate;
-  String dateFormat = "dd-MM-yyyy";
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     print("inside init of Home Page");
     _con.checkActivityRecognitionPermission();
     _con.checkBodySensorPermission();
-    _dateFormatter = DateFormat(dateFormat);
+    _dateFormatter = DateFormat(Constants.dateStringFormat);
     currentDate = _dateFormatter.format(DateTime.now());
     if (userRepo.currentUser.value.userToken != null &&
         userRepo.currentUser.value.userToken.isNotEmpty) {
@@ -61,79 +61,87 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           MessageIconWidget(),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            UserDetailsCardWidget(),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-              child: Obx(() {
-                return _con.upComingChallenges.isEmpty &&
-                        !_con.doneFetchingChallenges.value
-                    ? CircularProgressIndicator()
-                    : _con.upComingChallenges.isEmpty &&
-                            _con.doneFetchingChallenges.value
-                        ? Container(
-                            width: Helper.of(context).getScreenWidth(),
-                            child: Card(
-                              elevation: 5.0,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15.0),
+      body: RefreshIndicator(
+        onRefresh: _con.refreshHome,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              UserDetailsCardWidget(),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 20.0, horizontal: 10.0),
+                child: Obx(() {
+                  return _con.upComingChallenges.isEmpty &&
+                          !_con.doneFetchingChallenges.value
+                      ? CircularProgressIndicator()
+                      : _con.upComingChallenges.isEmpty &&
+                              _con.doneFetchingChallenges.value
+                          ? Container(
+                              width: Helper.of(context).getScreenWidth(),
+                              child: Card(
+                                elevation: 5.0,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15.0),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        Constants.upcomingChallenges,
+                                        style: Helper.of(context).textStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            font: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(Constants
+                                          .you_have_no_challenges_to_meet_hurrah),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      Constants.upcomingChallenges,
-                                      style: Helper.of(context).textStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          font: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Text(Constants
-                                        .you_have_no_challenges_to_meet_hurrah),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : UpcomingChallengesWidget(_con.upComingChallenges);
-              }),
-            ),
-            Obx(() {
-              return _con.categories.isEmpty
-                  ? CircularProgressIndicator()
-                  : Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: CategoriesWidget(_con.categories),
-                    );
-            }),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
+                            )
+                          : UpcomingChallengesWidget(_con.upComingChallenges);
+                }),
               ),
-              child: ListTile(
-                title: Text(
-                  Constants.capitalRecommended,
-                  style: Helper.of(context).textStyle(
-                    color: Theme.of(context).primaryColor,
-                    font: FontWeight.bold,
+              Obx(() {
+                return _con.categories.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: CategoriesLoadingWidget(),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: CategoriesWidget(_con.categories),
+                      );
+              }),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
+                ),
+                child: ListTile(
+                  title: Text(
+                    Constants.capitalRecommended,
+                    style: Helper.of(context).textStyle(
+                      color: Theme.of(context).primaryColor,
+                      font: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-            RecommendedCaroousel(),
-          ],
+              RecommendedCaroousel(),
+            ],
+          ),
         ),
       ),
     );

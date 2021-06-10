@@ -1,8 +1,8 @@
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/pages/userPlans.dart';
-import 'package:ironbox/src/widgets/categoryCardWidget.dart';
-import 'package:ironbox/src/widgets/userSubscribedTrainers.dart';
+import '../helpers/helper.dart';
+import '../models/category.dart';
+import '../pages/userPlans.dart';
+import '../widgets/categoryCardWidget.dart';
+import '../widgets/userSubscribedTrainers.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

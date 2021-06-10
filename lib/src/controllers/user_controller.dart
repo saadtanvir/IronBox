@@ -1,5 +1,7 @@
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
+import 'package:ironbox/src/widgets/subscribedTrainerProfile.dart';
 
 import '../helpers/helper.dart';
 import '../models/user.dart';
@@ -11,17 +13,25 @@ import '../services/firebase_methods.dart';
 import '../pages/create_acc.dart';
 
 class UserController extends GetxController {
-  User user = new User();
+  User user;
   Subscription subscription = new Subscription();
+  List<Review> reviews = List<Review>().obs;
   List<User> trainers = List<User>().obs;
   List<Subscription> subscriptions = List<Subscription>().obs;
   FirebaseMethods firebaseMethods = FirebaseMethods();
   OverlayEntry loader;
   var doneFetchingTrainers = false.obs;
   var doneFetchingSubscriptions = false.obs;
+  var doneFetchingReviews = false.obs;
   bool isTrainerSubscribed;
 
   UserController();
+
+  @override
+  void onInit() {
+    this.user = new User();
+    super.onInit();
+  }
 
   void registerUser(BuildContext context) {
     print("in register function of user controller");
@@ -43,6 +53,7 @@ class UserController extends GetxController {
           colorText: Colors.white,
         );
         Future.delayed(new Duration(seconds: 2)).then((value) {
+          userRepo.currentUser.value = new User();
           Get.offAll(CreateAccount());
         });
       } else {
@@ -80,6 +91,7 @@ class UserController extends GetxController {
           (value.email != null && value.email.isNotEmpty)) {
         // add username and url to firebase collection user
         // under doc id = user id
+        print(value.id);
         firebaseMethods.addUserToFirebase(
             uid: value.id, username: value.userName, imgURL: value.avatar);
 
@@ -91,6 +103,7 @@ class UserController extends GetxController {
           colorText: Colors.white,
         );
         Future.delayed(new Duration(seconds: 1)).then((value) {
+          userRepo.currentUser.value = new User();
           Get.offAll(CreateAccount());
         });
       } else {
@@ -228,18 +241,123 @@ class UserController extends GetxController {
     });
   }
 
-  void subscribeTrainer() async {
-    bool isSubscribed = await userRepo.subscribeTrainer(subscription);
-    if (isSubscribed) {
-      Get.snackbar("Success", "Trainer Subscribed Successfully");
-      Get.offAllNamed('/BottomNavBarPage');
-    }
+  void getTrainerReviews(String id) async {
+    doneFetchingReviews.value = false;
+    reviews.clear();
+    final Stream<Review> stream = await userRepo.getTrainerReviews(id);
+    stream.listen((Review _review) {
+      reviews.add(_review);
+    }, onError: (e) {
+      print(e);
+    }, onDone: () {
+      print("done fetching reviews");
+      doneFetchingReviews.value = true;
+    });
+  }
+
+  void subscribeTrainer(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    await userRepo.subscribeTrainer(subscription).then((value) {
+      if (value) {
+        Get.snackbar(
+          "Success",
+          "Trainer Subscribed Successfully",
+          backgroundColor: Colors.green,
+          colorText: Theme.of(context).scaffoldBackgroundColor,
+        );
+
+        Future.delayed(new Duration(seconds: 1)).then((value) {
+          Get.offAllNamed('/BottomNavBarPage');
+        });
+      } else {
+        Get.snackbar("Failed!", "Trainer Subscription Failed.",
+            backgroundColor: Theme.of(context).primaryColor);
+      }
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   Future<bool> checkIsTrainerSubscribed(BuildContext context,
-      {@required String uid, @required String trainerId}) async {
-    return isTrainerSubscribed =
-        await userRepo.isTrainerSubscribed(uid: uid, trainerId: trainerId);
+      {@required String uid,
+      @required String trainerId,
+      @required User trainer}) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    userRepo
+        .isTrainerSubscribed(uid: uid, trainerId: trainerId)
+        .then((Subscription _sub) {
+      print(_sub.trainers.email.isEmail);
+      if (_sub.trainers.email.isEmail) {
+        print("redirecting to subscribed profile");
+        Get.to(SubscribedTrainerProfile(_sub),
+            transition: Transition.rightToLeft);
+        // Helper.hideLoader(loader);
+      } else {
+        Get.to(
+            TrainerProfileDetails(
+              trainer: trainer,
+            ),
+            transition: Transition.rightToLeft);
+        // Helper.hideLoader(loader);
+      }
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  Future<bool> postTrainerReview(
+      {@required BuildContext context,
+      @required String trainerId,
+      @required String userId,
+      @required String review}) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    return await userRepo
+        .reviewTrainer(trainerId: trainerId, userId: userId, review: review)
+        .whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  Future<bool> rateTrainer(int rating, String trainerId) async {
+    return await userRepo.rateTrainer(rating, trainerId);
+  }
+
+  Future<void> unsubscribeTrainer(
+      BuildContext context, Subscription subscription) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    firebaseMethods
+        .unsubscribeTrainer(
+            userRepo.currentUser.value.id, subscription.trainers.id)
+        .then((value) {
+      print("value from firebase deletion");
+      print(value);
+      userRepo.unsubscribeTrainer(subscription.id).then((value) {
+        if (value) {
+          Get.snackbar(
+            "Success!",
+            "Trainer Un Subscribed.",
+            colorText: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Colors.green,
+          );
+          Future.delayed(new Duration(seconds: 1)).then((value) {
+            Get.offAllNamed('/BottomNavBarPage');
+          });
+        } else {
+          Get.snackbar(
+            "Failed!",
+            "Try again.",
+            colorText: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Theme.of(context).primaryColor,
+          );
+        }
+      }).whenComplete(() {
+        Helper.hideLoader(loader);
+      });
+    });
   }
 
   Future<void> removeCurrentUser(BuildContext context) async {

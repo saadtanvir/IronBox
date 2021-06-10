@@ -30,7 +30,7 @@ class _UserSubscribedTrainersListWidgetState
           return GestureDetector(
               onTap: () {
                 // go on trainer profile details page
-                widget.onTap(widget.subscriptions[index].trainers);
+                widget.onTap(widget.subscriptions[index]);
               },
               child: SubscribedTrainerListTile(widget.subscriptions[index]));
         },

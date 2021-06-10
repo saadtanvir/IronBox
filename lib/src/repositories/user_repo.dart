@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:ironbox/src/helpers/app_constants.dart';
 import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -365,7 +366,40 @@ Future<bool> subscribeTrainer(Subscription sub) async {
   }
 }
 
-Future<bool> isTrainerSubscribed(
+Future<bool> unsubscribeTrainer(String subscriptionId) async {
+  print("unsubscribing trainer");
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}subscriptions/$subscriptionId";
+  try {
+    final client = new http.Client();
+    final response = await client.delete(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+    );
+    print("URL For Unsubscribing Trainer: $url");
+    print(response.statusCode);
+    print(response.body);
+
+    Map responseBody = json.decode(response.body);
+    // print(responseBody['data']['token']);
+
+    if (response.statusCode == 200) {
+      print("trainer un subscribed");
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<Subscription> isTrainerSubscribed(
     {@required String uid, @required String trainerId}) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}subscriptions/trainer_id=$trainerId/trainee_id=$uid";
@@ -386,7 +420,48 @@ Future<bool> isTrainerSubscribed(
 
     if (response.statusCode == 200) {
       print("trainer already subscribed");
+      print(responseBody['data'][0]);
+      return Subscription.fromJSON(responseBody['data'][0]);
+    } else {
+      print("throws exception");
+      return Subscription.fromJSON({});
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return Subscription.fromJSON({});
+  }
+}
 
+Future<bool> reviewTrainer(
+    {@required String trainerId,
+    @required String userId,
+    @required String review}) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}trainer_reviews";
+  Map<String, String> body = {
+    "review_for": trainerId,
+    "review_by": userId,
+    "message": review
+  };
+  try {
+    final client = new http.Client();
+    final response = await client.post(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(body),
+    );
+    print("URL For Posting Trainer Review: $url");
+    print(json.encode(body));
+    print(response.statusCode);
+    print(response.body);
+
+    Map responseBody = json.decode(response.body);
+    print(responseBody);
+
+    if (response.statusCode == 200) {
+      print("Review posted successfully");
       return true;
     } else {
       print("throws exception");
@@ -396,6 +471,74 @@ Future<bool> isTrainerSubscribed(
     print("error caught");
     print(e.toString());
     return false;
+  }
+}
+
+Future<bool> rateTrainer(int rating, String id) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}userrating/$id";
+  Map<String, String> body = {
+    "avg_rating": rating.toString(),
+  };
+  try {
+    final client = new http.Client();
+    final response = await client.put(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(body),
+    );
+    print("URL For Rating Trainer: $url");
+    print(json.encode(body));
+    print(response.statusCode);
+    // print(response.body);
+
+    // Map jsonBody = json.decode(response.body);
+    // print(jsonBody);
+
+    if (response.statusCode == 200) {
+      print("trainer rated successfully");
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<Stream<Review>> getTrainerReviews(String id) async {
+  Uri uri = Helper.getUri('trainer_reviews/$id');
+  // Map<String, dynamic> _queryParams = {"category": category};
+  // uri = uri.replace(queryParameters: _queryParams);
+  print("URI For Getting Trainer Reviews: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing reviews data");
+          print(data);
+          return Review.fromJSON(data);
+        });
+  } on SocketException {
+    print("User Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("User Repo Error: $e");
+    return new Stream.value(new Review.fromJSON({}));
   }
 }
 
@@ -431,7 +574,7 @@ Future<User> getCurrentUser() async {
 }
 
 Future<void> removeCurrentUser() async {
-  currentUser.value = new User();
+  currentUser.value = new User.fromJSON({});
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.remove('current_user');
   await prefs.remove("user_role");

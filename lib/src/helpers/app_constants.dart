@@ -30,6 +30,8 @@ const String name = "Name";
 const String detail = "Details";
 const String video_url = "Video URL";
 const String description = "Description";
+const String reviews = "Reviews";
+const String view_all = "View All";
 const String brief_descp = "Brief Description";
 const String short_plan_descp = "Short plan description";
 const String plan_details = "Plan Details";
@@ -66,7 +68,7 @@ const String kg = "Kg";
 const String contact = "contacts";
 const String none = "None";
 const String joining_as_a = "Joining as a";
-const String dateStringFormat = "dd-MM-yyyy";
+const String dateStringFormat = "yyyy-MM-dd";
 
 // Messages
 const String invalidEmail = "Invalid email";

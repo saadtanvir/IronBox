@@ -28,7 +28,11 @@ class LastMessageWidget extends StatelessWidget {
                   flex: 1,
                   child: Text(
                     lastMessage.timeStamp,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12.0,
+                    ),
                   ),
                 ),
               ],

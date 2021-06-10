@@ -60,71 +60,83 @@ class _MessagesState extends State<Messages> {
                       ? Center(child: Text("You have no contacts!"))
                       : UserContactsListWidget(_con.contacts);
             }),
+            Divider(),
             SizedBox(
-              height: 5.0,
+              height: 0.0,
             ),
-            Container(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: _con.firebaseMethods
-                    .fetchContacts(userRepo.currentUser.value.id),
-                builder: (context, snapShot) {
-                  print(userRepo.currentUser.value.id);
-                  if (snapShot.hasData) {
-                    print(snapShot.data.docs);
-                    var contactDocs = snapShot.data.docs;
-
-                    if (contactDocs.isEmpty) {
-                      // no chats
-                      return Center(
-                          child: Padding(
+            Obx(() {
+              return _con.contacts.isEmpty && _con.doneFetchingContacts.value
+                  ? Center(
+                      child: Padding(
                         padding: const EdgeInsets.only(top: 80.0),
-                        child: Text(
-                          "No chats to display!",
-                        ),
-                      ));
-                    } else {
-                      print("contacts list");
-                      print(contactDocs);
-                      return ListView.separated(
-                        itemCount: contactDocs.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          UserContact contact = new UserContact.fromMap(
-                              contactDocs[index].data());
-                          print(contact.contactId);
-                          return GestureDetector(
-                            onTap: () {
-                              // open chatting screen
-                              // pass current and clicked user
-                              FocusScope.of(context).unfocus();
-                              // Get.to(ChattingScreen(),
-                              //     transition: Transition.rightToLeft);
-                            },
-                            child: ConversationTileWidget(
-                              contactId: contact.contactId,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider();
-                        },
-                      );
-                    }
-                  } else if (snapShot.hasError) {
-                    return Center(
-                        child: Text(
-                            "Something went wrong. Check your internet connection and try again"));
-                  } else {
-                    return Center(
-                      child: Text(
-                        "No chats. Start chatting now",
+                        child: Text("No chats to display!"),
                       ),
-                    );
-                  }
-                },
-              ),
-            ),
+                    )
+                  : _con.contacts.isEmpty && !_con.doneFetchingContacts.value
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: _con.firebaseMethods
+                                .fetchContacts(userRepo.currentUser.value.id),
+                            builder: (context, snapShot) {
+                              print(userRepo.currentUser.value.id);
+                              if (snapShot.hasData) {
+                                print(snapShot.data.docs);
+                                var contactDocs = snapShot.data.docs;
+
+                                if (contactDocs.isEmpty) {
+                                  // no chats
+                                  return Center(
+                                      child: Text(
+                                    "No chats. Start chatting now",
+                                  ));
+                                } else {
+                                  print("contacts list");
+                                  print(contactDocs);
+                                  return ListView.separated(
+                                    itemCount: contactDocs.length,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      UserContact contact =
+                                          new UserContact.fromMap(
+                                              contactDocs[index].data());
+                                      print(contact.contactId);
+                                      return GestureDetector(
+                                        onTap: () {
+                                          // open chatting screen
+                                          // pass current and clicked user
+                                          FocusScope.of(context).unfocus();
+                                          // Get.to(ChattingScreen(),
+                                          //     transition: Transition.rightToLeft);
+                                        },
+                                        child: ConversationTileWidget(
+                                          contactId: contact.contactId,
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return Divider();
+                                    },
+                                  );
+                                }
+                              } else if (snapShot.hasError) {
+                                return Center(
+                                    child: Text(
+                                        "Something went wrong. Check your internet connection and try again"));
+                              } else {
+                                return Center(
+                                  child: Text(
+                                    "No chats. Start chatting now",
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        );
+            }),
           ],
         ),
       ),

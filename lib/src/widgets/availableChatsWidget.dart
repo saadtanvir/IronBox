@@ -23,7 +23,9 @@ class AvailableUserChatsWidget extends StatelessWidget {
             Text(
               "${contact.name}",
               overflow: TextOverflow.ellipsis,
-              softWrap: false,
+              style: TextStyle(
+                fontSize: 10.0,
+              ),
             ),
           ],
         ),

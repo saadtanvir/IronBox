@@ -10,7 +10,7 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  UserController _con = Get.put(UserController());
+  UserController _con;
   GlobalKey<FormState> _loginFormKey;
   String _email = "";
   String _password = "";
@@ -23,7 +23,9 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    _con = Get.put(UserController());
+    print(_con.user.email);
+
     _loginFormKey = new GlobalKey<FormState>();
     super.initState();
   }

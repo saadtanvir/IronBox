@@ -2,6 +2,7 @@ import 'package:ironbox/src/models/user.dart';
 
 class Subscription {
   double subPrice;
+  String id;
   String startDate;
   String endDate;
   String status;
@@ -13,6 +14,7 @@ class Subscription {
 
   Subscription.fromJSON(Map<String, dynamic> jsonMap) {
     try {
+      id = jsonMap['id'].toString();
       subPrice = jsonMap['sub_price'] != null
           ? double.parse(jsonMap['sub_price'])
           : 0.0;

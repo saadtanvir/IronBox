@@ -1,18 +1,24 @@
+import 'package:intl/intl.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/logs.dart';
 import 'package:ironbox/src/repositories/logs_repo.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../repositories/user_repo.dart' as userRepo;
+import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
 
 class HomeController extends GetxController {
   var categories = List<Category>().obs;
   var upComingChallenges = List<String>().obs;
+  DateFormat _dateFormatter;
+  String currentDate;
   var doneFetchingChallenges = false.obs;
 
   HomeController() {
     // listenForStepCount();
+    _dateFormatter = DateFormat(Constants.dateStringFormat);
+    currentDate = _dateFormatter.format(DateTime.now());
   }
 
   Future<void> checkActivityRecognitionPermission() async {
@@ -41,7 +47,7 @@ class HomeController extends GetxController {
     }
   }
 
-  void getUpComingChallenges(String userId, String date) async {
+  Future<void> getUpComingChallenges(String userId, String date) async {
     doneFetchingChallenges.value = false;
     upComingChallenges.clear();
     final Stream<Logs> stream = await getUserLogs(userId, date);
@@ -70,5 +76,10 @@ class HomeController extends GetxController {
     }, onDone: () {
       print("Done fetching categories");
     });
+  }
+
+  Future<void> refreshHome() async {
+    listenForCategories();
+    getUpComingChallenges(userRepo.currentUser.value.id, currentDate);
   }
 }
