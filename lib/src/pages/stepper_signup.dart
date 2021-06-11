@@ -700,7 +700,7 @@ class _StepperSignupState extends State<StepperSignup> {
                           keyboardType: TextInputType.number,
                           onSaved: (input) => _con.user.price = input,
                           validator: (input) =>
-                              input.length < 1 ? "required" : null,
+                              input.isEmpty ? "required" : null,
                           decoration: InputDecoration(
                             labelText: Constants.price,
                             labelStyle: TextStyle(

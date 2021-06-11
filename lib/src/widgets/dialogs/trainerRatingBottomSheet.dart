@@ -70,7 +70,7 @@ class _TrainerRatingBottomSheetState extends State<TrainerRatingBottomSheet> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        if (givenRating > 1) {
+                        if (givenRating > 0) {
                           // post rating then unsub
                           _con
                               .rateTrainer(
@@ -106,23 +106,32 @@ class _TrainerRatingBottomSheetState extends State<TrainerRatingBottomSheet> {
               SizedBox(
                 height: 10.0,
               ),
-              RatingBar.builder(
-                minRating: 0.0,
-                maxRating: 5.0,
-                allowHalfRating: false,
-                glowColor: Colors.yellow,
-                itemSize: 30.0,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  );
-                },
-                onRatingUpdate: (rating) {
-                  print(rating);
-                  givenRating = rating.toInt();
-                },
+              Center(
+                child: RatingBar.builder(
+                  minRating: 0.0,
+                  maxRating: 5.0,
+                  allowHalfRating: false,
+                  glowColor: Colors.yellow,
+                  itemSize: 40.0,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                      ],
+                    );
+                  },
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                    givenRating = rating.toInt();
+                  },
+                ),
               ),
               SizedBox(
                 height: 15.0,

@@ -125,7 +125,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                   Expanded(
                     flex: 2,
                     child: UserCircularAvatar(80.0, 80.0,
-                        "${userRepo.currentUser.value.avatar}", BoxFit.cover),
+                        "${userRepo.currentUser.value.avatar}", BoxFit.fill),
                   ),
                   Expanded(
                     flex: 4,

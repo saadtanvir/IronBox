@@ -79,6 +79,13 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                               color: Colors.yellow,
                               size: 15.0,
                             ),
+                            Text(
+                              " (${trainer.userRating.totalCount})",
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                            ),
                           ],
                         ),
                       ],

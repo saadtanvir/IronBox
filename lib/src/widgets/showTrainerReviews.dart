@@ -31,7 +31,10 @@ class _TrainerReviewsListState extends State<TrainerReviewsList> {
             // print("returing card widget");
             return GestureDetector(
               onTap: () {},
-              child: ReviewCardWidget(widget.reviews[index]),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ReviewCardWidget(widget.reviews[index]),
+              ),
             );
           },
         ),

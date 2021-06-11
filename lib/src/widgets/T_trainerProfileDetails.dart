@@ -269,7 +269,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                   _con.subscription.startDate =
                       _dateFormatter.format(DateTime.now());
                   _con.subscription.endDate = _dateFormatter
-                      .format(DateTime.now().add(new Duration(days: 29)));
+                      .format(DateTime.now().add(new Duration(days: 30)));
                   _con.subscription.subPrice =
                       double.parse(widget.trainer.price);
                   _con.subscription.status = "1";
