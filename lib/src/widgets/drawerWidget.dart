@@ -31,7 +31,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         // redirect
         userRepo.currentUser.value.role = Constants.joinAsA[1];
         print(userRepo.currentUser.value.toMap());
-        _con.updateUser(context, userRepo.currentUser.value);
+        _con.updateCurrentUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page
         // update user fields and role in db
@@ -49,7 +49,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         // redirect
         userRepo.currentUser.value.role = Constants.joinAsA[0];
         print(userRepo.currentUser.value.toMap());
-        _con.updateUser(context, userRepo.currentUser.value);
+        _con.updateCurrentUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page
         // update user fields and role in db

@@ -174,11 +174,11 @@ class UserController extends GetxController {
     });
   }
 
-  void updateUser(BuildContext context, User currentUser) async {
+  void updateCurrentUser(BuildContext context, User currentUser) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
     print(currentUser.accountStatus);
-    userRepo.updateUser(currentUser).then((value) {
+    userRepo.updateCurrentUser(currentUser).then((value) {
       print(value.role);
       print(value.id);
       if (value.id != null) {
@@ -210,7 +210,7 @@ class UserController extends GetxController {
     });
   }
 
-  void fetchAllTrainers() async {
+  Future<void> fetchAllTrainers() async {
     doneFetchingTrainers.value = false;
     trainers.clear();
     final Stream<User> stream = await userRepo.fetchAllTrainers();
@@ -321,8 +321,13 @@ class UserController extends GetxController {
     });
   }
 
-  Future<bool> rateTrainer(int rating, String trainerId) async {
-    return await userRepo.rateTrainer(rating, trainerId);
+  Future<bool> rateTrainer(
+      BuildContext context, int rating, String trainerId) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    return await userRepo.rateTrainer(rating, trainerId).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   Future<void> unsubscribeTrainer(
@@ -339,7 +344,7 @@ class UserController extends GetxController {
         if (value) {
           Get.snackbar(
             "Success!",
-            "Trainer Un Subscribed.",
+            "Trainer Unsubscribed.",
             colorText: Theme.of(context).scaffoldBackgroundColor,
             backgroundColor: Colors.green,
           );
@@ -370,5 +375,9 @@ class UserController extends GetxController {
     }).whenComplete(() {
       Helper.hideLoader(loader);
     });
+  }
+
+  Future<void> refreshUserSubscriptions() async {
+    await fetchUserSubscriptions(userRepo.currentUser.value.id);
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class UserDetailsCardWidget extends StatefulWidget {
 }
 
 class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
+  UserController _con = Get.put(UserController());
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   Map<String, dynamic> stepMap = {};

@@ -64,25 +64,29 @@ class _ShowTrainersState extends State<ShowTrainers> {
           MessageIconWidget(),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(() {
-              return _con.trainers.isEmpty && _con.doneFetchingTrainers.value
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 80.0),
-                      child: Center(
-                        child: Text("No trainers found. Try again !"),
-                      ),
-                    )
-                  : _con.trainers.isEmpty && !_con.doneFetchingTrainers.value
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 80.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : TrainersListWidget(_con.trainers, onTrainerTap);
-            })
-          ],
+      body: RefreshIndicator(
+        onRefresh: _con.fetchAllTrainers,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              Obx(() {
+                return _con.trainers.isEmpty && _con.doneFetchingTrainers.value
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: Center(
+                          child: Text("No trainers found. Try again !"),
+                        ),
+                      )
+                    : _con.trainers.isEmpty && !_con.doneFetchingTrainers.value
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 80.0),
+                            child: Center(child: CircularProgressIndicator()),
+                          )
+                        : TrainersListWidget(_con.trainers, onTrainerTap);
+              })
+            ],
+          ),
         ),
       ),
     );

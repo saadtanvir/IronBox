@@ -50,29 +50,33 @@ class _SubscribedTrainersState extends State<SubscribedTrainers> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(() {
-              return _con.subscriptions.isEmpty &&
-                      _con.doneFetchingSubscriptions.value
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 80.0),
-                      child: Center(
-                        child:
-                            Text("You have not subscribed any Trainer yet !"),
-                      ),
-                    )
-                  : _con.subscriptions.isEmpty &&
-                          !_con.doneFetchingSubscriptions.value
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 80.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : UserSubscribedTrainersListWidget(
-                          _con.subscriptions, onTrainerTap);
-            })
-          ],
+      body: RefreshIndicator(
+        onRefresh: _con.refreshUserSubscriptions,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              Obx(() {
+                return _con.subscriptions.isEmpty &&
+                        _con.doneFetchingSubscriptions.value
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: Center(
+                          child:
+                              Text("You have not subscribed any Trainer yet !"),
+                        ),
+                      )
+                    : _con.subscriptions.isEmpty &&
+                            !_con.doneFetchingSubscriptions.value
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 80.0),
+                            child: Center(child: CircularProgressIndicator()),
+                          )
+                        : UserSubscribedTrainersListWidget(
+                            _con.subscriptions, onTrainerTap);
+              })
+            ],
+          ),
         ),
       ),
     );

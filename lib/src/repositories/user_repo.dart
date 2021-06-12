@@ -165,7 +165,7 @@ Future<User> login(User user) async {
   }
 }
 
-Future<User> updateUser(User u) async {
+Future<User> updateCurrentUser(User u) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}registeruser/${u.id}";
   try {
