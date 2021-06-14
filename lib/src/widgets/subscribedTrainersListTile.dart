@@ -38,7 +38,8 @@ class SubscribedTrainerListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text("${subscription.trainers.userRating.rating}"),
+                Text(
+                    "${subscription.trainers.userRating.rating.toStringAsFixed(1)}"),
                 Icon(
                   Icons.star,
                   color: Colors.yellow,

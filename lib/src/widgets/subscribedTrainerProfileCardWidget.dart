@@ -68,7 +68,7 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "${trainer.userRating.rating}",
+                              "${trainer.userRating.rating.toStringAsFixed(1)}",
                               style: TextStyle(
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,

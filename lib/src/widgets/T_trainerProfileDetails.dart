@@ -202,7 +202,8 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                   child: TextButton(
                     onPressed: () async {
                       if (_con.reviews.isNotEmpty) {
-                        Get.to(TrainerReviewsList(_con.reviews),
+                        Get.to(
+                            TrainerReviewsList(_con.reviews.reversed.toList()),
                             transition: Transition.rightToLeft);
                       }
                     },
@@ -256,7 +257,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
               padding: const EdgeInsets.all(8.0),
               child: PlayYoutubeVideoWidget(
                 "https://www.youtube.com/watch?v=f8fv4FuYyqM",
-                width: 350,
+                width: 390,
               ),
             ),
             SizedBox(

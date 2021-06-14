@@ -37,6 +37,7 @@ Future<User> register(User user) async {
 
     if (response.statusCode == 200 && !responseBody.containsKey("errors")) {
       setCurrentUser(response.body);
+
       currentUser.value = User.fromJSON(json.decode(response.body)['data'][0]);
       print("user created successfully");
     } else {
@@ -187,9 +188,7 @@ Future<User> updateCurrentUser(User u) async {
 
     if (response.statusCode == 200 && responseBody['data'] != null) {
       setCurrentUser(response.body);
-      // setUserRole(json.decode(response.body)['data']['usertype']);
-      currentUser.value = User.fromJSON(json.decode(response.body)['data']);
-
+      currentUser.value = User.fromJSON(json.decode(response.body)['data'][0]);
       return currentUser.value;
     } else {
       print("throws exception");
@@ -321,6 +320,36 @@ Future<User> getUserById(String uid) async {
     print(jsonBody);
 
     if (response.statusCode == 200 && !jsonBody.containsKey("errors")) {
+      return User.fromJSON(json.decode(response.body)['data'][0]);
+    } else {
+      print("throws exception");
+      return User.fromJSON({});
+    }
+  } catch (e) {
+    print("error caught");
+    print(e);
+    return User.fromJSON({});
+  }
+}
+
+Future<User> getUpdatedCurrentUser(String uid) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
+  try {
+    final client = new http.Client();
+    final response = await client.get(
+      url,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    Map jsonBody = json.decode(response.body);
+    print(jsonBody);
+
+    if (response.statusCode == 200 && !jsonBody.containsKey("errors")) {
+      setCurrentUser(response.body);
+      currentUser.value = User.fromJSON(json.decode(response.body)['data'][0]);
       return User.fromJSON(json.decode(response.body)['data'][0]);
     } else {
       print("throws exception");
@@ -543,11 +572,11 @@ Future<Stream<Review>> getTrainerReviews(String id) async {
 }
 
 void setCurrentUser(jsonString) async {
-  print(json.encode(json.decode(jsonString)['data'][0]));
+  print("setting current user in SF");
   if (json.decode(jsonString)['data'][0] != null) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(
-        'current_user', json.encode(json.decode(jsonString)['data'][0]));
+    var userObject = json.decode(jsonString)['data'][0];
+    await prefs.setString('current_user', json.encode(userObject));
   }
 }
 

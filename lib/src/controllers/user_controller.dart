@@ -1,8 +1,7 @@
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/models/subscriptions.dart';
-import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
-import 'package:ironbox/src/widgets/subscribedTrainerProfile.dart';
-
+import '../models/reviews.dart';
+import '../models/subscriptions.dart';
+import '../widgets/T_trainerProfileDetails.dart';
+import '../widgets/subscribedTrainerProfile.dart';
 import '../helpers/helper.dart';
 import '../models/user.dart';
 import 'package:flutter/material.dart';
@@ -182,9 +181,9 @@ class UserController extends GetxController {
       print(value.role);
       print(value.id);
       if (value.id != null) {
-        if (value.role == Constants.joinAsA[0]) {
+        if (value.role.capitalizeFirst == Constants.joinAsA[0]) {
           Get.offAllNamed('/BottomNavBarPage');
-        } else if (value.role == Constants.joinAsA[1]) {
+        } else if (value.role.capitalizeFirst == Constants.joinAsA[1]) {
           print("its a trainer");
           if (userRepo.currentUser.value.accountStatus == 1) {
             Get.offAllNamed('/TrainerBtmNavBar');
@@ -208,6 +207,12 @@ class UserController extends GetxController {
       print("registration process completed");
       Helper.hideLoader(loader);
     });
+  }
+
+  Future<User> getUpdatedUser(String uid) async {
+    // if user updated by admin
+    // get the latest characterstics
+    return await userRepo.getUpdatedCurrentUser(uid);
   }
 
   Future<void> fetchAllTrainers() async {

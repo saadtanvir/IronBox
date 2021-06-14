@@ -22,6 +22,7 @@ class _StepperSignupState extends State<StepperSignup> {
   bool _roleSelected = false;
   String _gender = "";
   int _currentIndex = 0;
+  int groupValue = 0;
   var _weightUnitValueO = Constants.weightUnits[0].obs;
   File _imageFile;
   var imageName = "".obs;
@@ -482,67 +483,123 @@ class _StepperSignupState extends State<StepperSignup> {
       content: SingleChildScrollView(
         child: Column(
           children: [
-            DropdownButtonFormField(
-              // onSaved: (input) => _con.user,
-              validator: (input) => _roleSelected ? null : "Select one",
-              onChanged: (value) {
-                print(value);
-                int index = Constants.joinAsA.indexOf(value);
-                print(index);
-                if (index == 0) {
-                  setState(() {
-                    _con.user.role = value.toString();
+            // DropdownButtonFormField(
+            //   // onSaved: (input) => _con.user,
+            //   validator: (input) => _roleSelected ? null : "Select one",
+            //   onChanged: (value) {
+            //     print(value);
+            //     int index = Constants.joinAsA.indexOf(value);
+            //     print(index);
+            //     if (index == 0) {
+            //       setState(() {
+            //         _con.user.role = value.toString();
 
-                    _isTrainee = true;
-                    _isTrainer = false;
-                    _roleSelected = true;
-                    _con.user.isTrainee = "1";
-                    _con.user.isTrainer = "0";
-                    _con.user.accountStatus = _isTrainee && !_isTrainer ? 1 : 0;
-                  });
-                } else if (index == 1) {
-                  setState(() {
-                    _con.user.role = value.toString();
-                    _isTrainer = true;
-                    _isTrainee = false;
-                    _roleSelected = true;
-                    _con.user.isTrainee = "0";
-                    _con.user.isTrainer = "1";
-                    _con.user.accountStatus = !_isTrainee && _isTrainer ? 0 : 1;
-                  });
-                } else {
-                  // _con.user.role = value.toString();
-                  setState(() {
-                    _isTrainer = false;
-                    _isTrainee = false;
-                    _roleSelected = false;
-                  });
-                }
-              },
-              items: Constants.joinAsA.map((String priority) {
-                return DropdownMenuItem(
-                  value: priority,
-                  child: Text("$priority"),
-                );
-              }).toList(),
-              icon: Icon(
-                Icons.arrow_drop_down_circle_outlined,
-                color: Theme.of(context).primaryColor,
-              ),
-              iconSize: 20.0,
-              decoration: InputDecoration(
-                // floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: "${Constants.joining_as_a}",
-                labelStyle:
-                    TextStyle(color: Theme.of(context).secondaryHeaderColor),
-                contentPadding: EdgeInsets.all(12),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 2.0,
-                      color: Theme.of(context).accentColor.withOpacity(0.2)),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            //         _isTrainee = true;
+            //         _isTrainer = false;
+            //         _roleSelected = true;
+            //         _con.user.isTrainee = "1";
+            //         _con.user.isTrainer = "0";
+            //         _con.user.accountStatus = _isTrainee && !_isTrainer ? 1 : 0;
+            //       });
+            //     } else if (index == 1) {
+            //       setState(() {
+            //         _con.user.role = value.toString();
+            //         _isTrainer = true;
+            //         _isTrainee = false;
+            //         _roleSelected = true;
+            //         _con.user.isTrainee = "0";
+            //         _con.user.isTrainer = "1";
+            //         _con.user.accountStatus = !_isTrainee && _isTrainer ? 0 : 1;
+            //       });
+            //     } else {
+            //       // _con.user.role = value.toString();
+            //       setState(() {
+            //         _isTrainer = false;
+            //         _isTrainee = false;
+            //         _roleSelected = false;
+            //       });
+            //     }
+            //   },
+            //   items: Constants.joinAsA.map((String priority) {
+            //     return DropdownMenuItem(
+            //       value: priority,
+            //       child: Text("$priority"),
+            //     );
+            //   }).toList(),
+            //   icon: Icon(
+            //     Icons.arrow_drop_down_circle_outlined,
+            //     color: Theme.of(context).primaryColor,
+            //   ),
+            //   iconSize: 20.0,
+            //   decoration: InputDecoration(
+            //     // floatingLabelBehavior: FloatingLabelBehavior.never,
+            //     labelText: "${Constants.joining_as_a}",
+            //     labelStyle:
+            //         TextStyle(color: Theme.of(context).secondaryHeaderColor),
+            //     contentPadding: EdgeInsets.all(12),
+            //     border: OutlineInputBorder(
+            //       borderSide: BorderSide(
+            //           width: 2.0,
+            //           color: Theme.of(context).accentColor.withOpacity(0.2)),
+            //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            //     ),
+            //   ),
+            // ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: RadioListTile(
+                    value: 1,
+                    groupValue: groupValue,
+                    title: Text(Constants.joinAsA[0]),
+                    subtitle: Text("Joining as a:"),
+                    activeColor: Theme.of(context).primaryColor,
+                    selected: groupValue == 1 ? true : false,
+                    onChanged: (val) {
+                      print(val);
+                      setState(() {
+                        groupValue = val;
+                        _con.user.role = Constants.joinAsA[0];
+                        _isTrainee = true;
+                        _isTrainer = false;
+                        _roleSelected = true;
+                        _con.user.isTrainee = "1";
+                        _con.user.isTrainer = "0";
+                        _con.user.accountStatus =
+                            _isTrainee && !_isTrainer ? 1 : 0;
+                      });
+                    },
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 1,
+                  child: RadioListTile(
+                    value: 2,
+                    groupValue: groupValue,
+                    title: Text(Constants.joinAsA[1]),
+                    subtitle: Text("Joining as a:"),
+                    activeColor: Theme.of(context).primaryColor,
+                    selected: groupValue == 2 ? true : false,
+                    onChanged: (val) {
+                      print(val);
+                      setState(() {
+                        groupValue = val;
+                        _con.user.role = Constants.joinAsA[1];
+                        _isTrainer = true;
+                        _isTrainee = false;
+                        _roleSelected = true;
+                        _con.user.isTrainee = "0";
+                        _con.user.isTrainer = "1";
+                        _con.user.accountStatus =
+                            !_isTrainee && _isTrainer ? 0 : 1;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 15.0,

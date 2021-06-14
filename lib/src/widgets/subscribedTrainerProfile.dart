@@ -405,7 +405,8 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                   child: TextButton(
                     onPressed: () async {
                       if (_con.reviews.isNotEmpty) {
-                        Get.to(TrainerReviewsList(_con.reviews),
+                        Get.to(
+                            TrainerReviewsList(_con.reviews.reversed.toList()),
                             transition: Transition.rightToLeft);
                       }
                     },

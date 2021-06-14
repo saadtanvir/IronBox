@@ -65,7 +65,7 @@ class TrainerProfileCardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "${trainer.userRating.rating}",
+                              "${trainer.userRating.rating.toStringAsFixed(1)}",
                               style: TextStyle(
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
@@ -75,6 +75,13 @@ class TrainerProfileCardWidget extends StatelessWidget {
                               Icons.star,
                               color: Colors.yellow,
                               size: 15.0,
+                            ),
+                            Text(
+                              " (${trainer.userRating.totalCount})",
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
                             ),
                           ],
                         ),
