@@ -17,14 +17,14 @@ class DrawerWidget extends StatefulWidget {
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   UserController _con = Get.put(UserController());
-  var trainerMode = userRepo.currentUser.value.role == Constants.joinAsA[1]
-      ? true.obs
-      : false.obs;
+  var trainerMode =
+      userRepo.currentUser.value.role.capitalizeFirst == Constants.joinAsA[1]
+          ? true.obs
+          : false.obs;
 
   void _switchUserRole(bool value) {
     if (value) {
-      if (userRepo.currentUser.value.experience != null &&
-          userRepo.currentUser.value.experience.isNotEmpty) {
+      if (userRepo.currentUser.value.isTrainer == "1") {
         // update user role in db
         // get new user obj
         // set new user in sp
@@ -41,14 +41,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         Get.to(TrainerRegistrationForm(), fullscreenDialog: true);
       }
     } else if (!value) {
-      if (userRepo.currentUser.value.injury != null &&
-          userRepo.currentUser.value.injury.isNotEmpty) {
+      if (userRepo.currentUser.value.isTrainee == "1") {
         // update user role in db
         // get new user obj
         // set new user in sp
         // redirect
         userRepo.currentUser.value.role = Constants.joinAsA[0];
-        print(userRepo.currentUser.value.toMap());
         _con.updateCurrentUser(context, userRepo.currentUser.value);
       } else {
         // go to mini registration page
@@ -103,7 +101,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               // go on user profile page
               Get.to(UserProfilePage(
                   userRepo.currentUser.value,
-                  userRepo.currentUser.value.role == Constants.joinAsA[1]
+                  userRepo.currentUser.value.role.capitalizeFirst ==
+                          Constants.joinAsA[1]
                       ? true
                       : false));
             },

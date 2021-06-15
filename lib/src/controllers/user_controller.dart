@@ -185,7 +185,7 @@ class UserController extends GetxController {
           Get.offAllNamed('/BottomNavBarPage');
         } else if (value.role.capitalizeFirst == Constants.joinAsA[1]) {
           print("its a trainer");
-          if (userRepo.currentUser.value.accountStatus == 1) {
+          if (value.accountStatus == 1) {
             Get.offAllNamed('/TrainerBtmNavBar');
           } else {
             print("Trainer not approved yet");
