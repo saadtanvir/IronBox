@@ -25,7 +25,7 @@ Future<Stream<Category>> getCategories({String id}) async {
       return Category.fromJSON(data);
     });
   } on SocketException {
-    print("Socket Exception occured: ");
+    print("Socket Exception Getting Categories: ");
     throw SocketException("Socket exception");
   } catch (e) {
     print("error caught");

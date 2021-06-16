@@ -1,9 +1,11 @@
 import 'package:ironbox/src/helpers/app_config.dart';
+import 'package:ironbox/src/helpers/connectionState.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
 import 'package:ironbox/src/pages/T_unApprovedAccount.dart';
 import 'package:ironbox/src/pages/btm_nav_bar_pages.dart';
 import 'package:ironbox/src/pages/splash_screen.dart';
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
+import 'package:ironbox/src/helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -14,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Constants.connectionStatus.initialize();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await GlobalConfiguration().loadFromAsset("configurations");

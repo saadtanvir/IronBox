@@ -1,3 +1,5 @@
+import 'package:ironbox/src/helpers/connectionState.dart';
+
 import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../controllers/home_controller.dart';
 import '../helpers/helper.dart';
@@ -26,6 +28,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
+    _con.listenForStepCount();
     _con.listenForCategories();
     print("inside init of Home Page");
     _con.checkActivityRecognitionPermission();
@@ -42,7 +45,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -62,12 +64,26 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: _con.refreshHome,
+        onRefresh: () {
+          // setState(() {});
+          return _con.refreshHome();
+        },
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              UserDetailsCardWidget(),
+              Obx(() {
+                print("Total observable steps: ${_con.steps.value}");
+                return _con.steps.value >= 0
+                    ? UserDetailsCardWidget(
+                        userRepo.currentUser.value,
+                        _con.steps.value,
+                      )
+                    : UserDetailsCardWidget(
+                        userRepo.currentUser.value,
+                        _con.steps.value,
+                      );
+              }),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 20.0, horizontal: 10.0),

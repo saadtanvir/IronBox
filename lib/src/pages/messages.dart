@@ -81,7 +81,7 @@ class _MessagesState extends State<Messages> {
                             stream: _con.firebaseMethods
                                 .fetchContacts(userRepo.currentUser.value.id),
                             builder: (context, snapShot) {
-                              print(userRepo.currentUser.value.id);
+                              // print(userRepo.currentUser.value.id);
                               if (snapShot.hasData) {
                                 print(snapShot.data.docs);
                                 var contactDocs = snapShot.data.docs;

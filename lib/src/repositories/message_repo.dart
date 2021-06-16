@@ -5,6 +5,8 @@ import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:global_configuration/global_configuration.dart';
 
+
+
 // Future<Stream<User>> getUserContacts(String id) async {
 //   Uri uri = Helper.getUri('contacts');
 //   Map<String, dynamic> _queryParams = {"user_id": id};

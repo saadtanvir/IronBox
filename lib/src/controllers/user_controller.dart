@@ -209,7 +209,7 @@ class UserController extends GetxController {
     });
   }
 
-  Future<User> getUpdatedUser(String uid) async {
+  Future<User> getUpdatedCurrentUser(String uid) async {
     // if user updated by admin
     // get the latest characterstics
     return await userRepo.getUpdatedCurrentUser(uid);

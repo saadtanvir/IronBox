@@ -1,9 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/logs.dart';
 import 'package:ironbox/src/repositories/logs_repo.dart';
 import 'package:get/get.dart';
+import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
@@ -13,6 +18,10 @@ class HomeController extends GetxController {
   var upComingChallenges = List<String>().obs;
   DateFormat _dateFormatter;
   String currentDate;
+  Stream<StepCount> _stepCountStream;
+  Stream<PedestrianStatus> _pedestrianStatusStream;
+  Map<String, dynamic> stepMap = {};
+  var steps = 0.obs;
   var doneFetchingChallenges = false.obs;
 
   HomeController() {
@@ -45,6 +54,54 @@ class HomeController extends GetxController {
       bodySensorPermissionStatus = await bodySensorPermission.request();
       print("new permission status: ${bodySensorPermissionStatus.isGranted}");
     }
+  }
+
+  // counting steps
+  void listenForStepCount() async {
+    // add permissions for ios
+    // in info p list
+    // if step count is not accurate
+    // follow below link
+    // https://blog.maskys.com/implementing-a-daily-step-count-pedometer-in-flutter/
+    print("listening for step count");
+    _stepCountStream = await Pedometer.stepCountStream;
+    _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
+    _stepCountStream.listen(_getTodaySteps).onError(_onError);
+    _pedestrianStatusStream
+        .listen(_onPedestrianStatusChanged)
+        .onError(_onPedestrianStatusError);
+  }
+
+  void _onDone() => print("Finished pedometer tracking");
+  void _onError(error) => print("Pedometer Error: $error");
+  void _getTodaySteps(StepCount event) async {
+    // This is where we'll write our logic
+    print("Total steps");
+    print(event.steps);
+    print(event.timeStamp.toString());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("steps")) {
+      var lastCountedSteps = json.decode(await prefs.get("steps"));
+      print("last recorded date: ${lastCountedSteps["date"]}");
+      print("last known steps: ${lastCountedSteps["steps"]}");
+      steps.value = Helper.calculateTodaySteps(event.steps,
+          lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));
+    } else {
+      steps.value = event.steps;
+    }
+    stepMap = {"steps": steps, "date": event.timeStamp.toString()};
+    await prefs.setString("steps", json.encode(stepMap));
+  }
+
+  void _onPedestrianStatusChanged(PedestrianStatus event) {
+    /// Handle status changed
+    String status = event.status;
+    DateTime timeStamp = event.timeStamp;
+    print("pedestrian status: ${event.status}");
+  }
+
+  void _onPedestrianStatusError(error) {
+    /// Handle the error
   }
 
   Future<void> getUpComingChallenges(String userId, String date) async {

@@ -19,7 +19,9 @@ class _TrainerUnApprovedAccountState extends State<TrainerUnApprovedAccount> {
   var isRefreshing = false.obs;
 
   Future<void> checkUserAccountStatus() async {
-    _con.getUpdatedUser(userRepo.currentUser.value.id).then((User _user) {
+    _con
+        .getUpdatedCurrentUser(userRepo.currentUser.value.id)
+        .then((User _user) {
       isRefreshing.value = false;
       if (_user.accountStatus == 1) {
         Get.offAllNamed('/TrainerBtmNavBar');

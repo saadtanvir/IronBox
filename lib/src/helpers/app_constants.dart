@@ -1,9 +1,8 @@
+import 'package:ironbox/src/helpers/connectionState.dart';
+
 import '../models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// doubles
-const double appBarIconSize = 20.0;
 
 // Strings
 const String dummyText =
@@ -162,5 +161,12 @@ Map<String, dynamic> dietCategory = {
   "bgImgUrl":
       "https://media3.s-nbcnews.com/i/newscms/2019_51/1406125/fruits-veggies-today-main-190130_5fce180c233a626539c5c65792a13462.jpg"
 };
+
+// doubles
+const double appBarIconSize = 20.0;
+
+// connection state
+ConnectionStatusSingleton connectionStatus =
+    ConnectionStatusSingleton.getInstance();
 
 // enums

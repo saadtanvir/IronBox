@@ -11,6 +11,7 @@ class FirebaseMethods {
   CollectionReference _messagesCollection;
   CollectionReference _usersCollection;
   DateFormat _dateFormatter;
+  static int unreadMessageCount = 0;
 
   FirebaseMethods() {
     _messagesCollection = _firebaseFirestoreInstance.collection("messages");

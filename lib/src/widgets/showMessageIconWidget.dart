@@ -1,6 +1,7 @@
 import 'package:ironbox/src/pages/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/services/firebase_methods.dart';
 
 class MessageIconWidget extends StatefulWidget {
   @override
@@ -34,14 +35,16 @@ class _MessageIconWidgetState extends State<MessageIconWidget> {
           //     backgroundColor: Theme.of(context).primaryColor,
           //     radius: 8.0,
           //     child: Text(
-          //       "2",
+          //       FirebaseMethods.unreadMessageCount > 0
+          //           ? FirebaseMethods.unreadMessageCount
+          //           : "",
           //       style: TextStyle(
           //         color: Colors.white,
           //         fontSize: 10.0,
           //       ),
           //     ),
           //   ),
-          // )
+          // ),
         ],
       ),
     );

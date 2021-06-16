@@ -4,22 +4,24 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:health/health.dart';
 
 class UserDetailsCardWidget extends StatefulWidget {
+  final User currentUser;
+  final int stepCount;
+  UserDetailsCardWidget(this.currentUser, this.stepCount);
   @override
   _UserDetailsCardWidgetState createState() => _UserDetailsCardWidgetState();
 }
 
 class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
-  UserController _con = Get.put(UserController());
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   Map<String, dynamic> stepMap = {};
@@ -27,52 +29,52 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
   bool accessAuthorization1 = true;
 
   // counting steps
-  void listenForStepCount() async {
-    // add permissions for ios
-    // in info p list
-    // if step count is not accurate
-    // follow below link
-    // https://blog.maskys.com/implementing-a-daily-step-count-pedometer-in-flutter/
-    print("listening for step count");
-    _stepCountStream = await Pedometer.stepCountStream;
-    _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
-    _stepCountStream.listen(_getTodaySteps).onError(_onError);
-    _pedestrianStatusStream
-        .listen(_onPedestrianStatusChanged)
-        .onError(_onPedestrianStatusError);
-  }
+  // void listenForStepCount() async {
+  //   // add permissions for ios
+  //   // in info p list
+  //   // if step count is not accurate
+  //   // follow below link
+  //   // https://blog.maskys.com/implementing-a-daily-step-count-pedometer-in-flutter/
+  //   print("listening for step count");
+  //   _stepCountStream = await Pedometer.stepCountStream;
+  //   _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
+  //   _stepCountStream.listen(_getTodaySteps).onError(_onError);
+  //   _pedestrianStatusStream
+  //       .listen(_onPedestrianStatusChanged)
+  //       .onError(_onPedestrianStatusError);
+  // }
 
-  void _onDone() => print("Finished pedometer tracking");
-  void _onError(error) => print("Pedometer Error: $error");
-  void _getTodaySteps(StepCount event) async {
-    // This is where we'll write our logic
-    print("Total steps");
-    print(event.steps);
-    print(event.timeStamp.toString());
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey("steps")) {
-      var lastCountedSteps = json.decode(await prefs.get("steps"));
-      print("last recorded date: ${lastCountedSteps["date"]}");
-      print("last known steps: ${lastCountedSteps["steps"]}");
-      steps.value = Helper.calculateTodaySteps(event.steps,
-          lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));
-    } else {
-      steps.value = event.steps;
-    }
-    stepMap = {"steps": steps.value, "date": event.timeStamp.toString()};
-    await prefs.setString("steps", json.encode(stepMap));
-  }
+  // void _onDone() => print("Finished pedometer tracking");
+  // void _onError(error) => print("Pedometer Error: $error");
+  // void _getTodaySteps(StepCount event) async {
+  //   // This is where we'll write our logic
+  //   print("Total steps");
+  //   print(event.steps);
+  //   print(event.timeStamp.toString());
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   if (prefs.containsKey("steps")) {
+  //     var lastCountedSteps = json.decode(await prefs.get("steps"));
+  //     print("last recorded date: ${lastCountedSteps["date"]}");
+  //     print("last known steps: ${lastCountedSteps["steps"]}");
+  //     steps.value = Helper.calculateTodaySteps(event.steps,
+  //         lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));
+  //   } else {
+  //     steps.value = event.steps;
+  //   }
+  //   stepMap = {"steps": steps.value, "date": event.timeStamp.toString()};
+  //   await prefs.setString("steps", json.encode(stepMap));
+  // }
 
-  void _onPedestrianStatusChanged(PedestrianStatus event) {
-    /// Handle status changed
-    String status = event.status;
-    DateTime timeStamp = event.timeStamp;
-    print("pedestrian status: ${event.status}");
-  }
+  // void _onPedestrianStatusChanged(PedestrianStatus event) {
+  //   /// Handle status changed
+  //   String status = event.status;
+  //   DateTime timeStamp = event.timeStamp;
+  //   print("pedestrian status: ${event.status}");
+  // }
 
-  void _onPedestrianStatusError(error) {
-    /// Handle the error
-  }
+  // void _onPedestrianStatusError(error) {
+  //   /// Handle the error
+  // }
 
   void fetchHealthData() async {
     try {
@@ -97,7 +99,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
 
   @override
   void initState() {
-    listenForStepCount();
+    // listenForStepCount();
     // fetchHealthData();
     super.initState();
   }
@@ -127,7 +129,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                   Expanded(
                     flex: 2,
                     child: UserCircularAvatar(80.0, 80.0,
-                        "${userRepo.currentUser.value.avatar}", BoxFit.fill),
+                        "${widget.currentUser.avatar}", BoxFit.fill),
                   ),
                   Expanded(
                     flex: 4,
@@ -136,7 +138,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "${userRepo.currentUser.value.name}",
+                          "${widget.currentUser.name}",
                           style: Helper.of(context).textStyle(size: 20.0),
                         ),
                         Text(
@@ -185,14 +187,12 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     center: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Obx(() {
-                          return Text(
-                            "${steps.value}",
-                            overflow: TextOverflow.ellipsis,
-                            style: Helper.of(context)
-                                .textStyle(size: 12.0, font: FontWeight.bold),
-                          );
-                        }),
+                        Text(
+                          "${widget.stepCount}",
+                          overflow: TextOverflow.ellipsis,
+                          style: Helper.of(context)
+                              .textStyle(size: 12.0, font: FontWeight.bold),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -261,7 +261,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "${userRepo.currentUser.value.workout}m",
+                          "${widget.currentUser.workout}m",
                           style: Helper.of(context)
                               .textStyle(size: 12.0, font: FontWeight.bold),
                         ),
@@ -291,7 +291,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Welcome ${userRepo.currentUser.value.name}",
+                    "Welcome ${widget.currentUser.name}",
                     style: Helper.of(context)
                         .textStyle(size: 20.0, font: FontWeight.bold),
                   ),

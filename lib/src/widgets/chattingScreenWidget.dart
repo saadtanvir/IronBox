@@ -155,28 +155,39 @@ class _ChattingScreenState extends State<ChattingScreen> {
           padding: const EdgeInsets.only(right: 5.0),
           child: IconButton(
             onPressed: () {
+              // check if connection is available
               // check if hasText is true
               // send message
               // clear message box
               // hasText to false
-              if (_hasText.value) {
-                _con.message.body = _textMessageController.text;
-                _con.message.senderId = userRepo.currentUser.value.id;
-                _con.message.receiverId = "${widget.userId}";
-                _con.message.type = "Text";
-                _con.message.timeStamp = Helper.get12hrTime(DateTime.now());
-                _con.message.serverTime = Timestamp.now();
-                _con.sendMessage().then((value) {
-                  _listViewScrollCon.animateTo(
-                      _listViewScrollCon.position.maxScrollExtent,
-                      duration: new Duration(milliseconds: 100),
-                      curve: Curves.easeIn);
-                }).catchError((e) {
-                  Get.snackbar("Failed !", "Check internet connection");
-                  print("Send Message Error: $e");
-                });
-                _textMessageController.text = "";
-                _hasText.value = false;
+              if (Constants.connectionStatus.hasConnection) {
+                if (_hasText.value) {
+                  _con.message.body = _textMessageController.text;
+                  _con.message.senderId = userRepo.currentUser.value.id;
+                  _con.message.receiverId = "${widget.userId}";
+                  _con.message.type = "Text";
+                  _con.message.timeStamp = Helper.get12hrTime(DateTime.now());
+                  _con.message.serverTime = Timestamp.now();
+                  _con.sendMessage().then((value) {
+                    _listViewScrollCon.animateTo(
+                        _listViewScrollCon.position.maxScrollExtent,
+                        duration: new Duration(milliseconds: 100),
+                        curve: Curves.easeIn);
+                  }).catchError((e) {
+                    Get.snackbar("Failed !", "Check internet connection");
+                    print("Send Message Error: $e");
+                  });
+                  _textMessageController.text = "";
+                  _hasText.value = false;
+                }
+              } else {
+                // show snackbar that check your connectivity
+                Get.snackbar(
+                  "Connection Error !",
+                  "Check your connection and try again.",
+                  backgroundColor: Theme.of(context).primaryColor,
+                  colorText: Theme.of(context).scaffoldBackgroundColor,
+                );
               }
             },
             splashRadius: 20.0,
