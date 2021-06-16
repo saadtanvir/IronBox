@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ironbox/src/controllers/splash_controller.dart';
 import 'package:ironbox/src/pages/create_acc_screen.dart';
 import 'package:ironbox/src/pages/getstarted_screen.dart';
@@ -15,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   SplashController _con = Get.put(SplashController());
 
-  void _redirectUser() {
+  Future<void> _redirectUser(bool testArgument) async {
     _con.userAuth.addListener(() {
       if (SplashController.isCallingFromSplashController) {
         print("in user auth listener");
@@ -50,7 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _redirectUser();
+    _redirectUser(true);
+    // compute(_redirectUser, true);
     _con.checkNotificationPermission();
   }
 

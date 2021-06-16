@@ -5,7 +5,7 @@ import 'package:ironbox/src/models/plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 Future<Stream<Plan>> getPlansByCategory(String category) async {
@@ -233,9 +233,10 @@ Future<bool> editPlan(Plan plan) async {
     "createdby": plan.createdBy,
   };
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.put(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },

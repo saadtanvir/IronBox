@@ -13,13 +13,22 @@ class Message {
 
   Message.fromDocSnapshot(DocumentSnapshot doc) {
     try {
-      // id = doc.data()['id'];
-      body = doc.data()["body"];
-      type = doc.data()["type"];
-      senderId = doc.data()["senderId"];
-      receiverId = doc.data()["receiverId"];
-      timeStamp = doc.data()["timeStamp"];
-      serverTime = doc.data()["serverTime"];
+      // after updating cloud firestore package
+      Map docMap = doc.data();
+      body = docMap["body"];
+      type = docMap["type"];
+      senderId = docMap["senderId"];
+      receiverId = docMap["receiverId"];
+      timeStamp = docMap["timeStamp"];
+      serverTime = docMap["serverTime"];
+      // ---------------
+      // before update
+      // body = doc.data()["body"];
+      // type = doc.data()["type"];
+      // senderId = doc.data()["senderId"];
+      // receiverId = doc.data()["receiverId"];
+      // timeStamp = doc.data()["timeStamp"];
+      // serverTime = doc.data()["serverTime"];
     } catch (e) {
       print("Message Model Error: $e");
     }

@@ -25,11 +25,6 @@ class SplashController extends GetxController {
     });
   }
 
-  @override
-  void onInit() {
-    print("inside init of splash controller");
-  }
-
   Future<void> checkNotificationPermission() async {
     Permission notificationPermission = Permission.notification;
     PermissionStatus status = await notificationPermission.status;

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:global_configuration/global_configuration.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'package:http/http.dart' as http;
@@ -50,13 +49,13 @@ class StripePaymentServices {
       "payment_method_types[]": 'card',
     };
     Map<String, String> headers = {
-      "Authorization": "Bearer ${_secretKey}",
+      "Authorization": "Bearer $_secretKey",
       "Content-Type": "application/x-www-form-urlencoded"
     };
 
     try {
-      var response =
-          await http.post(_paymentIntentUrl, body: body, headers: headers);
+      Uri uri = Uri.parse(_paymentIntentUrl);
+      var response = await http.post(uri, body: body, headers: headers);
 
       if (response.statusCode == 200) {
         print(response.body);

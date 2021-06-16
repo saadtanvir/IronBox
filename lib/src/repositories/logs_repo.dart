@@ -50,9 +50,10 @@ Future<Logs> addLog(Logs log) async {
   // print(json.encode(log.toMap()));
   print("URL FOR ADDING LOG: $url");
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.post(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
@@ -85,9 +86,10 @@ Future<bool> updateLogStatus(String logId, String status) async {
   print("URL FOR UPDATING LOG STATUS: $url");
   Map<String, String> body = {"status": status};
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.put(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
@@ -118,9 +120,10 @@ Future<bool> deleteLog(String logId) async {
   print("URL FOR UPDATING LOG STATUS: $url");
   // Map<String, String> body = {"status": status};
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.delete(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },

@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,9 +20,10 @@ Future<User> register(User user) async {
   // print(user.name);
   String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.post(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
@@ -133,9 +134,10 @@ Future<User> login(User user) async {
   final String url = "${GlobalConfiguration().get("api_base_url")}login";
   print("URL FOR LOGIN: $url");
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.post(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -170,9 +172,10 @@ Future<User> updateCurrentUser(User u) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}registeruser/${u.id}";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.put(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -307,9 +310,10 @@ Future<Stream<User>> getUserContacts(String userId) async {
 Future<User> getUserById(String uid) async {
   String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.get(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
@@ -335,9 +339,10 @@ Future<User> getUserById(String uid) async {
 Future<User> getUpdatedCurrentUser(String uid) async {
   String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.get(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
@@ -365,9 +370,10 @@ Future<User> getUpdatedCurrentUser(String uid) async {
 Future<bool> subscribeTrainer(Subscription sub) async {
   String url = "${GlobalConfiguration().get("api_base_url")}subscriptions";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.post(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -400,9 +406,10 @@ Future<bool> unsubscribeTrainer(String subscriptionId) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}subscriptions/$subscriptionId";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.delete(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -433,9 +440,10 @@ Future<Subscription> isTrainerSubscribed(
   String url =
       "${GlobalConfiguration().get("api_base_url")}subscriptions/trainer_id=$trainerId/trainee_id=$uid";
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.get(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -473,9 +481,10 @@ Future<bool> reviewTrainer(
     "message": review
   };
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.post(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
@@ -509,9 +518,10 @@ Future<bool> rateTrainer(int rating, String id) async {
     "avg_rating": rating.toString(),
   };
   try {
+    Uri uri = Uri.parse(url);
     final client = new http.Client();
     final response = await client.put(
-      url,
+      uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },

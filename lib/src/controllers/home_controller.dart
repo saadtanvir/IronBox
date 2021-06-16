@@ -27,7 +27,7 @@ class HomeController extends GetxController {
         await activityRecognitionPermission.status;
     if (activityRecognitionPermissionStatus.isGranted) {
       print("Permission is granted");
-    } else if (activityRecognitionPermissionStatus.isUndetermined) {
+    } else if (activityRecognitionPermissionStatus.isDenied) {
       activityRecognitionPermissionStatus =
           await activityRecognitionPermission.request();
       print(
@@ -41,7 +41,7 @@ class HomeController extends GetxController {
         await bodySensorPermission.status;
     if (bodySensorPermissionStatus.isGranted) {
       print("Permission is granted");
-    } else if (bodySensorPermissionStatus.isUndetermined) {
+    } else if (bodySensorPermissionStatus.isDenied) {
       bodySensorPermissionStatus = await bodySensorPermission.request();
       print("new permission status: ${bodySensorPermissionStatus.isGranted}");
     }
