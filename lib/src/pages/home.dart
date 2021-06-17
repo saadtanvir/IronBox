@@ -28,11 +28,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
-    _con.listenForStepCount();
-    _con.listenForCategories();
+    // _con.listenForStepCount();
+    // _con.checkActivityRecognitionPermission();
+    // _con.checkBodySensorPermission();
+    // _con.listenForCategories();
+    // _con.getSubCategories();
+    // _con.getChildCategories();
     print("inside init of Home Page");
-    _con.checkActivityRecognitionPermission();
-    _con.checkBodySensorPermission();
     _dateFormatter = DateFormat(Constants.dateStringFormat);
     currentDate = _dateFormatter.format(DateTime.now());
     if (userRepo.currentUser.value.userToken != null &&
@@ -44,6 +46,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
+    print("sub cat length:");
+    print(Constants.subCategories.length);
     super.build(context);
     return Scaffold(
       appBar: AppBar(

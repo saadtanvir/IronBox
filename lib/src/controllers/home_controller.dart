@@ -25,7 +25,12 @@ class HomeController extends GetxController {
   var doneFetchingChallenges = false.obs;
 
   HomeController() {
-    // listenForStepCount();
+    listenForStepCount();
+    checkActivityRecognitionPermission();
+    checkBodySensorPermission();
+    getChildCategories();
+    getSubCategories();
+    listenForCategories();
     _dateFormatter = DateFormat(Constants.dateStringFormat);
     currentDate = _dateFormatter.format(DateTime.now());
   }
@@ -123,7 +128,7 @@ class HomeController extends GetxController {
   Future<void> listenForCategories() async {
     print("fetching categories from home controller");
     categories.clear();
-    Stream<Category> stream = await categoryRepo.getCategories();
+    Stream<Category> stream = await categoryRepo.getAppCategories();
 
     stream.listen((Category _category) {
       print(_category.backgroundImgUrl);
@@ -135,7 +140,31 @@ class HomeController extends GetxController {
     });
   }
 
+  Future<void> getSubCategories() async {
+    Constants.subCategories.clear();
+    Stream<Category> stream = await categoryRepo.getSubCategories();
+
+    stream.listen((Category _category) {
+      Constants.subCategories.add(_category);
+    }).onError((e) {
+      print("Error getting subcategories: $e");
+    });
+  }
+
+  Future<void> getChildCategories() async {
+    Constants.childCategories.clear();
+    Stream<Category> stream = await categoryRepo.getChildCategories();
+
+    stream.listen((Category _category) {
+      Constants.childCategories.add(_category);
+    }).onError((e) {
+      print("Error getting child categories: $e");
+    });
+  }
+
   Future<void> refreshHome() async {
+    getChildCategories();
+    getSubCategories();
     listenForCategories();
     getUpComingChallenges(userRepo.currentUser.value.id, currentDate);
   }

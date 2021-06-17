@@ -135,6 +135,8 @@ List<Category> appCategories = [
   Category.fromJSON(workoutCategory),
   Category.fromJSON(dietCategory)
 ];
+List<Category> subCategories = [];
+List<Category> childCategories = [];
 const List<String> appCategoriesName = ["training", "workout", "diet"];
 const List<String> tabbarOptions = ["Sign Up", "Log In"];
 const List<String> selectGender = ["Male", "Female"];

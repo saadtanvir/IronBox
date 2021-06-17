@@ -3,11 +3,14 @@ import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/category.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:image_picker/image_picker.dart';
 
 class TrainerCreatePlanWidget extends StatefulWidget {
+  final String subCategoryId;
+  TrainerCreatePlanWidget({this.subCategoryId});
   @override
   _TrainerCreatePlanWidgetState createState() =>
       _TrainerCreatePlanWidgetState();
@@ -19,6 +22,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
   File _imageFile;
   var imageName = "".obs;
   String planCategory;
+  String planId = "";
+  var groupValue = 0.obs;
+  int subCategoryIndex = 0;
   final ImagePicker _picker = ImagePicker();
 
   void _selectImage() async {
@@ -135,49 +141,49 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                     SizedBox(
                       height: 40.0,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        Constants.detail + ":",
-                        style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 100.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.newline,
-                        maxLines: null,
-                        onSaved: (input) => _con.plan.detail = input,
-                        validator: (input) =>
-                            input.length < 1 ? "required" : null,
-                        decoration: InputDecoration(
-                          labelText: Constants.plan_details,
-                          labelStyle: TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold,
-                            color:
-                                Theme.of(context).accentColor.withOpacity(0.5),
-                          ),
-                          contentPadding: EdgeInsets.all(10),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 0.0,
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     Constants.detail + ":",
+                    //     style: TextStyle(
+                    //       color: Theme.of(context).accentColor,
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10.0,
+                    // ),
+                    // Container(
+                    //   constraints: BoxConstraints(maxHeight: 100.0),
+                    //   child: TextFormField(
+                    //     keyboardType: TextInputType.multiline,
+                    //     textInputAction: TextInputAction.newline,
+                    //     maxLines: null,
+                    //     onSaved: (input) => _con.plan.detail = input,
+                    //     validator: (input) =>
+                    //         input.length < 1 ? "required" : null,
+                    //     decoration: InputDecoration(
+                    //       labelText: Constants.plan_details,
+                    //       labelStyle: TextStyle(
+                    //         fontSize: 12.0,
+                    //         fontWeight: FontWeight.bold,
+                    //         color:
+                    //             Theme.of(context).accentColor.withOpacity(0.5),
+                    //       ),
+                    //       contentPadding: EdgeInsets.all(10),
+                    //       border: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           width: 0.0,
+                    //         ),
+                    //         borderRadius:
+                    //             BorderRadius.all(Radius.circular(15.0)),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 40.0,
+                    // ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -190,42 +196,29 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    DropdownButtonFormField(
-                      onSaved: (input) => _con.plan.category = planCategory,
-                      validator: (input) => planCategory == null
-                          ? Constants.select_category
-                          : null,
-                      onChanged: (value) {
-                        print(value);
-                        int index = Constants.appCategoriesName.indexOf(value);
-                        planCategory = Constants.appCategoriesName[index];
-                      },
-                      items: Constants.appCategoriesName.map((String priority) {
-                        return DropdownMenuItem(
-                          value: priority,
-                          child: Text("$priority"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: Helper.getSpecificSubCategories("1")
+                          .map((Category category) {
+                        subCategoryIndex++;
+                        return Expanded(
+                          flex: 1,
+                          child: RadioListTile(
+                            value: subCategoryIndex,
+                            groupValue: groupValue.value,
+                            title: Text("${category.name}"),
+                            activeColor: Theme.of(context).primaryColor,
+                            selected: groupValue.value == subCategoryIndex
+                                ? true
+                                : false,
+                            onChanged: (val) {
+                              groupValue.value = val;
+                            },
+                          ),
                         );
                       }).toList(),
-                      icon: Icon(
-                        Icons.arrow_drop_down_circle_outlined,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      iconSize: 20.0,
-                      decoration: InputDecoration(
-                        labelText: Constants.select_category,
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor),
-                        contentPadding: EdgeInsets.all(12),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2.0,
-                              color: Theme.of(context)
-                                  .accentColor
-                                  .withOpacity(0.2)),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
                     ),
+
                     SizedBox(
                       height: 40.0,
                     ),

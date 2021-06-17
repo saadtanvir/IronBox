@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/widgets/circularProgressIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +135,26 @@ class Helper {
     } else {
       return lastCountedSteps;
     }
+  }
+
+  static List<Category> getSpecificSubCategories(String id) {
+    List<Category> specificCategoryList = [];
+    Constants.subCategories.forEach((category) {
+      if (category.parent_id == id) {
+        specificCategoryList.add(category);
+      }
+    });
+    return specificCategoryList;
+  }
+
+  static List<Category> getSpecificChildCategories(String id) {
+    List<Category> specificCategoryList = [];
+    Constants.childCategories.forEach((category) {
+      if (category.parent_id == id) {
+        specificCategoryList.add(category);
+      }
+    });
+    return specificCategoryList;
   }
 
   static OverlayEntry overlayLoader(context) {

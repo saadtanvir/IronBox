@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
 import 'package:ironbox/src/services/stripe_payments.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 class PlansController extends GetxController {
   StripePaymentServices _stripePaymentServices = StripePaymentServices();
   Plan plan = new Plan();
+  WorkoutPlan workoutPlan = new WorkoutPlan();
   List<Plan> plans = List<Plan>().obs;
   var doneFetchingPlans = false.obs;
   OverlayEntry loader;

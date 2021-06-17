@@ -1,3 +1,5 @@
+import 'package:ironbox/src/pages/workoutPlans.dart';
+
 import '../helpers/helper.dart';
 import '../models/category.dart';
 import '../pages/userPlans.dart';
@@ -35,6 +37,8 @@ class CategoriesWidget extends StatelessWidget {
                 case "Workout":
                   {
                     // go to workout plans
+                    Get.to(WorkoutPlans(
+                        categories[index].id, categories[index].name));
                   }
                   break;
                 case "Diet":
