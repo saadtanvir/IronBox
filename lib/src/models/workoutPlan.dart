@@ -11,8 +11,8 @@ class WorkoutPlan {
   String muscleType;
   String categoryId;
   int status;
-  int durationInWeeks;
-  int difficultyLevel;
+  int durationInWeeks; // 4 or 6
+  int difficultyLevel; // 1 or 2 or 3
   double price;
   WorkoutPlanDetails details;
 
@@ -20,7 +20,7 @@ class WorkoutPlan {
 
   WorkoutPlan.fromJSON(Map<String, dynamic> jsonMap) {
     try {
-      id = jsonMap[''].toString();
+      id = jsonMap['id'].toString();
       title = jsonMap['title'] != null ? jsonMap['title'] : "";
       description =
           jsonMap['description'] != null ? jsonMap['description'] : "";

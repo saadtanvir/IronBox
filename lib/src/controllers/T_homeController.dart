@@ -1,10 +1,13 @@
+import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/user.dart';
-import 'package:ironbox/src/repositories/message_repo.dart' as messageRepo;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:get/get.dart';
+import '../helpers/app_constants.dart' as Constants;
+import '../repositories/category_repo.dart' as categoryRepo;
 
 class TrainerHomeController extends GetxController {
   var clients = List<User>().obs;
+  var categories = List<Category>().obs;
   var doneFetchingClients = false.obs;
   TrainerHomeController() {}
 

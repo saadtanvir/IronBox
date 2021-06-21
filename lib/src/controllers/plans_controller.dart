@@ -1,10 +1,12 @@
 import 'dart:io';
-
 import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
+import '../helpers/app_constants.dart' as Constants;
+import '../repositories/category_repo.dart' as categoryRepo;
 import 'package:ironbox/src/services/stripe_payments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,48 @@ class PlansController extends GetxController {
   Plan plan = new Plan();
   WorkoutPlan workoutPlan = new WorkoutPlan();
   List<Plan> plans = List<Plan>().obs;
+  var categories = List<Category>().obs;
   var doneFetchingPlans = false.obs;
   OverlayEntry loader;
   PlansController() {
     print("constructor of plans controller");
+  }
+
+  Future<void> listenForCategories() async {
+    print("fetching categories from home controller");
+    categories.clear();
+    Stream<Category> stream = await categoryRepo.getAppCategories();
+
+    stream.listen((Category _category) {
+      print(_category.backgroundImgUrl);
+      categories.add(_category);
+    }, onError: (e) {
+      print("Error thrown while getting categories: $e");
+    }, onDone: () {
+      print("Done fetching categories");
+    });
+  }
+
+  Future<void> getSubCategories() async {
+    Constants.subCategories.clear();
+    Stream<Category> stream = await categoryRepo.getSubCategories();
+
+    stream.listen((Category _category) {
+      Constants.subCategories.add(_category);
+    }).onError((e) {
+      print("Error getting subcategories: $e");
+    });
+  }
+
+  Future<void> getChildCategories() async {
+    Constants.childCategories.clear();
+    Stream<Category> stream = await categoryRepo.getChildCategories();
+
+    stream.listen((Category _category) {
+      Constants.childCategories.add(_category);
+    }).onError((e) {
+      print("Error getting child categories: $e");
+    });
   }
 
   void getPlansByCategory(String category) async {
@@ -93,24 +133,68 @@ class PlansController extends GetxController {
     });
   }
 
-  void createPlan(BuildContext context, File image) async {
+  // void createPlan(BuildContext context, File image) async {
+  //   print(image.path);
+  //   OverlayEntry loader = Helper.overlayLoader(context);
+  //   Overlay.of(context).insert(loader);
+  //   planRepo.createPlan(plan, image: image).then((Plan _p) {
+  //     if (_p.id != null) {
+  //       GetBar snackBar = new GetBar(
+  //         title: "Success",
+  //         message: "Plan created successfully.",
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         backgroundColor: Colors.green,
+  //         duration: new Duration(seconds: 2),
+  //       );
+
+  //       Get.showSnackbar(snackBar).then((value) {
+  //         print(value);
+  //         Get.back();
+  //       });
+  //     } else {
+  //       Get.snackbar(
+  //         "Failed !",
+  //         "Try making a new plan or check your internet connection.",
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         backgroundColor: Colors.red,
+  //         colorText: Colors.white,
+  //       );
+  //     }
+
+  //     // Get.back();
+  //   }).catchError((e) {
+  //     Get.snackbar(
+  //       "Failed !",
+  //       "Check your internet connect",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       backgroundColor: Colors.red,
+  //       colorText: Colors.white,
+  //     );
+  //   }).whenComplete(() {
+  //     Helper.hideLoader(loader);
+  //   });
+  // }
+
+  void createWorkoutPlan(BuildContext context, File image) async {
     print(image.path);
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
-    planRepo.createPlan(plan, image: image).then((Plan _p) {
-      if (_p.id != null) {
-        GetBar snackBar = new GetBar(
-          title: "Success",
-          message: "Plan created successfully.",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          duration: new Duration(seconds: 2),
-        );
+    planRepo
+        .createWorkoutPlan(workoutPlan, image: image)
+        .then((WorkoutPlan _workoutPlan) {
+      if (_workoutPlan.id != null) {
+        // GetBar snackBar = new GetBar(
+        //   title: "Success",
+        //   message: "Plan created successfully.",
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   duration: new Duration(seconds: 2),
+        // );
 
-        Get.showSnackbar(snackBar).then((value) {
-          print(value);
-          Get.back();
-        });
+        // Get.showSnackbar(snackBar).then((value) {
+        //   print(value);
+        //   Get.back();
+        // });
       } else {
         Get.snackbar(
           "Failed !",

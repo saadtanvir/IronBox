@@ -9,6 +9,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class Helper {
@@ -155,6 +156,16 @@ class Helper {
       }
     });
     return specificCategoryList;
+  }
+
+  static String getYoutubeVideoThumbnailUrl({
+    @required String videoId,
+    String quality = ThumbnailQuality.standard,
+    bool webp = false,
+  }) {
+    return webp
+        ? 'https://i3.ytimg.com/vi_webp/$videoId/$quality.webp'
+        : 'https://i3.ytimg.com/vi/$videoId/$quality.jpg';
   }
 
   static OverlayEntry overlayLoader(context) {

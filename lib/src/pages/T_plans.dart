@@ -2,6 +2,7 @@ import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/pages/appPlanDetails.dart';
 import 'package:ironbox/src/widgets/T_createPlanWidget.dart';
 import 'package:ironbox/src/widgets/T_planDetailsWidget.dart';
+import 'package:ironbox/src/widgets/dialogs/selectCategoryDialog.dart';
 import 'package:ironbox/src/widgets/plansListWidget.dart';
 import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/controllers/plans_controller.dart';
@@ -26,6 +27,9 @@ class _TrainerPlansState extends State<TrainerPlans> {
 
   @override
   void initState() {
+    _con.getChildCategories();
+    _con.getSubCategories();
+    _con.listenForCategories();
     if (userRepo.currentUser.value.userToken != null) {
       _con.getTrainerPlans(userRepo.currentUser.value.id);
     }
@@ -93,10 +97,9 @@ class _TrainerPlansState extends State<TrainerPlans> {
   Widget _floatingActionButton() {
     return FloatingActionButton(
       onPressed: () {
-        Get.to(
-          TrainerCreatePlanWidget(),
-          fullscreenDialog: true,
-        );
+        if (_con.categories.length > 0) {
+          Get.dialog(SelectPlanCategoryDialog(_con.categories));
+        }
       },
       child: Icon(
         Icons.add,

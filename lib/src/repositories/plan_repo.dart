@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 // import 'package:dio/dio.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 
 Future<Stream<Plan>> getPlansByCategory(String category) async {
   Uri uri = Helper.getUri('plans');
@@ -216,6 +217,59 @@ Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
   } catch (e) {
     print("Error creating plan: $e");
     return Plan.fromJSON({});
+  }
+}
+
+Future<WorkoutPlan> createWorkoutPlan(WorkoutPlan plan,
+    {String imageBytes, File image}) async {
+  print("creating plan");
+  String url = "${GlobalConfiguration().get("api_base_url")}workout_plans";
+  String imageType = image.path.split('.').last;
+
+  try {
+    Map<String, String> bodyMap = {
+      "title": plan.title,
+      "description": plan.description,
+      "caution": plan.caution,
+      "price": plan.price.toString(),
+      "trainer_id": plan.trainerId,
+      "cover_video": plan.videoUrl,
+      "difficulty_level": plan.difficultyLevel.toString(),
+      "duration": plan.durationInWeeks.toString(),
+      "category": plan.categoryId,
+      "muscle_type": plan.muscleType,
+      "status": plan.status.toString()
+    };
+
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.fields.addAll(bodyMap);
+    request.files.add(await http.MultipartFile.fromPath("cover_img", image.path,
+        contentType: MediaType("image", imageType)));
+
+    var response = await request.send();
+
+    // var response = await dio.post(
+    //   url,
+    //   data: formData,
+    //   options: Options(headers: headers),
+    // );
+
+    print("URL For Creating Workout Plan: $url");
+    print("plan creating status: ${response.statusCode}");
+
+    var res = await http.Response.fromStream(response);
+    print(res.body);
+    Map jsonBody = json.decode(res.body);
+    print(jsonBody['data']);
+    if (res.statusCode == 200 && jsonBody['data'] != null) {
+      return WorkoutPlan.fromJSON(json.decode(res.body)['data']);
+    } else {
+      print("Exception thrown");
+      return WorkoutPlan.fromJSON({});
+    }
+  } catch (e) {
+    print("Error creating plan: $e");
+    return WorkoutPlan.fromJSON({});
   }
 }
 
