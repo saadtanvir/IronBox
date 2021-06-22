@@ -273,6 +273,132 @@ Future<WorkoutPlan> createWorkoutPlan(WorkoutPlan plan,
   }
 }
 
+Future<WorkoutPlan> updateWorkoutPlan(WorkoutPlan plan, File image) async {
+  print("updating plan");
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}workout_plans/${plan.id}";
+  String imageType = image.path.split('.').last;
+
+  print(plan.status.toString());
+
+  try {
+    Map<String, String> bodyMap = {
+      "title": plan.title,
+      "description": plan.description,
+      "caution": plan.caution,
+      "price": plan.price.toString(),
+      "trainer_id": plan.trainerId,
+      "cover_video": plan.videoUrl,
+      "difficulty_level": plan.difficultyLevel.toString(),
+      "duration": plan.durationInWeeks.toString(),
+      "category": plan.categoryId,
+      "muscle_type": plan.muscleType,
+      "status": plan.status.toString(),
+    };
+
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    // var m = request.method;
+    request.fields.addAll(bodyMap);
+    request.files.add(await http.MultipartFile.fromPath("cover_img", image.path,
+        contentType: MediaType("image", imageType)));
+
+    print(bodyMap);
+
+    var response = await request.send();
+
+    // var response = await dio.post(
+    //   url,
+    //   data: formData,
+    //   options: Options(headers: headers),
+    // );
+
+    print("URL For Updating Workout Plan: $url");
+    print("plan updating status: ${response.statusCode}");
+
+    var res = await http.Response.fromStream(response);
+    print(res.body);
+    Map jsonBody = json.decode(res.body);
+    print(jsonBody['data']);
+    if (res.statusCode == 200 && jsonBody['data'] != null) {
+      return WorkoutPlan.fromJSON(json.decode(res.body)['data']);
+    } else {
+      print("Exception thrown");
+      return WorkoutPlan.fromJSON({});
+    }
+  } catch (e) {
+    print("Error updating plan: $e");
+    return WorkoutPlan.fromJSON({});
+  }
+}
+
+Future<WorkoutPlan> updateWorkoutPlanWithoutImage(
+    WorkoutPlan plan, File image) async {
+  print("updating plan");
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}workout_plans/${plan.id}";
+  String imageType = image.path.split('.').last;
+
+  print(plan.status.toString());
+
+  try {
+    Map<String, String> bodyMap = {
+      "title": plan.title,
+      "description": plan.description,
+      "caution": plan.caution,
+      "price": plan.price.toString(),
+      "trainer_id": plan.trainerId,
+      "cover_video": plan.videoUrl,
+      "difficulty_level": plan.difficultyLevel.toString(),
+      "duration": plan.durationInWeeks.toString(),
+      "category": plan.categoryId,
+      "muscle_type": plan.muscleType,
+      "status": plan.status.toString(),
+    };
+
+    // var request = http.MultipartRequest('PUT', Uri.parse(url));
+    // request.fields.addAll(bodyMap);
+    // request.files.add(await http.MultipartFile.fromPath("cover_img", image.path,
+    //     contentType: MediaType("image", imageType)));
+
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.put(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(bodyMap),
+    );
+
+    print(bodyMap);
+
+    // var response = await request.send();
+
+    // var response = await dio.post(
+    //   url,
+    //   data: formData,
+    //   options: Options(headers: headers),
+    // );
+
+    print("URL For Updating Workout Plan: $url");
+    print("plan updating status: ${response.statusCode}");
+
+    // var res = await http.Response.fromStream(response);
+    print(response.body);
+    Map jsonBody = json.decode(response.body);
+    print(jsonBody['data']);
+    if (response.statusCode == 200 && jsonBody['data'] != null) {
+      return WorkoutPlan.fromJSON(json.decode(response.body)['data']);
+    } else {
+      print("Exception thrown");
+      return WorkoutPlan.fromJSON({});
+    }
+  } catch (e) {
+    print("Error updating plan: $e");
+    return WorkoutPlan.fromJSON({});
+  }
+}
+
 Future<bool> editPlan(Plan plan) async {
   String url = "${GlobalConfiguration().get("api_base_url")}plans/${plan.id}";
   Map<String, String> body = {

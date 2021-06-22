@@ -271,9 +271,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: subCategories.length,
                       itemBuilder: (context, index) {
-                        print("sub category index is: $index");
+                        // print("sub category index is: $index");
                         int radioTileValue = index + 1;
-                        print("radio tile value is: $radioTileValue");
+                        // print("radio tile value is: $radioTileValue");
                         return Obx(() {
                           return RadioListTile(
                             value: radioTileValue,
@@ -285,6 +285,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                 ? true
                                 : false,
                             onChanged: (val) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+
                               print("changed value is: $val");
                               subCategoryRadioTileGroupValue.value = val;
                               // change selected sub category id
@@ -328,10 +331,10 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: childCategories.length,
                                     itemBuilder: (context, index) {
-                                      print("sub category index is: $index");
+                                      // print("sub category index is: $index");
                                       int radioTileValue = index + 1;
-                                      print(
-                                          "radio tile value is: $radioTileValue");
+                                      // print(
+                                      // "radio tile value is: $radioTileValue");
                                       return Obx(() {
                                         return RadioListTile(
                                           value: radioTileValue,
@@ -349,7 +352,10 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                                   ? true
                                                   : false,
                                           onChanged: (val) {
-                                            print("changed value is: $val");
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+
+                                            // print("changed value is: $val");
                                             childCategoryRadioTileGroupValue
                                                 .value = val;
                                             _con.workoutPlan.categoryId =
@@ -399,6 +405,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                   ? true
                                   : false,
                               onChanged: (val) {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+
                                 print(val);
                                 durationRadioTileGroupValue.value = val;
                                 _con.workoutPlan.durationInWeeks = 4;
@@ -422,6 +431,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                   ? true
                                   : false,
                               onChanged: (val) {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+
                                 print(val);
                                 durationRadioTileGroupValue.value = val;
                                 _con.workoutPlan.durationInWeeks = 6;
@@ -458,6 +470,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             ? true
                             : false,
                         onChanged: (val) {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+
                           print(val);
                           difficultyRadioTileGroupValue.value = val;
                           _con.workoutPlan.difficultyLevel = 1;
@@ -475,6 +489,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             ? true
                             : false,
                         onChanged: (val) {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+
                           print(val);
                           difficultyRadioTileGroupValue.value = val;
                           _con.workoutPlan.difficultyLevel = 2;
@@ -492,6 +508,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             ? true
                             : false,
                         onChanged: (val) {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+
                           print(val);
                           difficultyRadioTileGroupValue.value = val;
                           _con.workoutPlan.difficultyLevel = 3;
@@ -743,14 +761,34 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                     TextButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        if (!_createPlanFormKey.currentState.validate()) {
+                        if (!_createPlanFormKey.currentState.validate() ||
+                            childCategoryRadioTileGroupValue.value == 0 ||
+                            durationRadioTileGroupValue.value == 0 ||
+                            (_imageFile == null) ||
+                            difficultyRadioTileGroupValue.value == 0) {
+                          Get.snackbar(
+                            "Invalid Input",
+                            "Kindly fill all the values",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
                           return;
                         } else if (_createPlanFormKey.currentState.validate()) {
                           _createPlanFormKey.currentState.save();
                           _con.workoutPlan.trainerId =
                               userRepo.currentUser.value.id;
                           _con.workoutPlan.status = 1;
-                          _con.createWorkoutPlan(context, _imageFile);
+                          if (_con.createdWorkoutPlanId.value.isEmpty) {
+                            _con.createWorkoutPlan(context, _imageFile);
+                          } else {
+                            // call function to update plan
+                            print("calling to update plan");
+                            print(_con.workoutPlan.status);
+                            _con.workoutPlan.id =
+                                _con.createdWorkoutPlanId.value;
+                            _con.updateWorkoutPlan(context, _imageFile);
+                          }
                         }
                       },
                       style: ButtonStyle(

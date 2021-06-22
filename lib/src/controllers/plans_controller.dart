@@ -5,6 +5,7 @@ import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectWeek.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
 import 'package:ironbox/src/services/stripe_payments.dart';
@@ -16,6 +17,7 @@ class PlansController extends GetxController {
   StripePaymentServices _stripePaymentServices = StripePaymentServices();
   Plan plan = new Plan();
   WorkoutPlan workoutPlan = new WorkoutPlan();
+  var createdWorkoutPlanId = "".obs;
   List<Plan> plans = List<Plan>().obs;
   var categories = List<Category>().obs;
   var doneFetchingPlans = false.obs;
@@ -182,7 +184,7 @@ class PlansController extends GetxController {
     planRepo
         .createWorkoutPlan(workoutPlan, image: image)
         .then((WorkoutPlan _workoutPlan) {
-      if (_workoutPlan.id != null) {
+      if (_workoutPlan.id != null && _workoutPlan.description.isNotEmpty) {
         // GetBar snackBar = new GetBar(
         //   title: "Success",
         //   message: "Plan created successfully.",
@@ -190,11 +192,12 @@ class PlansController extends GetxController {
         //   backgroundColor: Colors.green,
         //   duration: new Duration(seconds: 2),
         // );
-
-        // Get.showSnackbar(snackBar).then((value) {
-        //   print(value);
-        //   Get.back();
-        // });
+        print(_workoutPlan.durationInWeeks);
+        createdWorkoutPlanId.value = _workoutPlan.id;
+        Get.to(
+          SelectWeek(_workoutPlan.id, _workoutPlan.durationInWeeks),
+          transition: Transition.rightToLeft,
+        );
       } else {
         Get.snackbar(
           "Failed !",
@@ -206,6 +209,49 @@ class PlansController extends GetxController {
       }
 
       // Get.back();
+    }).catchError((e) {
+      Get.snackbar(
+        "Failed !",
+        "Check your internet connect",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  Future<void> updateWorkoutPlan(BuildContext context, File image) async {
+    print(image.path);
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo
+        .updateWorkoutPlan(workoutPlan, image)
+        .then((WorkoutPlan _workoutPlan) {
+      if (_workoutPlan.id != null && _workoutPlan.description.isNotEmpty) {
+        // GetBar snackBar = new GetBar(
+        //   title: "Success",
+        //   message: "Plan created successfully.",
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   duration: new Duration(seconds: 2),
+        // );
+        print(_workoutPlan.durationInWeeks);
+        createdWorkoutPlanId.value = _workoutPlan.id;
+        Get.to(
+          SelectWeek(_workoutPlan.id, _workoutPlan.durationInWeeks),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.snackbar(
+          "Failed !",
+          "Try making a new plan or check your internet connection.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     }).catchError((e) {
       Get.snackbar(
         "Failed !",
