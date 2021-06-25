@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
 
 class SelectWorkoutPlanDay extends StatelessWidget {
   final int weekNumber;
@@ -32,6 +34,8 @@ class SelectWorkoutPlanDay extends StatelessWidget {
                 // send day week num
                 // plan id
                 // to next screen
+                Get.to(AddWorkoutPlanDayDetails(
+                    dayNum: dayNumber, planId: planId, weekNum: weekNumber));
               },
             );
           },

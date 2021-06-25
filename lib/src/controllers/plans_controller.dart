@@ -3,8 +3,12 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
+import 'package:ironbox/src/models/workoutPlanDetails.dart';
+import 'package:ironbox/src/models/workoutPlanExercise.dart';
+import 'package:ironbox/src/models/workoutPlanGame.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addGames.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectWeek.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
@@ -17,10 +21,23 @@ class PlansController extends GetxController {
   StripePaymentServices _stripePaymentServices = StripePaymentServices();
   Plan plan = new Plan();
   WorkoutPlan workoutPlan = new WorkoutPlan();
+  WorkoutPlanDetails workoutPlanDetails = new WorkoutPlanDetails();
+  WorkoutPlanGame workoutPlanGame = new WorkoutPlanGame();
+  WorkoutPlanExercise workoutPlanExercise = new WorkoutPlanExercise();
+  var workoutPlanDetailsList = List<WorkoutPlanDetails>().obs;
+  var workoutPlanGamesList = List<WorkoutPlanGame>().obs;
+  var workoutPlanExercisesList = List<WorkoutPlanExercise>().obs;
   var createdWorkoutPlanId = "".obs;
   List<Plan> plans = List<Plan>().obs;
   var categories = List<Category>().obs;
+
+  // progress variables
   var doneFetchingPlans = false.obs;
+  var doneFetchingWorkoutPlanDetails = false.obs;
+  var doneFetchingWorkoutPlanGames = false.obs;
+  var doneAddingGame = false.obs;
+  var doneFetchingGameExercises = false.obs;
+  var doneAddingExercise = false.obs;
   OverlayEntry loader;
   PlansController() {
     print("constructor of plans controller");
@@ -135,48 +152,6 @@ class PlansController extends GetxController {
     });
   }
 
-  // void createPlan(BuildContext context, File image) async {
-  //   print(image.path);
-  //   OverlayEntry loader = Helper.overlayLoader(context);
-  //   Overlay.of(context).insert(loader);
-  //   planRepo.createPlan(plan, image: image).then((Plan _p) {
-  //     if (_p.id != null) {
-  //       GetBar snackBar = new GetBar(
-  //         title: "Success",
-  //         message: "Plan created successfully.",
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.green,
-  //         duration: new Duration(seconds: 2),
-  //       );
-
-  //       Get.showSnackbar(snackBar).then((value) {
-  //         print(value);
-  //         Get.back();
-  //       });
-  //     } else {
-  //       Get.snackbar(
-  //         "Failed !",
-  //         "Try making a new plan or check your internet connection.",
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white,
-  //       );
-  //     }
-
-  //     // Get.back();
-  //   }).catchError((e) {
-  //     Get.snackbar(
-  //       "Failed !",
-  //       "Check your internet connect",
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       backgroundColor: Colors.red,
-  //       colorText: Colors.white,
-  //     );
-  //   }).whenComplete(() {
-  //     Helper.hideLoader(loader);
-  //   });
-  // }
-
   void createWorkoutPlan(BuildContext context, File image) async {
     print(image.path);
     OverlayEntry loader = Helper.overlayLoader(context);
@@ -262,6 +237,186 @@ class PlansController extends GetxController {
       );
     }).whenComplete(() {
       Helper.hideLoader(loader);
+    });
+  }
+
+  void createWorkoutPlanDetails(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo
+        .createWorkoutPlanDetails(workoutPlanDetails)
+        .then((WorkoutPlanDetails _workoutPlanDetails) {
+      if (_workoutPlanDetails.id != null &&
+          _workoutPlanDetails.dayTitle.isNotEmpty) {
+        print(_workoutPlanDetails.dayTitle);
+        Get.to(
+          AddWorkoutPlanGame(_workoutPlanDetails.id),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.snackbar(
+          "${Constants.failed}",
+          "${Constants.check_internet_connection}",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      Get.snackbar(
+        "${Constants.failed}",
+        "${Constants.check_internet_connection}",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void updateWorkoutPlanDetails(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo
+        .updateWorkoutPlanDetails(workoutPlanDetails)
+        .then((WorkoutPlanDetails _workoutPlanDetails) {
+      if (_workoutPlanDetails.id != null &&
+          _workoutPlanDetails.dayTitle.isNotEmpty) {
+        print(_workoutPlanDetails.dayTitle);
+        Get.to(
+          AddWorkoutPlanGame(_workoutPlanDetails.id),
+          transition: Transition.rightToLeft,
+        );
+      } else {
+        Get.snackbar(
+          "${Constants.failed}",
+          "${Constants.check_internet_connection}",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    }).catchError((e) {
+      Get.snackbar(
+        "${Constants.failed}",
+        "${Constants.check_internet_connection}",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void getWorkoutPlanDetails(
+      {@required String planId,
+      @required int weekNum,
+      @required int dayNum}) async {
+    doneFetchingWorkoutPlanDetails.value = false;
+    workoutPlanDetails = new WorkoutPlanDetails();
+    planRepo
+        .getWorkoutPlanDetails(planId: planId, weekNum: weekNum, dayNum: dayNum)
+        .then((WorkoutPlanDetails _workoutPlanDetails) {
+      print(_workoutPlanDetails);
+      if (_workoutPlanDetails.id != null &&
+          _workoutPlanDetails.dayTitle.isNotEmpty) {
+        workoutPlanDetails = _workoutPlanDetails;
+      }
+    }).onError((error, stackTrace) {
+      print(error);
+      // snackbar
+      // check internet connection
+    }).whenComplete(() {
+      // Helper.hideLoader(loader);
+      doneFetchingWorkoutPlanDetails.value = true;
+    });
+  }
+
+  void createWorkoutPlanGame(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    doneAddingGame.value = false;
+    planRepo
+        .createWorkoutPlanGame(workoutPlanGame)
+        .then((WorkoutPlanGame _game) {
+      if (_game.id != null && _game.name.isNotEmpty) {
+        workoutPlanGamesList.add(_game);
+        Get.snackbar(
+          "Success",
+          "Game added successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: new Duration(seconds: 1),
+        );
+      }
+    }).onError((e, stackTrace) {
+      print("Error creating game: $e");
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+      doneAddingGame.value = true;
+    });
+  }
+
+  void getWorkoutPlanGames(String detailsId) async {
+    workoutPlanGamesList.clear();
+    doneFetchingWorkoutPlanGames.value = false;
+
+    final Stream<WorkoutPlanGame> stream =
+        await planRepo.getWorkoutPlanGames(detailsId);
+    stream.listen((WorkoutPlanGame _game) {
+      if (_game.id != null && _game.name.isNotEmpty) {
+        workoutPlanGamesList.add(_game);
+      }
+    }, onError: (e) {
+      print("Error getting WP games: $e");
+    }, onDone: () {
+      doneFetchingWorkoutPlanGames.value = true;
+    });
+  }
+
+  void createWorkoutPlanExercise(BuildContext context) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    doneAddingExercise.value = false;
+    planRepo
+        .createWorkoutPlanExercise(workoutPlanExercise)
+        .then((WorkoutPlanExercise _exercise) {
+      if (_exercise.id != null && _exercise.name.isNotEmpty) {
+        workoutPlanExercisesList.add(_exercise);
+        Get.snackbar(
+          "Success",
+          "Exercise added successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: new Duration(seconds: 1),
+        );
+      }
+    }).onError((e, stackTrace) {
+      print("Error creating exercise: $e");
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+      doneAddingExercise.value = true;
+    });
+  }
+
+  void getWorkoutPlanGameExercises(String gameId) async {
+    workoutPlanExercisesList.clear();
+    doneFetchingGameExercises.value = false;
+
+    final Stream<WorkoutPlanExercise> stream =
+        await planRepo.getWorkoutPlanGameExercises(gameId);
+    stream.listen((WorkoutPlanExercise _exercise) {
+      if (_exercise.id != null && _exercise.name.isNotEmpty) {
+        workoutPlanExercisesList.add(_exercise);
+      }
+    }, onError: (e) {
+      print("Error getting WP games exercises: $e");
+    }, onDone: () {
+      doneFetchingGameExercises.value = true;
     });
   }
 

@@ -18,7 +18,7 @@ ValueNotifier<User> currentUser = new ValueNotifier(User());
 
 Future<User> register(User user) async {
   // print(user.name);
-  String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
+  String url = "${GlobalConfiguration().get("api_base_url")}register_user";
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -55,7 +55,7 @@ Future<User> register(User user) async {
 
 Future<User> registerUserWithImage(User user) async {
   print(user.avatarImageFile != null);
-  String url = "${GlobalConfiguration().get("api_base_url")}registeruser";
+  String url = "${GlobalConfiguration().get("api_base_url")}register_user";
 
   Map<String, String> body = {
     "email": user.email,
@@ -170,7 +170,7 @@ Future<User> login(User user) async {
 
 Future<User> updateCurrentUser(User u) async {
   String url =
-      "${GlobalConfiguration().get("api_base_url")}registeruser/${u.id}";
+      "${GlobalConfiguration().get("api_base_url")}register_user/${u.id}";
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -308,7 +308,7 @@ Future<Stream<User>> getUserContacts(String userId) async {
 }
 
 Future<User> getUserById(String uid) async {
-  String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
+  String url = "${GlobalConfiguration().get("api_base_url")}register_user/$uid";
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -337,7 +337,7 @@ Future<User> getUserById(String uid) async {
 }
 
 Future<User> getUpdatedCurrentUser(String uid) async {
-  String url = "${GlobalConfiguration().get("api_base_url")}registeruser/$uid";
+  String url = "${GlobalConfiguration().get("api_base_url")}register_user/$uid";
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -513,7 +513,7 @@ Future<bool> reviewTrainer(
 }
 
 Future<bool> rateTrainer(int rating, String id) async {
-  String url = "${GlobalConfiguration().get("api_base_url")}userrating/$id";
+  String url = "${GlobalConfiguration().get("api_base_url")}user_rating/$id";
   Map<String, String> body = {
     "avg_rating": rating.toString(),
   };

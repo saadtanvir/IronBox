@@ -19,7 +19,9 @@ class TrainerCreatePlanWidget extends StatefulWidget {
 
 class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
   GlobalKey<FormState> _createPlanFormKey;
-  PlansController _con = Get.put(PlansController());
+  PlansController _con =
+      Get.put(PlansController(), tag: Constants.createWorkoutPlanController);
+
   var _videoUrlTextFieldController =
       new TextEditingController(text: "Select Video").obs;
 
@@ -629,14 +631,20 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                               // open bottom sheet
                               // show list of all videos from video lib
                               // on tap send video object back to screen
-                              var data = await Get.bottomSheet(VideoLib());
+                              var data = await Get.to(
+                                VideoLib(),
+                                fullscreenDialog: true,
+                                transition: Transition.downToUp,
+                              );
                               print(data.link);
 
                               // selectedVideoUrl.value = data.link;
                               _videoUrlTextFieldController.value.text =
                                   data.link;
                             },
-                            icon: Icon(Icons.arrow_drop_down),
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                            ),
                           ),
                           contentPadding: EdgeInsets.all(10),
                           border: OutlineInputBorder(

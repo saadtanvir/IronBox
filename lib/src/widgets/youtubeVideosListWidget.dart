@@ -17,7 +17,7 @@ class YoutubeVideosListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.amber,
-      height: 100 * youtubeVideosList.length.toDouble(),
+      height: 90 * youtubeVideosList.length.toDouble(),
       child: ListView.builder(
         itemCount: youtubeVideosList.length,
         // shrinkWrap: true,

@@ -2,10 +2,10 @@ class WorkoutPlanExercise {
   String id;
   String gameId;
   String name;
-  String reps;
   String duration;
   String videoUrl;
   String description;
+  int reps;
 
   WorkoutPlanExercise();
 
@@ -14,7 +14,7 @@ class WorkoutPlanExercise {
       id = jsonMap['id'].toString();
       gameId = jsonMap['game_id'] != null ? jsonMap['game_id'] : "";
       name = jsonMap['name'] != null ? jsonMap['name'] : "";
-      reps = jsonMap['reps'] != null ? jsonMap['reps'] : "";
+      reps = jsonMap['reps'] != null ? int.parse(jsonMap['reps']) : 0;
       duration = jsonMap['duration'] != null ? jsonMap['duration'] : "";
       videoUrl = jsonMap['video_url'] != null ? jsonMap['video_url'] : "";
       description =
@@ -28,7 +28,7 @@ class WorkoutPlanExercise {
     var map = new Map<String, String>();
     map['game_id'] = gameId;
     map['name'] = name;
-    map['reps'] = reps;
+    map['reps'] = reps.toString();
     map['duration'] = duration;
     map['video_url'] = videoUrl;
     map['description'] = description;

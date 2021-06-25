@@ -4,21 +4,21 @@ class WorkoutPlanGame {
   String id;
   String detailsId;
   String name;
-  String sets;
-  String rounds;
+  int sets;
+  int rounds;
   List<WorkoutPlanExercise> exercisesList;
 
   WorkoutPlanGame();
 
   WorkoutPlanGame.fromJSON(Map<String, dynamic> jsonMap) {
     try {
-      id = jsonMap[''] != null ? jsonMap[''] : "";
+      id = jsonMap['id'] != null ? jsonMap['id'].toString() : "";
       detailsId = jsonMap['workout_plan_details_id'] != null
           ? jsonMap['workout_plan_details_id']
           : "";
       name = jsonMap['name'] != null ? jsonMap['name'] : "";
-      sets = jsonMap['sets'] != null ? jsonMap['sets'] : "";
-      rounds = jsonMap['rounds'] != null ? jsonMap['rounds'] : "";
+      sets = jsonMap['sets'] != null ? int.parse(jsonMap['sets']) : "";
+      rounds = jsonMap['rounds'] != null ? int.parse(jsonMap['rounds']) : "";
       exercisesList = jsonMap['exercises'] != null &&
               (jsonMap['exercises'] as List).length > 0
           ? WorkoutPlanExercise.fromJSON(jsonMap['exercises'])
@@ -32,8 +32,8 @@ class WorkoutPlanGame {
     var map = new Map<String, String>();
     map['workout_plan_details_id'] = detailsId;
     map['name'] = name;
-    map['sets'] = sets;
-    map['rounds'] = rounds;
+    map['sets'] = sets.toString();
+    map['rounds'] = rounds.toString();
     return map;
   }
 }

@@ -19,13 +19,22 @@ const String signup = "Sign Up";
 const String buyNow = "Buy Now";
 const String capitalRecommended = "RECOMMENDED";
 const String search = "Search";
+const String search_video = "Search Video";
 const String trainers = "Trainers";
 const String success = "Success";
 const String failed = "Failed !";
 const String taskTitle = "Task Title";
 const String weight_gain = "Weight Gain";
 const String eg_abs_legs = "e.g Abs";
+const String shoulder_and_legs = "Shoulder & Legs";
+const String super_set = "Super Set";
+const String push_ups = "Push Ups";
 const String title = "Title";
+const String min_calories_burn = "Min Calories Burn";
+const String max_calories_burn = "Max Calories Burn";
+const String no_of_sets = "Number of Sets";
+const String no_of_reps = "Number of Reps";
+const String no_of_rounds = "Number of Rounds";
 const String name = "Name";
 const String detail = "Details";
 const String video_url = "Video URL";
@@ -54,10 +63,13 @@ const String upload_image = "Upload Image";
 const String due_date = "Due Date";
 const String taskTime = "Task Time";
 const String duration = "Duration";
+const String duration_in_min = "Duration in Min";
 const String difficultly_level = "Difficulty Level";
 const String create_a_task = "Create a task";
 const String create_plan = "Create Plan";
 const String next = "Next";
+const String done = "Done";
+const String add = "Add";
 const String subscribe = "Subscribe";
 const String unsubscribe = "Unsubscribe";
 const String forty_two_days = "42 Days";
@@ -111,6 +123,7 @@ const String username_should_be_min_four_char =
     "Username should be between 3 to 20 char";
 const String switch_to_trainer_mode = "Switch to Trainer mode";
 const String change_user_mode = "Change user mode";
+const String enter_video_name = "Enter Video Name";
 const String username_shouldnt_contain_spaces =
     "Username shouldnt contain spaces, @, +";
 const String switch_to_trainee_mode = "Switch to Trainee mode";
@@ -135,7 +148,9 @@ const Color scaffoldColor = Colors.white;
 const Color primaryTextColor = Colors.white;
 const Color secondaryTextColor = Color(0xffE13F3B);
 const Color messageSearchBarColor = Color(0xffF0F3F4);
-// const Color signupOptionBGColor =
+
+// controllers tags
+const String createWorkoutPlanController = "createWorkoutPlanController";
 
 // Lists
 List<Category> appCategories = [

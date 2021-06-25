@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectDay.dart';
+import '../../helpers/app_constants.dart' as Constants;
 
 class SelectWeek extends StatelessWidget {
   final int totalWeeks;
@@ -15,28 +16,78 @@ class SelectWeek extends StatelessWidget {
         centerTitle: true,
         actions: [],
       ),
-      body: Container(
-        child: ListView.separated(
-          itemCount: totalWeeks,
-          itemBuilder: (context, index) {
-            int weekNumber = index + 1;
-            return ListTile(
-              title: Text(
-                "Week $weekNumber",
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemCount: totalWeeks,
+                itemBuilder: (context, index) {
+                  int weekNumber = index + 1;
+                  return ListTile(
+                    title: Text(
+                      "Week $weekNumber",
+                    ),
+                    onTap: () {
+                      // select week number
+                      // go to days selection
+                      Get.to(
+                        SelectWorkoutPlanDay(createdPlanId, weekNumber),
+                        transition: Transition.rightToLeft,
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
               ),
-              onTap: () {
-                // select week number
-                // go to days selection
-                Get.to(
-                  SelectWorkoutPlanDay(createdPlanId, weekNumber),
-                  transition: Transition.rightToLeft,
-                );
-              },
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider();
-          },
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () async {
+                  // Get.dialog()
+                  Get.defaultDialog(
+                      title: "Are you done creating plan ?",
+                      middleText: "",
+                      textConfirm: "Yes",
+                      confirmTextColor: Colors.white,
+                      textCancel: "No",
+                      buttonColor: Theme.of(context).primaryColor,
+                      onConfirm: () {
+                        Get.offAllNamed('/TrainerBtmNavBar');
+                      });
+                },
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 30.0),
+                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all(Theme.of(context).primaryColor),
+                  overlayColor: MaterialStateProperty.all(
+                    Theme.of(context).accentColor.withOpacity(0.3),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  Constants.done,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
