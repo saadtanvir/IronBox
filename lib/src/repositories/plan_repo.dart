@@ -193,15 +193,15 @@ Future<Stream<Plan>> getUserPlansByCategory(
   }
 }
 
-Future<Stream<Plan>> getTrainerPlans(String uid) async {
-  Uri uri = Helper.getUri('fetchplan');
-  Map<String, dynamic> _queryParams = {"created_by": uid};
-  uri = uri.replace(queryParameters: _queryParams);
+Future<Stream<WorkoutPlan>> getTrainerWorkoutPlans(String uid) async {
+  Uri uri = Helper.getUri('trainer_workout_plans/$uid');
+  // Map<String, dynamic> _queryParams = {"created_by": uid};
+  // uri = uri.replace(queryParameters: _queryParams);
   print("URI For Getting Trainer Plans: $uri");
 
   try {
     final client = new http.Client();
-    final streamedRest = await client.send(http.Request('post', uri));
+    final streamedRest = await client.send(http.Request('get', uri));
 
     return streamedRest.stream
         .transform(utf8.decoder)
@@ -211,7 +211,7 @@ Future<Stream<Plan>> getTrainerPlans(String uid) async {
         .map((data) {
       print("printing trainer plans data");
       print(data);
-      return Plan.fromJSON(data);
+      return WorkoutPlan.fromJSON(data);
     });
   } on SocketException {
     print("Plan Repo Socket Exception: ");
@@ -219,7 +219,7 @@ Future<Stream<Plan>> getTrainerPlans(String uid) async {
   } catch (e) {
     print("error caught");
     print("Plan Repo Error: $e");
-    return new Stream.value(new Plan.fromJSON({}));
+    return new Stream.value(new WorkoutPlan.fromJSON({}));
   }
 }
 

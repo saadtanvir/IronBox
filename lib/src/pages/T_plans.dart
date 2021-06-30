@@ -1,4 +1,5 @@
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/pages/appPlanDetails.dart';
 import 'package:ironbox/src/widgets/T_createPlanWidget.dart';
 import 'package:ironbox/src/widgets/T_planDetailsWidget.dart';
@@ -6,6 +7,7 @@ import 'package:ironbox/src/widgets/dialogs/selectCategoryDialog.dart';
 import 'package:ironbox/src/widgets/plansListWidget.dart';
 import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/trainerWorkoutPlansList.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
@@ -21,9 +23,7 @@ class TrainerPlans extends StatefulWidget {
 class _TrainerPlansState extends State<TrainerPlans> {
   PlansController _con = Get.put(PlansController());
 
-  void planOnTap(Plan p) {
-    Get.to(TrainerPlanDetailsWidget(p));
-  }
+  void planOnTap(WorkoutPlan p) {}
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _TrainerPlansState extends State<TrainerPlans> {
     _con.getSubCategories();
     _con.listenForCategories();
     if (userRepo.currentUser.value.userToken != null) {
-      _con.getTrainerPlans(userRepo.currentUser.value.id);
+      _con.getTrainerWorkoutPlans(userRepo.currentUser.value.id);
     }
     super.initState();
   }
@@ -63,31 +63,30 @@ class _TrainerPlansState extends State<TrainerPlans> {
             // pass onSubmit func
             // update the widget below
             // SearchBarWidget(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Obx(() {
-                return _con.plans.isEmpty && !_con.doneFetchingPlans.value
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
-                          child: CircularProgressIndicator(
-                              backgroundColor: Theme.of(context).primaryColor),
-                        ),
-                      )
-                    : _con.plans.isEmpty && _con.doneFetchingPlans.value
-                        ? Center(
-                            heightFactor: 20.0,
-                            child: Text(
-                              "You have not created any plan yet !",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
+            Obx(() {
+              return _con.trainerWorkoutPlansList.isEmpty &&
+                      !_con.doneFetchingPlans.value
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: CircularProgressIndicator(
+                            backgroundColor: Theme.of(context).primaryColor),
+                      ),
+                    )
+                  : _con.trainerWorkoutPlansList.isEmpty &&
+                          _con.doneFetchingPlans.value
+                      ? Center(
+                          heightFactor: 20.0,
+                          child: Text(
+                            "You have not created any plan yet !",
+                            style: TextStyle(
+                              color: Colors.grey,
                             ),
-                          )
-                        : PlansListWidget(
-                            _con.plans.reversed.toList(), planOnTap);
-              }),
-            ),
+                          ),
+                        )
+                      : TrainerWorkoutPlansList(
+                          _con.trainerWorkoutPlansList, planOnTap);
+            }),
           ],
         ),
       ),

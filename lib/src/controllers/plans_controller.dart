@@ -24,6 +24,7 @@ class PlansController extends GetxController {
   WorkoutPlanDetails workoutPlanDetails = new WorkoutPlanDetails();
   WorkoutPlanGame workoutPlanGame = new WorkoutPlanGame();
   WorkoutPlanExercise workoutPlanExercise = new WorkoutPlanExercise();
+  var trainerWorkoutPlansList = List<WorkoutPlan>().obs;
   var workoutPlanDetailsList = List<WorkoutPlanDetails>().obs;
   var workoutPlanGamesList = List<WorkoutPlanGame>().obs;
   var workoutPlanExercisesList = List<WorkoutPlanExercise>().obs;
@@ -119,13 +120,14 @@ class PlansController extends GetxController {
     );
   }
 
-  void getTrainerPlans(String trainerId) async {
+  void getTrainerWorkoutPlans(String trainerId) async {
     doneFetchingPlans.value = false;
-    plans.clear();
-    final Stream<Plan> stream = await planRepo.getTrainerPlans(trainerId);
+    trainerWorkoutPlansList.clear();
+    final Stream<WorkoutPlan> stream =
+        await planRepo.getTrainerWorkoutPlans(trainerId);
     stream.listen(
-      (Plan _plan) {
-        plans.add(_plan);
+      (WorkoutPlan _plan) {
+        trainerWorkoutPlansList.add(_plan);
       },
       onError: (e) {
         print(e);

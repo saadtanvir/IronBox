@@ -11,7 +11,11 @@ class WorkoutPlanGameTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Colors.grey[300],
       title: Text("${game.name}"),
+      subtitle: Text(
+        "${game.sets} sets",
+      ),
     );
   }
 }

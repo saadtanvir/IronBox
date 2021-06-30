@@ -786,7 +786,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                           _createPlanFormKey.currentState.save();
                           _con.workoutPlan.trainerId =
                               userRepo.currentUser.value.id;
-                          _con.workoutPlan.status = 1;
+                          _con.workoutPlan.status = 0;
                           if (_con.createdWorkoutPlanId.value.isEmpty) {
                             _con.createWorkoutPlan(context, _imageFile);
                           } else {

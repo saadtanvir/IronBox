@@ -124,7 +124,10 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                             // open bottom sheet
                             // show list of all videos from video lib
                             // on tap send video object back to screen
-                            var data = await Get.bottomSheet(VideoLib());
+                            var data = await Get.to(
+                              VideoLib(),
+                              fullscreenDialog: true,
+                            );
                             print(data.link);
 
                             // selectedVideoUrl.value = data.link;
