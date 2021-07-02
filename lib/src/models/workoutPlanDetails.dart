@@ -27,7 +27,9 @@ class WorkoutPlanDetails {
           : 0;
       gamesList =
           jsonMap['games'] != null && (jsonMap['games'] as List).length > 0
-              ? WorkoutPlanGame.fromJSON(jsonMap['games'])
+              ? List.from(jsonMap['games'])
+                  .map((element) => WorkoutPlanGame.fromJSON(element))
+                  .toList()
               : [];
     } catch (e) {
       print("Workout Plan Details Model Error: $e");

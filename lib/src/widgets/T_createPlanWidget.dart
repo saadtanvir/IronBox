@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/pages/showVideoLib.dart';
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:image_picker/image_picker.dart';
@@ -60,6 +61,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
       imageName.value = _imageFile.path.split('/').last;
     }
   }
+
+  void _onDaySelect(String planId, int dayNum, int weekNum) async {}
 
   @override
   void initState() {
@@ -788,14 +791,20 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                               userRepo.currentUser.value.id;
                           _con.workoutPlan.status = 0;
                           if (_con.createdWorkoutPlanId.value.isEmpty) {
-                            _con.createWorkoutPlan(context, _imageFile);
+                            _con.createWorkoutPlan(
+                              context,
+                              _imageFile,
+                            );
                           } else {
                             // call function to update plan
                             print("calling to update plan");
                             print(_con.workoutPlan.status);
                             _con.workoutPlan.id =
                                 _con.createdWorkoutPlanId.value;
-                            _con.updateWorkoutPlan(context, _imageFile);
+                            _con.updateWorkoutPlan(
+                              context,
+                              _imageFile,
+                            );
                           }
                         }
                       },

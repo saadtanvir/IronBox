@@ -508,6 +508,8 @@ Future<WorkoutPlanDetails> getWorkoutPlanDetails(
 Future<WorkoutPlanGame> createWorkoutPlanGame(WorkoutPlanGame game) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}workout_plans_games";
+
+  print("Body: ${json.encode(game.toMap())}");
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -519,10 +521,9 @@ Future<WorkoutPlanGame> createWorkoutPlanGame(WorkoutPlanGame game) async {
       body: json.encode(game.toMap()),
     );
 
-    print(json.encode(game.toMap()));
-
     print(response.statusCode);
     Map jsonBody = json.decode(response.body);
+    print(jsonBody);
 
     if (response.statusCode == 200 && jsonBody['data'] != null) {
       return WorkoutPlanGame.fromJSON(jsonBody['data'][0]);

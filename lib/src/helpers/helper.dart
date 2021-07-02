@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:ironbox/src/models/category.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
+import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/widgets/circularProgressIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -166,6 +168,23 @@ class Helper {
     return webp
         ? 'https://i3.ytimg.com/vi_webp/$videoId/$quality.webp'
         : 'https://i3.ytimg.com/vi/$videoId/$quality.jpg';
+  }
+
+  static WorkoutPlanDetails getWOPSingleDayDetails(
+      {@required List<WorkoutPlanDetails> planDetailsList,
+      @required String weekNum,
+      @required String dayNum}) {
+    WorkoutPlanDetails singleDayDetail;
+    planDetailsList.forEach((WorkoutPlanDetails detail) {
+      if (detail.weekNumber == weekNum && detail.dayNumber == dayNum) {
+        print("details found");
+        singleDayDetail = detail;
+      } else {
+        print("details not found");
+        singleDayDetail = new WorkoutPlanDetails();
+      }
+    });
+    return singleDayDetail;
   }
 
   static OverlayEntry overlayLoader(context) {

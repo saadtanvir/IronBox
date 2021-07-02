@@ -19,7 +19,9 @@ class TrainerWorkoutPlansList extends StatelessWidget {
         itemCount: plans.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              planOnTap(plans[index]);
+            },
             child: TrainerWorkoutPlanTile(plans[index]),
           );
         },

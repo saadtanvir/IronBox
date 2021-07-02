@@ -7,6 +7,7 @@ import 'package:ironbox/src/widgets/dialogs/selectCategoryDialog.dart';
 import 'package:ironbox/src/widgets/plansListWidget.dart';
 import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/widgets/showWOPTrainer/showWorkoutPlanToTrainer.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/trainerWorkoutPlansList.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
@@ -23,7 +24,12 @@ class TrainerPlans extends StatefulWidget {
 class _TrainerPlansState extends State<TrainerPlans> {
   PlansController _con = Get.put(PlansController());
 
-  void planOnTap(WorkoutPlan p) {}
+  void planOnTap(WorkoutPlan p) {
+    Get.to(
+      ShowWorkoutPlanToTrainer(p),
+      transition: Transition.rightToLeft,
+    );
+  }
 
   @override
   void initState() {

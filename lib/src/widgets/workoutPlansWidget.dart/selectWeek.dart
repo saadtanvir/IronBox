@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectDay.dart';
+import 'package:ironbox/src/models/workoutPlanDetails.dart';
+import 'package:ironbox/src/widgets/displayWeeksWidget.dart';
+import '../../widgets/workoutPlansWidget.dart/selectDay.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
-class SelectWeek extends StatelessWidget {
+class SelectWeek extends StatefulWidget {
   final int totalWeeks;
-  final String createdPlanId;
-  SelectWeek(this.createdPlanId, this.totalWeeks, {Key key}) : super(key: key);
+  final String planId;
+  // final Function onDaySelect;
+  SelectWeek(this.planId, this.totalWeeks,
+      {Key key, WorkoutPlanDetails planDetails})
+      : super(key: key);
+
+  @override
+  _SelectWeekState createState() => _SelectWeekState();
+}
+
+class _SelectWeekState extends State<SelectWeek> {
+  void _onWeekSelect(int weekNumber) async {
+    // select week number
+    // go to days selection
+    Get.to(
+      SelectWorkoutPlanDay(widget.planId, weekNumber),
+      transition: Transition.rightToLeft,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +38,8 @@ class SelectWeek extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: totalWeeks,
-                itemBuilder: (context, index) {
-                  int weekNumber = index + 1;
-                  return ListTile(
-                    title: Text(
-                      "Week $weekNumber",
-                    ),
-                    onTap: () {
-                      // select week number
-                      // go to days selection
-                      Get.to(
-                        SelectWorkoutPlanDay(createdPlanId, weekNumber),
-                        transition: Transition.rightToLeft,
-                      );
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider();
-                },
-              ),
-            ),
+            DisplayWeeksListWidget(
+                totalWeeks: widget.totalWeeks, onWeekSelect: _onWeekSelect),
             SizedBox(
               height: 50.0,
             ),

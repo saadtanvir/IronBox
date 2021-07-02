@@ -1,3 +1,4 @@
+import 'package:ironbox/src/models/rating.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 
 class WorkoutPlan {
@@ -14,7 +15,8 @@ class WorkoutPlan {
   int durationInWeeks; // 4 or 6
   int difficultyLevel; // 1 or 2 or 3
   double price;
-  WorkoutPlanDetails details;
+  List<WorkoutPlanDetails> details;
+  Rating rating;
 
   WorkoutPlan();
 
@@ -42,10 +44,16 @@ class WorkoutPlan {
       price = jsonMap['price'] != null ? double.parse(jsonMap['price']) : 0.0;
       details =
           jsonMap['details'] != null && (jsonMap['details'] as List).length > 0
-              ? WorkoutPlanDetails.fromJSON(jsonMap['details'][0])
-              : new WorkoutPlanDetails();
+              ? List.from(jsonMap['details'])
+                  .map((element) => WorkoutPlanDetails.fromJSON(element))
+                  .toList()
+              : [];
+      rating =
+          jsonMap['ratings'] != null && (jsonMap['ratings'] as List).length > 0
+              ? Rating.fromJSON(jsonMap['ratings'][0])
+              : new Rating();
     } catch (e) {
-      print("Work Plan Model Error: $e");
+      print("Workout Plan Model Error: $e");
     }
   }
 

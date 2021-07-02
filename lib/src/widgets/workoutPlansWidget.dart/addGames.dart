@@ -78,7 +78,7 @@ class _AddWorkoutPlanGameState extends State<AddWorkoutPlanGame> {
         // take form details
         // add game in games list
         var data = await Get.dialog(AddWorkoutPlanGameDialog());
-        print(data);
+        // print(data);
         _con.workoutPlanGame.detailsId = widget.detailsId;
         _con.workoutPlanGame.name = data['name'];
         _con.workoutPlanGame.sets = int.parse(data['sets']);

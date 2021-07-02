@@ -154,7 +154,10 @@ class PlansController extends GetxController {
     });
   }
 
-  void createWorkoutPlan(BuildContext context, File image) async {
+  void createWorkoutPlan(
+    BuildContext context,
+    File image,
+  ) async {
     print(image.path);
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
@@ -199,7 +202,10 @@ class PlansController extends GetxController {
     });
   }
 
-  Future<void> updateWorkoutPlan(BuildContext context, File image) async {
+  Future<void> updateWorkoutPlan(
+    BuildContext context,
+    File image,
+  ) async {
     print(image.path);
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
@@ -343,6 +349,7 @@ class PlansController extends GetxController {
     planRepo
         .createWorkoutPlanGame(workoutPlanGame)
         .then((WorkoutPlanGame _game) {
+      print(_game.name);
       if (_game.id != null && _game.name.isNotEmpty) {
         workoutPlanGamesList.add(_game);
         Get.snackbar(
@@ -350,6 +357,15 @@ class PlansController extends GetxController {
           "Game added successfully.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: new Duration(seconds: 1),
+        );
+      } else {
+        Get.snackbar(
+          "Failed!",
+          "Check your connection and try again",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: new Duration(seconds: 1),
         );

@@ -20,7 +20,7 @@ class WorkoutPlanExercise {
       description =
           jsonMap['description'] != null ? jsonMap['description'] : "";
     } catch (e) {
-      print("Workout Plan Exercise model error: $e");
+      print("Workout Plan Exercise Model Error: $e");
     }
   }
 

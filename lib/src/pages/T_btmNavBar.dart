@@ -10,7 +10,7 @@ class TrainerBottomNavBar extends StatefulWidget {
   Widget currentPage = TrainerHomePage();
   TrainerBottomNavBar({this.currentTab}) {
     if (currentTab == null) {
-      currentTab = 1;
+      currentTab = 0;
     }
   }
   @override
@@ -24,25 +24,29 @@ class _TrainerBottomNavBarState extends State<TrainerBottomNavBar> {
       switch (tabItem) {
         case 0:
           {
-            widget.currentPage = TrainerPlans(
+// print("Displaying Home Page from btm nav");
+            widget.currentPage = TrainerHomePage(
               parentScaffoldKey: widget.scaffoldKey,
             );
           }
           break;
         case 1:
           {
-            // print("Displaying Home Page from btm nav");
-            widget.currentPage = TrainerHomePage(
+            widget.currentPage = TrainerPlans(
               parentScaffoldKey: widget.scaffoldKey,
             );
           }
           break;
         case 2:
           {
+            // go to diet plans
+          }
+          break;
+        case 3:
+          {
             // widget.currentPage =
             //     WorkoutPackages(Constants.appCategoriesName[1]);
           }
-          break;
       }
     });
   }
@@ -78,8 +82,9 @@ class _TrainerBottomNavBarState extends State<TrainerBottomNavBar> {
         backgroundColor: Colors.white,
         unselectedItemColor: Theme.of(context).secondaryHeaderColor,
         items: [
-          _bottomNavBarItem(icon: Icon(Icons.fitness_center)),
           _bottomNavBarItem(icon: Icon(Icons.people_rounded)),
+          _bottomNavBarItem(icon: Icon(Icons.fitness_center)),
+          _bottomNavBarItem(icon: Icon(Icons.restaurant)),
           _bottomNavBarItem(icon: Icon(Icons.stacked_line_chart_rounded)),
           // _bottomNavBarItem(icon: Icon(Icons.event_outlined))
         ],
