@@ -3,7 +3,6 @@ import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/widgets/displayDaysWidget.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/showWOPTrainer/showDayDetails.dart';
-
 import '../../models/workoutPlan.dart';
 import 'package:flutter/material.dart';
 import '../../helpers/app_constants.dart' as Constants;

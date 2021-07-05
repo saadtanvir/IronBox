@@ -4,7 +4,7 @@ import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/widgets/dialogs/addWorkoutPlanExercise.dart';
 import 'package:ironbox/src/widgets/dialogs/addWorkoutPlanGameDialog.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/gamesListWidget.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/showWOPGames.dart';
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/workoutPlanExercisesList.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
 class WorkoutPlanGameExercises extends StatefulWidget {

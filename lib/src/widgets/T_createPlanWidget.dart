@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/pages/showVideoLib.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
+import '../widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:image_picker/image_picker.dart';

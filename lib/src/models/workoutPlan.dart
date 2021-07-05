@@ -13,7 +13,7 @@ class WorkoutPlan {
   String categoryId;
   int status;
   int durationInWeeks; // 4 or 6
-  int difficultyLevel; // 1 or 2 or 3
+  int difficultyLevel; // 1 or 2 or 3 [easy, intermediate, hard]
   double price;
   List<WorkoutPlanDetails> details;
   Rating rating;

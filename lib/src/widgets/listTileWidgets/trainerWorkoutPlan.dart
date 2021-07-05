@@ -11,6 +11,27 @@ class TrainerWorkoutPlanTile extends StatelessWidget {
     return ListTile(
       tileColor: Colors.grey[200],
       title: Text("${plan.title}"),
+      trailing: Container(
+        width: 50.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Text(
+                "${plan.rating.rating.toStringAsFixed(1)}",
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Expanded(
+              child: Icon(
+                Icons.star,
+                color: Colors.yellow,
+                size: 20.0,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -150,6 +150,16 @@ class Helper {
     return specificCategoryList;
   }
 
+  static String getMainCategoryId(String mainCategoryName) {
+    String mainCategoryId = "";
+    Constants.appCategories.forEach((category) {
+      if (category.name == mainCategoryName) {
+        mainCategoryId = category.id;
+      }
+    });
+    return mainCategoryId;
+  }
+
   static List<Category> getSpecificChildCategories(String id) {
     List<Category> specificCategoryList = [];
     Constants.childCategories.forEach((category) {
@@ -185,6 +195,11 @@ class Helper {
       }
     });
     return singleDayDetail;
+  }
+
+  static int calAvgCal({@required int minCal, @required int maxCal}) {
+    double avg = (minCal + maxCal) / 2;
+    return avg.toInt();
   }
 
   static OverlayEntry overlayLoader(context) {

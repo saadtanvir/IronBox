@@ -153,11 +153,13 @@ const Color messageSearchBarColor = Color(0xffF0F3F4);
 const String createWorkoutPlanController = "createWorkoutPlanController";
 
 // Lists
-List<Category> appCategories = [
-  Category.fromJSON(trainingCategory),
-  Category.fromJSON(workoutCategory),
-  Category.fromJSON(dietCategory)
-];
+
+// List<Category> appCategories = [
+//   Category.fromJSON(trainingCategory),
+//   Category.fromJSON(workoutCategory),
+//   Category.fromJSON(dietCategory)
+// ];
+List<Category> appCategories = [];
 List<Category> subCategories = [];
 List<Category> childCategories = [];
 const List<String> appCategoriesName = ["training", "workout", "diet"];
@@ -167,25 +169,25 @@ const List<String> joinAsA = ["Trainee", "Trainer"];
 const List<String> weightUnits = ["Kg", "Pound"];
 
 // Maps
-Map<String, dynamic> trainingCategory = {
-  "id": "0",
-  "name": "Training",
-  "bgImgUrl":
-      "https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1200&h=600&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F35%2F2019%2F04%2F03185915%2Fhow-to-build-circuit-workout-_0.jpg"
-};
+// Map<String, dynamic> trainingCategory = {
+//   "id": "0",
+//   "name": "Training",
+//   "bgImgUrl":
+//       "https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1200&h=600&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F35%2F2019%2F04%2F03185915%2Fhow-to-build-circuit-workout-_0.jpg"
+// };
 
-Map<String, dynamic> workoutCategory = {
-  "id": "1",
-  "name": "Workout",
-  "bgImgUrl": "http://ironbox.mindwhizdev.co/storage/images/red1.jpg"
-};
+// Map<String, dynamic> workoutCategory = {
+//   "id": "1",
+//   "name": "Workout",
+//   "bgImgUrl": "http://ironbox.mindwhizdev.co/storage/images/red1.jpg"
+// };
 
-Map<String, dynamic> dietCategory = {
-  "id": "2",
-  "name": "Diet",
-  "bgImgUrl":
-      "https://media3.s-nbcnews.com/i/newscms/2019_51/1406125/fruits-veggies-today-main-190130_5fce180c233a626539c5c65792a13462.jpg"
-};
+// Map<String, dynamic> dietCategory = {
+//   "id": "2",
+//   "name": "Diet",
+//   "bgImgUrl":
+//       "https://media3.s-nbcnews.com/i/newscms/2019_51/1406125/fruits-veggies-today-main-190130_5fce180c233a626539c5c65792a13462.jpg"
+// };
 
 // doubles
 const double appBarIconSize = 20.0;

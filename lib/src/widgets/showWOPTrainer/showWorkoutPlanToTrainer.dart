@@ -1,5 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/widgets/loadingWidgets/categoriesLoadingWidget.dart';
+import 'package:ironbox/src/widgets/reviewCardWidget.dart';
+import 'package:ironbox/src/widgets/showTrainerReviews.dart';
 import 'package:ironbox/src/widgets/showWOPTrainer/showPlanWeeks.dart';
+import 'package:ironbox/src/widgets/workoutPlansWidget.dart/editPlan.dart';
 import '../../models/workoutPlan.dart';
 import '../../models/plan.dart';
 import '../T_editPlanWidget.dart';
@@ -20,6 +26,14 @@ class ShowWorkoutPlanToTrainer extends StatefulWidget {
 }
 
 class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
+  PlansController _con = Get.put(PlansController());
+
+  @override
+  void initState() {
+    _con.getWOPReviews(widget.plan.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +55,13 @@ class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
                   actions: [
                     FloatingActionButton(
                       onPressed: () {
-                        // Get.to(TrainerEditPlanWidget(widget.plan));
+                        // print(Helper.getMainCategoryId("Workout"));
+                        Get.to(
+                          EditWorkoutPlan(widget.plan,
+                              mainCategoryId:
+                                  Helper.getMainCategoryId("Workout")),
+                          transition: Transition.rightToLeft,
+                        );
                       },
                       child: Icon(
                         Icons.edit,
@@ -123,6 +143,66 @@ class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
                         height: 10.0,
                       ),
                       Text("${widget.plan.caution}"),
+                      SizedBox(
+                        height: 40.0,
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              "${Constants.reviews}:",
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: TextButton(
+                              onPressed: () async {
+                                if (_con.workoutPlanReviews.isNotEmpty) {
+                                  Get.to(
+                                      TrainerReviewsList(_con
+                                          .workoutPlanReviews.reversed
+                                          .toList()),
+                                      transition: Transition.rightToLeft);
+                                }
+                              },
+                              child: Text(
+                                "${Constants.view_all}",
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Obx(() {
+                        return _con.workoutPlanReviews.isEmpty &&
+                                !_con.doneFetchingReviews.value
+                            ? CategoriesLoadingWidget(
+                                cardCount: 1,
+                              )
+                            : _con.workoutPlanReviews.isEmpty &&
+                                    _con.doneFetchingReviews.value
+                                ? Text(
+                                    "No reviews!",
+                                  )
+                                : ReviewCardWidget(
+                                    _con.workoutPlanReviews.last);
+                      }),
                       SizedBox(
                         height: 40.0,
                       ),

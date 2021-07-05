@@ -8,6 +8,7 @@ class Review {
   String trainer_id;
   String trainee_id;
   String date;
+  String rating;
   User trainee;
   DateFormat _dateFormatter = DateFormat(Constants.dateStringFormat);
 
@@ -18,6 +19,7 @@ class Review {
     message = jsonMap['message'] != null ? jsonMap['message'] : "";
     trainer_id = jsonMap['review_for'] != null ? jsonMap['review_for'] : "";
     trainee_id = jsonMap['review_by'] != null ? jsonMap['review_by'] : "";
+    rating = jsonMap['rating'] != null ? jsonMap['rating'] : "";
     date = jsonMap['created_at'] != null
         ? _dateFormatter.format(DateTime.parse(jsonMap['created_at']))
         : "";

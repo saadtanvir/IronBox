@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
@@ -28,6 +29,7 @@ class PlansController extends GetxController {
   var workoutPlanDetailsList = List<WorkoutPlanDetails>().obs;
   var workoutPlanGamesList = List<WorkoutPlanGame>().obs;
   var workoutPlanExercisesList = List<WorkoutPlanExercise>().obs;
+  var workoutPlanReviews = List<Review>().obs;
   var createdWorkoutPlanId = "".obs;
   List<Plan> plans = List<Plan>().obs;
   var categories = List<Category>().obs;
@@ -39,19 +41,21 @@ class PlansController extends GetxController {
   var doneAddingGame = false.obs;
   var doneFetchingGameExercises = false.obs;
   var doneAddingExercise = false.obs;
+  var doneFetchingReviews = false.obs;
   OverlayEntry loader;
   PlansController() {
     print("constructor of plans controller");
   }
 
   Future<void> listenForCategories() async {
-    print("fetching categories from home controller");
+    print("fetching categories from plans controller");
     categories.clear();
     Stream<Category> stream = await categoryRepo.getAppCategories();
 
     stream.listen((Category _category) {
       print(_category.backgroundImgUrl);
       categories.add(_category);
+      Constants.appCategories.add(_category);
     }, onError: (e) {
       print("Error thrown while getting categories: $e");
     }, onDone: () {
@@ -435,6 +439,20 @@ class PlansController extends GetxController {
       print("Error getting WP games exercises: $e");
     }, onDone: () {
       doneFetchingGameExercises.value = true;
+    });
+  }
+
+  void getWOPReviews(String planId) async {
+    doneFetchingReviews.value = false;
+    workoutPlanReviews.clear();
+    final Stream<Review> stream = await planRepo.getWOPReviews(planId);
+    stream.listen((Review _review) {
+      workoutPlanReviews.add(_review);
+    }, onError: (e) {
+      print(e);
+    }, onDone: () {
+      print("done fetching reviews");
+      doneFetchingReviews.value = true;
     });
   }
 

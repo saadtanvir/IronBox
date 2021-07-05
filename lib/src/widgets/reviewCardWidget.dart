@@ -57,6 +57,28 @@ class ReviewCardWidget extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                         ),
+                        review.rating != null
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "${review.rating}",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 20.0,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox(
+                                height: 0.0,
+                              ),
                       ],
                     ),
                     Spacer(),

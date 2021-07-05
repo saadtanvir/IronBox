@@ -102,8 +102,8 @@ class _TrainerPlansState extends State<TrainerPlans> {
   Widget _floatingActionButton() {
     return FloatingActionButton(
       onPressed: () {
-        if (_con.categories.length > 0) {
-          Get.dialog(SelectPlanCategoryDialog(_con.categories));
+        if (Constants.appCategories.length > 0) {
+          Get.dialog(SelectPlanCategoryDialog(Constants.appCategories));
         }
       },
       child: Icon(

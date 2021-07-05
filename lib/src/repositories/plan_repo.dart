@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 // import 'package:dio/dio.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
@@ -282,7 +283,7 @@ Future<WorkoutPlan> updateWorkoutPlan(WorkoutPlan plan, File image) async {
       "${GlobalConfiguration().get("api_base_url")}workout_plans/${plan.id}";
   String imageType = image.path.split('.').last;
 
-  print(plan.status.toString());
+  print(plan.id.toString());
 
   try {
     Map<String, String> bodyMap = {
@@ -629,6 +630,36 @@ Future<Stream<WorkoutPlanExercise>> getWorkoutPlanGameExercises(
     print("error caught");
     print("Plan Repo Error: $e");
     return new Stream.value(new WorkoutPlanExercise.fromJSON({}));
+  }
+}
+
+Future<Stream<Review>> getWOPReviews(String planId) async {
+  Uri uri = Helper.getUri('plan_reviews/$planId');
+  print("URI For Getting Plan Reviews: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing reviews data");
+          print(data);
+          return Review.fromJSON(data);
+        });
+  } on SocketException {
+    print("User Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("Plan Repo Error: $e");
+    return new Stream.value(new Review.fromJSON({}));
   }
 }
 
