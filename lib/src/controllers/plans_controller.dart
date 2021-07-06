@@ -25,13 +25,14 @@ class PlansController extends GetxController {
   WorkoutPlanDetails workoutPlanDetails = new WorkoutPlanDetails();
   WorkoutPlanGame workoutPlanGame = new WorkoutPlanGame();
   WorkoutPlanExercise workoutPlanExercise = new WorkoutPlanExercise();
+  List<Plan> plans = List<Plan>().obs;
+  List<WorkoutPlan> workoutPlans = List<WorkoutPlan>().obs;
   var trainerWorkoutPlansList = List<WorkoutPlan>().obs;
   var workoutPlanDetailsList = List<WorkoutPlanDetails>().obs;
   var workoutPlanGamesList = List<WorkoutPlanGame>().obs;
   var workoutPlanExercisesList = List<WorkoutPlanExercise>().obs;
   var workoutPlanReviews = List<Review>().obs;
   var createdWorkoutPlanId = "".obs;
-  List<Plan> plans = List<Plan>().obs;
   var categories = List<Category>().obs;
 
   // progress variables
@@ -85,14 +86,14 @@ class PlansController extends GetxController {
     });
   }
 
-  void getPlansByCategory(String category) async {
+  void getAllWorkoutPlans({int skip, int take}) async {
     doneFetchingPlans.value = false;
-    plans.clear();
-    final Stream<Plan> stream = await planRepo.getPlansByCategory(category);
+    workoutPlans.clear();
+    final Stream<WorkoutPlan> stream = await planRepo.getAllWorkoutPlans();
 
     stream.listen(
-      (Plan _plan) {
-        plans.add(_plan);
+      (WorkoutPlan _plan) {
+        workoutPlans.add(_plan);
       },
       onError: (e) {
         print("Plans Controller Error: $e");
@@ -122,6 +123,23 @@ class PlansController extends GetxController {
         doneFetchingPlans.value = true;
       },
     );
+  }
+
+  Future<void> checkIsPlanSubscribed(
+      {@required BuildContext context,
+      @required String uid,
+      @required String pid}) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo.checkIsPlanSubscribed(uid, pid).then((WorkoutPlan _plan) {
+      print(_plan.title.isEmpty);
+      print(_plan.title);
+    }).onError((error, stackTrace) {
+      print("Plans controller error:");
+      print(error.toString());
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   void getTrainerWorkoutPlans(String trainerId) async {

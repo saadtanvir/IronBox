@@ -49,7 +49,7 @@ class _UserPlansState extends State<UserPlans> {
                               ),
                             ),
                           )
-                        : UserPlansListWidget(_con.plans);
+                        : Text("Pass workout plans to UserPlansListWidget");
               }),
             )
           ],

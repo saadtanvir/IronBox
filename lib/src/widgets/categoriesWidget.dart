@@ -1,5 +1,4 @@
-import 'package:ironbox/src/pages/workoutPlans.dart';
-
+import '../pages/userWorkoutPlans.dart';
 import '../helpers/helper.dart';
 import '../models/category.dart';
 import '../pages/userPlans.dart';
@@ -10,24 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategoriesWidget extends StatelessWidget {
-  List<Category> categories;
-  CategoriesWidget(this.categories);
+  List<Category> appCategories;
+  CategoriesWidget(this.appCategories);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160.0 * categories.length.toDouble(),
+      height: 160.0 * appCategories.length.toDouble(),
       width: Helper.of(context).getScreenWidth(),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: categories.length,
+        itemCount: appCategories.length,
         itemBuilder: (context, index) {
           // print("returing card widget");
           return GestureDetector(
             onTap: () {
-              print(categories[index].name);
-              switch (categories[index].name) {
+              print(appCategories[index].name);
+              switch (appCategories[index].name) {
                 case "Trainers":
                   {
                     // go to subscribed trainers page
@@ -36,9 +35,8 @@ class CategoriesWidget extends StatelessWidget {
                   break;
                 case "Workout":
                   {
-                    // go to workout plans
-                    Get.to(WorkoutPlans(
-                        categories[index].id, categories[index].name));
+                    // go to user workout plans
+                    Get.to(WorkoutPlans(appCategories[index]));
                   }
                   break;
                 case "Diet":
@@ -48,7 +46,7 @@ class CategoriesWidget extends StatelessWidget {
                   break;
               }
             },
-            child: CategoryCardWidget(categories[index]),
+            child: CategoryCardWidget(appCategories[index]),
           );
         },
       ),

@@ -1,89 +1,89 @@
-import 'package:ironbox/src/controllers/plans_controller.dart';
-import 'package:ironbox/src/models/plan.dart';
-import 'package:ironbox/src/pages/appPlanDetails.dart';
-import 'package:ironbox/src/widgets/plansListWidget.dart';
-import 'package:ironbox/src/widgets/searchBarWidget.dart';
-import 'package:ironbox/src/widgets/trainingPlansWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../helpers/app_constants.dart' as Constants;
+// import 'package:ironbox/src/controllers/plans_controller.dart';
+// import 'package:ironbox/src/models/plan.dart';
+// import 'package:ironbox/src/pages/appPlanDetails.dart';
+// import 'package:ironbox/src/widgets/plansListWidget.dart';
+// import 'package:ironbox/src/widgets/searchBarWidget.dart';
+// import 'package:ironbox/src/widgets/trainingPlansWidget.dart';
+// import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import '../helpers/app_constants.dart' as Constants;
 
-class DietPackages extends StatefulWidget {
-  final GlobalKey<ScaffoldState> parentScaffoldKey;
-  final String category;
-  DietPackages(this.category, {this.parentScaffoldKey});
-  @override
-  _DietPackagesState createState() => _DietPackagesState();
-}
+// class DietPackages extends StatefulWidget {
+//   final GlobalKey<ScaffoldState> parentScaffoldKey;
+//   final String category;
+//   DietPackages(this.category, {this.parentScaffoldKey});
+//   @override
+//   _DietPackagesState createState() => _DietPackagesState();
+// }
 
-class _DietPackagesState extends State<DietPackages> {
-  PlansController _con = Get.put(PlansController());
+// class _DietPackagesState extends State<DietPackages> {
+//   PlansController _con = Get.put(PlansController());
 
-  void planOnTap(Plan p) {
-    Get.to(AppPlanDetails(p));
-  }
+//   void planOnTap(Plan p) {
+//     Get.to(AppPlanDetails(p));
+//   }
 
-  void searchPlan(String searchString) {
-    _con.searchPlan(searchString, widget.category);
-  }
+//   void searchPlan(String searchString) {
+//     _con.searchPlan(searchString, widget.category);
+//   }
 
-  @override
-  void initState() {
-    print("inside init of diet packages.dart");
-    _con.getPlansByCategory(widget.category);
-    super.initState();
-  }
+//   @override
+//   void initState() {
+//     print("inside init of diet packages.dart");
+//     _con.getPlansByCategory(widget.category);
+//     super.initState();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
-          image: AssetImage("assets/img/logo_vertical.png"),
-        ),
-        centerTitle: true,
-        leading: new IconButton(
-          icon: new Icon(Icons.notes_rounded,
-              color: Theme.of(context).accentColor),
-          onPressed: () {
-            // open drawer from pages file
-            // using parent key
-            widget.parentScaffoldKey.currentState.openDrawer();
-          },
-        ),
-        // actions: [
-        //   MessageIconWidget(),
-        // ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SearchBarWidget(searchPlan),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Obx(() {
-                return _con.plans.isEmpty && !_con.doneFetchingPlans.value
-                    ? CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor)
-                    : _con.plans.isEmpty && _con.doneFetchingPlans.value
-                        ? Center(
-                            heightFactor: 10.0,
-                            child: Text(
-                              "No plans to show !",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        : PlansListWidget(
-                            _con.plans.reversed.toList(), planOnTap);
-              }),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+//         title: Image(
+//           image: AssetImage("assets/img/logo_vertical.png"),
+//         ),
+//         centerTitle: true,
+//         leading: new IconButton(
+//           icon: new Icon(Icons.notes_rounded,
+//               color: Theme.of(context).accentColor),
+//           onPressed: () {
+//             // open drawer from pages file
+//             // using parent key
+//             widget.parentScaffoldKey.currentState.openDrawer();
+//           },
+//         ),
+//         // actions: [
+//         //   MessageIconWidget(),
+//         // ],
+//       ),
+//       body: SingleChildScrollView(
+//         child: Column(
+//           children: [
+//             SearchBarWidget(searchPlan),
+//             Padding(
+//               padding: const EdgeInsets.all(10.0),
+//               child: Obx(() {
+//                 return _con.plans.isEmpty && !_con.doneFetchingPlans.value
+//                     ? CircularProgressIndicator(
+//                         backgroundColor: Theme.of(context).primaryColor)
+//                     : _con.plans.isEmpty && _con.doneFetchingPlans.value
+//                         ? Center(
+//                             heightFactor: 10.0,
+//                             child: Text(
+//                               "No plans to show !",
+//                               style: TextStyle(
+//                                 color: Colors.grey,
+//                               ),
+//                             ),
+//                           )
+//                         : PlansListWidget(
+//                             _con.plans.reversed.toList(), planOnTap);
+//               }),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

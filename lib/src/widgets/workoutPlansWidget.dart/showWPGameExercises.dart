@@ -75,7 +75,8 @@ class _WorkoutPlanGameExercisesState extends State<WorkoutPlanGameExercises> {
         _con.workoutPlanExercise.gameId = widget.gameId;
         _con.workoutPlanExercise.name = exerciseData['name'];
         _con.workoutPlanExercise.videoUrl = exerciseData['videoLink'];
-        _con.workoutPlanExercise.reps = int.parse(exerciseData['reps']);
+        _con.workoutPlanExercise.reps =
+            exerciseData['reps'] != null ? int.parse(exerciseData['reps']) : 0;
         _con.createWorkoutPlanExercise(context);
       },
       child: Icon(

@@ -1,6 +1,6 @@
 class Category {
   String id;
-  String parent_id;
+  String parentId;
   String status;
   String name;
   String backgroundImgUrl;
@@ -13,7 +13,7 @@ class Category {
       id = jsonMap["id"].toString();
       name = jsonMap["name"].toString();
       backgroundImgUrl = jsonMap["cover_img"].toString();
-      parent_id = jsonMap['app_categories_id'] != null
+      parentId = jsonMap['app_categories_id'] != null
           ? jsonMap['app_categories_id']
           : jsonMap['sub_categories_id'] != null
               ? jsonMap['sub_categories_id']

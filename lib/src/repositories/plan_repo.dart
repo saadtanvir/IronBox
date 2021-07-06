@@ -80,16 +80,13 @@ Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
   }
 }
 
-Future<Stream<Plan>> getPlansByCategory(String category) async {
-  Uri uri = Helper.getUri('plans');
-  // Map<String, String> body = {"app_catagory": category};
-  Map<String, dynamic> _queryParams = {"category": category};
-  uri = uri.replace(queryParameters: _queryParams);
-  print("URI For Getting Plans By Category: ${uri.toString()}");
+Future<Stream<WorkoutPlan>> getAllWorkoutPlans({int skip, int take}) async {
+  Uri uri = Helper.getUri('all_workout_plans');
+  print("URI For Getting All WOPs: ${uri.toString()}");
   try {
     final client = new http.Client();
     // client.po
-    final streamedRest = await client.send(http.Request('post', uri));
+    final streamedRest = await client.send(http.Request('get', uri));
 
     print(streamedRest.stream.map((data) {
       print(data);
@@ -104,9 +101,9 @@ Future<Stream<Plan>> getPlansByCategory(String category) async {
         })
         .expand((data) => (data as List))
         .map((data) {
-          print("printing plans data");
+          print("printing workout plans data");
           print(data);
-          return Plan.fromJSON(data);
+          return WorkoutPlan.fromJSON(data);
         });
   } on SocketException {
     print("Plan Repo Socket Exception: ");
@@ -114,7 +111,7 @@ Future<Stream<Plan>> getPlansByCategory(String category) async {
   } catch (e) {
     print("error caught");
     print("Plan Repo Error: $e");
-    return new Stream.value(new Plan.fromJSON({}));
+    return new Stream.value(new WorkoutPlan.fromJSON({}));
   }
 }
 
@@ -191,6 +188,37 @@ Future<Stream<Plan>> getUserPlansByCategory(
     print("error caught");
     print("Plan Repo Error: $e");
     return new Stream.value(new Plan.fromJSON({}));
+  }
+}
+
+Future<WorkoutPlan> checkIsPlanSubscribed(String uid, String pid) async {
+  print("checking plan subscription");
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}check_user_subscription/plan_id=$pid/user_id=$uid";
+  print("URL FOR CHECKING PLAN SUBSCRIPTION: $url");
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.get(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    Map jsonBody = json.decode(response.body);
+
+    if (response.statusCode == 200 && jsonBody['data'] != null) {
+      return WorkoutPlan.fromJSON(jsonBody['data'][0]);
+    } else {
+      print("throws exception");
+      throw new Exception(response.body);
+    }
+  } catch (e) {
+    print("error caught");
+    print(e);
+    return WorkoutPlan.fromJSON({});
   }
 }
 

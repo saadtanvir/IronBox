@@ -52,6 +52,10 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           break;
         case 2:
           {
+            // show subcategories
+            // show child categories
+            // for now on, only show plans
+
             widget.currentPage = WorkoutPackages(
               Constants.appCategoriesName[1],
               parentScaffoldKey: widget.scaffoldKey,
@@ -60,10 +64,10 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           break;
         case 3:
           {
-            widget.currentPage = DietPackages(
-              Constants.appCategoriesName[2],
-              parentScaffoldKey: widget.scaffoldKey,
-            );
+            // widget.currentPage = DietPackages(
+            //   Constants.appCategoriesName[2],
+            //   parentScaffoldKey: widget.scaffoldKey,
+            // );
           }
           break;
         case 4:

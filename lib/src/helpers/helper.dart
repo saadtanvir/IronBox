@@ -140,10 +140,10 @@ class Helper {
     }
   }
 
-  static List<Category> getSpecificSubCategories(String id) {
+  static List<Category> getSpecificSubCategories(String appCategoryId) {
     List<Category> specificCategoryList = [];
     Constants.subCategories.forEach((category) {
-      if (category.parent_id == id) {
+      if (category.parentId == appCategoryId) {
         specificCategoryList.add(category);
       }
     });
@@ -163,7 +163,7 @@ class Helper {
   static List<Category> getSpecificChildCategories(String id) {
     List<Category> specificCategoryList = [];
     Constants.childCategories.forEach((category) {
-      if (category.parent_id == id) {
+      if (category.parentId == id) {
         specificCategoryList.add(category);
       }
     });

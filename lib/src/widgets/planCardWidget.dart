@@ -4,9 +4,10 @@ import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 
 class PlanCardWidget extends StatelessWidget {
-  Plan plan;
+  WorkoutPlan plan;
   PlanCardWidget(this.plan);
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class PlanCardWidget extends StatelessWidget {
         children: [
           CachedNetworkImage(
             imageUrl:
-                "${GlobalConfiguration().get('storage_base_url')}${plan.imgUrl}",
+                "${GlobalConfiguration().get('storage_base_url')}${plan.coverImg}",
             placeholder: (context, url) {
               return Container(
                 height: 150,
@@ -46,6 +47,21 @@ class PlanCardWidget extends StatelessWidget {
                 ),
               );
             },
+            errorWidget: (context, error, d) {
+              print(error.toString());
+              print(d.toString());
+              return Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(5),
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage("assets/img/profile_placeholder.png"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              );
+            },
           ),
           SizedBox(
             height: 5.0,
@@ -59,7 +75,7 @@ class PlanCardWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
                     child: Text(
-                      "${plan.name}",
+                      "${plan.title}",
                       overflow: TextOverflow.ellipsis,
                       style: Helper.of(context).textStyle(
                         font: FontWeight.bold,
@@ -75,7 +91,7 @@ class PlanCardWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                     child: Text(
-                      "${plan.duration} days",
+                      "${plan.durationInWeeks} weeks",
                       overflow: TextOverflow.ellipsis,
                       style:
                           Helper.of(context).textStyle(font: FontWeight.bold),

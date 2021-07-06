@@ -1,10 +1,12 @@
 import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/pages/appPlanDetails.dart';
 import 'package:ironbox/src/widgets/plansListWidget.dart';
 import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/widgets/trainingPlansWidget.dart';
 import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
+import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -20,8 +22,11 @@ class WorkoutPackages extends StatefulWidget {
 class _WorkoutPackagesState extends State<WorkoutPackages> {
   PlansController _con = Get.put(PlansController());
 
-  void planOnTap(Plan p) {
-    Get.to(AppPlanDetails(p));
+  void planOnTap(WorkoutPlan p) {
+    // check if plan already subscribed or not
+    // go to detailed or general profile accordingly
+    _con.checkIsPlanSubscribed(
+        context: context, uid: userRepo.currentUser.value.id, pid: p.id);
   }
 
   void searchPlan(String searchString) {
@@ -31,7 +36,7 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
   @override
   void initState() {
     print("inside init of workout packages.dart");
-    _con.getPlansByCategory(widget.category);
+    _con.getAllWorkoutPlans();
     super.initState();
   }
 
@@ -60,14 +65,17 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SearchBarWidget(searchPlan),
+            // SearchBarWidget(searchPlan),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Obx(() {
-                return _con.plans.isEmpty && !_con.doneFetchingPlans.value
-                    ? CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor)
-                    : _con.plans.isEmpty && _con.doneFetchingPlans.value
+                return _con.workoutPlans.isEmpty &&
+                        !_con.doneFetchingPlans.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                            backgroundColor: Theme.of(context).primaryColor),
+                      )
+                    : _con.workoutPlans.isEmpty && _con.doneFetchingPlans.value
                         ? Center(
                             heightFactor: 10.0,
                             child: Text(
@@ -78,7 +86,7 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
                             ),
                           )
                         : PlansListWidget(
-                            _con.plans.reversed.toList(), planOnTap);
+                            _con.workoutPlans.reversed.toList(), planOnTap);
               }),
             ),
           ],

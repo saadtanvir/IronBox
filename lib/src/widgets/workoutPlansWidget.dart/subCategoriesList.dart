@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 class SubcategoriesList extends StatelessWidget {
   // receives a list of sub categories
   List<Category> categories;
-  SubcategoriesList(this.categories, {Key key}) : super(key: key);
+  final Function onCategoryTap;
+  SubcategoriesList(this.categories, this.onCategoryTap, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +31,9 @@ class SubcategoriesList extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               // go to child categories
-              // by passing id
-              Get.to(
-                ChildCategoriesList(
-                    categories[index].id, categories[index].name),
-                transition: Transition.rightToLeft,
-              );
+              // by passing category
+
+              onCategoryTap(categories[index]);
             },
             child: SubCategoryListTile(categories[index]),
           );

@@ -1,11 +1,12 @@
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/widgets/planCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserPlansListWidget extends StatefulWidget {
-  List<Plan> plans = List<Plan>();
+  List<WorkoutPlan> plans = List<WorkoutPlan>();
   UserPlansListWidget(this.plans);
   @override
   _UserPlansListWidgetState createState() => _UserPlansListWidgetState();
