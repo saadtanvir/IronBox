@@ -4,15 +4,19 @@ import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 
 class PlanCardWidget extends StatelessWidget {
-  WorkoutPlan plan;
+  // receiving UserWorkoutPlan for both
+  // WorkoutPlan and UserWorkoutPlan
+  // as UserWorkoutPlan inherits from WorkoutPlan
+  final UserWorkoutPlan plan;
   PlanCardWidget(this.plan);
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
+      margin: EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.only(

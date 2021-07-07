@@ -3,11 +3,13 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/reviews.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
 import 'package:ironbox/src/models/workoutPlanGame.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
+import 'package:ironbox/src/pages/workoutPlanDetails.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addGames.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectWeek.dart';
@@ -26,6 +28,7 @@ class PlansController extends GetxController {
   WorkoutPlanGame workoutPlanGame = new WorkoutPlanGame();
   WorkoutPlanExercise workoutPlanExercise = new WorkoutPlanExercise();
   List<Plan> plans = List<Plan>().obs;
+  List<UserWorkoutPlan> userWorkoutPlans = List<UserWorkoutPlan>().obs;
   List<WorkoutPlan> workoutPlans = List<WorkoutPlan>().obs;
   var trainerWorkoutPlansList = List<WorkoutPlan>().obs;
   var workoutPlanDetailsList = List<WorkoutPlanDetails>().obs;
@@ -37,6 +40,7 @@ class PlansController extends GetxController {
 
   // progress variables
   var doneFetchingPlans = false.obs;
+  var doneFetchingUserWorkoutPlans = false.obs;
   var doneFetchingWorkoutPlanDetails = false.obs;
   var doneFetchingWorkoutPlanGames = false.obs;
   var doneAddingGame = false.obs;
@@ -105,6 +109,26 @@ class PlansController extends GetxController {
     );
   }
 
+  void getAllUserWorkoutPlans(String uid) async {
+    doneFetchingUserWorkoutPlans.value = false;
+    userWorkoutPlans.clear();
+    final Stream<UserWorkoutPlan> stream =
+        await planRepo.getAllUserWorkoutPlans(uid);
+
+    stream.listen(
+      (UserWorkoutPlan _plan) {
+        userWorkoutPlans.add(_plan);
+      },
+      onError: (e) {
+        print("Plans Controller Error: $e");
+      },
+      onDone: () {
+        print("done fetching user workout plans");
+        doneFetchingUserWorkoutPlans.value = true;
+      },
+    );
+  }
+
   void getUserPlansByCategory(String category, String userId) async {
     doneFetchingPlans.value = false;
     plans.clear();
@@ -127,13 +151,22 @@ class PlansController extends GetxController {
 
   Future<void> checkIsPlanSubscribed(
       {@required BuildContext context,
+      @required WorkoutPlan workoutPlan,
       @required String uid,
       @required String pid}) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
-    planRepo.checkIsPlanSubscribed(uid, pid).then((WorkoutPlan _plan) {
-      print(_plan.title.isEmpty);
-      print(_plan.title);
+    planRepo.checkIsPlanSubscribed(uid, pid).then((UserWorkoutPlan _userPlan) {
+      print(_userPlan.title.isEmpty);
+      if (_userPlan.title.isNotEmpty) {
+        // go to details plan page
+      } else {
+        // show plan details for subscription
+        Get.to(
+          ShowWOPDetails(workoutPlan),
+          transition: Transition.rightToLeft,
+        );
+      }
     }).onError((error, stackTrace) {
       print("Plans controller error:");
       print(error.toString());
@@ -493,6 +526,41 @@ class PlansController extends GetxController {
           ));
         });
       }
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void subscribeWorkoutPlan(
+      BuildContext context, String pid, String uid) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo.subscribeWorkoutPlan(pid, uid).then((UserWorkoutPlan _userPlan) {
+      print(_userPlan.id);
+      if (_userPlan.id.isNotEmpty) {
+        GetBar snackBar = new GetBar(
+          title: "Success",
+          message: "You have successfully bought ${_userPlan.title}.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          duration: new Duration(seconds: 2),
+        );
+
+        Get.showSnackbar(snackBar).then((value) {
+          Get.offAllNamed('/BottomNavBarPage');
+        });
+      } else {
+        Get.snackbar(
+          "Failed!",
+          "Check your connection and try again",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: new Duration(seconds: 1),
+        );
+      }
+    }).onError((error, stackTrace) {
+      print("plans controller error: $error");
     }).whenComplete(() {
       Helper.hideLoader(loader);
     });

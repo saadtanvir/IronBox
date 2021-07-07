@@ -1,19 +1,20 @@
 import 'package:get/get.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import '../../widgets/displayWeeksWidget.dart';
 import '../../widgets/showWOPTrainer/showPlanDays.dart';
 import '../../models/workoutPlan.dart';
 import 'package:flutter/material.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
-class ShowPlanWeeksList extends StatefulWidget {
-  final WorkoutPlan plan;
-  ShowPlanWeeksList(this.plan, {Key key}) : super(key: key);
+class SelectUserWOPWeek extends StatefulWidget {
+  final UserWorkoutPlan plan;
+  SelectUserWOPWeek(this.plan, {Key key}) : super(key: key);
 
   @override
-  _ShowPlanWeeksListState createState() => _ShowPlanWeeksListState();
+  _SelectUserWOPWeekState createState() => _SelectUserWOPWeekState();
 }
 
-class _ShowPlanWeeksListState extends State<ShowPlanWeeksList> {
+class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
   void _onWeekTap(int weekNum) async {
     // go to days
     Get.to(

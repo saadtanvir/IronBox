@@ -5,9 +5,9 @@ import 'package:ironbox/src/models/plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-// import 'package:dio/dio.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:ironbox/src/models/reviews.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
@@ -155,6 +155,39 @@ Future<Stream<Plan>> searchPlans(String searchString, String category) async {
   }
 }
 
+Future<Stream<UserWorkoutPlan>> getAllUserWorkoutPlans(String uid) async {
+  Uri uri = Helper.getUri('get_user_workoutplans/$uid');
+  // Map<String, dynamic> _queryParams = {"category": category, "user_id": uid};
+  // uri = uri.replace(queryParameters: _queryParams);
+  print("URI For Getting All User Workout Plans: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    // client.po
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print("plans response: $data");
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing user workout plans data");
+          print(data);
+          return UserWorkoutPlan.fromJSON(data);
+        });
+  } on SocketException {
+    print("Plan Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("Plan Repo Error: $e");
+    return new Stream.value(new UserWorkoutPlan.fromJSON({}));
+  }
+}
+
 Future<Stream<Plan>> getUserPlansByCategory(
   String category,
   String uid,
@@ -191,7 +224,7 @@ Future<Stream<Plan>> getUserPlansByCategory(
   }
 }
 
-Future<WorkoutPlan> checkIsPlanSubscribed(String uid, String pid) async {
+Future<UserWorkoutPlan> checkIsPlanSubscribed(String uid, String pid) async {
   print("checking plan subscription");
   String url =
       "${GlobalConfiguration().get("api_base_url")}check_user_subscription/plan_id=$pid/user_id=$uid";
@@ -210,7 +243,7 @@ Future<WorkoutPlan> checkIsPlanSubscribed(String uid, String pid) async {
     Map jsonBody = json.decode(response.body);
 
     if (response.statusCode == 200 && jsonBody['data'] != null) {
-      return WorkoutPlan.fromJSON(jsonBody['data'][0]);
+      return UserWorkoutPlan.fromJSON(jsonBody['data'][0]);
     } else {
       print("throws exception");
       throw new Exception(response.body);
@@ -218,7 +251,7 @@ Future<WorkoutPlan> checkIsPlanSubscribed(String uid, String pid) async {
   } catch (e) {
     print("error caught");
     print(e);
-    return WorkoutPlan.fromJSON({});
+    return UserWorkoutPlan.fromJSON({});
   }
 }
 
@@ -688,6 +721,38 @@ Future<Stream<Review>> getWOPReviews(String planId) async {
     print("error caught");
     print("Plan Repo Error: $e");
     return new Stream.value(new Review.fromJSON({}));
+  }
+}
+
+Future<UserWorkoutPlan> subscribeWorkoutPlan(String pid, String uid) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}user_subscription/plan_id=$pid/user_id=$uid";
+  print("URL FOR SUBSCRIBING PLAN: $url");
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.get(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    // print(response.body);
+    Map jsonBody = json.decode(response.body);
+    print(jsonBody);
+
+    if (response.statusCode == 200 && jsonBody['data'] != null) {
+      return UserWorkoutPlan.fromJSON(jsonBody['data'][0]);
+    } else {
+      print("throws exception");
+      throw new Exception(response.body);
+    }
+  } catch (e) {
+    print("error caught");
+    print(e);
+    return UserWorkoutPlan.fromJSON({});
   }
 }
 

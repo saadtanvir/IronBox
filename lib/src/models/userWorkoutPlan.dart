@@ -1,29 +1,24 @@
-import 'package:ironbox/src/models/rating.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
+import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
+import 'package:ironbox/src/models/workoutPlan.dart';
 
-class WorkoutPlan {
+class UserWorkoutPlan extends WorkoutPlan {
   String id;
-  String title;
-  String description;
-  String caution;
-  String trainerId;
-  String coverImg;
-  String videoUrl;
-  String muscleType;
-  String categoryId;
+  String uid;
+  String originalPid;
   String version;
-  int status;
-  int durationInWeeks; // 4 or 6
-  int difficultyLevel; // 1 or 2 or 3 [easy, intermediate, hard]
-  double price;
-  List<WorkoutPlanDetails> details;
-  Rating rating;
+  double progress;
+  List<UserWorkoutPlanDetails> detailsList;
 
-  WorkoutPlan();
+  UserWorkoutPlan();
 
-  WorkoutPlan.fromJSON(Map<String, dynamic> jsonMap) {
+  UserWorkoutPlan.fromJSON(Map<String, dynamic> jsonMap) {
     try {
       id = jsonMap['id'].toString();
+      uid = jsonMap['user_id'] != null ? jsonMap['user_id'].toString() : "";
+      originalPid =
+          jsonMap['plan_id'] != null ? jsonMap['plan_id'].toString() : "";
+      progress =
+          jsonMap['progress'] != null ? double.parse(jsonMap['progress']) : 0.0;
       title = jsonMap['title'] != null ? jsonMap['title'] : "";
       description =
           jsonMap['description'] != null ? jsonMap['description'] : "";
@@ -34,6 +29,7 @@ class WorkoutPlan {
       muscleType = jsonMap['muscle_type'] != null ? jsonMap['muscle_type'] : "";
       categoryId = jsonMap['category'] != null ? jsonMap['category'] : "";
       version = jsonMap['version'] != null ? jsonMap['version'] : "";
+
       status = jsonMap['status'] != null
           ? int.parse(jsonMap['status'].toString())
           : 0;
@@ -44,23 +40,14 @@ class WorkoutPlan {
           ? int.parse(jsonMap['difficulty_level'].toString())
           : 0;
       price = jsonMap['price'] != null ? double.parse(jsonMap['price']) : 0.0;
-      details =
+      detailsList =
           jsonMap['details'] != null && (jsonMap['details'] as List).length > 0
               ? List.from(jsonMap['details'])
-                  .map((element) => WorkoutPlanDetails.fromJSON(element))
+                  .map((element) => UserWorkoutPlanDetails.fromJSON(element))
                   .toList()
               : [];
-      rating =
-          jsonMap['ratings'] != null && (jsonMap['ratings'] as List).length > 0
-              ? Rating.fromJSON(jsonMap['ratings'][0])
-              : new Rating();
     } catch (e) {
-      print("Workout Plan Model Error: $e");
+      print("User Workout Plan Model Error: $e");
     }
   }
-
-  // Map toMap() {
-  //   var map = new Map<String, String>();
-  //   return map;
-  // }
 }

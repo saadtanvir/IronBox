@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ironbox/src/models/category.dart';
+import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/widgets/circularProgressIndicator.dart';
@@ -192,6 +193,23 @@ class Helper {
       } else {
         print("details not found");
         singleDayDetail = new WorkoutPlanDetails();
+      }
+    });
+    return singleDayDetail;
+  }
+
+  static UserWorkoutPlanDetails getUserWOPSingleDayDetails(
+      {@required List<UserWorkoutPlanDetails> planDetailsList,
+      @required String weekNum,
+      @required String dayNum}) {
+    UserWorkoutPlanDetails singleDayDetail;
+    planDetailsList.forEach((UserWorkoutPlanDetails detail) {
+      if (detail.weekNumber == weekNum && detail.dayNumber == dayNum) {
+        print("details found");
+        singleDayDetail = detail;
+      } else {
+        print("details not found");
+        singleDayDetail = new UserWorkoutPlanDetails();
       }
     });
     return singleDayDetail;

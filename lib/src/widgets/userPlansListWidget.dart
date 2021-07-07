@@ -1,33 +1,34 @@
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/plan.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/widgets/planCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserPlansListWidget extends StatefulWidget {
-  List<WorkoutPlan> plans = List<WorkoutPlan>();
-  UserPlansListWidget(this.plans);
-  @override
-  _UserPlansListWidgetState createState() => _UserPlansListWidgetState();
-}
+class UserWorkoutPlansListWidget extends StatelessWidget {
+  final List<UserWorkoutPlan> plans;
+  final Function onPlanTap;
+  UserWorkoutPlansListWidget(this.plans, this.onPlanTap, {Key key})
+      : super(key: key);
 
-class _UserPlansListWidgetState extends State<UserPlansListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160.0 * widget.plans.length.toDouble(),
+      height: 200.0 * plans.length.toDouble(),
       width: Helper.of(context).getScreenWidth(),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: widget.plans.length,
+        itemCount: plans.length,
         itemBuilder: (context, index) {
           print("returing card widget");
           return GestureDetector(
-            onTap: () {},
-            child: PlanCardWidget(widget.plans[index]),
+            onTap: () {
+              onPlanTap(plans[index]);
+            },
+            child: PlanCardWidget(plans[index]),
           );
         },
       ),

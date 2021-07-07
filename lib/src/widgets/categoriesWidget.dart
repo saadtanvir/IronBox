@@ -36,7 +36,7 @@ class CategoriesWidget extends StatelessWidget {
                 case "Workout":
                   {
                     // go to user workout plans
-                    Get.to(WorkoutPlans(appCategories[index]));
+                    Get.to(UserAllWorkoutPlans());
                   }
                   break;
                 case "Diet":

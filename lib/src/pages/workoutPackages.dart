@@ -26,7 +26,10 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
     // check if plan already subscribed or not
     // go to detailed or general profile accordingly
     _con.checkIsPlanSubscribed(
-        context: context, uid: userRepo.currentUser.value.id, pid: p.id);
+        context: context,
+        uid: userRepo.currentUser.value.id,
+        pid: p.id,
+        workoutPlan: p);
   }
 
   void searchPlan(String searchString) {

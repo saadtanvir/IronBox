@@ -1,3 +1,8 @@
+import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/models/userWorkoutPlan.dart';
+import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
+import 'package:ironbox/src/pages/userWorkoutPlanDetails.dart';
+import 'package:ironbox/src/widgets/userPlansListWidget.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/childCategoriesList.dart';
 
 import '../widgets/workoutPlansWidget.dart/subCategoriesList.dart';
@@ -7,32 +12,31 @@ import '../pages/userPlans.dart';
 import '../widgets/categoryCardWidget.dart';
 import '../widgets/userSubscribedTrainers.dart';
 import '../helpers/app_constants.dart' as Constants;
+import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WorkoutPlans extends StatefulWidget {
-  final Category category;
-  const WorkoutPlans(this.category, {Key key}) : super(key: key);
+class UserAllWorkoutPlans extends StatefulWidget {
+  const UserAllWorkoutPlans({Key key}) : super(key: key);
 
   @override
-  _WorkoutPlansState createState() => _WorkoutPlansState();
+  _UserAllWorkoutPlansState createState() => _UserAllWorkoutPlansState();
 }
 
-class _WorkoutPlansState extends State<WorkoutPlans> {
-  List<Category> subCategories;
+class _UserAllWorkoutPlansState extends State<UserAllWorkoutPlans> {
+  PlansController _con = Get.put(PlansController());
 
-  void onCategoryTap(Category category) {
+  void onPlanTap(UserWorkoutPlan plan) {
+    // go to details
     Get.to(
-      ChildCategoriesList(category),
+      ShowUserWorkoutPlanDetails(plan),
       transition: Transition.rightToLeft,
     );
   }
 
   @override
   void initState() {
-    // from sub categories list
-    // get categories where parent id is workout category id
-    subCategories = Helper.getSpecificSubCategories(widget.category.id);
+    _con.getAllUserWorkoutPlans(userRepo.currentUser.value.id);
     super.initState();
   }
 
@@ -40,17 +44,26 @@ class _WorkoutPlansState extends State<WorkoutPlans> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.category.name}"),
+        title: Text("Workout Plans"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            subCategories.length > 0
-                ? SubcategoriesList(subCategories, onCategoryTap)
-                : Center(
-                    child: Text(
-                    "No category to show.",
-                  )),
+            Obx(() {
+              return _con.userWorkoutPlans.isEmpty &&
+                      !_con.doneFetchingUserWorkoutPlans.value
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : _con.userWorkoutPlans.isEmpty &&
+                          _con.doneFetchingUserWorkoutPlans.value
+                      ? Center(
+                          child: Text("You have not bought any plan yet!"),
+                        )
+                      : UserWorkoutPlansListWidget(
+                          _con.userWorkoutPlans, onPlanTap);
+            }),
           ],
         ),
       ),
