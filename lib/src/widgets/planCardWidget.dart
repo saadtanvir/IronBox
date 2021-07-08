@@ -11,7 +11,7 @@ class PlanCardWidget extends StatelessWidget {
   // receiving UserWorkoutPlan for both
   // WorkoutPlan and UserWorkoutPlan
   // as UserWorkoutPlan inherits from WorkoutPlan
-  final UserWorkoutPlan plan;
+  final WorkoutPlan plan;
   PlanCardWidget(this.plan);
   @override
   Widget build(BuildContext context) {

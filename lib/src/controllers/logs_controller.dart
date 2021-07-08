@@ -14,7 +14,7 @@ class LogsController extends GetxController {
       DateFormat(Constants.dateStringFormat).format(DateTime.now());
   List<Logs> logs = List<Logs>().obs;
 
-  LogsController() {}
+  LogsController();
 
   void getUserLogs(String userId, {String date}) async {
     doneFetchingLogs.value = false;
@@ -37,7 +37,7 @@ class LogsController extends GetxController {
     );
   }
 
-  void addLog() async {
+  void addLog(Logs log) async {
     // Get.back();
     logsRepo.addLog(newLog).then((log) {
       if (log.id != null && log.id.isNotEmpty) {

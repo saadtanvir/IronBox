@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
+import 'package:ironbox/src/widgets/showWOPUser/selectDay.dart';
+import '../../models/userWorkoutPlan.dart';
 import '../../widgets/displayWeeksWidget.dart';
 import '../../widgets/showWOPTrainer/showPlanDays.dart';
 import '../../models/workoutPlan.dart';
@@ -18,7 +19,7 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
   void _onWeekTap(int weekNum) async {
     // go to days
     Get.to(
-      ShowPlanDaysList(widget.plan, weekNum),
+      SelectUserWOPDay(widget.plan, weekNum),
       transition: Transition.rightToLeft,
     );
   }

@@ -4,6 +4,7 @@ class UserWorkoutPlanExercise extends WorkoutPlanExercise {
   String id;
   // String originalWOPExerciseId;
   String userWOPGameId;
+  int status;
 
   UserWorkoutPlanExercise();
 
@@ -17,6 +18,9 @@ class UserWorkoutPlanExercise extends WorkoutPlanExercise {
       reps = jsonMap['reps'] != null ? int.parse(jsonMap['reps']) : 0;
       duration = jsonMap['duration'] != null ? jsonMap['duration'] : "";
       videoUrl = jsonMap['video_url'] != null ? jsonMap['video_url'] : "";
+      status = jsonMap['status'] != null
+          ? int.parse(jsonMap['status'].toString())
+          : 0;
       description =
           jsonMap['description'] != null ? jsonMap['description'] : "";
     } catch (e) {

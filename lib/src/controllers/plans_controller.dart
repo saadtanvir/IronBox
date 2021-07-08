@@ -21,12 +21,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlansController extends GetxController {
+  // class objects
   StripePaymentServices _stripePaymentServices = StripePaymentServices();
   Plan plan = new Plan();
   WorkoutPlan workoutPlan = new WorkoutPlan();
   WorkoutPlanDetails workoutPlanDetails = new WorkoutPlanDetails();
   WorkoutPlanGame workoutPlanGame = new WorkoutPlanGame();
   WorkoutPlanExercise workoutPlanExercise = new WorkoutPlanExercise();
+
+  // lists
   List<Plan> plans = List<Plan>().obs;
   List<UserWorkoutPlan> userWorkoutPlans = List<UserWorkoutPlan>().obs;
   List<WorkoutPlan> workoutPlans = List<WorkoutPlan>().obs;

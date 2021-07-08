@@ -6,6 +6,7 @@ class UserWorkoutPlanDetails extends WorkoutPlanDetails {
   String originalWOPDetailId;
   String userPlanId;
   int calBurn;
+  int avgCal; // user specific
   double progress;
   List<UserWorkoutPlanGame> userGamesList;
 
@@ -25,6 +26,7 @@ class UserWorkoutPlanDetails extends WorkoutPlanDetails {
       dayTitle = jsonMap['day_title'] != null ? jsonMap['day_title'] : "";
       calBurn =
           jsonMap['cal_burn'] != null ? int.parse(jsonMap['cal_burn']) : 0;
+      avgCal = jsonMap['avg_cal'] != null ? int.parse(jsonMap['avg_cal']) : 0;
       progress =
           jsonMap['progress'] != null ? double.parse(jsonMap['progress']) : 0.0;
       minCal = jsonMap['min_calories'] != null
