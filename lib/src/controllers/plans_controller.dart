@@ -9,6 +9,7 @@ import 'package:ironbox/src/models/workoutPlanDetails.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
 import 'package:ironbox/src/models/workoutPlanGame.dart';
 import 'package:ironbox/src/pages/T_btmNavBar.dart';
+import 'package:ironbox/src/pages/userWorkoutPlanDetails.dart';
 import 'package:ironbox/src/pages/workoutPlanDetails.dart';
 import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addGames.dart';
@@ -58,6 +59,7 @@ class PlansController extends GetxController {
   Future<void> listenForCategories() async {
     print("fetching categories from plans controller");
     categories.clear();
+    Constants.appCategories.clear();
     Stream<Category> stream = await categoryRepo.getAppCategories();
 
     stream.listen((Category _category) {
@@ -163,6 +165,10 @@ class PlansController extends GetxController {
       print(_userPlan.title.isEmpty);
       if (_userPlan.title.isNotEmpty) {
         // go to details plan page
+        Get.to(
+          ShowUserWorkoutPlanDetails(_userPlan),
+          transition: Transition.rightToLeft,
+        );
       } else {
         // show plan details for subscription
         Get.to(

@@ -24,7 +24,10 @@ class ContactsLoadingWidget extends StatelessWidget {
               child: Column(
                 children: [
                   UserCircularAvatar(
-                      60.0, 60.0, "contact/avatar", BoxFit.cover),
+                      height: 60.0,
+                      width: 60.0,
+                      imgUrl: "contact/avatar",
+                      adjustment: BoxFit.cover),
                   SizedBox(
                     height: 5.0,
                   ),

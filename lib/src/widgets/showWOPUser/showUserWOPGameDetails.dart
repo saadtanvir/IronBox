@@ -1,10 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
+import 'package:ironbox/src/controllers/WOPExerciseController.dart';
 import 'package:ironbox/src/models/userWorkoutPlanExercise.dart';
 import 'package:ironbox/src/models/userWorkoutPlanGame.dart';
+import 'package:ironbox/src/widgets/dialogs/playWPExerciseVideo.dart';
 import 'package:ironbox/src/widgets/showWOPUser/selectWeek.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/showWOPUser/userWOPExercisesListWidget.dart';
+import '../../repositories/user_repo.dart' as userRepo;
+
 import '../../helpers/app_constants.dart' as Constants;
 
 class ShowUserWOPGameDetails extends StatefulWidget {
@@ -16,9 +22,36 @@ class ShowUserWOPGameDetails extends StatefulWidget {
 }
 
 class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
-  void onExerciseTap(UserWorkoutPlanExercise exercise) {
-    // do whatever you want
+  WorkoutPlanExerciseController _con = Get.put(WorkoutPlanExerciseController());
+  DateFormat _dateFormatter;
+
+  void addExerciseToLog(UserWorkoutPlanExercise exercise) {
+    // add to user logs
+    print("adding exercise to logs");
+    _con.addExerciseToLogs(
+        exercise: exercise,
+        date: _dateFormatter.format(DateTime.now()),
+        categoryId: "1",
+        createdBy: userRepo.currentUser.value.id,
+        uid: userRepo.currentUser.value.id);
   }
+
+  void markExerciseAsCompleted(UserWorkoutPlanExercise exercise) {
+    // change status to 1
+    _con.changeExerciseStatus(exercise.id, "1");
+  }
+
+  void playExerciseVideo(String url) {
+    Get.dialog(PlayWorkoutPlanExerciseVideoDialog(url));
+  }
+
+  @override
+  void initState() {
+    _dateFormatter = DateFormat(Constants.dateStringFormat);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +66,10 @@ class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
           children: [
             widget.game.exercises.isNotEmpty
                 ? UserWOPExercisesListWidget(
-                    widget.game.exercises, onExerciseTap)
+                    widget.game.exercises,
+                    addExerciseToLog,
+                    markExerciseAsCompleted,
+                    playExerciseVideo)
                 : Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 30.0),

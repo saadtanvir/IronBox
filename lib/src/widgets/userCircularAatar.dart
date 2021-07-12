@@ -9,14 +9,15 @@ class UserCircularAvatar extends StatelessWidget {
   final double height;
   final String imgUrl;
   final BoxFit adjustment;
-  UserCircularAvatar(this.height, this.width, this.imgUrl, this.adjustment);
+  UserCircularAvatar(
+      {this.height, this.width, @required this.imgUrl, this.adjustment});
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       placeholder: (context, url) {
         return Container(
-          height: height,
-          width: width,
+          height: height ?? 100.0,
+          width: width ?? 100.0,
           decoration: BoxDecoration(
             // borderRadius: BorderRadius.circular(5),
             shape: BoxShape.circle,
@@ -30,14 +31,14 @@ class UserCircularAvatar extends StatelessWidget {
       imageUrl: '${GlobalConfiguration().get('storage_base_url')}$imgUrl',
       imageBuilder: (context, imageProvider) {
         return Container(
-          height: height,
-          width: width,
+          height: height ?? 100.0,
+          width: width ?? 100.0,
           decoration: BoxDecoration(
             // borderRadius: BorderRadius.circular(5),
             shape: BoxShape.circle,
             image: DecorationImage(
               image: imageProvider,
-              fit: adjustment,
+              fit: adjustment ?? BoxFit.contain,
             ),
           ),
         );
@@ -46,8 +47,8 @@ class UserCircularAvatar extends StatelessWidget {
         print(error.toString());
         print(d.toString());
         return Container(
-          height: height,
-          width: width,
+          height: height ?? 100.0,
+          width: width ?? 100.0,
           decoration: BoxDecoration(
             // borderRadius: BorderRadius.circular(5),
             shape: BoxShape.circle,

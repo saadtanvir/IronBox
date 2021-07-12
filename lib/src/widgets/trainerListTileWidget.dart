@@ -10,7 +10,11 @@ class TrainerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: UserCircularAvatar(85.0, 65.0, trainer.avatar, BoxFit.cover),
+      leading: UserCircularAvatar(
+          height: 85.0,
+          width: 65.0,
+          imgUrl: trainer.avatar,
+          adjustment: BoxFit.cover),
       title: Text("${trainer.name}"),
       subtitle: Text("${trainer.specializesIn}"),
       trailing: Container(

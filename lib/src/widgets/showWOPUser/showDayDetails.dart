@@ -29,6 +29,8 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("showing day details of wop to user");
+    print(widget.details.userGamesList == null);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,7 +42,8 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
         child: Column(
           children: [
             // display list of games
-            widget.details.userGamesList.isNotEmpty
+            widget.details.userGamesList != null &&
+                    widget.details.userGamesList.isNotEmpty
                 ? UserWorkoutPlanGamesListWidget(
                     widget.details.userGamesList, onGameTap)
                 : Text("No games to perform!"),

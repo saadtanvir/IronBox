@@ -14,6 +14,7 @@ class TrainerHomeController extends GetxController {
   void getClientsList(String uid) async {
     print("fetching user contacts");
     doneFetchingClients.value = false;
+    clients.clear();
     final Stream<User> stream = await userRepo.getUserContacts(uid);
 
     stream.listen(

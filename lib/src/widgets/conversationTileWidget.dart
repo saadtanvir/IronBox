@@ -42,7 +42,10 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
                     transition: Transition.rightToLeft);
               },
               leading: UserCircularAvatar(
-                  60.0, 60.0, "${firebaseContact['imgURL']}", BoxFit.cover),
+                  height: 60.0,
+                  width: 60.0,
+                  imgUrl: "${firebaseContact['imgURL']}",
+                  adjustment: BoxFit.cover),
               title: Text(
                 "${firebaseContact['username']}",
                 style: TextStyle(
@@ -65,7 +68,11 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
-              leading: UserCircularAvatar(60.0, 60.0, "", BoxFit.cover),
+              leading: UserCircularAvatar(
+                  height: 60.0,
+                  width: 60.0,
+                  imgUrl: "",
+                  adjustment: BoxFit.cover),
               title: Text(""),
               subtitle: LastMessageWidget(_con.firebaseMethods.getMessages(
                   sid: userRepo.currentUser.value.id, rid: widget.contactId)),

@@ -16,7 +16,11 @@ class AvailableUserChatsWidget extends StatelessWidget {
         width: 80.0,
         child: Column(
           children: [
-            UserCircularAvatar(60.0, 60.0, contact.avatar, BoxFit.cover),
+            UserCircularAvatar(
+                height: 60.0,
+                width: 60.0,
+                imgUrl: contact.avatar,
+                adjustment: BoxFit.cover),
             SizedBox(
               height: 5.0,
             ),

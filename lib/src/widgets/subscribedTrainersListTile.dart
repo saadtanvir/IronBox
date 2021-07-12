@@ -14,7 +14,10 @@ class SubscribedTrainerListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: UserCircularAvatar(
-          85.0, 65.0, subscription.trainers.avatar, BoxFit.cover),
+          height: 85.0,
+          width: 65.0,
+          imgUrl: subscription.trainers.avatar,
+          adjustment: BoxFit.cover),
       title: Text("${subscription.trainers.name}"),
       subtitle: Text("${subscription.trainers.specializesIn}"),
       trailing: Container(

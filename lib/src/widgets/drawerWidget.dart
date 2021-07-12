@@ -79,8 +79,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  UserCircularAvatar(70.0, 70.0,
-                      "${userRepo.currentUser.value.avatar}", BoxFit.cover),
+                  UserCircularAvatar(
+                      height: 70.0,
+                      width: 70.0,
+                      imgUrl: "${userRepo.currentUser.value.avatar}",
+                      adjustment: BoxFit.cover),
                   SizedBox(
                     height: 5.0,
                   ),

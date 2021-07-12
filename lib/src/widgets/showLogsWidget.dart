@@ -7,9 +7,16 @@ import '../helpers/app_constants.dart' as Constants;
 
 class ShowLogsWidget extends StatefulWidget {
   List<Logs> logsList;
+  final bool canDelete;
+  final bool canUpdate;
   final Function updateLogStatus;
   final Function deleteLog;
-  ShowLogsWidget({this.logsList, this.deleteLog, this.updateLogStatus});
+  ShowLogsWidget(
+      {this.logsList,
+      this.canDelete,
+      this.canUpdate,
+      this.deleteLog,
+      this.updateLogStatus});
   @override
   _ShowLogsWidgetState createState() => _ShowLogsWidgetState();
 }
@@ -38,57 +45,61 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextButton(
-              onPressed: () async {
-                // show dialog "are you sure you want to delete ?"
-                // delete logsList[currentIndex] from logs list
-                // and update logs
-                Get.defaultDialog(
-                  title: "Are you sure you want to delete ?",
-                  titleStyle: TextStyle(
-                    fontSize: 15.0,
+            widget.canDelete
+                ? TextButton(
+                    onPressed: () async {
+                      // show dialog "are you sure you want to delete ?"
+                      // delete logsList[currentIndex] from logs list
+                      // and update logs
+                      Get.defaultDialog(
+                        title: "Are you sure you want to delete ?",
+                        titleStyle: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                        content: SizedBox(
+                          height: 0.0,
+                        ),
+                        barrierDismissible: false,
+                        textCancel: "Cancel",
+                        textConfirm: "Yes",
+                        confirmTextColor: Colors.white,
+                        buttonColor: Theme.of(context).primaryColor,
+                        onCancel: () {},
+                        onConfirm: () {
+                          widget.deleteLog(widget.logsList[_currentIndex]);
+                          Get.back();
+                        },
+                      );
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 10.0),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                      overlayColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor.withOpacity(0.8)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                  )
+                : SizedBox(
+                    width: 0.0,
                   ),
-                  content: SizedBox(
-                    height: 0.0,
-                  ),
-                  barrierDismissible: false,
-                  textCancel: "Cancel",
-                  textConfirm: "Yes",
-                  confirmTextColor: Colors.white,
-                  buttonColor: Theme.of(context).primaryColor,
-                  onCancel: () {},
-                  onConfirm: () {
-                    widget.deleteLog(widget.logsList[_currentIndex].id);
-                    Get.back();
-                  },
-                );
-              },
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(horizontal: 10.0),
-                ),
-                backgroundColor:
-                    MaterialStateProperty.all(Theme.of(context).primaryColor),
-                overlayColor: MaterialStateProperty.all(
-                    Theme.of(context).primaryColor.withOpacity(0.8)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  ),
-                ),
-              ),
-              child: Text(
-                "Delete",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                ),
-              ),
-            ),
             SizedBox(
               width: 5.0,
             ),
-            widget.logsList[_currentIndex].isCompleted == 0
+            widget.logsList[_currentIndex].isCompleted == 0 && widget.canUpdate
                 ? TextButton(
                     onPressed: () async {
                       // make this step BG color light green

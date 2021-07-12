@@ -31,7 +31,10 @@ class ReviewCardWidget extends StatelessWidget {
                       width: 15.0,
                     ),
                     UserCircularAvatar(
-                        50.0, 60.0, "${review.trainee.avatar}", BoxFit.fill),
+                        height: 50.0,
+                        width: 60.0,
+                        imgUrl: "${review.trainee.avatar}",
+                        adjustment: BoxFit.fill),
                     SizedBox(
                       width: 15.0,
                     ),

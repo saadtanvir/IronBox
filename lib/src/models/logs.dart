@@ -42,11 +42,12 @@ class Logs {
       videoUrl = jsonMap['video_url'] != null ? jsonMap['video_url'] : "";
       userId = jsonMap['user_id'] != null ? jsonMap['user_id'].toString() : '';
       createdBy =
-          jsonMap['createdBy'] != null ? jsonMap['createdBy'].toString() : '';
-      dueDate =
-          jsonMap['createdAt'] != null ? jsonMap['createdAt'].toString() : '';
+          jsonMap['created_by'] != null ? jsonMap['created_by'].toString() : '';
+      dueDate = jsonMap['created_date'] != null
+          ? jsonMap['created_date'].toString()
+          : '';
       duration =
-          jsonMap['duration'] != null ? jsonMap['duration'].toString() : '';
+          jsonMap['minutes'] != null ? jsonMap['minutes'].toString() : '';
       isCompleted = jsonMap['status'] != null
           ? int.parse(jsonMap['status'].toString())
           : 0;
@@ -65,10 +66,17 @@ class Logs {
     map['title'] = title;
     map['description'] = description;
     map['user_id'] = userId;
-    map['createdby'] = createdBy;
-    map['createdat'] = dueDate;
-    map['duration'] = duration;
-    map['status'] = isCompleted.toString();
+    map['created_by'] = createdBy;
+    map['created_date'] = dueDate;
+    map['minutes'] = duration;
+    map['video_url'] = videoUrl;
+    // map['status'] = isCompleted.toString();
+    map['reps'] = reps.toString();
+    map['cal_burn'] = calBurn.toString();
+    map['cal_gain'] = calGain.toString();
+    map['category_id'] = categoryId.toString();
+    map['meal_id'] = mealId.toString();
+    map['exercise_id'] = exerciseId.toString();
     return map;
   }
 }

@@ -59,7 +59,10 @@ class _ChattingScreenState extends State<ChattingScreen> {
                 }
               },
               child: UserCircularAvatar(
-                  50.0, 50.0, "${widget.imgUrl}", BoxFit.cover),
+                  height: 50.0,
+                  width: 50.0,
+                  imgUrl: "${widget.imgUrl}",
+                  adjustment: BoxFit.cover),
             ),
           ),
           bottom: PreferredSize(

@@ -8,8 +8,13 @@ import 'package:get/get.dart';
 
 class UserWOPExercisesListWidget extends StatelessWidget {
   final List<UserWorkoutPlanExercise> exercisesList;
-  final Function onExerciseTap;
-  UserWOPExercisesListWidget(this.exercisesList, this.onExerciseTap, {Key key})
+  // final Function onExerciseTap;
+  final Function addToLogs;
+  final Function markAsCompleted;
+  final Function playVideo;
+  UserWOPExercisesListWidget(
+      this.exercisesList, this.addToLogs, this.markAsCompleted, this.playVideo,
+      {Key key})
       : super(key: key);
 
   @override
@@ -29,9 +34,14 @@ class UserWOPExercisesListWidget extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
               onTap: () {
-                onExerciseTap(exercisesList[index]);
+                // onExerciseTap(exercisesList[index]);
               },
-              child: UserWOPExerciseTile(exercisesList[index]),
+              child: UserWOPExerciseTile(
+                exercisesList[index],
+                addToLogs: addToLogs,
+                markAsCompleted: markAsCompleted,
+                playVideo: playVideo,
+              ),
             ),
           );
         },

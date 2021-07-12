@@ -37,11 +37,13 @@ class LogsController extends GetxController {
     );
   }
 
-  void addLog(Logs log) async {
+  void createUserLog(Logs log) async {
     // Get.back();
-    logsRepo.addLog(newLog).then((log) {
+    logsRepo.createUserLog(log).then((log) {
       if (log.id != null && log.id.isNotEmpty) {
-        logs.insert(0, log);
+        if (log.dueDate == calendarSelectedDate) {
+          logs.insert(0, log);
+        }
         Get.snackbar(
           "Success",
           "Log created successfully.",

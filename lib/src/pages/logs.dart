@@ -15,7 +15,16 @@ import 'package:intl/intl.dart';
 
 class LogsScreen extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
-  LogsScreen({Key key, this.parentScaffoldKey}) : super(key: key);
+  final bool canDelete;
+  final bool canUpdate;
+  final String logUserId;
+  LogsScreen(
+      {Key key,
+      this.parentScaffoldKey,
+      this.canDelete,
+      this.canUpdate,
+      this.logUserId})
+      : super(key: key);
   @override
   _LogsScreenState createState() => _LogsScreenState();
 }
@@ -48,8 +57,8 @@ class _LogsScreenState extends State<LogsScreen> {
     _con.updateLogStatus(id: logId, status: status);
   }
 
-  void deleteLog(String logId) {
-    _con.deleteLog(logId);
+  void deleteLog(Logs log) {
+    _con.deleteLog(log.id);
   }
 
   @override
@@ -59,10 +68,9 @@ class _LogsScreenState extends State<LogsScreen> {
     _creationDate = _dateFormatter.format(DateTime.now());
     _calendarSelectedDate = _dateFormatter.format(DateTime.now());
     _con.calendarSelectedDate = _dateFormatter.format(DateTime.now());
-    if (userRepo.currentUser.value.userToken != null) {
-      _con.getUserLogs(userRepo.currentUser.value.id,
-          date: _con.calendarSelectedDate);
-    }
+    _con.getUserLogs(widget.logUserId ?? userRepo.currentUser.value.id,
+        date: _con.calendarSelectedDate);
+
     super.initState();
   }
 
@@ -75,15 +83,23 @@ class _LogsScreenState extends State<LogsScreen> {
           image: AssetImage("assets/img/logo_vertical.png"),
         ),
         centerTitle: true,
-        leading: new IconButton(
-          icon: new Icon(Icons.notes_rounded,
-              color: Theme.of(context).accentColor),
-          onPressed: () {
-            // open drawer from pages file
-            // using parent key
-            widget.parentScaffoldKey.currentState.openDrawer();
-          },
-        ),
+        leading: widget.parentScaffoldKey != null
+            ? new IconButton(
+                icon: new Icon(Icons.notes_rounded,
+                    color: Theme.of(context).accentColor),
+                onPressed: () {
+                  // open drawer from pages file
+                  // using parent key
+                  widget.parentScaffoldKey.currentState.openDrawer();
+                },
+              )
+            : IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: new Icon(Icons.arrow_back),
+                color: Theme.of(context).primaryColor,
+              ),
         // actions: [
         //   MessageIconWidget(),
         // ],
@@ -100,7 +116,8 @@ class _LogsScreenState extends State<LogsScreen> {
                   _calendarSelectedDate = _dateFormatter.format(selectedDate);
                   _con.calendarSelectedDate =
                       _dateFormatter.format(selectedDate);
-                  _con.getUserLogs(userRepo.currentUser.value.id,
+                  _con.getUserLogs(
+                      widget.logUserId ?? userRepo.currentUser.value.id,
                       date: _con.calendarSelectedDate);
                 },
                 initialDate: DateTime.now(),
@@ -140,6 +157,8 @@ class _LogsScreenState extends State<LogsScreen> {
                           ),
                         )
                       : ShowLogsWidget(
+                          canDelete: widget.canDelete ?? true,
+                          canUpdate: widget.canUpdate ?? true,
                           logsList: _con.logs,
                           updateLogStatus: updateLogStatus,
                           deleteLog: deleteLog,
@@ -155,12 +174,17 @@ class _LogsScreenState extends State<LogsScreen> {
     return FloatingActionButton(
       onPressed: () async {
         var createdLog = await Get.to(
-          UserLogForm(
-              userRepo.currentUser.value.id, userRepo.currentUser.value.id),
+          UserLogForm(widget.logUserId ?? userRepo.currentUser.value.id,
+              userRepo.currentUser.value.id),
           fullscreenDialog: true,
         );
+        print(createdLog);
         if (createdLog != null) {
-          _con.addLog(createdLog);
+          if (createdLog.title.isNotEmpty) {
+            print(createdLog.dueDate);
+
+            _con.createUserLog(createdLog);
+          }
         }
       },
       child: Icon(

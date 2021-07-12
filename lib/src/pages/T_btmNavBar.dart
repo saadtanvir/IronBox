@@ -1,5 +1,6 @@
 import 'package:ironbox/src/pages/T_homePage.dart';
 import 'package:ironbox/src/pages/T_plans.dart';
+import 'package:ironbox/src/pages/T_showClientsProgress.dart';
 import 'package:ironbox/src/widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -44,8 +45,9 @@ class _TrainerBottomNavBarState extends State<TrainerBottomNavBar> {
           break;
         case 3:
           {
-            // widget.currentPage =
-            //     WorkoutPackages(Constants.appCategoriesName[1]);
+            widget.currentPage = ShowClientsDetails(
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
       }
     });

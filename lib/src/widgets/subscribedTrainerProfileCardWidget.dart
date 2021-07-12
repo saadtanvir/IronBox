@@ -43,7 +43,10 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                         Get.dialog(ImageDialogWidget("${trainer.avatar}"));
                       },
                       child: UserCircularAvatar(
-                          120.0, 100.0, "${trainer.avatar}", BoxFit.fill),
+                          height: 120.0,
+                          width: 100.0,
+                          imgUrl: "${trainer.avatar}",
+                          adjustment: BoxFit.fill),
                     ),
                     SizedBox(
                       width: 20.0,
