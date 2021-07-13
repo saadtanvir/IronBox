@@ -38,7 +38,7 @@ class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
 
   void markExerciseAsCompleted(UserWorkoutPlanExercise exercise) {
     // change status to 1
-    _con.changeExerciseStatus(exercise.id, "1");
+    _con.changeExerciseStatus(exercise, "1");
   }
 
   void playExerciseVideo(String url) {
@@ -47,6 +47,7 @@ class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
 
   @override
   void initState() {
+    _con.getGameExercises(widget.game.id);
     _dateFormatter = DateFormat(Constants.dateStringFormat);
 
     super.initState();
@@ -61,24 +62,53 @@ class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            widget.game.exercises.isNotEmpty
-                ? UserWOPExercisesListWidget(
-                    widget.game.exercises,
-                    addExerciseToLog,
-                    markExerciseAsCompleted,
-                    playExerciseVideo)
-                : Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
-                      child: Text(
-                        "No exercise in this circuit!",
-                      ),
-                    ),
-                  ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () {
+          return _con.getGameExercises(widget.game.id);
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              Obx(() {
+                return _con.gameExercisesList.isEmpty &&
+                        !_con.doneFetchingExercises.value
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : _con.gameExercisesList.isEmpty &&
+                            _con.doneFetchingExercises.value
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 100.0),
+                              child: Text("No exercises to show!"),
+                            ),
+                          )
+                        : UserWOPExercisesListWidget(
+                            _con.gameExercisesList,
+                            addExerciseToLog,
+                            markExerciseAsCompleted,
+                            playExerciseVideo);
+              }),
+              // widget.game.exercises.isNotEmpty
+              //     ? UserWOPExercisesListWidget(
+              //         widget.game.exercises,
+              //         addExerciseToLog,
+              //         markExerciseAsCompleted,
+              //         playExerciseVideo)
+              //     : Center(
+              //         child: Padding(
+              //           padding: const EdgeInsets.only(top: 30.0),
+              //           child: Text(
+              //             "No exercise in this circuit!",
+              //           ),
+              //         ),
+              //       ),
+            ],
+          ),
         ),
       ),
     );

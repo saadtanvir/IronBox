@@ -89,6 +89,8 @@ const String none = "None";
 const String joining_as_a = "Joining as a";
 const String dateStringFormat = "yyyy-MM-dd";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Messages
 const String invalidEmail = "Invalid email";
 const String invalidNumber = "Invalid number";
@@ -140,6 +142,8 @@ const String check_internet_connection = "Check your internet connection !";
 const String user_registered_successfully_you_can_login_now =
     "User registered successfully. You can login now.";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Colors
 const Color primaryColor = Color(0xffE13F3B);
 const Color accentColor = Color(0xff2D2D2D);
@@ -149,8 +153,12 @@ const Color primaryTextColor = Colors.white;
 const Color secondaryTextColor = Color(0xffE13F3B);
 const Color messageSearchBarColor = Color(0xffF0F3F4);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // controllers tags
 const String createWorkoutPlanController = "createWorkoutPlanController";
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Lists
 
@@ -189,8 +197,12 @@ const List<String> weightUnits = ["Kg", "Pound"];
 //       "https://media3.s-nbcnews.com/i/newscms/2019_51/1406125/fruits-veggies-today-main-190130_5fce180c233a626539c5c65792a13462.jpg"
 // };
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // doubles
 const double appBarIconSize = 20.0;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // connection state
 ConnectionStatusSingleton connectionStatus =

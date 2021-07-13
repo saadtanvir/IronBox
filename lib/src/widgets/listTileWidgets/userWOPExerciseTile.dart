@@ -1,9 +1,5 @@
-import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/userWorkoutPlanExercise.dart';
-import 'package:ironbox/src/models/userWorkoutPlanGame.dart';
-import 'package:ironbox/src/widgets/listTileWidgets/userWorkoutPlanGameTile.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class UserWOPExerciseTile extends StatelessWidget {
   final UserWorkoutPlanExercise exercise;

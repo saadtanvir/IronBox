@@ -45,7 +45,7 @@ class LogsController extends GetxController {
           logs.insert(0, log);
         }
         Get.snackbar(
-          "Success",
+          Constants.success,
           "Log created successfully.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
@@ -62,7 +62,7 @@ class LogsController extends GetxController {
       if (updated) {
         getUserLogs(userRepo.currentUser.value.id, date: calendarSelectedDate);
         Get.snackbar(
-          "Success",
+          Constants.success,
           "Status updated successfully.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
@@ -81,8 +81,8 @@ class LogsController extends GetxController {
       if (deleted) {
         getUserLogs(userRepo.currentUser.value.id, date: calendarSelectedDate);
         Get.snackbar(
-          "Success",
-          "Deleted successfully.",
+          Constants.success,
+          "Log deleted successfully.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,

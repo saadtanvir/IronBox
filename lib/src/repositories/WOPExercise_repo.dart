@@ -6,9 +6,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/userWorkoutPlanExercise.dart';
+
+Future<Stream<UserWorkoutPlanExercise>> getGameExercises(String gameId) async {
+  Uri uri = Helper.getUri('fetch_user_plans_exercises/$gameId');
+  print("URI For Getting Game Exercises: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing exercise data");
+          print(data);
+          return UserWorkoutPlanExercise.fromJSON(data);
+        });
+  } on SocketException {
+    print("WOP Exercise Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("Plan Repo Error: $e");
+    return new Stream.value(new UserWorkoutPlanExercise.fromJSON({}));
+  }
+}
 
 Future<bool> addExerciseToLog(
     {@required UserWorkoutPlanExercise exercise,
