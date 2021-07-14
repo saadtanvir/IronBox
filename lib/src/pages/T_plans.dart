@@ -47,9 +47,15 @@ class _TrainerPlansState extends State<TrainerPlans> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
-          image: AssetImage("assets/img/logo_vertical.png"),
+        title: Text(
+          "Workout Plans",
+          style: TextStyle(
+            color: Colors.black,
+          ),
         ),
+        // title: Image(
+        //   image: AssetImage("assets/img/logo_vertical.png"),
+        // ),
         centerTitle: true,
         leading: new IconButton(
           icon: new Icon(Icons.notes_rounded,

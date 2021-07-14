@@ -21,7 +21,7 @@ Future<Stream<Category>> getAppCategories({String id}) async {
         .expand((data) => (data as List))
         .map((data) {
       print("printing categories data");
-      print(data);
+      // print(data);
       return Category.fromJSON(data);
     });
   } on SocketException {
@@ -49,7 +49,7 @@ Future<Stream<Category>> getSubCategories() async {
         .expand((data) => (data as List))
         .map((data) {
       print("printing sub categories data");
-      print(data);
+      // print(data);
       return Category.fromJSON(data);
     });
   } on SocketException {
@@ -77,7 +77,7 @@ Future<Stream<Category>> getChildCategories() async {
         .expand((data) => (data as List))
         .map((data) {
       print("printing child categories data");
-      print(data);
+      // print(data);
       return Category.fromJSON(data);
     });
   } on SocketException {

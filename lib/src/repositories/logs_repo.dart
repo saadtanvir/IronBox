@@ -22,20 +22,20 @@ Future<Stream<Logs>> getUserLogs(String id, String date) async {
     final streamedRest = await client.send(http.Request('get', uri));
 
     print(streamedRest.stream.map((data) {
-      print(data);
+      // print(data);
     }));
 
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing logs data");
-          print(data);
+          // print(data);
           return Logs.fromJSON(data);
         });
   } on SocketException {
@@ -67,7 +67,7 @@ Future<Logs> createUserLog(Logs log) async {
     print(json.encode(log.toMap()));
 
     print(response.statusCode);
-    print(json.decode(response.body));
+    // print(json.decode(response.body));
     // Map responseBody = json.decode(response.body);
     // print(responseBody.containsKey("errors"));
 

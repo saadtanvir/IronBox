@@ -3,6 +3,7 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/logs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/widgets/dialogs/playWPExerciseVideo.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class ShowLogsWidget extends StatefulWidget {
@@ -172,20 +173,29 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                   Row(
                     children: [
                       Text(
-                        "${log.title}",
-                        style: Helper.of(context).textStyle(
-                            color: log.isCompleted == 1
-                                ? Colors.white
-                                : Theme.of(context).accentColor),
-                      ),
-                      Spacer(),
-                      Text(
                         "${log.duration}min",
                         style: Helper.of(context).textStyle(
                             color: log.isCompleted == 1
                                 ? Colors.white
                                 : Theme.of(context).accentColor),
                       ),
+                      Spacer(),
+                      log.videoUrl != null && log.videoUrl.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                Get.dialog(PlayWorkoutPlanExerciseVideoDialog(
+                                    log.videoUrl));
+                              },
+                              icon: Icon(
+                                Icons.play_circle,
+                                size: 30.0,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )
+                          : SizedBox(
+                              height: 0.0,
+                              width: 0.0,
+                            ),
                     ],
                   ),
                   SizedBox(

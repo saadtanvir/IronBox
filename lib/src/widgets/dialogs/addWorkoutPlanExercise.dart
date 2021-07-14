@@ -9,6 +9,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
   Map<String, String> exerciseData = {};
   GlobalKey<FormState> _workoutPlanExerciseFormKey = new GlobalKey<FormState>();
   var _videoUrlTextFieldController = new TextEditingController().obs;
+  String selectedVideoUrl = "";
   AddWorkoutPlanExerciseWidget({Key key}) : super(key: key);
 
   @override
@@ -98,7 +99,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       controller: _videoUrlTextFieldController.value,
                       keyboardType: TextInputType.text,
                       readOnly: true,
-                      onSaved: (input) => input.isNotEmpty
+                      onSaved: (input) => selectedVideoUrl.isNotEmpty
                           ? exerciseData['videoLink'] = input
                           : "",
                       // validator: (input) {
@@ -129,9 +130,8 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                               fullscreenDialog: true,
                             );
                             print(data.link);
-
-                            // selectedVideoUrl.value = data.link;
-                            _videoUrlTextFieldController.value.text = data.link;
+                            _videoUrlTextFieldController.value.text = data.name;
+                            selectedVideoUrl = data.link;
                           },
                           icon: Icon(Icons.arrow_drop_down),
                         ),

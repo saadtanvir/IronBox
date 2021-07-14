@@ -13,12 +13,14 @@ class PlayWorkoutPlanExerciseVideoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        height: 200.0,
-        // width: 350.0,
-        child: PlayYoutubeVideoWidget(
-          videoUrl,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 195.0,
+          child: PlayYoutubeVideoWidget(
+            videoUrl,
+          ),
         ),
       ),
     );

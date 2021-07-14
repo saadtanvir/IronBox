@@ -27,7 +27,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
       new TextEditingController(text: "Select Video").obs;
 
   // string values
-  var selectedVideoUrl = "Select Video".obs;
+  String selectedVideoUrl = "";
 
   // category lists
   List<Category> subCategories;
@@ -608,7 +608,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         controller: _videoUrlTextFieldController.value,
                         keyboardType: TextInputType.text,
                         readOnly: true,
-                        onSaved: (input) => _con.workoutPlan.videoUrl = input,
+                        onSaved: (input) =>
+                            _con.workoutPlan.videoUrl = selectedVideoUrl,
                         // validator: (input) {
                         //   print(input);
                         //   return !input.contains(Helper.youtubeUrlRegExp())
@@ -640,10 +641,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                 transition: Transition.downToUp,
                               );
                               print(data.link);
-
-                              // selectedVideoUrl.value = data.link;
                               _videoUrlTextFieldController.value.text =
-                                  data.link;
+                                  data.name;
+                              selectedVideoUrl = data.link;
                             },
                             icon: Icon(
                               Icons.arrow_drop_down,

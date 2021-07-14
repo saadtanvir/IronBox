@@ -27,6 +27,8 @@ class _TrainerHomePageState extends State<TrainerHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Messages();
+    return Messages(
+      parentScaffoldKey: widget.parentScaffoldKey,
+    );
   }
 }

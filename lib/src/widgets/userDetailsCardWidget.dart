@@ -180,9 +180,11 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularPercentIndicator(
+                    // animation: true,
+                    // animationDuration: 1000,
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 80.0,
+                    radius: 75.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -214,12 +216,12 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     ),
                   ),
                   SizedBox(
-                    width: 40.0,
+                    width: 10.0,
                   ),
                   CircularPercentIndicator(
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 80.0,
+                    radius: 75.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -250,12 +252,12 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     ),
                   ),
                   SizedBox(
-                    width: 40.0,
+                    width: 10.0,
                   ),
                   CircularPercentIndicator(
                     percent: 0.7,
                     startAngle: 85.0,
-                    radius: 80.0,
+                    radius: 75.0,
                     lineWidth: 2.0,
                     backgroundColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
@@ -278,6 +280,43 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                             ),
                             Text(
                               "WORKOUT",
+                              style: Helper.of(context).textStyle(size: 10.0),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  CircularPercentIndicator(
+                    percent: 0.7,
+                    startAngle: 85.0,
+                    radius: 75.0,
+                    lineWidth: 2.0,
+                    backgroundColor:
+                        Theme.of(context).accentColor.withOpacity(0.5),
+                    progressColor: Constants.scaffoldColor.withOpacity(0.8),
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "15",
+                          style: Helper.of(context)
+                              .textStyle(size: 12.0, font: FontWeight.bold),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.restaurant,
+                              size: 10.0,
+                              color: Constants.scaffoldColor,
+                            ),
+                            Text(
+                              "Calories Burn",
+                              overflow: TextOverflow.ellipsis,
                               style: Helper.of(context).textStyle(size: 10.0),
                             )
                           ],

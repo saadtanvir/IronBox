@@ -65,9 +65,9 @@ Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
     print("plan creating status: ${response.statusCode}");
 
     var res = await http.Response.fromStream(response);
-    print(res.body);
+    // print(res.body);
     Map responseBody = json.decode(res.body);
-    print(responseBody['data']);
+    // print(responseBody['data']);
     if (res.statusCode == 200 && responseBody['data'] != null) {
       return Plan.fromJSON(json.decode(res.body)['data']);
     } else {
@@ -89,20 +89,20 @@ Future<Stream<WorkoutPlan>> getAllWorkoutPlans({int skip, int take}) async {
     final streamedRest = await client.send(http.Request('get', uri));
 
     print(streamedRest.stream.map((data) {
-      print(data);
+      // print(data);
     }));
 
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing workout plans data");
-          print(data);
+          // print(data);
           return WorkoutPlan.fromJSON(data);
         });
   } on SocketException {
@@ -129,20 +129,20 @@ Future<Stream<Plan>> searchPlans(String searchString, String category) async {
     final streamedRest = await client.send(http.Request('post', uri));
 
     print(streamedRest.stream.map((data) {
-      print(data);
+      // print(data);
     }));
 
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing plans data");
-          print(data);
+          // print(data);
           return Plan.fromJSON(data);
         });
   } on SocketException {
@@ -169,13 +169,13 @@ Future<Stream<UserWorkoutPlan>> getAllUserWorkoutPlans(String uid) async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print("plans response: $data");
+          // print("plans response: $data");
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing user workout plans data");
-          print(data);
+          // print(data);
           return UserWorkoutPlan.fromJSON(data);
         });
   } on SocketException {
@@ -205,13 +205,13 @@ Future<Stream<Plan>> getUserPlansByCategory(
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print("plans response: $data");
+          // print("plans response: $data");
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing plans data");
-          print(data);
+          // print(data);
           return Plan.fromJSON(data);
         });
   } on SocketException {
@@ -272,7 +272,7 @@ Future<Stream<WorkoutPlan>> getTrainerWorkoutPlans(String uid) async {
         .expand((data) => (data as List))
         .map((data) {
       print("printing trainer plans data");
-      print(data);
+      // print(data);
       return WorkoutPlan.fromJSON(data);
     });
   } on SocketException {
@@ -323,7 +323,7 @@ Future<WorkoutPlan> createWorkoutPlan(WorkoutPlan plan,
     print("plan creating status: ${response.statusCode}");
 
     var res = await http.Response.fromStream(response);
-    print(res.body);
+    // print(res.body);
     Map jsonBody = json.decode(res.body);
     print(jsonBody['data']);
     if (res.statusCode == 200 && jsonBody['data'] != null) {
@@ -381,9 +381,9 @@ Future<WorkoutPlan> updateWorkoutPlan(WorkoutPlan plan, File image) async {
     print("plan updating status: ${response.statusCode}");
 
     var res = await http.Response.fromStream(response);
-    print(res.body);
+    // print(res.body);
     Map jsonBody = json.decode(res.body);
-    print(jsonBody['data']);
+    // print(jsonBody['data']);
     if (res.statusCode == 200 && jsonBody['data'] != null) {
       return WorkoutPlan.fromJSON(jsonBody['data'][0]);
     } else {
@@ -451,7 +451,7 @@ Future<WorkoutPlan> updateWorkoutPlanWithoutImage(
     // var res = await http.Response.fromStream(response);
     print(response.body);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody['data']);
+    // print(jsonBody['data']);
     if (response.statusCode == 200 && jsonBody['data'] != null) {
       return WorkoutPlan.fromJSON(jsonBody['data'][0]);
     } else {
@@ -554,7 +554,7 @@ Future<WorkoutPlanDetails> getWorkoutPlanDetails(
     // var res = await http.Response.fromStream(response);
     print(response.body);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody['data']);
+    // print(jsonBody['data']);
     if (response.statusCode == 200 && jsonBody['data'] != null) {
       return WorkoutPlanDetails.fromJSON(json.decode(response.body)['data'][0]);
     } else {
@@ -585,7 +585,7 @@ Future<WorkoutPlanGame> createWorkoutPlanGame(WorkoutPlanGame game) async {
 
     print(response.statusCode);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody);
+    // print(jsonBody);
 
     if (response.statusCode == 200 && jsonBody['data'] != null) {
       return WorkoutPlanGame.fromJSON(jsonBody['data'][0]);
@@ -617,7 +617,7 @@ Future<Stream<WorkoutPlanGame>> getWorkoutPlanGames(String detailsId) async {
         .expand((data) => (data as List))
         .map((data) {
       print("printing worklout plan games data");
-      print(data);
+      // print(data);
       return WorkoutPlanGame.fromJSON(data);
     });
   } on SocketException {
@@ -681,7 +681,7 @@ Future<Stream<WorkoutPlanExercise>> getWorkoutPlanGameExercises(
         .expand((data) => (data as List))
         .map((data) {
       print("printing workout plan game exercises data");
-      print(data);
+      // print(data);
       return WorkoutPlanExercise.fromJSON(data);
     });
   } on SocketException {
@@ -705,13 +705,13 @@ Future<Stream<Review>> getWOPReviews(String planId) async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing reviews data");
-          print(data);
+          // print(data);
           return Review.fromJSON(data);
         });
   } on SocketException {
@@ -741,7 +741,7 @@ Future<UserWorkoutPlan> subscribeWorkoutPlan(String pid, String uid) async {
     print(response.statusCode);
     // print(response.body);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody);
+    // print(jsonBody);
 
     if (response.statusCode == 200 && jsonBody['data'] != null) {
       return UserWorkoutPlan.fromJSON(jsonBody['data'][0]);
@@ -782,7 +782,7 @@ Future<bool> editPlan(Plan plan) async {
     print("URL For Editing Plan: $url");
     print(json.encode(body));
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     // Map responseBody = json.decode(response.body);
 

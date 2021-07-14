@@ -11,6 +11,8 @@ import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 
 class Messages extends StatefulWidget {
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+  Messages({Key key, this.parentScaffoldKey}) : super(key: key);
   @override
   _MessagesState createState() => _MessagesState();
 }
@@ -44,6 +46,17 @@ class _MessagesState extends State<Messages> {
           style: TextStyle(color: Theme.of(context).accentColor),
         ),
         centerTitle: true,
+        leading: widget.parentScaffoldKey != null
+            ? IconButton(
+                onPressed: () {
+                  widget.parentScaffoldKey.currentState.openDrawer();
+                },
+                icon: Icon(Icons.notes_rounded),
+              )
+            : SizedBox(
+                height: 0.0,
+                width: 0.0,
+              ),
       ),
       body: SingleChildScrollView(
         child: Column(

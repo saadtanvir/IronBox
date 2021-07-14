@@ -48,7 +48,8 @@ class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
                             "- $challenge",
                             // overflow: TextOverflow.ellipsis,
                             style: Helper.of(context).textStyle(
-                                color: Theme.of(context).accentColor),
+                              color: Theme.of(context).accentColor,
+                            ),
                           );
                         }).toList(),
                       ),

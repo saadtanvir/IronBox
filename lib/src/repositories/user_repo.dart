@@ -107,7 +107,7 @@ Future<User> registerUserWithImage(User user) async {
     var res = await http.Response.fromStream(response);
 
     print(response.statusCode);
-    print(res.body);
+    // print(res.body);
     Map jsonBody = json.decode(res.body);
     print("json body: $jsonBody");
     print("has errors: ${jsonBody.containsKey("errors")}");
@@ -145,7 +145,7 @@ Future<User> login(User user) async {
     );
     print("login params: ${json.encode(user.toMap())}");
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map jsonBody = json.decode(response.body);
     print("user object: ${jsonBody['data'][0]}");
@@ -184,7 +184,7 @@ Future<User> updateCurrentUser(User u) async {
     print("URL For Updating Current User: $url");
     print(json.encode(u.toMap()));
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map responseBody = json.decode(response.body);
     // print(responseBody['data']['token']);
@@ -221,13 +221,13 @@ Future<Stream<User>> fetchAllTrainers() async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing trainers data");
-          print(data);
+          // print(data);
           return User.fromJSON(data);
         });
   } on SocketException {
@@ -252,13 +252,13 @@ Future<Stream<Subscription>> fetchUserSubscribedTrainers(String uid) async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing subscriptions data");
-          print(data);
+          // print(data);
           return Subscription.fromJSON(data);
         });
   } on SocketException {
@@ -288,13 +288,13 @@ Future<Stream<User>> getUserContacts(String userId) async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing trainers data");
-          print(data);
+          // print(data);
           return User.fromJSON(data);
         });
   } on SocketException {
@@ -321,7 +321,7 @@ Future<User> getUserById(String uid) async {
 
     print(response.statusCode);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody);
+    // print(jsonBody);
 
     if (response.statusCode == 200 && !jsonBody.containsKey("errors")) {
       return User.fromJSON(json.decode(response.body)['data'][0]);
@@ -350,7 +350,7 @@ Future<User> getUpdatedCurrentUser(String uid) async {
 
     print(response.statusCode);
     Map jsonBody = json.decode(response.body);
-    print(jsonBody);
+    // print(jsonBody);
 
     if (response.statusCode == 200 && !jsonBody.containsKey("errors")) {
       setCurrentUser(response.body);
@@ -382,7 +382,7 @@ Future<bool> subscribeTrainer(Subscription sub) async {
     print("URL For Subscribing Trainer: $url");
     print(json.encode(sub.toMap()));
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map responseBody = json.decode(response.body);
     // print(responseBody['data']['token']);
@@ -416,7 +416,7 @@ Future<bool> unsubscribeTrainer(String subscriptionId) async {
     );
     print("URL For Unsubscribing Trainer: $url");
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map responseBody = json.decode(response.body);
     // print(responseBody['data']['token']);
@@ -450,14 +450,14 @@ Future<Subscription> isTrainerSubscribed(
     );
     print("URL For Checking Trainer Subscription: $url");
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map responseBody = json.decode(response.body);
     // print(responseBody['data']['token']);
 
     if (response.statusCode == 200) {
       print("trainer already subscribed");
-      print(responseBody['data'][0]);
+      // print(responseBody['data'][0]);
       return Subscription.fromJSON(responseBody['data'][0]);
     } else {
       print("throws exception");
@@ -491,9 +491,9 @@ Future<bool> reviewTrainer(
       body: json.encode(body),
     );
     print("URL For Posting Trainer Review: $url");
-    print(json.encode(body));
+    // print(json.encode(body));
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
 
     Map responseBody = json.decode(response.body);
     print(responseBody);
@@ -528,7 +528,7 @@ Future<bool> rateTrainer(int rating, String id) async {
       body: json.encode(body),
     );
     print("URL For Rating Trainer: $url");
-    print(json.encode(body));
+    // print(json.encode(body));
     print(response.statusCode);
     // print(response.body);
 
@@ -562,13 +562,13 @@ Future<Stream<Review>> getTrainerReviews(String id) async {
         .transform(utf8.decoder)
         .transform(json.decoder)
         .map((data) {
-          print(data);
+          // print(data);
           return Helper.getData(data);
         })
         .expand((data) => (data as List))
         .map((data) {
           print("printing reviews data");
-          print(data);
+          // print(data);
           return Review.fromJSON(data);
         });
   } on SocketException {

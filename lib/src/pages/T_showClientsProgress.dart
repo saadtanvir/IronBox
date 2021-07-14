@@ -47,7 +47,7 @@ class _ShowClientsDetailsState extends State<ShowClientsDetails> {
         title: Text(
           "Clients",
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
