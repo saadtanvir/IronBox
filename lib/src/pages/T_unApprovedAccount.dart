@@ -41,7 +41,7 @@ class _TrainerUnApprovedAccountState extends State<TrainerUnApprovedAccount> {
       key: k,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
+        title: const Image(
           image: AssetImage("assets/img/logo_vertical.png"),
         ),
         centerTitle: true,
@@ -80,9 +80,9 @@ class _TrainerUnApprovedAccountState extends State<TrainerUnApprovedAccount> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Text(
+              child: const Text(
                 "Your trainer account is not approved by the admin yet !",
               ),
             ),

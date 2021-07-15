@@ -1,9 +1,6 @@
 import 'package:ironbox/src/controllers/T_homeController.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/pages/logs.dart';
-import 'package:ironbox/src/pages/messages.dart';
-import 'package:ironbox/src/widgets/conversationsListWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import 'package:ironbox/src/widgets/trainerClientsList.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
@@ -44,9 +41,9 @@ class _ShowClientsDetailsState extends State<ShowClientsDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text(
+        title: const Text(
           "Clients",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -64,12 +61,12 @@ class _ShowClientsDetailsState extends State<ShowClientsDetails> {
           children: [
             Obx(() {
               return _con.clients.isEmpty && !_con.doneFetchingClients.value
-                  ? Center(
-                      child: CircularProgressIndicator(),
+                  ? const Center(
+                      child: const CircularProgressIndicator(),
                     )
                   : _con.clients.isEmpty && _con.doneFetchingClients.value
-                      ? Center(
-                          child: Text("You have no clients !"),
+                      ? const Center(
+                          child: const Text("You have no clients !"),
                         )
                       : TrainerClientsList(_con.clients, onClientTap);
             }),

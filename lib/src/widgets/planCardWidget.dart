@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/models/plan.dart';
+import '../helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
 
 class PlanCardWidget extends StatelessWidget {

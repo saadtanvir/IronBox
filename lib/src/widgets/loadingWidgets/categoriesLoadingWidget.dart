@@ -14,15 +14,15 @@ class CategoriesLoadingWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           height: 150.0,
-          margin: EdgeInsets.only(bottom: 10.0),
+          margin: const EdgeInsets.only(bottom: 10.0),
           child: Stack(
             children: [
               Container(
                 height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/loading.gif"),
+                decoration: const BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                  image: const DecorationImage(
+                    image: const AssetImage("assets/img/loading.gif"),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -34,11 +34,12 @@ class CategoriesLoadingWidget extends StatelessWidget {
                   alignment: Alignment.bottomLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                    child: Text(
+                    child: const Text(
                       "",
                       overflow: TextOverflow.ellipsis,
-                      style:
-                          Helper.of(context).textStyle(font: FontWeight.bold),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

@@ -1,6 +1,5 @@
 import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/trainerWorkoutPlan.dart';
 
 class TrainerWorkoutPlansList extends StatelessWidget {
@@ -26,7 +25,7 @@ class TrainerWorkoutPlansList extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(
+          return const Divider(
             height: 3.0,
           );
         },

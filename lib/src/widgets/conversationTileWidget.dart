@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ironbox/src/controllers/chats_controller.dart';
 import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import 'package:ironbox/src/widgets/lastMessageWidget.dart';
@@ -48,7 +47,7 @@ class _ConversationTileWidgetState extends State<ConversationTileWidget> {
                   adjustment: BoxFit.cover),
               title: Text(
                 "${firebaseContact['username']}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),

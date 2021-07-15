@@ -45,7 +45,7 @@ class _ShowPlanDaysListState extends State<ShowPlanDaysList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Select Day",
         ),
         centerTitle: true,

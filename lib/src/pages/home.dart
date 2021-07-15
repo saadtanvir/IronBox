@@ -1,5 +1,3 @@
-import 'package:ironbox/src/helpers/connectionState.dart';
-
 import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../controllers/home_controller.dart';
 import '../helpers/helper.dart';
@@ -52,13 +50,12 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
+        title: const Image(
           image: AssetImage("assets/img/logo_vertical.png"),
         ),
         centerTitle: true,
-        leading: new IconButton(
-          icon: new Icon(Icons.notes_rounded,
-              color: Theme.of(context).accentColor),
+        leading: IconButton(
+          icon: Icon(Icons.notes_rounded, color: Theme.of(context).accentColor),
           onPressed: () {
             widget.parentScaffoldKey.currentState.openDrawer();
           },
@@ -102,7 +99,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                               child: Card(
                                 elevation: 5.0,
                                 color: Colors.white,
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15.0),
                                   ),
@@ -150,13 +147,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                   right: 10.0,
                 ),
                 child: ListTile(
-                  title: Text(
-                    Constants.capitalRecommended,
-                    style: Helper.of(context).textStyle(
-                      color: Theme.of(context).primaryColor,
-                      font: FontWeight.bold,
-                    ),
-                  ),
+                  title: Text(Constants.capitalRecommended,
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
               ),
               RecommendedCaroousel(),
@@ -170,6 +165,5 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   // to maintain the state of page in
   // bottom navigation
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

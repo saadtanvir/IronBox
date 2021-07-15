@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/widgets/dialogs/trainerRatingBottomSheet.dart';
 import '../../helpers/app_constants.dart' as Constants;
 import '../../repositories/user_repo.dart' as userRepo;
 
@@ -26,9 +23,9 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(15.0),
           topLeft: Radius.circular(15),
         ),
@@ -61,14 +58,14 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
               //     ],
               //   ),
               // ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               Text(
                 "Share your experience with ${widget.subscription.trainers.name}:",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -90,8 +87,8 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 10.0),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0,
@@ -100,7 +97,7 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               // Align(
@@ -204,14 +201,14 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
               //           );
               //   }),
               // ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               Text(
                 "Rate ${widget.subscription.trainers.name}",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Center(
@@ -225,11 +222,11 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                   itemBuilder: (context, index) {
                     return Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.yellow,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5.0,
                         ),
                       ],
@@ -241,7 +238,7 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25.0,
               ),
               Align(
@@ -302,7 +299,7 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 10.0),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).primaryColor),
@@ -310,7 +307,7 @@ class _TrainerUnsubBottomSheetState extends State<TrainerUnsubBottomSheet> {
                       Theme.of(context).accentColor.withOpacity(0.3),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                     ),

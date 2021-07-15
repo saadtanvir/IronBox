@@ -55,7 +55,7 @@ class _PlayYoutubeVideoWidgetState extends State<PlayYoutubeVideoWidget> {
             bufferedColor: Theme.of(context).primaryColor,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
-          bufferIndicator: CircularProgressIndicator(),
+          bufferIndicator: const CircularProgressIndicator(),
         ),
         builder: (context, player) {
           return Column(
@@ -67,9 +67,9 @@ class _PlayYoutubeVideoWidgetState extends State<PlayYoutubeVideoWidget> {
                       height: 200.0,
                       width: double.infinity,
                       color: Colors.grey[500],
-                      child: Icon(Icons.error),
+                      child: const Icon(Icons.error),
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
             ],

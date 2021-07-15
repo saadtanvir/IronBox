@@ -1,13 +1,7 @@
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/childCategoriesList.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/subCategoryListTile.dart';
 import '../../helpers/helper.dart';
 import '../../models/category.dart';
-import '../../pages/userPlans.dart';
-import '../../widgets/categoryCardWidget.dart';
-import '../../widgets/userSubscribedTrainers.dart';
-import '../../helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SubcategoriesList extends StatelessWidget {
   // receives a list of sub categories

@@ -79,7 +79,7 @@ class _LogsScreenState extends State<LogsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
+        title: const Image(
           image: AssetImage("assets/img/logo_vertical.png"),
         ),
         centerTitle: true,
@@ -97,7 +97,7 @@ class _LogsScreenState extends State<LogsScreen> {
                 onPressed: () {
                   Get.back();
                 },
-                icon: new Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 color: Theme.of(context).primaryColor,
               ),
         // actions: [
@@ -125,7 +125,7 @@ class _LogsScreenState extends State<LogsScreen> {
                 lastDate: DateTime.now().add(Duration(days: 30)),
               ),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
@@ -140,18 +140,18 @@ class _LogsScreenState extends State<LogsScreen> {
             // SizedBox(height: 5.0),
             Obx(() {
               return _con.logs.isEmpty && !_con.doneFetchingLogs.value
-                  ? Padding(
+                  ? const Padding(
                       padding: const EdgeInsets.only(top: 50.0),
-                      child: Center(
-                        child: CircularProgressIndicator(),
+                      child: const Center(
+                        child: const CircularProgressIndicator(),
                       ),
                     )
                   : _con.logs.isEmpty && _con.doneFetchingLogs.value
-                      ? Center(
+                      ? const Center(
                           heightFactor: 10.0,
-                          child: Text(
+                          child: const Text(
                             "No logs for selected date !",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.grey,
                             ),
                           ),

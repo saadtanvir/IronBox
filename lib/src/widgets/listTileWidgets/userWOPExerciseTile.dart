@@ -50,19 +50,19 @@ class UserWOPExerciseTile extends StatelessWidget {
                   ? Text(
                       "${exercise.reps.toString()} reps",
                     )
-                  : SizedBox(
+                  : const SizedBox(
                       width: 0.0,
                     ),
               exercise.reps != null &&
                       exercise.duration != null &&
                       exercise.duration.isNotEmpty
-                  ? Text(" | ")
-                  : SizedBox(
+                  ? const Text(" | ")
+                  : const SizedBox(
                       width: 0.0,
                     ),
               exercise.duration != null && exercise.duration.isNotEmpty
                   ? Text("${exercise.duration}min")
-                  : SizedBox(
+                  : const SizedBox(
                       width: 0.0,
                     ),
             ],
@@ -71,8 +71,8 @@ class UserWOPExerciseTile extends StatelessWidget {
         ],
       ),
       leading: exercise.status == 0
-          ? Icon(Icons.access_time_filled_rounded)
-          : Icon(
+          ? const Icon(Icons.access_time_filled_rounded)
+          : const Icon(
               Icons.done,
               color: Colors.green,
             ),

@@ -23,7 +23,7 @@ class TrainerWorkoutPlanTile extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Icon(
+              child: const Icon(
                 Icons.star,
                 color: Colors.yellow,
                 size: 20.0,

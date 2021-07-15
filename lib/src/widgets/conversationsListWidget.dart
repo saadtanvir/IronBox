@@ -1,8 +1,6 @@
 import 'package:ironbox/src/models/user.dart';
-import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import 'package:ironbox/src/widgets/conversationTileWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ConversationsListWidget extends StatelessWidget {
   final List<User> contacts;
@@ -25,7 +23,7 @@ class ConversationsListWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) {
-        return Divider();
+        return const Divider();
       },
     );
   }

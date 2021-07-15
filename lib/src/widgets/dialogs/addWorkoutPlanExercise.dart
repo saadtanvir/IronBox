@@ -16,11 +16,11 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Exercise"),
+        title: const Text("Add Exercise"),
       ),
       body: Center(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Form(
             key: _workoutPlanExerciseFormKey,
             child: SingleChildScrollView(
@@ -34,7 +34,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 0.0,
                   ),
                   TextFormField(
@@ -48,10 +48,10 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                         fontSize: 12.0,
                         color: Theme.of(context).accentColor.withOpacity(0.3),
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Text(
@@ -61,7 +61,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 0.0,
                   ),
                   TextFormField(
@@ -75,10 +75,10 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                         fontSize: 12.0,
                         color: Theme.of(context).accentColor.withOpacity(0.3),
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Align(
@@ -91,7 +91,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   Obx(() {
@@ -133,19 +133,20 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                             _videoUrlTextFieldController.value.text = data.name;
                             selectedVideoUrl = data.link;
                           },
-                          icon: Icon(Icons.arrow_drop_down),
+                          icon: const Icon(Icons.arrow_drop_down),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     );
                   }),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Row(
@@ -162,7 +163,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 0.0,
                             ),
                             TextFormField(
@@ -182,13 +183,13 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                                       .accentColor
                                       .withOpacity(0.3),
                                 ),
-                                contentPadding: EdgeInsets.all(10),
+                                contentPadding: const EdgeInsets.all(10),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10.0,
                       ),
                       Expanded(
@@ -203,7 +204,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 0.0,
                             ),
                             TextFormField(
@@ -222,7 +223,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                                       .accentColor
                                       .withOpacity(0.3),
                                 ),
-                                contentPadding: EdgeInsets.all(10),
+                                contentPadding: const EdgeInsets.all(10),
                               ),
                             ),
                           ],
@@ -230,7 +231,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Align(
@@ -250,7 +251,7 @@ class AddWorkoutPlanExerciseWidget extends StatelessWidget {
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 30.0),
+                          const EdgeInsets.symmetric(horizontal: 30.0),
                         ),
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).primaryColor),

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
 import 'package:ironbox/src/widgets/dialogs/playWPExerciseVideo.dart';
-import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
-import '../../helpers/app_constants.dart' as Constants;
 
 class WorkoutPlanExerciseTile extends StatelessWidget {
   final WorkoutPlanExercise exercise;
@@ -19,21 +15,21 @@ class WorkoutPlanExerciseTile extends StatelessWidget {
       subtitle: Row(
         children: [
           Text("${exercise.duration}min"),
-          SizedBox(
+          const SizedBox(
             width: 5.0,
           ),
           exercise.reps.toString().isNotEmpty
-              ? Text("|")
-              : SizedBox(
+              ? const Text("|")
+              : const SizedBox(
                   height: 0.0,
                   width: 0.0,
                 ),
-          SizedBox(
+          const SizedBox(
             width: 5.0,
           ),
           exercise.reps.toString().isNotEmpty
               ? Text("${exercise.reps} reps")
-              : SizedBox(
+              : const SizedBox(
                   height: 0.0,
                   width: 0.0,
                 ),
@@ -46,9 +42,9 @@ class WorkoutPlanExerciseTile extends StatelessWidget {
                 Get.dialog(
                     PlayWorkoutPlanExerciseVideoDialog(exercise.videoUrl));
               },
-              icon: Icon(Icons.play_circle),
+              icon: const Icon(Icons.play_circle),
             )
-          : SizedBox(
+          : const SizedBox(
               height: 0.0,
               width: 0.0,
             ),

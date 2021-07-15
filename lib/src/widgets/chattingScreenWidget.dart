@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ironbox/src/controllers/chats_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/message.dart';
-import 'package:ironbox/src/widgets/availableChatsWidget.dart';
 import 'package:ironbox/src/widgets/textMessageContainerWidget.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
@@ -11,7 +10,6 @@ import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class ChattingScreen extends StatefulWidget {
   // it will receive recipient info
@@ -118,8 +116,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
                     ),
                   );
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                  return const Center(
+                    child: const CircularProgressIndicator(),
                   );
                 }
               },

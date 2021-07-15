@@ -22,11 +22,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             decoration: BoxDecoration(
               color: Constants.primaryColor,
               image: DecorationImage(
-                  image: AssetImage("assets/img/bgimg.png"), fit: BoxFit.fill),
+                  image: const AssetImage("assets/img/bgimg.png"),
+                  fit: BoxFit.fill),
             ),
             child: Center(
               child: Image(
-                image: AssetImage("assets/img/logo.png"),
+                image: const AssetImage("assets/img/logo.png"),
                 height: Helper.of(context).getScreenHeight() * 0.40,
                 width: Helper.of(context).getScreenWidth() * 0.50,
               ),
@@ -39,7 +40,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             child: Image(
               height: Helper.of(context).getScreenHeight() * 0.15,
               width: Helper.of(context).getScreenWidth() * 0.60,
-              image: AssetImage("assets/img/getstarted_message.png"),
+              image: const AssetImage("assets/img/getstarted_message.png"),
               // fit: BoxFit.fill,
             ),
           ),
@@ -52,7 +53,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   // Get.offAll(CreateAccountScreen());
                   Get.offAll(CreateAccount());
                 },
-                child: Image(
+                child: const Image(
                   image: AssetImage("assets/img/btn_get_started.png"),
                   fit: BoxFit.fill,
                 ),

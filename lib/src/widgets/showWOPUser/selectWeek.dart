@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/showWOPUser/selectDay.dart';
 import '../../models/userWorkoutPlan.dart';
 import '../../widgets/displayWeeksWidget.dart';
-import '../../widgets/showWOPTrainer/showPlanDays.dart';
-import '../../models/workoutPlan.dart';
 import 'package:flutter/material.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
@@ -28,7 +26,7 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Select Week",
         ),
         centerTitle: true,

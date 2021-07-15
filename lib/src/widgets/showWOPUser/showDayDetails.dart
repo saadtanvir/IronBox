@@ -43,8 +43,8 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print("id is:");
-    print(_con.userWOPDayDetails.value.id == null);
+    // print("id is:");
+    // print(_con.userWOPDayDetails.value.id == null);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -55,8 +55,8 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
       body: SingleChildScrollView(
         child: Obx(() {
           return _con.userWOPDayDetails.value.id == null
-              ? Center(
-                  child: CircularProgressIndicator(),
+              ? const Center(
+                  child: const CircularProgressIndicator(),
                 )
               : Column(
                   children: [
@@ -67,24 +67,24 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
                         ? UserWorkoutPlanGamesListWidget(
                             _con.userWOPDayDetails.value.userGamesList,
                             onGameTap)
-                        : Center(
-                            child: Text("No games to show"),
+                        : const Center(
+                            child: const Text("No games to show"),
                           ),
                     // widget.details.userGamesList != null &&
                     //         widget.details.userGamesList.isNotEmpty
                     //     ? UserWorkoutPlanGamesListWidget(
                     //         widget.details.userGamesList, onGameTap)
                     //     : Text("No games to perform!"),
-                    SizedBox(
+                    const SizedBox(
                       height: 0.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Calories Burn: ",
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20.0,
                         ),
                         Text(
@@ -93,16 +93,16 @@ class _ShowUserWOPDayDetailsState extends State<ShowUserWOPDayDetails> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Average Calories: ",
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20.0,
                         ),
                         Text(

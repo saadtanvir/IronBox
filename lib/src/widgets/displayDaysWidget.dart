@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import '../widgets/workoutPlansWidget.dart/selectDay.dart';
-import '../helpers/app_constants.dart' as Constants;
 
 class DisplayWeekDaysWidget extends StatelessWidget {
   // final int weekNumber;
@@ -32,7 +28,7 @@ class DisplayWeekDaysWidget extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider();
+          return const Divider();
         },
       ),
     );

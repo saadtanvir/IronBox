@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 class CategoryCardWidget extends StatelessWidget {
-  Category category;
+  final Category category;
   CategoryCardWidget(this.category);
   @override
   Widget build(BuildContext context) {
     // print("printing card");
     return Container(
       height: 150.0,
-      margin: EdgeInsets.only(bottom: 10.0),
+      margin: const EdgeInsets.only(bottom: 10.0),
       child: Stack(
         children: [
           CachedNetworkImage(
@@ -21,10 +21,10 @@ class CategoryCardWidget extends StatelessWidget {
             placeholder: (context, url) {
               return Container(
                 height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/loading.gif"),
+                decoration: const BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                  image: const DecorationImage(
+                    image: const AssetImage("assets/img/loading.gif"),
                     fit: BoxFit.fill,
                   ),
                 ),

@@ -1,12 +1,9 @@
 import 'package:get/get.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
-import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/widgets/displayDaysWidget.dart';
-import 'package:ironbox/src/widgets/showWOPUser/showDayDetails.dart';
-import '../../widgets/displayWeeksWidget.dart';
-import '../../widgets/showWOPTrainer/showPlanDays.dart';
-import '../../models/workoutPlan.dart';
+import '../../helpers/helper.dart';
+import '../../models/userWorkoutPlan.dart';
+import '../../models/userWorkoutPlanDetails.dart';
+import '../../widgets/displayDaysWidget.dart';
+import '../../widgets/showWOPUser/showDayDetails.dart';
 import 'package:flutter/material.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
@@ -50,7 +47,7 @@ class _SelectUserWOPDayState extends State<SelectUserWOPDay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Select Day",
         ),
         centerTitle: true,

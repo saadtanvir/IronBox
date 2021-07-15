@@ -3,18 +3,15 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
-import 'package:ironbox/src/widgets/dialogs/ratingReviewsDialog.dart';
 import 'package:ironbox/src/widgets/dialogs/trainerUnsubBottomSheet.dart';
 // import 'package:timer_count_down/timer_controller.dart';
 import '../controllers/user_controller.dart';
-import '../models/user.dart';
 import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../widgets/playYoutubeVideoWidget.dart';
 import '../widgets/reviewCardWidget.dart';
 import '../widgets/showTrainerReviews.dart';
 import '../widgets/subscribedTrainerProfileCardWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
-import '../repositories/user_repo.dart' as userRepo;
 // import 'package:timer_count_down/timer_count_down.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
@@ -75,7 +72,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
             SubscribedTrainerProfileCardWidget(
               widget.subscription.trainers,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             // show the countdown
@@ -84,7 +81,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
               widgetBuilder: (context, CurrentRemainingTime time) {
                 // print(time.toString());
                 return time == null
-                    ? SizedBox(
+                    ? const SizedBox(
                         height: 0.0,
                         width: 0.0,
                       )
@@ -95,7 +92,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                  const BorderRadius.all(Radius.circular(5.0)),
                             ),
                             child: Center(
                               child: Padding(
@@ -120,7 +117,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
                           Text(
@@ -130,14 +127,14 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                               // color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
                           Container(
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                  const BorderRadius.all(Radius.circular(5.0)),
                             ),
                             child: Center(
                               child: Padding(
@@ -162,7 +159,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
                           Text(
@@ -172,7 +169,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                               // color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
                           Container(
@@ -204,24 +201,24 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
-                          Text(
+                          const Text(
                             ":",
                             style: TextStyle(
                               fontSize: 30.0,
                               // color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 2.0,
                           ),
                           Container(
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                  const BorderRadius.all(Radius.circular(5.0)),
                             ),
                             child: Center(
                               child: Padding(
@@ -250,7 +247,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                       );
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
@@ -270,15 +267,15 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Card(
                           elevation: 10.0,
                           color: Colors.white,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
+                                const BorderRadius.all(Radius.circular(15.0)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -298,7 +295,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Expanded(
@@ -313,7 +310,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Card(
@@ -344,7 +341,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -358,7 +355,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Padding(
@@ -367,7 +364,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 color: Colors.white,
                 elevation: 10.0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -383,7 +380,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Row(
@@ -399,7 +396,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: TextButton(
@@ -420,7 +417,8 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                       ),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
                     ),
@@ -436,7 +434,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Padding(
@@ -453,7 +451,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                         : ReviewCardWidget(_con.reviews.last);
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Padding(
@@ -463,7 +461,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 width: 390,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             Align(
@@ -484,7 +482,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 50.0),
+                    const EdgeInsets.symmetric(horizontal: 50.0),
                   ),
                   backgroundColor:
                       MaterialStateProperty.all(Theme.of(context).primaryColor),
@@ -493,7 +491,8 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
                 ),
@@ -506,7 +505,7 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
           ],

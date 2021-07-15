@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/gamesListWidget.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/workoutPlanExercisesList.dart';
-import '../workoutPlansWidget.dart/selectDay.dart';
-import '../../helpers/app_constants.dart' as Constants;
+import '../../models/workoutPlanGame.dart';
+import '../../widgets/workoutPlansWidget.dart/workoutPlanExercisesList.dart';
 
 class WorkoutPlanGameDetails extends StatefulWidget {
   final WorkoutPlanGame game;
@@ -35,13 +29,13 @@ class _WorkoutPlanGameDetailsState extends State<WorkoutPlanGameDetails> {
                 "Number of sets: ${widget.game.sets}",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             widget.game.exercisesList.isNotEmpty
                 ? WorkoutPlanGameExercisesList(widget.game.exercisesList)
-                : Center(
-                    child: Text("No exercises to show!"),
+                : const Center(
+                    child: const Text("No exercises to show!"),
                   ),
           ],
         ),

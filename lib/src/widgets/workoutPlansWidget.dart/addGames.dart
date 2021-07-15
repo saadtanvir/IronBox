@@ -35,7 +35,7 @@ class _AddWorkoutPlanGameState extends State<AddWorkoutPlanGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Games"),
+        title: const Text("Add Games"),
         centerTitle: true,
       ),
       floatingActionButton: _floatingActionButton(),
@@ -45,18 +45,18 @@ class _AddWorkoutPlanGameState extends State<AddWorkoutPlanGame> {
             Obx(() {
               return _con.workoutPlanGamesList.isEmpty &&
                       !_con.doneFetchingWorkoutPlanGames.value
-                  ? Center(
-                      child: Padding(
+                  ? const Center(
+                      child: const Padding(
                         padding: const EdgeInsets.only(top: 80.0),
-                        child: CircularProgressIndicator(),
+                        child: const CircularProgressIndicator(),
                       ),
                     )
                   : _con.workoutPlanGamesList.isEmpty &&
                           _con.doneFetchingWorkoutPlanGames.value
-                      ? Center(
-                          child: Padding(
+                      ? const Center(
+                          child: const Padding(
                             padding: const EdgeInsets.only(top: 80.0),
-                            child: Text(
+                            child: const Text(
                               "No game added!",
                             ),
                           ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/gamesListWidget.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
 class AddWorkoutPlanGameDialog extends StatelessWidget {
@@ -15,7 +13,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
       child: Container(
         height: 300.0,
         width: 250.0,
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         // decoration: BoxDecoration(
         //   borderRadius: BorderRadius.all(Radius.circular(1.0)),
         // ),
@@ -32,7 +30,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 0.0,
                 ),
                 TextFormField(
@@ -46,10 +44,10 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                       fontSize: 12.0,
                       color: Theme.of(context).accentColor.withOpacity(0.3),
                     ),
-                    contentPadding: EdgeInsets.all(10),
+                    contentPadding: const EdgeInsets.all(10),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50.0,
                 ),
                 Row(
@@ -66,7 +64,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 0.0,
                           ),
                           TextFormField(
@@ -84,7 +82,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                                     .accentColor
                                     .withOpacity(0.3),
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                             ),
                           ),
                         ],
@@ -131,7 +129,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                     // ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50.0,
                 ),
                 Align(
@@ -150,7 +148,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 30.0),
+                        const EdgeInsets.symmetric(horizontal: 30.0),
                       ),
                       backgroundColor: MaterialStateProperty.all(
                           Theme.of(context).primaryColor),
@@ -158,7 +156,7 @@ class AddWorkoutPlanGameDialog extends StatelessWidget {
                         Theme.of(context).accentColor.withOpacity(0.3),
                       ),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
+                        const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),

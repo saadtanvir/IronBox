@@ -261,8 +261,6 @@ class _UserLogFormState extends State<UserLogForm> {
                             transition: Transition.downToUp,
                           );
                           print(data.link);
-
-                          // selectedVideoUrl.value = data.link;
                           _videoUrlTextFieldController.value.text = data.link;
                         },
                         icon: Icon(

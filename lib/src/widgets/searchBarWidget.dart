@@ -13,7 +13,7 @@ class SearchBarWidget extends StatelessWidget {
       height: Helper.of(context).getScreenHeight() * 0.10,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor.withOpacity(0.8),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(15.0),
           bottomRight: Radius.circular(15.0),
         ),
@@ -29,7 +29,7 @@ class SearchBarWidget extends StatelessWidget {
           searchPlans(value);
         },
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(10),
           fillColor: Theme.of(context).scaffoldBackgroundColor,
           filled: true,
           labelText: Constants.search,
@@ -46,7 +46,7 @@ class SearchBarWidget extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
           ),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(150.0),
             ),

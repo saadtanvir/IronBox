@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/user.dart';
-import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
-import 'package:ironbox/src/widgets/subscribedTrainerProfile.dart';
-import 'package:ironbox/src/widgets/trainersListWidget.dart';
+import '../models/user.dart';
+import '../widgets/showMessageIconWidget.dart';
+import '../widgets/trainersListWidget.dart';
 import '../controllers/user_controller.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
@@ -72,16 +69,17 @@ class _ShowTrainersState extends State<ShowTrainers> {
             children: [
               Obx(() {
                 return _con.trainers.isEmpty && _con.doneFetchingTrainers.value
-                    ? Padding(
+                    ? const Padding(
                         padding: const EdgeInsets.only(top: 80.0),
-                        child: Center(
-                          child: Text("No trainers found. Try again !"),
+                        child: const Center(
+                          child: const Text("No trainers found. Try again !"),
                         ),
                       )
                     : _con.trainers.isEmpty && !_con.doneFetchingTrainers.value
-                        ? Padding(
+                        ? const Padding(
                             padding: const EdgeInsets.only(top: 80.0),
-                            child: Center(child: CircularProgressIndicator()),
+                            child: const Center(
+                                child: const CircularProgressIndicator()),
                           )
                         : TrainersListWidget(_con.trainers, onTrainerTap);
               })

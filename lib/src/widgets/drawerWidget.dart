@@ -96,7 +96,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           ListTile(
@@ -118,7 +118,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2.0,
           ),
           Row(

@@ -1,7 +1,7 @@
-import 'package:ironbox/src/controllers/user_controller.dart';
-import 'package:ironbox/src/widgets/blockButtonWidget.dart';
+import '../controllers/user_controller.dart';
+import '../widgets/blockButtonWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
+import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:get/get.dart';
@@ -63,11 +63,11 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                   )
                 ],
               ),
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              padding:
-                  EdgeInsets.only(top: 50, right: 27, left: 27, bottom: 20),
+              padding: const EdgeInsets.only(
+                  top: 50, right: 27, left: 27, bottom: 20),
               child: Form(
                 key: _traineeRegFormKey,
                 child: SingleChildScrollView(
@@ -86,7 +86,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                           labelText: "Injury",
                           labelStyle:
                               TextStyle(color: Theme.of(context).accentColor),
-                          contentPadding: EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                           hintText: 'None',
                           hintStyle: TextStyle(
                               color: Theme.of(context)
@@ -111,7 +111,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                                       .withOpacity(0.2))),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         onSaved: (input) =>
@@ -122,7 +122,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                           labelText: "Medical Background",
                           labelStyle:
                               TextStyle(color: Theme.of(context).accentColor),
-                          contentPadding: EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                           hintText: 'None',
                           hintStyle: TextStyle(
                               color: Theme.of(context)
@@ -147,7 +147,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                                       .withOpacity(0.2))),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         onSaved: (input) =>
@@ -158,7 +158,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                           labelText: "Family Medical Background",
                           labelStyle:
                               TextStyle(color: Theme.of(context).accentColor),
-                          contentPadding: EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                           hintText: 'None',
                           hintStyle: TextStyle(
                               color: Theme.of(context)
@@ -183,14 +183,15 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                                       .withOpacity(0.2))),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       BlockButtonWidget(
                         text: Text(
                           "Register as a Trainee",
                           style: TextStyle(
                               color: Theme.of(context).scaffoldBackgroundColor),
                         ),
-                        color: Theme.of(context).primaryColor,
+                        color: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
                         onPressed: () {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           if (!_traineeRegFormKey.currentState.validate()) {
@@ -206,7 +207,7 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
                           }
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                     ],
                   ),
                 ),

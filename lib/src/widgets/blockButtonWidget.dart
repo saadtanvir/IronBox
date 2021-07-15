@@ -8,7 +8,7 @@ class BlockButtonWidget extends StatelessWidget {
       @required this.onPressed})
       : super(key: key);
 
-  final Color color;
+  final MaterialStateProperty<Color> color;
   final Text text;
   final VoidCallback onPressed;
 
@@ -23,18 +23,21 @@ class BlockButtonWidget extends StatelessWidget {
           //   offset: Offset(0, 10),
           // ),
           BoxShadow(
-            color: this.color.withOpacity(0.4),
+            color: Theme.of(context).primaryColor,
             blurRadius: 13,
             offset: Offset(0, 2),
           ),
         ],
         borderRadius: BorderRadius.all(Radius.circular(100)),
       ),
-      child: FlatButton(
+      child: TextButton(
         onPressed: this.onPressed,
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-        color: this.color,
-        shape: StadiumBorder(),
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 14)),
+          backgroundColor: this.color,
+          shape: MaterialStateProperty.all(StadiumBorder()),
+        ),
         child: this.text,
       ),
     );

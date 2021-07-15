@@ -61,8 +61,8 @@ class _SplashScreenState extends State<SplashScreen> {
     print("in build of splash screen");
     return Scaffold(
       backgroundColor: Constants.primaryColor,
-      body: Center(
-        child: CircularProgressIndicator(
+      body: const Center(
+        child: const CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Constants.accentColor),
         ),
       ),

@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
@@ -29,9 +27,9 @@ class _TrainerRatingReviewsDialogState
       child: Container(
         height: 250.0,
         width: 250.0,
-        margin: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        margin: const EdgeInsets.all(20.0),
+        decoration: const BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -44,7 +42,7 @@ class _TrainerRatingReviewsDialogState
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextField(
@@ -66,8 +64,8 @@ class _TrainerRatingReviewsDialogState
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 10.0),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0,
@@ -76,7 +74,7 @@ class _TrainerRatingReviewsDialogState
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Align(
@@ -104,7 +102,7 @@ class _TrainerRatingReviewsDialogState
                           },
                           style: ButtonStyle(
                             padding: MaterialStateProperty.all(
-                              EdgeInsets.symmetric(horizontal: 10.0),
+                              const EdgeInsets.symmetric(horizontal: 10.0),
                             ),
                             backgroundColor: MaterialStateProperty.all(
                                 Theme.of(context).primaryColor),
@@ -113,9 +111,9 @@ class _TrainerRatingReviewsDialogState
                             ),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
+                              const RoundedRectangleBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -131,7 +129,7 @@ class _TrainerRatingReviewsDialogState
                           onPressed: () async {},
                           style: ButtonStyle(
                             padding: MaterialStateProperty.all(
-                              EdgeInsets.symmetric(horizontal: 10.0),
+                              const EdgeInsets.symmetric(horizontal: 10.0),
                             ),
                             backgroundColor: MaterialStateProperty.all(
                                 Theme.of(context)
@@ -142,9 +140,9 @@ class _TrainerRatingReviewsDialogState
                             ),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
+                              const RoundedRectangleBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -158,7 +156,7 @@ class _TrainerRatingReviewsDialogState
                         );
                 }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Text(
@@ -167,7 +165,7 @@ class _TrainerRatingReviewsDialogState
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               RatingBar.builder(
@@ -178,7 +176,7 @@ class _TrainerRatingReviewsDialogState
                 itemSize: 30.0,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return Icon(
+                  return const Icon(
                     Icons.star,
                     color: Colors.yellow,
                   );
@@ -187,7 +185,7 @@ class _TrainerRatingReviewsDialogState
                   print(rating);
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Align(
@@ -196,7 +194,7 @@ class _TrainerRatingReviewsDialogState
                   onPressed: () async {},
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 10.0),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).primaryColor),
@@ -204,7 +202,7 @@ class _TrainerRatingReviewsDialogState
                       Theme.of(context).accentColor.withOpacity(0.3),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                     ),

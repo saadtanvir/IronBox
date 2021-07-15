@@ -18,11 +18,11 @@ class ImageDialogWidget extends StatelessWidget {
           return Container(
             height: height ?? 300,
             width: width ?? 150,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               // borderRadius: BorderRadius.circular(5),
               // shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage("assets/img/loading.gif"),
+              image: const DecorationImage(
+                image: const AssetImage("assets/img/loading.gif"),
                 fit: BoxFit.contain,
               ),
             ),
@@ -49,11 +49,11 @@ class ImageDialogWidget extends StatelessWidget {
           return Container(
             height: height ?? 100,
             width: width ?? 80,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               // borderRadius: BorderRadius.circular(5),
               shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage("assets/img/profile_placeholder.png"),
+              image: const DecorationImage(
+                image: const AssetImage("assets/img/profile_placeholder.png"),
                 fit: BoxFit.contain,
               ),
             ),

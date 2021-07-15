@@ -1,11 +1,5 @@
-import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
-import 'package:ironbox/src/pages/appPlanDetails.dart';
-import 'package:ironbox/src/widgets/T_createPlanWidget.dart';
-import 'package:ironbox/src/widgets/T_planDetailsWidget.dart';
 import 'package:ironbox/src/widgets/dialogs/selectCategoryDialog.dart';
-import 'package:ironbox/src/widgets/plansListWidget.dart';
-import 'package:ironbox/src/widgets/searchBarWidget.dart';
 import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/widgets/showWOPTrainer/showWorkoutPlanToTrainer.dart';
 import 'package:ironbox/src/widgets/workoutPlansWidget.dart/trainerWorkoutPlansList.dart';
@@ -47,7 +41,7 @@ class _TrainerPlansState extends State<TrainerPlans> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text(
+        title: const Text(
           "Workout Plans",
           style: TextStyle(
             color: Colors.black,
@@ -87,11 +81,11 @@ class _TrainerPlansState extends State<TrainerPlans> {
                     )
                   : _con.trainerWorkoutPlansList.isEmpty &&
                           _con.doneFetchingPlans.value
-                      ? Center(
+                      ? const Center(
                           heightFactor: 20.0,
-                          child: Text(
+                          child: const Text(
                             "You have not created any plan yet !",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.grey,
                             ),
                           ),

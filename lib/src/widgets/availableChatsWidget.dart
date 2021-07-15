@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 
 class AvailableUserChatsWidget extends StatelessWidget {
-  User contact;
+  final User contact;
   AvailableUserChatsWidget(this.contact);
 
   @override
@@ -21,7 +19,7 @@ class AvailableUserChatsWidget extends StatelessWidget {
                 width: 60.0,
                 imgUrl: contact.avatar,
                 adjustment: BoxFit.cover),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Text(

@@ -55,16 +55,19 @@ Future<Logs> createUserLog(Logs log) async {
   print("URL FOR ADDING LOG: $url");
   try {
     Uri uri = Uri.parse(url);
+    var body = log.categoryId == 1
+        ? json.encode(log.workoutLogToMap())
+        : json.encode(log.dietLogToMap());
     final client = new http.Client();
     final response = await client.post(
       uri,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
       },
-      body: json.encode(log.toMap()),
+      body: body,
     );
 
-    print(json.encode(log.toMap()));
+    print(body);
 
     print(response.statusCode);
     // print(json.decode(response.body));

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
-import 'package:ironbox/src/widgets/showWOPTrainer/showGameDetails.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/gamesListWidget.dart';
-import '../workoutPlansWidget.dart/selectDay.dart';
+import '../../helpers/helper.dart';
+import '../../models/workoutPlanDetails.dart';
+import '../../models/workoutPlanGame.dart';
+import '../showWOPTrainer/showGameDetails.dart';
+import '../workoutPlansWidget.dart/gamesListWidget.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
 class WorkoutPlanDayDetail extends StatefulWidget {
@@ -46,12 +45,12 @@ class _WorkoutPlanDayDetailState extends State<WorkoutPlanDayDetail> {
           children: [
             gamesList.isNotEmpty
                 ? WorkoutPlanGamesList(gamesList, onGameTap)
-                : Center(
-                    child: Text(
+                : const Center(
+                    child: const Text(
                       "No games to show!",
                     ),
                   ),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             Padding(

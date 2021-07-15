@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/models/workoutPlanExercise.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/workoutPlanExerciseTile.dart';
-import 'package:ironbox/src/widgets/listTileWidgets/workoutPlanGameTile.dart';
-import '../../helpers/app_constants.dart' as Constants;
 
 class WorkoutPlanGameExercisesList extends StatelessWidget {
   final List<WorkoutPlanExercise> exercisesList;

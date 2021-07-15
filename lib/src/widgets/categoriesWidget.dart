@@ -1,15 +1,13 @@
 import '../pages/userWorkoutPlans.dart';
 import '../helpers/helper.dart';
 import '../models/category.dart';
-import '../pages/userPlans.dart';
 import '../widgets/categoryCardWidget.dart';
 import '../widgets/userSubscribedTrainers.dart';
-import '../helpers/app_constants.dart' as Constants;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategoriesWidget extends StatelessWidget {
-  List<Category> appCategories;
+  final List<Category> appCategories;
   CategoriesWidget(this.appCategories);
   @override
   Widget build(BuildContext context) {

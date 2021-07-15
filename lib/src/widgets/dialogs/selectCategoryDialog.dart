@@ -18,7 +18,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
       child: Container(
         height: 300.0,
         width: 250.0,
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         // decoration: BoxDecoration(
         //   borderRadius: BorderRadius.all(Radius.circular(1.0)),
         // ),
@@ -34,7 +34,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               ListView.builder(
@@ -43,7 +43,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
                 itemCount: appCategories.length,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 0.0,
                       width: 0.0,
                     );
@@ -72,7 +72,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40.0,
               ),
               Align(
@@ -94,7 +94,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 10.0),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).primaryColor),
@@ -102,7 +102,7 @@ class SelectPlanCategoryDialog extends StatelessWidget {
                       Theme.of(context).accentColor.withOpacity(0.3),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                     ),

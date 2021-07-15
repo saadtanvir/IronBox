@@ -151,7 +151,8 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                           style: TextStyle(
                               color: Theme.of(context).scaffoldBackgroundColor),
                         ),
-                        color: Theme.of(context).primaryColor,
+                        color: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
                         onPressed: () {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           if (!_trainerRegFormKey.currentState.validate()) {

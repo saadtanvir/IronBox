@@ -1,5 +1,4 @@
 import 'package:ironbox/src/widgets/reviewCardWidget.dart';
-
 import '../helpers/helper.dart';
 import '../models/reviews.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class _TrainerReviewsListState extends State<TrainerReviewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Reviews"),
+        title: const Text("Reviews"),
       ),
       body: Container(
         height: 160.0 * widget.reviews.length.toDouble(),

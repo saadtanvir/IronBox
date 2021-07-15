@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../helpers/helper.dart';
 import '../../models/category.dart';
 import '../../pages/showVideoLib.dart';
-import '../../widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
 import '../../helpers/app_constants.dart' as Constants;
 import '../../repositories/user_repo.dart' as userRepo;
 import 'package:image_picker/image_picker.dart';
@@ -107,7 +106,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -128,16 +127,16 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: const EdgeInsets.all(10),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -150,7 +149,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -171,16 +170,16 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: const EdgeInsets.all(10),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -191,7 +190,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Container(
@@ -214,9 +213,9 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             color:
                                 Theme.of(context).accentColor.withOpacity(0.5),
                           ),
-                          contentPadding: EdgeInsets.all(10),
+                          contentPadding: const EdgeInsets.all(10),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               width: 0.0,
                             ),
                             borderRadius:
@@ -225,7 +224,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -238,7 +237,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     ListView.builder(
@@ -278,76 +277,74 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         });
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Obx(() {
                       return childCategories.isNotEmpty
-                          ? Container(
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      Constants.select_child_category + ":",
-                                      style: TextStyle(
-                                        color: Theme.of(context).accentColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                          ? Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    Constants.select_child_category + ":",
+                                    style: TextStyle(
+                                      color: Theme.of(context).accentColor,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    // scrollDirection: Axis.horizontal,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: childCategories.length,
-                                    itemBuilder: (context, index) {
-                                      // print("sub category index is: $index");
-                                      int radioTileValue = index + 1;
-                                      // print(
-                                      // "radio tile value is: $radioTileValue");
-                                      return Obx(() {
-                                        return RadioListTile(
-                                          value: radioTileValue,
-                                          groupValue:
-                                              childCategoryRadioTileGroupValue
-                                                  .value,
-                                          title: Text(
-                                              "${childCategories[index].name}"),
-                                          activeColor:
-                                              Theme.of(context).primaryColor,
-                                          selected:
-                                              childCategoryRadioTileGroupValue
-                                                          .value ==
-                                                      radioTileValue
-                                                  ? true
-                                                  : false,
-                                          onChanged: (val) {
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-
-                                            // print("changed value is: $val");
+                                ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  // scrollDirection: Axis.horizontal,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: childCategories.length,
+                                  itemBuilder: (context, index) {
+                                    // print("sub category index is: $index");
+                                    int radioTileValue = index + 1;
+                                    // print(
+                                    // "radio tile value is: $radioTileValue");
+                                    return Obx(() {
+                                      return RadioListTile(
+                                        value: radioTileValue,
+                                        groupValue:
                                             childCategoryRadioTileGroupValue
-                                                .value = val;
-                                            _con.workoutPlan.categoryId =
-                                                childCategories[index]
-                                                    .id
-                                                    .toString();
-                                          },
-                                        );
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 40.0,
-                                  ),
-                                ],
-                              ),
+                                                .value,
+                                        title: Text(
+                                            "${childCategories[index].name}"),
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        selected:
+                                            childCategoryRadioTileGroupValue
+                                                        .value ==
+                                                    radioTileValue
+                                                ? true
+                                                : false,
+                                        onChanged: (val) {
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+
+                                          // print("changed value is: $val");
+                                          childCategoryRadioTileGroupValue
+                                              .value = val;
+                                          _con.workoutPlan.categoryId =
+                                              childCategories[index]
+                                                  .id
+                                                  .toString();
+                                        },
+                                      );
+                                    });
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 40.0,
+                                ),
+                              ],
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               height: 0.0,
                             );
                     }),
@@ -361,7 +358,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -389,7 +386,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
@@ -417,7 +414,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -430,7 +427,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Obx(() {
@@ -490,7 +487,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         },
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -503,7 +500,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -516,7 +513,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5.0,
                         ),
                         SizedBox(
@@ -544,9 +541,9 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                                     .accentColor
                                     .withOpacity(0.3),
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 0.0,
                                 ),
                                 borderRadius:
@@ -557,7 +554,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -570,7 +567,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Obx(() {
@@ -616,12 +613,12 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                               _videoUrlTextFieldController.value.text =
                                   data.link;
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_drop_down,
                             ),
                           ),
                           contentPadding: EdgeInsets.all(10),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 0.0,
                             ),
@@ -631,7 +628,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -644,7 +641,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -657,7 +654,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             },
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(horizontal: 5.0),
+                                const EdgeInsets.symmetric(horizontal: 5.0),
                               ),
                               backgroundColor: MaterialStateProperty.all(
                                 Colors.grey[300],
@@ -679,7 +676,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
@@ -696,7 +693,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -709,7 +706,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -731,7 +728,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                           // fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: const EdgeInsets.all(10),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.0,
@@ -740,7 +737,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     TextButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -785,7 +782,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
+                                const BorderRadius.all(Radius.circular(15.0)),
                           ),
                         ),
                       ),

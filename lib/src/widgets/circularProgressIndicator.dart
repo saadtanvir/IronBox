@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class CustomCircularProgressIndicator extends StatefulWidget {
-  double height;
+  final double height;
   CustomCircularProgressIndicator({Key key, this.height}) : super(key: key);
   @override
   _CustomCircularProgressIndicatorState createState() =>

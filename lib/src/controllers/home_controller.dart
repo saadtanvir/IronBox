@@ -69,8 +69,9 @@ class HomeController extends GetxController {
     // follow below link
     // https://blog.maskys.com/implementing-a-daily-step-count-pedometer-in-flutter/
     print("listening for step count");
-    _stepCountStream = await Pedometer.stepCountStream;
-    _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
+    _stepCountStream = Pedometer.stepCountStream; // apply await if not working
+    _pedestrianStatusStream =
+        Pedometer.pedestrianStatusStream; // apply await if not working
     _stepCountStream.listen(_getTodaySteps).onError(_onError);
     _pedestrianStatusStream
         .listen(_onPedestrianStatusChanged)
@@ -100,8 +101,8 @@ class HomeController extends GetxController {
 
   void _onPedestrianStatusChanged(PedestrianStatus event) {
     /// Handle status changed
-    String status = event.status;
-    DateTime timeStamp = event.timeStamp;
+    // String status = event.status;
+    // DateTime timeStamp = event.timeStamp;
     print("pedestrian status: ${event.status}");
   }
 
@@ -128,7 +129,7 @@ class HomeController extends GetxController {
   Future<void> listenForCategories() async {
     print("fetching categories from home controller");
     categories.clear();
-    Stream<Category> stream = await categoryRepo.getAppCategories();
+    final Stream<Category> stream = await categoryRepo.getAppCategories();
 
     stream.listen((Category _category) {
       print(_category.backgroundImgUrl);

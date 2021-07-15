@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import '../models/user.dart';
 import '../widgets/imageDialogWidget.dart';
-import '../widgets/playYoutubeVideoWidget.dart';
 import '../widgets/userCircularAatar.dart';
-import '../helpers/app_constants.dart' as Constants;
 
 class SubscribedTrainerProfileCardWidget extends StatelessWidget {
   final User trainer;
@@ -19,7 +17,7 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
         elevation: 10.0,
         margin: EdgeInsets.zero,
         color: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0)),
@@ -28,81 +26,75 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10.0),
           child: Column(
             children: [
-              Container(
-                // height: 200,
-                // color: Colors.blue,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // show picture in dialogue
-                        Get.dialog(ImageDialogWidget("${trainer.avatar}"));
-                      },
-                      child: UserCircularAvatar(
-                          height: 120.0,
-                          width: 100.0,
-                          imgUrl: "${trainer.avatar}",
-                          adjustment: BoxFit.fill),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 20.0,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    width: 15.0,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // show picture in dialogue
+                      Get.dialog(ImageDialogWidget("${trainer.avatar}"));
+                    },
+                    child: UserCircularAvatar(
+                        height: 120.0,
+                        width: 100.0,
+                        imgUrl: "${trainer.avatar}",
+                        adjustment: BoxFit.fill),
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        "${trainer.name}",
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
                         ),
-                        Text(
-                          "${trainer.name}",
-                          style: TextStyle(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${trainer.userRating.rating.toStringAsFixed(1)}",
+                            style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${trainer.userRating.rating.toStringAsFixed(1)}",
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
+                          const Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: 15.0,
+                          ),
+                          Text(
+                            " (${trainer.userRating.totalCount})",
+                            style: TextStyle(
+                              color: Theme.of(context).scaffoldBackgroundColor,
                             ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                              size: 15.0,
-                            ),
-                            Text(
-                              " (${trainer.userRating.totalCount})",
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   Expanded(
@@ -114,7 +106,7 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 10.0),
+                          const EdgeInsets.symmetric(horizontal: 10.0),
                         ),
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).scaffoldBackgroundColor),
@@ -125,7 +117,7 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
+                                const BorderRadius.all(Radius.circular(15.0)),
                           ),
                         ),
                       ),
@@ -154,12 +146,12 @@ class SubscribedTrainerProfileCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
             ],

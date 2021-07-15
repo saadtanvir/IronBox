@@ -1,5 +1,4 @@
 import 'package:ironbox/src/controllers/user_controller.dart';
-import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -33,7 +32,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       child: Form(
         key: _loginFormKey,
         child: SingleChildScrollView(
@@ -60,16 +59,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                   labelStyle: TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontWeight: FontWeight.bold),
-                  contentPadding: EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.all(10),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0,
                         color: Theme.of(context).accentColor.withOpacity(0.2)),
-                    borderRadius: BorderRadius.all(Radius.circular(150.0)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(150.0)),
                   ),
                 ),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               TextFormField(
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -82,7 +82,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   labelStyle: TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontWeight: FontWeight.bold),
-                  contentPadding: EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.all(10),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0,
@@ -91,7 +91,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                 ),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               TextButton(
                   onPressed: () async {
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -105,7 +105,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   },
                   child: Text(
                     Constants.login,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(

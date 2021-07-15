@@ -73,18 +73,18 @@ class _ShowUserWOPGameDetailsState extends State<ShowUserWOPGameDetails> {
               Obx(() {
                 return _con.gameExercisesList.isEmpty &&
                         !_con.doneFetchingExercises.value
-                    ? Center(
-                        child: Padding(
+                    ? const Center(
+                        child: const Padding(
                           padding: const EdgeInsets.only(top: 100.0),
-                          child: CircularProgressIndicator(),
+                          child: const CircularProgressIndicator(),
                         ),
                       )
                     : _con.gameExercisesList.isEmpty &&
                             _con.doneFetchingExercises.value
-                        ? Center(
-                            child: Padding(
+                        ? const Center(
+                            child: const Padding(
                               padding: const EdgeInsets.only(top: 100.0),
-                              child: Text("No exercises to show!"),
+                              child: const Text("No exercises to show!"),
                             ),
                           )
                         : UserWOPExercisesListWidget(

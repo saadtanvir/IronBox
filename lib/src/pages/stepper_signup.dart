@@ -50,7 +50,7 @@ class _StepperSignupState extends State<StepperSignup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign Up"),
+        title: const Text("Sign Up"),
         centerTitle: true,
       ),
       body: Form(
@@ -77,7 +77,7 @@ class _StepperSignupState extends State<StepperSignup> {
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 20.0),
+                            const EdgeInsets.symmetric(horizontal: 20.0),
                           ),
                           backgroundColor: MaterialStateProperty.all(
                               Theme.of(context).primaryColor),
@@ -97,7 +97,7 @@ class _StepperSignupState extends State<StepperSignup> {
                           ),
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 0.0,
                 ),
                 TextButton(
@@ -137,14 +137,16 @@ class _StepperSignupState extends State<StepperSignup> {
 
   List<Step> _getSignUpSteps() {
     List<Step> signUpSteps = [];
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // adding name, username, email, phone
     signUpSteps.add(Step(
-      title: Text("Basic Info"),
+      title: const Text("Basic Info"),
       isActive: _currentIndex == 0,
       content: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             TextFormField(
@@ -160,7 +162,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -169,7 +171,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             TextFormField(
               keyboardType: TextInputType.text,
               onSaved: (input) => _con.user.userName = input,
@@ -186,7 +188,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -195,7 +197,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               onSaved: (input) => _con.user.email = input,
@@ -207,7 +209,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -216,7 +218,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             TextFormField(
               keyboardType: TextInputType.phone,
               onSaved: (input) => _con.user.phone = input,
@@ -234,7 +236,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 hintStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -243,7 +245,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             Row(
               children: [
                 Expanded(
@@ -253,11 +255,11 @@ class _StepperSignupState extends State<StepperSignup> {
                         ? Container(
                             height: 74,
                             width: 74,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               // borderRadius: BorderRadius.circular(5),
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage(
+                              image: const DecorationImage(
+                                image: const AssetImage(
                                     "assets/img/profile_placeholder.png"),
                                 fit: BoxFit.contain,
                               ),
@@ -276,7 +278,7 @@ class _StepperSignupState extends State<StepperSignup> {
                           );
                   }),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5.0,
                 ),
                 Expanded(
@@ -287,7 +289,7 @@ class _StepperSignupState extends State<StepperSignup> {
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 5.0),
+                        const EdgeInsets.symmetric(horizontal: 5.0),
                       ),
                       backgroundColor: MaterialStateProperty.all(
                         Colors.grey[300],
@@ -309,20 +311,21 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ],
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
           ],
         ),
       ),
     ));
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // adding age, gender, height, weight
     signUpSteps.add(Step(
-      title: Text("Body Info"),
+      title: const Text("Body Info"),
       isActive: _currentIndex == 1,
       content: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             TextFormField(
               keyboardType: TextInputType.number,
               onSaved: (input) => _con.user.age = int.parse(input),
@@ -335,7 +338,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -344,7 +347,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             DropdownButtonFormField(
               onSaved: (input) => _con.user.gender = input,
               validator: (input) => _gender.length == 0 ? "Select one" : null,
@@ -358,7 +361,9 @@ class _StepperSignupState extends State<StepperSignup> {
               items: Constants.selectGender.map((String gender) {
                 return DropdownMenuItem(
                   value: gender,
-                  child: Text("$gender"),
+                  child: Text(
+                    "$gender",
+                  ),
                 );
               }).toList(),
               icon: Icon(
@@ -370,7 +375,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelText: "Gender",
                 labelStyle:
                     TextStyle(color: Theme.of(context).secondaryHeaderColor),
-                contentPadding: EdgeInsets.all(12),
+                contentPadding: const EdgeInsets.all(12),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -379,7 +384,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             TextFormField(
               keyboardType: TextInputType.number,
               onSaved: (input) => _con.user.height = double.parse(input),
@@ -396,7 +401,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -405,7 +410,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             Obx(() {
               return Row(
                 children: [
@@ -421,7 +426,7 @@ class _StepperSignupState extends State<StepperSignup> {
                               // _weightUnitValue = value;
                               _weightUnitValueO.value = value;
                             }),
-                        Text("${Constants.kg}"),
+                        const Text("${Constants.kg}"),
                       ],
                     ),
                   ),
@@ -437,14 +442,14 @@ class _StepperSignupState extends State<StepperSignup> {
                               // _weightUnitValue = value;
                               _weightUnitValueO.value = value;
                             }),
-                        Text("${Constants.pound}"),
+                        const Text("${Constants.pound}"),
                       ],
                     ),
                   )
                 ],
               );
             }),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Obx(() {
               return TextFormField(
                 keyboardType: TextInputType.number,
@@ -460,7 +465,7 @@ class _StepperSignupState extends State<StepperSignup> {
                   labelStyle: TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontWeight: FontWeight.bold),
-                  contentPadding: EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.all(10),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0,
@@ -470,15 +475,16 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               );
             }),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
           ],
         ),
       ),
     ));
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // adding specialized info
     signUpSteps.add(Step(
-      title: Text("Specialized Info"),
+      title: const Text("Specialized Info"),
       isActive: _currentIndex == 2,
       content: SingleChildScrollView(
         child: Column(
@@ -554,8 +560,9 @@ class _StepperSignupState extends State<StepperSignup> {
                   child: RadioListTile(
                     value: 1,
                     groupValue: groupValue,
-                    title: Text(Constants.joinAsA[0]),
-                    subtitle: Text("Joining as a:"),
+                    title: Text(Constants.joinAsA[
+                        0]), // the value of joinAsA[0] will be known at runtime, so that it can not be constant
+                    subtitle: const Text("Joining as a:"),
                     activeColor: Theme.of(context).primaryColor,
                     selected: groupValue == 1 ? true : false,
                     onChanged: (val) {
@@ -580,7 +587,7 @@ class _StepperSignupState extends State<StepperSignup> {
                     value: 2,
                     groupValue: groupValue,
                     title: Text(Constants.joinAsA[1]),
-                    subtitle: Text("Joining as a:"),
+                    subtitle: const Text("Joining as a:"),
                     activeColor: Theme.of(context).primaryColor,
                     selected: groupValue == 2 ? true : false,
                     onChanged: (val) {
@@ -601,12 +608,12 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             // adding Trainer fields
             !_isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -621,7 +628,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       labelStyle: TextStyle(
                           color: Theme.of(context).secondaryHeaderColor,
                           fontWeight: FontWeight.bold),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -632,12 +639,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             _isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 15.0,
                   )
-                : SizedBox(height: 0.0),
+                : const SizedBox(height: 0.0),
             !_isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -652,7 +659,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       labelStyle: TextStyle(
                           color: Theme.of(context).secondaryHeaderColor,
                           fontWeight: FontWeight.bold),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -663,12 +670,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             _isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 15.0,
                   )
-                : SizedBox(height: 0.0),
+                : const SizedBox(height: 0.0),
             !_isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -684,7 +691,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       labelStyle: TextStyle(
                           color: Theme.of(context).secondaryHeaderColor,
                           fontWeight: FontWeight.bold),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -695,12 +702,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             _isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 15.0,
                   )
-                : SizedBox(height: 0.0),
+                : const SizedBox(height: 0.0),
             !_isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -719,7 +726,7 @@ class _StepperSignupState extends State<StepperSignup> {
                           fontWeight: FontWeight.bold),
                       hintText: Constants.youtube_video_link,
                       hintStyle: TextStyle(color: Colors.grey[300]),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -730,12 +737,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             _isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 15.0,
                   )
-                : SizedBox(height: 0.0),
+                : const SizedBox(height: 0.0),
             !_isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : Row(
@@ -748,7 +755,7 @@ class _StepperSignupState extends State<StepperSignup> {
                           fontSize: 15.0,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5.0,
                       ),
                       SizedBox(
@@ -763,7 +770,7 @@ class _StepperSignupState extends State<StepperSignup> {
                             labelStyle: TextStyle(
                                 color: Theme.of(context).secondaryHeaderColor,
                                 fontWeight: FontWeight.bold),
-                            contentPadding: EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(10),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   width: 2.0,
@@ -780,7 +787,7 @@ class _StepperSignupState extends State<StepperSignup> {
                   ),
             // adding Trainee fields
             !_isTrainee
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -801,7 +808,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       hintStyle: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -812,12 +819,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             !_isTrainee
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
-                : SizedBox(height: 15.0),
+                : const SizedBox(height: 15.0),
             !_isTrainee
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -839,7 +846,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       hintStyle: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -850,12 +857,12 @@ class _StepperSignupState extends State<StepperSignup> {
                     ),
                   ),
             !_isTrainee
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
-                : SizedBox(height: 15.0),
+                : const SizedBox(height: 15.0),
             !_isTrainee
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : TextFormField(
@@ -876,7 +883,7 @@ class _StepperSignupState extends State<StepperSignup> {
                       hintStyle: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
@@ -886,20 +893,21 @@ class _StepperSignupState extends State<StepperSignup> {
                       ),
                     ),
                   ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
           ],
         ),
       ),
     ));
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // adding password and confirm password
     signUpSteps.add(Step(
-      title: Text("Privacy"),
+      title: const Text("Privacy"),
       isActive: _currentIndex == 3,
       content: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             TextFormField(
@@ -921,7 +929,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -930,7 +938,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             TextFormField(
@@ -950,7 +958,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 labelStyle: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2.0,
@@ -959,7 +967,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             TextButton(
@@ -986,13 +994,13 @@ class _StepperSignupState extends State<StepperSignup> {
                   _con.registerUserWithImage(context);
                 }
               },
-              child: Text(
+              child: const Text(
                 Constants.signup,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 50.0)),
+                    const EdgeInsets.symmetric(horizontal: 50.0)),
                 backgroundColor:
                     MaterialStateProperty.all(Theme.of(context).primaryColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -1002,7 +1010,7 @@ class _StepperSignupState extends State<StepperSignup> {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
           ],
         ),
       ),

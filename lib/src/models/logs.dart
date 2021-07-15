@@ -35,22 +35,17 @@ class Logs {
       categoryId = jsonMap['category_id'] != null
           ? int.parse(jsonMap['category_id'])
           : 1;
-      title = jsonMap['title'] != null ? jsonMap['title'].toString() : '';
-      description = jsonMap['description'] != null
-          ? jsonMap['description'].toString()
-          : '';
+      title = jsonMap['title'] != null ? jsonMap['title'] : '';
+      description =
+          jsonMap['description'] != null ? jsonMap['description'] : '';
       videoUrl = jsonMap['video_url'] != null ? jsonMap['video_url'] : "";
       userId = jsonMap['user_id'] != null ? jsonMap['user_id'].toString() : '';
       createdBy =
           jsonMap['created_by'] != null ? jsonMap['created_by'].toString() : '';
-      dueDate = jsonMap['created_date'] != null
-          ? jsonMap['created_date'].toString()
-          : '';
-      duration =
-          jsonMap['minutes'] != null ? jsonMap['minutes'].toString() : '';
-      isCompleted = jsonMap['status'] != null
-          ? int.parse(jsonMap['status'].toString())
-          : 0;
+      dueDate = jsonMap['created_date'] != null ? jsonMap['created_date'] : '';
+      duration = jsonMap['minutes'] != null ? jsonMap['minutes'] : '';
+      isCompleted =
+          jsonMap['status'] != null ? int.parse(jsonMap['status']) : 0;
       reps = jsonMap['reps'] != null ? int.parse(jsonMap['reps']) : 0;
       calBurn =
           jsonMap['cal_burn'] != null ? int.parse(jsonMap['cal_burn']) : 0;
@@ -61,7 +56,26 @@ class Logs {
     }
   }
 
-  Map toMap() {
+  // Map toMap() {
+  //   var map = new Map<String, dynamic>();
+  //   map['title'] = title;
+  //   map['description'] = description;
+  //   map['user_id'] = userId;
+  //   map['created_by'] = createdBy;
+  //   map['created_date'] = dueDate;
+  //   map['minutes'] = duration;
+  //   map['video_url'] = videoUrl;
+  //   // map['status'] = isCompleted.toString();
+  //   map['reps'] = reps.toString();
+  //   map['cal_burn'] = calBurn.toString();
+  //   map['cal_gain'] = calGain.toString();
+  //   map['category_id'] = categoryId.toString();
+  //   map['meal_id'] = mealId.toString();
+  //   map['exercise_id'] = exerciseId.toString();
+  //   return map;
+  // }
+
+  Map workoutLogToMap() {
     var map = new Map<String, dynamic>();
     map['title'] = title;
     map['description'] = description;
@@ -73,10 +87,29 @@ class Logs {
     // map['status'] = isCompleted.toString();
     map['reps'] = reps.toString();
     map['cal_burn'] = calBurn.toString();
+    // map['cal_gain'] = calGain.toString();
+    map['category_id'] = categoryId.toString();
+    // map['meal_id'] = mealId.toString();
+    map['exercise_id'] = exerciseId.toString();
+    return map;
+  }
+
+  Map dietLogToMap() {
+    var map = new Map<String, dynamic>();
+    map['title'] = title;
+    map['description'] = description;
+    map['user_id'] = userId;
+    map['created_by'] = createdBy;
+    map['created_date'] = dueDate;
+    map['minutes'] = duration;
+    map['video_url'] = videoUrl;
+    // map['status'] = isCompleted.toString();
+    // map['reps'] = reps.toString();
+    // map['cal_burn'] = calBurn.toString();
     map['cal_gain'] = calGain.toString();
     map['category_id'] = categoryId.toString();
     map['meal_id'] = mealId.toString();
-    map['exercise_id'] = exerciseId.toString();
+    // map['exercise_id'] = exerciseId.toString();
     return map;
   }
 }

@@ -44,7 +44,7 @@ class _UserAllWorkoutPlansState extends State<UserAllWorkoutPlans> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Workout Plans"),
+        title: const Text("Workout Plans"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -53,13 +53,14 @@ class _UserAllWorkoutPlansState extends State<UserAllWorkoutPlans> {
             Obx(() {
               return _con.userWorkoutPlans.isEmpty &&
                       !_con.doneFetchingUserWorkoutPlans.value
-                  ? Center(
-                      child: CircularProgressIndicator(),
+                  ? const Center(
+                      child: const CircularProgressIndicator(),
                     )
                   : _con.userWorkoutPlans.isEmpty &&
                           _con.doneFetchingUserWorkoutPlans.value
-                      ? Center(
-                          child: Text("You have not bought any plan yet!"),
+                      ? const Center(
+                          child:
+                              const Text("You have not bought any plan yet!"),
                         )
                       : UserWorkoutPlansListWidget(
                           _con.userWorkoutPlans, onPlanTap);

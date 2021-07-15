@@ -49,13 +49,14 @@ class _CreateAccountState extends State<CreateAccount>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(
-                      image: AssetImage("assets/img/logo.png"),
+                      image: const AssetImage("assets/img/logo.png"),
                       width: Helper.of(context).getScreenWidth() * 0.54,
                       height: Helper.of(context).getScreenHeight() * 0.25,
                     ),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30.0),
                     Image(
-                      image: AssetImage("assets/img/create_acc_message.png"),
+                      image:
+                          const AssetImage("assets/img/create_acc_message.png"),
                       width: Helper.of(context).getScreenWidth() * 0.54,
                       height: Helper.of(context).getScreenHeight() * 0.25,
                     ),

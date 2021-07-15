@@ -48,7 +48,7 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image(
+        title: const Image(
           image: AssetImage("assets/img/logo_vertical.png"),
         ),
         centerTitle: true,
@@ -79,11 +79,11 @@ class _WorkoutPackagesState extends State<WorkoutPackages> {
                             backgroundColor: Theme.of(context).primaryColor),
                       )
                     : _con.workoutPlans.isEmpty && _con.doneFetchingPlans.value
-                        ? Center(
+                        ? const Center(
                             heightFactor: 10.0,
-                            child: Text(
+                            child: const Text(
                               "No plans to show !",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.grey,
                               ),
                             ),

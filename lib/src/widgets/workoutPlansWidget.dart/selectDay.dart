@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
-import 'package:ironbox/src/widgets/displayDaysWidget.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
+import '../../widgets/displayDaysWidget.dart';
+import '../../widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
 
 class SelectWorkoutPlanDay extends StatefulWidget {
   final int weekNumber;
@@ -37,7 +36,7 @@ class _SelectWorkoutPlanDayState extends State<SelectWorkoutPlanDay> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Select Day"),
+          title: const Text("Select Day"),
           centerTitle: true,
         ),
         body: SingleChildScrollView(

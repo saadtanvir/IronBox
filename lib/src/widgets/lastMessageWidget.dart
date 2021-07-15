@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../models/message.dart';
 
 class LastMessageWidget extends StatelessWidget {
@@ -38,10 +37,10 @@ class LastMessageWidget extends StatelessWidget {
               ],
             );
           } else {
-            return Text("");
+            return const Text("");
           }
         } else {
-          return Text("...");
+          return const Text("...");
         }
       },
     );

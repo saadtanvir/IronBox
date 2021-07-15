@@ -36,13 +36,13 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Day Details"),
+        title: const Text("Day Details"),
         centerTitle: true,
       ),
       body: Obx(() {
         return !_con.doneFetchingWorkoutPlanDetails.value
-            ? Center(
-                child: CircularProgressIndicator(),
+            ? const Center(
+                child: const CircularProgressIndicator(),
               )
             : _con.doneFetchingWorkoutPlanDetails.value
                 ? Center(
@@ -62,7 +62,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 0.0,
                                     ),
                                     TextFormField(
@@ -81,10 +81,11 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                               .accentColor
                                               .withOpacity(0.3),
                                         ),
-                                        contentPadding: EdgeInsets.all(10),
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 50.0,
                                     ),
                                     Row(
@@ -104,7 +105,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 0.0,
                                               ),
                                               TextFormField(
@@ -129,13 +130,13 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                         .withOpacity(0.3),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsets.all(10),
+                                                      const EdgeInsets.all(10),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10.0,
                                         ),
                                         Expanded(
@@ -153,7 +154,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 0.0,
                                               ),
                                               TextFormField(
@@ -178,7 +179,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                         .withOpacity(0.3),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsets.all(10),
+                                                      const EdgeInsets.all(10),
                                                 ),
                                               ),
                                             ],
@@ -186,7 +187,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 50.0,
                                     ),
                                     Align(
@@ -217,7 +218,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         },
                                         style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
-                                            EdgeInsets.symmetric(
+                                            const EdgeInsets.symmetric(
                                                 horizontal: 30.0),
                                           ),
                                           backgroundColor:
@@ -260,7 +261,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 0.0,
                                     ),
                                     TextFormField(
@@ -281,10 +282,11 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                               .accentColor
                                               .withOpacity(0.3),
                                         ),
-                                        contentPadding: EdgeInsets.all(10),
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 50.0,
                                     ),
                                     Row(
@@ -304,7 +306,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 0.0,
                                               ),
                                               TextFormField(
@@ -332,13 +334,13 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                         .withOpacity(0.3),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsets.all(10),
+                                                      const EdgeInsets.all(10),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10.0,
                                         ),
                                         Expanded(
@@ -356,7 +358,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 0.0,
                                               ),
                                               TextFormField(
@@ -384,7 +386,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                                         .withOpacity(0.3),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsets.all(10),
+                                                      const EdgeInsets.all(10),
                                                 ),
                                               ),
                                             ],
@@ -392,7 +394,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 50.0,
                                     ),
                                     Align(
@@ -423,7 +425,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                                         },
                                         style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
-                                            EdgeInsets.symmetric(
+                                            const EdgeInsets.symmetric(
                                                 horizontal: 30.0),
                                           ),
                                           backgroundColor:
@@ -460,7 +462,7 @@ class _AddWorkoutPlanDayDetailsState extends State<AddWorkoutPlanDayDetails> {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 0.0,
                   );
       }),

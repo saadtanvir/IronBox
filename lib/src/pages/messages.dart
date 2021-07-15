@@ -53,7 +53,7 @@ class _MessagesState extends State<Messages> {
                 },
                 icon: Icon(Icons.notes_rounded),
               )
-            : SizedBox(
+            : const SizedBox(
                 height: 0.0,
                 width: 0.0,
               ),
@@ -63,31 +63,31 @@ class _MessagesState extends State<Messages> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _searchBar(),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Obx(() {
               return _con.contacts.isEmpty && !_con.doneFetchingContacts.value
                   ? ContactsLoadingWidget()
                   : _con.contacts.isEmpty && _con.doneFetchingContacts.value
-                      ? Center(child: Text("You have no contacts!"))
+                      ? const Center(child: const Text("You have no contacts!"))
                       : UserContactsListWidget(_con.contacts);
             }),
-            Divider(),
-            SizedBox(
+            const Divider(),
+            const SizedBox(
               height: 0.0,
             ),
             Obx(() {
               return _con.contacts.isEmpty && _con.doneFetchingContacts.value
-                  ? Center(
-                      child: Padding(
+                  ? const Center(
+                      child: const Padding(
                         padding: const EdgeInsets.only(top: 80.0),
-                        child: Text("No chats to display!"),
+                        child: const Text("No chats to display!"),
                       ),
                     )
                   : _con.contacts.isEmpty && !_con.doneFetchingContacts.value
-                      ? Center(
-                          child: CircularProgressIndicator(),
+                      ? const Center(
+                          child: const CircularProgressIndicator(),
                         )
                       : Container(
                           child: StreamBuilder<QuerySnapshot>(
@@ -159,29 +159,27 @@ class _MessagesState extends State<Messages> {
   Widget _searchBar() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
-        child: TextField(
-          keyboardType: TextInputType.text,
-          focusNode: _chatSearchFocusNode,
-          onTap: () {
-            print(MediaQuery.of(context).viewInsets.bottom);
-          },
-          decoration: InputDecoration(
-            fillColor: Constants.messageSearchBarColor,
-            filled: true,
-            labelText: "Search User",
-            labelStyle:
-                Helper.of(context).textStyle(size: 15.0, color: Colors.grey),
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            suffixIcon: Icon(
-              Icons.search,
-              color: Colors.grey,
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.0),
-              ),
+      child: TextField(
+        keyboardType: TextInputType.text,
+        focusNode: _chatSearchFocusNode,
+        onTap: () {
+          print(MediaQuery.of(context).viewInsets.bottom);
+        },
+        decoration: InputDecoration(
+          fillColor: Constants.messageSearchBarColor,
+          filled: true,
+          labelText: "Search User",
+          labelStyle:
+              Helper.of(context).textStyle(size: 15.0, color: Colors.grey),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          suffixIcon: const Icon(
+            Icons.search,
+            color: Colors.grey,
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(
+              Radius.circular(5.0),
             ),
           ),
         ),

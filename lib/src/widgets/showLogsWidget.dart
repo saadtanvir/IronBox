@@ -1,10 +1,9 @@
 import 'dart:math';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/logs.dart';
+import '../helpers/helper.dart';
+import '../models/logs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/widgets/dialogs/playWPExerciseVideo.dart';
-import '../helpers/app_constants.dart' as Constants;
 
 class ShowLogsWidget extends StatefulWidget {
   List<Logs> logsList;
@@ -74,7 +73,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 10.0),
+                        const EdgeInsets.symmetric(horizontal: 10.0),
                       ),
                       backgroundColor: MaterialStateProperty.all(
                           Theme.of(context).primaryColor),
@@ -94,10 +93,10 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     width: 0.0,
                   ),
-            SizedBox(
+            const SizedBox(
               width: 5.0,
             ),
             widget.logsList[_currentIndex].isCompleted == 0 && widget.canUpdate
@@ -111,7 +110,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 10.0),
+                        const EdgeInsets.symmetric(horizontal: 10.0),
                       ),
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                       overlayColor:
@@ -130,7 +129,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     width: 0.0,
                   ),
           ],
@@ -157,7 +156,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
           title: Text("${log.title}"),
           content: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(10.0),
               ),
             ),
@@ -179,7 +178,7 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                                 ? Colors.white
                                 : Theme.of(context).accentColor),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       log.videoUrl != null && log.videoUrl.isNotEmpty
                           ? IconButton(
                               onPressed: () {
@@ -192,13 +191,13 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
                                 color: Theme.of(context).primaryColor,
                               ),
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               height: 0.0,
                               width: 0.0,
                             ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/widgets/displayWeeksWidget.dart';
+import '../../models/workoutPlanDetails.dart';
+import '../../widgets/displayWeeksWidget.dart';
 import '../../widgets/workoutPlansWidget.dart/selectDay.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
@@ -31,7 +31,7 @@ class _SelectWeekState extends State<SelectWeek> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Week"),
+        title: const Text("Select Week"),
         centerTitle: true,
         actions: [],
       ),
@@ -40,7 +40,7 @@ class _SelectWeekState extends State<SelectWeek> {
           children: [
             DisplayWeeksListWidget(
                 totalWeeks: widget.totalWeeks, onWeekSelect: _onWeekSelect),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             Align(
@@ -61,7 +61,7 @@ class _SelectWeekState extends State<SelectWeek> {
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 30.0),
+                    const EdgeInsets.symmetric(horizontal: 30.0),
                   ),
                   backgroundColor:
                       MaterialStateProperty.all(Theme.of(context).primaryColor),
@@ -70,7 +70,8 @@ class _SelectWeekState extends State<SelectWeek> {
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
                 ),

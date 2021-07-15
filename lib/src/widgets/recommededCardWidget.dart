@@ -3,8 +3,8 @@ import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedCardWidget extends StatelessWidget {
-  String imgURL;
-  String recommendationName;
+  final String imgURL;
+  final String recommendationName;
   RecommendedCardWidget(
       {@required this.imgURL, @required this.recommendationName});
   @override
@@ -12,7 +12,7 @@ class RecommendedCardWidget extends StatelessWidget {
     // print(Helper.of(context).getScreenWidth() * 0.40);
     return Container(
       width: 144.0,
-      margin: EdgeInsets.only(left: 10.0),
+      margin: const EdgeInsets.only(left: 10.0),
       // color: Colors.brown,
       child: Card(
         // color: Colors.red,
@@ -28,7 +28,7 @@ class RecommendedCardWidget extends StatelessWidget {
             Column(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10)),
                   child: CachedNetworkImage(
@@ -36,16 +36,18 @@ class RecommendedCardWidget extends StatelessWidget {
                     // width: double.infinity,
                     fit: BoxFit.fill,
                     imageUrl: imgURL,
-                    placeholder: (context, url) => Image.asset(
-                      'assets/img/loading.gif',
-                      fit: BoxFit.fill,
-                      // width: double.infinity,
-                      height: 150,
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    placeholder: (context, url) {
+                      return const Image(
+                        image: AssetImage("assets/img/loading.gif"),
+                        fit: BoxFit.contain,
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return const Icon(Icons.error);
+                    },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Text(

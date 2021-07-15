@@ -37,14 +37,14 @@ class _VideoLibState extends State<VideoLib> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Select Video",
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
@@ -102,9 +102,9 @@ class _VideoLibState extends State<VideoLib> {
                             ),
                           );
                   }),
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
+                  contentPadding: const EdgeInsets.all(10),
+                  border: const OutlineInputBorder(
+                    borderSide: const BorderSide(
                       width: 0.0,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -113,21 +113,21 @@ class _VideoLibState extends State<VideoLib> {
               ),
               // }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Obx(() {
               return _con.youtubeVideos.isEmpty &&
                       !_con.doneFetchingVideos.value
-                  ? Center(
-                      child: Padding(
+                  ? const Center(
+                      child: const Padding(
                         padding: const EdgeInsets.only(top: 50.0),
-                        child: CircularProgressIndicator(),
+                        child: const CircularProgressIndicator(),
                       ),
                     )
                   : _con.youtubeVideos.isEmpty && _con.doneFetchingVideos.value
-                      ? Center(
-                          child: Text("No videos to show!"),
+                      ? const Center(
+                          child: const Text("No videos to show!"),
                         )
                       : YoutubeVideosListWidget(
                           _con.youtubeVideos, onVideoSelect);

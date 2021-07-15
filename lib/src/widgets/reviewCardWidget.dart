@@ -21,84 +21,80 @@ class ReviewCardWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                // height: 200,
-                // color: Colors.blue,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    UserCircularAvatar(
-                        height: 50.0,
-                        width: 60.0,
-                        imgUrl: "${review.trainee.avatar}",
-                        adjustment: BoxFit.fill),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Text(
-                          "${review.trainee.name}",
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        Text(
-                          "${review.trainee.userName}",
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        review.rating != null
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      "${review.rating}",
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 20.0,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : SizedBox(
-                                height: 0.0,
-                              ),
-                      ],
-                    ),
-                    Spacer(),
-                    Text(
-                      "${review.date}",
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 12.0,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    width: 15.0,
+                  ),
+                  UserCircularAvatar(
+                      height: 50.0,
+                      width: 60.0,
+                      imgUrl: "${review.trainee.avatar}",
+                      adjustment: BoxFit.fill),
+                  const SizedBox(
+                    width: 15.0,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 5.0,
                       ),
+                      Text(
+                        "${review.trainee.name}",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      Text(
+                        "${review.trainee.userName}",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      review.rating != null
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "${review.rating}",
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: const Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                    size: 20.0,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox(
+                              height: 0.0,
+                            ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Text(
+                    "${review.date}",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12.0,
                     ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Padding(
@@ -107,7 +103,7 @@ class ReviewCardWidget extends StatelessWidget {
                   "${review.message}",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
             ],

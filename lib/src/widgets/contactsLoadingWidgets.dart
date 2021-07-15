@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
-import '../helpers/app_constants.dart' as Constants;
 
 class ContactsLoadingWidget extends StatelessWidget {
   const ContactsLoadingWidget({Key key}) : super(key: key);
@@ -28,7 +25,7 @@ class ContactsLoadingWidget extends StatelessWidget {
                       width: 60.0,
                       imgUrl: "contact/avatar",
                       adjustment: BoxFit.cover),
-                  SizedBox(
+                  const SizedBox(
                     height: 5.0,
                   ),
                 ],
