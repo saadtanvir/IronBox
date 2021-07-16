@@ -45,7 +45,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
             TrainerProfileCardWidget(
               trainer: widget.trainer,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
@@ -65,13 +65,13 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Card(
                           elevation: 10.0,
                           color: Colors.white,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                           ),
@@ -93,7 +93,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Expanded(
@@ -108,13 +108,13 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Card(
                           elevation: 10.0,
                           color: Colors.white,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                           ),
@@ -139,7 +139,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -153,7 +153,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Padding(
@@ -180,7 +180,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Row(
@@ -196,7 +196,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: TextButton(
@@ -216,7 +216,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                         Theme.of(context).accentColor.withOpacity(0.3),
                       ),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
+                        const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
@@ -233,7 +233,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Padding(
@@ -250,7 +250,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                         : ReviewCardWidget(_con.reviews.last);
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Padding(
@@ -260,7 +260,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 width: 390,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             Align(
@@ -281,7 +281,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 50.0),
+                    const EdgeInsets.symmetric(horizontal: 50.0),
                   ),
                   backgroundColor:
                       MaterialStateProperty.all(Theme.of(context).primaryColor),
@@ -289,7 +289,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                     Theme.of(context).accentColor.withOpacity(0.3),
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
@@ -303,7 +303,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
           ],

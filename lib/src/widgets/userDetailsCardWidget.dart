@@ -1,22 +1,17 @@
-import 'dart:convert';
-import 'package:ironbox/src/controllers/user_controller.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import 'package:pedometer/pedometer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:health/health.dart';
 
 class UserDetailsCardWidget extends StatefulWidget {
   final User currentUser;
   final int stepCount;
-  UserDetailsCardWidget(this.currentUser, this.stepCount);
+  const UserDetailsCardWidget(this.currentUser, this.stepCount);
   @override
   _UserDetailsCardWidgetState createState() => _UserDetailsCardWidgetState();
 }
@@ -112,8 +107,8 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
       child: Card(
         margin: EdgeInsets.zero,
         color: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
+        shape: const RoundedRectangleBorder(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0)),
         ),
@@ -162,7 +157,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               Padding(
@@ -173,7 +168,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       .textStyle(size: 20.0, font: FontWeight.bold),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Row(
@@ -201,7 +196,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.directions_walk,
                               size: 10.0,
                               color: Constants.scaffoldColor,
@@ -215,7 +210,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   CircularPercentIndicator(
@@ -237,7 +232,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.nightlight_round,
                               size: 10.0,
                               color: Constants.scaffoldColor,
@@ -251,7 +246,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   CircularPercentIndicator(
@@ -273,7 +268,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.fitness_center,
                               size: 10.0,
                               color: Constants.scaffoldColor,
@@ -287,7 +282,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   CircularPercentIndicator(
@@ -309,7 +304,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.restaurant,
                               size: 10.0,
                               color: Constants.scaffoldColor,
@@ -326,7 +321,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Row(
@@ -337,7 +332,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                     style: Helper.of(context)
                         .textStyle(size: 20.0, font: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                 ],

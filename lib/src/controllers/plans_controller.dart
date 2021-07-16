@@ -312,6 +312,16 @@ class PlansController extends GetxController {
     });
   }
 
+  void deleteWorkoutPlan(String pid) {
+    planRepo
+        .deleteWorkoutPlan(pid)
+        .then((value) {
+          print("plan deleted");
+        })
+        .onError((error, stackTrace) {})
+        .whenComplete(() {});
+  }
+
   void createWorkoutPlanDetails(BuildContext context) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/user.dart';
-import 'package:get/get.dart';
-import 'package:ironbox/src/widgets/availableChatsWidget.dart';
-import 'package:ironbox/src/widgets/chattingScreenWidget.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/clientTile.dart';
 
 class TrainerClientsList extends StatelessWidget {

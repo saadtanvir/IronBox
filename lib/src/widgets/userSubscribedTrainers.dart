@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
-import 'package:ironbox/src/models/user.dart';
-import 'package:ironbox/src/widgets/T_trainerProfileDetails.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import 'package:ironbox/src/widgets/subscribedTrainerProfile.dart';
-import 'package:ironbox/src/widgets/trainersListWidget.dart';
 import 'package:ironbox/src/widgets/userSubscribedTrainersListWidget.dart';
 import '../controllers/user_controller.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -61,16 +57,17 @@ class _SubscribedTrainersState extends State<SubscribedTrainers> {
                         _con.doneFetchingSubscriptions.value
                     ? Padding(
                         padding: const EdgeInsets.only(top: 80.0),
-                        child: Center(
-                          child:
-                              Text("You have not subscribed any Trainer yet !"),
+                        child: const Center(
+                          child: const Text(
+                              "You have not subscribed any Trainer yet !"),
                         ),
                       )
                     : _con.subscriptions.isEmpty &&
                             !_con.doneFetchingSubscriptions.value
                         ? Padding(
                             padding: const EdgeInsets.only(top: 80.0),
-                            child: Center(child: CircularProgressIndicator()),
+                            child: const Center(
+                                child: const CircularProgressIndicator()),
                           )
                         : UserSubscribedTrainersListWidget(
                             _con.subscriptions, onTrainerTap);

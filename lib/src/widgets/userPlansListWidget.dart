@@ -1,10 +1,7 @@
 import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/userWorkoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlan.dart';
 import 'package:ironbox/src/widgets/planCardWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class UserWorkoutPlansListWidget extends StatelessWidget {
   final List<UserWorkoutPlan> plans;

@@ -4,7 +4,8 @@ import '../../helpers/app_constants.dart' as Constants;
 
 class AddWorkoutPlanGameDialog extends StatelessWidget {
   Map<String, String> gameData = {};
-  GlobalKey<FormState> _workoutPlanGameFormKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _workoutPlanGameFormKey =
+      new GlobalKey<FormState>();
   AddWorkoutPlanGameDialog({Key key}) : super(key: key);
 
   @override

@@ -19,7 +19,7 @@ class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
           margin: EdgeInsets.zero,
           elevation: 5.0,
           color: Colors.white,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(15.0),
             ),
@@ -35,11 +35,11 @@ class _UpcomingChallengesWidgetState extends State<UpcomingChallengesWidget> {
                       color: Theme.of(context).primaryColor,
                       font: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 widget.upcomingChallenges.isEmpty
-                    ? Text("You have no challenges to meet. Hurrah!")
+                    ? const Text("You have no challenges to meet. Hurrah!")
                     : ListView(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),

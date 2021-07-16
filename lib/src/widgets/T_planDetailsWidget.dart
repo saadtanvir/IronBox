@@ -5,8 +5,6 @@ import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
-import '../repositories/user_repo.dart' as userRepo;
-import '../helpers/app_constants.dart' as Constants;
 
 class TrainerPlanDetailsWidget extends StatefulWidget {
   Plan plan;
@@ -26,7 +24,7 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
         children: <Widget>[
           Container(
             // margin: EdgeInsets.only(bottom: 100),
-            padding: EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.only(bottom: 15),
             child: CustomScrollView(
               primary: true,
               shrinkWrap: false,
@@ -56,11 +54,15 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                       fit: BoxFit.contain,
                       imageUrl:
                           "${GlobalConfiguration().get('storage_base_url')}${widget.plan.imgUrl}",
-                      placeholder: (context, url) => Image.asset(
-                        'assets/img/loading.gif',
-                        fit: BoxFit.cover,
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      placeholder: (context, url) {
+                        return const Image(
+                          image: AssetImage("assets/img/loading.gif"),
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      errorWidget: (context, url, error) {
+                        return const Icon(Icons.error);
+                      },
                     ),
                   ),
                 ),
@@ -83,7 +85,7 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                                     widget.plan?.name ?? 'N/A',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -111,7 +113,7 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                         Row(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 3),
                               decoration: BoxDecoration(
                                   color: Colors.green,
@@ -124,7 +126,11 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ),
-                            Expanded(child: SizedBox(height: 0)),
+                            Expanded(
+                              child: const SizedBox(
+                                height: 0,
+                              ),
+                            ),
                             // Container(
                             //   padding: EdgeInsets.symmetric(
                             //       horizontal: 12, vertical: 3),
@@ -143,7 +149,7 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                             // SizedBox(width: 5),
                           ],
                         ),
-                        Divider(
+                        const Divider(
                           height: 20,
                           thickness: 1.0,
                         ),
@@ -155,11 +161,11 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: double.infinity,
                         ),
                         Text("${widget.plan.description}"),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                           width: double.infinity,
                         ),
@@ -171,11 +177,11 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: double.infinity,
                         ),
                         Text("${widget.plan.detail}"),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                           width: double.infinity,
                         ),
@@ -187,7 +193,7 @@ class _TrainerPlanDetailsWidgetState extends State<TrainerPlanDetailsWidget> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: double.infinity,
                         ),
                         PlayYoutubeVideoWidget(widget.plan.videoUrl),

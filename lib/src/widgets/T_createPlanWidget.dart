@@ -2,10 +2,9 @@ import 'dart:io';
 import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/pages/showVideoLib.dart';
-import '../widgets/workoutPlansWidget.dart/addWorkoutPlanDayDetails.dart';
+import '../helpers/helper.dart';
+import '../models/category.dart';
+import '../pages/showVideoLib.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:image_picker/image_picker.dart';
@@ -75,7 +74,22 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create New Plan"),
+        title: const Text("Create New Plan"),
+        leading: IconButton(
+          onPressed: () {
+            if (_con.createdWorkoutPlanId.value.isNotEmpty) {
+              // delete the created plan
+              // get back
+              Get.back();
+              _con.deleteWorkoutPlan(_con.createdWorkoutPlanId.value);
+            } else {
+              Get.back();
+            }
+          },
+          icon: Icon(
+            Icons.cancel,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -97,7 +111,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -117,8 +131,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.0,
                           ),
@@ -126,7 +140,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -139,7 +153,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -159,8 +173,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.0,
                           ),
@@ -168,7 +182,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -179,7 +193,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Container(
@@ -201,8 +215,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             color:
                                 Theme.of(context).accentColor.withOpacity(0.5),
                           ),
-                          contentPadding: EdgeInsets.all(10),
-                          border: OutlineInputBorder(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 0.0,
                             ),
@@ -212,7 +226,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     // Align(
@@ -268,7 +282,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     ListView.builder(
@@ -309,7 +323,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         });
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Obx(() {
@@ -327,7 +341,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   ListView.builder(
@@ -372,13 +386,13 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                       });
                                     },
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 40.0,
                                   ),
                                 ],
                               ),
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               height: 0.0,
                             );
                     }),
@@ -392,7 +406,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -403,8 +417,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             return RadioListTile(
                               value: 1,
                               groupValue: durationRadioTileGroupValue.value,
-                              title: Text("4"),
-                              subtitle: Text("Weeks"),
+                              title: const Text("4"),
+                              subtitle: const Text("Weeks"),
                               activeColor: Theme.of(context).primaryColor,
                               selected: durationRadioTileGroupValue.value == 1
                                   ? true
@@ -420,7 +434,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
@@ -429,8 +443,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             return RadioListTile(
                               value: 2,
                               groupValue: durationRadioTileGroupValue.value,
-                              title: Text("6"),
-                              subtitle: Text("Weeks"),
+                              title: const Text("6"),
+                              subtitle: const Text("Weeks"),
                               activeColor: Theme.of(context).primaryColor,
                               selected: durationRadioTileGroupValue.value == 2
                                   ? true
@@ -448,7 +462,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -461,14 +475,14 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Obx(() {
                       return RadioListTile(
                         value: 1,
                         groupValue: difficultyRadioTileGroupValue.value,
-                        title: Text("Easy"),
+                        title: const Text("Easy"),
                         // subtitle: Text("Weeks"),
                         activeColor: Theme.of(context).primaryColor,
                         selected: difficultyRadioTileGroupValue.value == 1
@@ -487,7 +501,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                       return RadioListTile(
                         value: 2,
                         groupValue: difficultyRadioTileGroupValue.value,
-                        title: Text("Intermediate"),
+                        title: const Text("Intermediate"),
                         // subtitle: Text("Weeks"),
                         activeColor: Theme.of(context).primaryColor,
                         selected: difficultyRadioTileGroupValue.value == 2
@@ -506,7 +520,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                       return RadioListTile(
                         value: 3,
                         groupValue: difficultyRadioTileGroupValue.value,
-                        title: Text("Hard"),
+                        title: const Text("Hard"),
                         // subtitle: Text("Weeks"),
                         activeColor: Theme.of(context).primaryColor,
                         selected: difficultyRadioTileGroupValue.value == 3
@@ -521,7 +535,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         },
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -534,7 +548,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -547,7 +561,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5.0,
                         ),
                         SizedBox(
@@ -574,9 +588,9 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                     .accentColor
                                     .withOpacity(0.3),
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 0.0,
                                 ),
                                 borderRadius:
@@ -587,7 +601,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -600,7 +614,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Obx(() {
@@ -645,12 +659,12 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                                   data.name;
                               selectedVideoUrl = data.link;
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_drop_down,
                             ),
                           ),
-                          contentPadding: EdgeInsets.all(10),
-                          border: OutlineInputBorder(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 0.0,
                             ),
@@ -660,7 +674,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -673,7 +687,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -693,7 +707,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
+                                const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
                                 ),
@@ -708,7 +722,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
@@ -725,7 +739,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -738,7 +752,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -759,8 +773,8 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                           // fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0.0,
                           ),
@@ -768,7 +782,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     TextButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -810,7 +824,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 50.0),
+                          const EdgeInsets.symmetric(horizontal: 50.0),
                         ),
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).primaryColor),
@@ -819,7 +833,7 @@ class _TrainerCreatePlanWidgetState extends State<TrainerCreatePlanWidget> {
                         ),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
+                          const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                           ),

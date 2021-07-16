@@ -62,7 +62,7 @@ Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
     // );
 
     print("URL For Creating Plan: $url");
-    print("plan creating status: ${response.statusCode}");
+    print("${response.statusCode}");
 
     var res = await http.Response.fromStream(response);
     // print(res.body);
@@ -393,6 +393,40 @@ Future<WorkoutPlan> updateWorkoutPlan(WorkoutPlan plan, File image) async {
   } catch (e) {
     print("Error updating plan: $e");
     return WorkoutPlan.fromJSON({});
+  }
+}
+
+Future<bool> deleteWorkoutPlan(String pid) async {
+  String url = "${GlobalConfiguration().get("api_base_url")}delete_plan/$pid";
+  print("URL FOR DELETING Plan: $url");
+  // Map<String, String> body = {"status": status};
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.delete(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+      // body: json.encode(body),
+    );
+
+    print(response.statusCode);
+    // Map responseBody = json.decode(response.body);
+    // print(responseBody.containsKey("errors"));
+
+    if (response.statusCode == 200) {
+      print("plan deleted successfully");
+      return true;
+    } else {
+      print("throws exception");
+      throw new Exception(response.body);
+    }
+    // return currentUser.value;
+  } catch (e) {
+    print("error caught");
+    print("Plans Repo Error: $e");
+    return false;
   }
 }
 

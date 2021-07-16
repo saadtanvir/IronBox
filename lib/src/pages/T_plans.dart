@@ -1,4 +1,7 @@
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
+import 'package:ironbox/src/widgets/T_createPlanWidget.dart';
 import 'package:ironbox/src/widgets/dialogs/selectCategoryDialog.dart';
 import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/widgets/showWOPTrainer/showWorkoutPlanToTrainer.dart';
@@ -103,7 +106,22 @@ class _TrainerPlansState extends State<TrainerPlans> {
     return FloatingActionButton(
       onPressed: () {
         if (Constants.appCategories.length > 0) {
-          Get.dialog(SelectPlanCategoryDialog(Constants.appCategories));
+          // print(Constants.appCategories.where((Category cat) {
+          //   return cat.name == "Workout";
+          // }));
+          Category workoutCategory =
+              Constants.appCategories.firstWhere((Category cat) {
+            return cat.name == "Workout";
+          });
+          Get.to(
+            TrainerCreatePlanWidget(
+              mainCategoryId: workoutCategory.id,
+            ),
+            fullscreenDialog: true,
+            transition: Transition.downToUp,
+            duration: new Duration(milliseconds: 500),
+          );
+          // Get.dialog(SelectPlanCategoryDialog(Constants.appCategories));
         }
       },
       child: Icon(

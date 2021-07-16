@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
-import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import 'package:ironbox/src/widgets/userProfileCardWidget.dart';
-import '../helpers/app_constants.dart' as Constants;
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 
 class UserProfilePage extends StatefulWidget {
   final User user;
@@ -21,7 +17,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Profile",
         ),
       ),
@@ -31,7 +27,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             UserProfileCardWidget(widget.user, widget.isTrainer),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Padding(
@@ -44,7 +40,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Padding(
@@ -54,7 +50,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.email_outlined,
                   color: Colors.white,
                 ),
@@ -66,7 +62,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
@@ -79,7 +75,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Padding(
@@ -89,7 +85,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.phone_android_outlined,
                   color: Colors.white,
                 ),
@@ -101,12 +97,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             // injury column
             widget.isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : Column(
@@ -123,7 +119,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Padding(
@@ -133,7 +129,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.medical_services_outlined,
                             color: Colors.white,
                           ),
@@ -145,14 +141,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                     ],
                   ),
             // medical background column
             widget.isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : Column(
@@ -169,7 +165,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Padding(
@@ -179,7 +175,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.medical_services_outlined,
                             color: Colors.white,
                           ),
@@ -191,14 +187,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                     ],
                   ),
             // Family Medical Background column
             widget.isTrainer
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0.0,
                   )
                 : Column(
@@ -215,7 +211,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Padding(
@@ -225,7 +221,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.medical_services_outlined,
                             color: Colors.white,
                           ),
@@ -237,7 +233,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                     ],
@@ -258,7 +254,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Padding(
@@ -268,7 +264,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.fitness_center,
                             color: Colors.white,
                           ),
@@ -282,7 +278,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ],
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 0.0,
                   ),
             // description column
@@ -292,7 +288,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
@@ -303,13 +299,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Card(
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                           ),
@@ -331,11 +327,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ],
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 0.0,
                   ),
 
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             widget.isTrainer
@@ -344,7 +340,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     child: PlayYoutubeVideoWidget(
                         "https://www.youtube.com/watch?v=f8fv4FuYyqM"),
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 0.0,
                   ),
           ],

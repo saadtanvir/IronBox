@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
 class TrainerEditPlanWidget extends StatefulWidget {
   Plan plan;
@@ -68,7 +66,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
               color: Theme.of(context).primaryColor,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10.0,
           ),
         ],
@@ -92,7 +90,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -113,16 +111,17 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     ),
-                    SizedBox(height: 40.0),
+                    const SizedBox(height: 40.0),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -132,7 +131,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -154,16 +153,17 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                           // fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -175,7 +175,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Container(
@@ -196,18 +196,18 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                           //   color:
                           //       Theme.of(context).accentColor.withOpacity(0.5),
                           // ),
-                          contentPadding: EdgeInsets.all(10),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: const OutlineInputBorder(
+                            borderSide: const BorderSide(
                               width: 0.0,
                             ),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
+                                const BorderRadius.all(Radius.circular(15.0)),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -219,7 +219,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     DropdownButtonFormField(
@@ -247,7 +247,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         labelText: Constants.select_category,
                         labelStyle: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor),
-                        contentPadding: EdgeInsets.all(12),
+                        contentPadding: const EdgeInsets.all(12),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 2.0,
@@ -258,7 +258,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -270,7 +270,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -300,18 +300,18 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                                     .accentColor
                                     .withOpacity(0.3),
                               ),
-                              contentPadding: EdgeInsets.all(10),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                              contentPadding: const EdgeInsets.all(10),
+                              border: const OutlineInputBorder(
+                                borderSide: const BorderSide(
                                   width: 0.0,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(15.0)),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
@@ -326,7 +326,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -338,7 +338,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Row(
@@ -351,7 +351,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5.0,
                         ),
                         SizedBox(
@@ -379,20 +379,20 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                                     .accentColor
                                     .withOpacity(0.3),
                               ),
-                              contentPadding: EdgeInsets.all(10),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                              contentPadding: const EdgeInsets.all(10),
+                              border: const OutlineInputBorder(
+                                borderSide: const BorderSide(
                                   width: 0.0,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(15.0)),
                               ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     Align(
@@ -404,7 +404,7 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
@@ -427,12 +427,13 @@ class _TrainerEditPlanWidgetState extends State<TrainerEditPlanWidget> {
                           fontSize: 12.0,
                           color: Theme.of(context).accentColor.withOpacity(0.3),
                         ),
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
+                          borderSide: const BorderSide(
                             width: 0.0,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
                         ),
                       ),
                     ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
-import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/subscribedTrainersListTile.dart';
-import 'package:ironbox/src/widgets/trainerListTileWidget.dart';
 
 class UserSubscribedTrainersListWidget extends StatefulWidget {
   final List<Subscription> subscriptions;

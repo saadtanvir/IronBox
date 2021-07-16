@@ -1,15 +1,9 @@
-import 'dart:developer';
 import 'package:flutter/services.dart';
-import 'package:ironbox/src/controllers/logs_controller.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/logs.dart';
-import 'package:ironbox/src/pages/showVideoLib.dart';
-import 'package:ironbox/src/widgets/showLogsWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
+import '../models/logs.dart';
+import '../pages/showVideoLib.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 import 'package:intl/intl.dart';
 
@@ -64,7 +58,7 @@ class _UserLogFormState extends State<UserLogForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Create Log",
         ),
         centerTitle: true,
@@ -80,7 +74,7 @@ class _UserLogFormState extends State<UserLogForm> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     Constants.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       // color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -109,7 +103,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     // ),
                   ),
                 ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -142,7 +136,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     // ),
                   ),
                 ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -182,7 +176,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     // ),
                   ),
                 ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -214,7 +208,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     // ),
                   ),
                 ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -263,7 +257,7 @@ class _UserLogFormState extends State<UserLogForm> {
                           print(data.link);
                           _videoUrlTextFieldController.value.text = data.link;
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_drop_down,
                         ),
                       ),
@@ -277,7 +271,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     ),
                   );
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Row(
@@ -287,7 +281,7 @@ class _UserLogFormState extends State<UserLogForm> {
                         return RadioListTile(
                           value: 1,
                           groupValue: categoryRadioTileGroupValue.value,
-                          title: Text("Workout"),
+                          title: const Text("Workout"),
                           // subtitle: Text("Weeks"),
                           activeColor: Theme.of(context).primaryColor,
                           selected: categoryRadioTileGroupValue.value == 1
@@ -308,7 +302,7 @@ class _UserLogFormState extends State<UserLogForm> {
                         return RadioListTile(
                           value: 2,
                           groupValue: categoryRadioTileGroupValue.value,
-                          title: Text("Diet"),
+                          title: const Text("Diet"),
                           // subtitle: Text("Weeks"),
                           activeColor: Theme.of(context).primaryColor,
                           selected: categoryRadioTileGroupValue.value == 2
@@ -326,7 +320,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Obx(() {
@@ -337,7 +331,7 @@ class _UserLogFormState extends State<UserLogForm> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Reps:",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -359,20 +353,20 @@ class _UserLogFormState extends State<UserLogForm> {
                                             .accentColor
                                             .withOpacity(0.3),
                                       ),
-                                      contentPadding: EdgeInsets.all(10),
+                                      contentPadding: const EdgeInsets.all(10),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 15.0,
                             ),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Calories Burn",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -394,7 +388,7 @@ class _UserLogFormState extends State<UserLogForm> {
                                             .accentColor
                                             .withOpacity(0.3),
                                       ),
-                                      contentPadding: EdgeInsets.all(10),
+                                      contentPadding: const EdgeInsets.all(10),
                                     ),
                                   ),
                                 ],
@@ -406,7 +400,7 @@ class _UserLogFormState extends State<UserLogForm> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Calories Gain",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -428,17 +422,17 @@ class _UserLogFormState extends State<UserLogForm> {
                                           .accentColor
                                           .withOpacity(0.3),
                                     ),
-                                    contentPadding: EdgeInsets.all(10),
+                                    contentPadding: const EdgeInsets.all(10),
                                   ),
                                 ),
                               ],
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               height: 0.0,
                               width: 0.0,
                             );
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 40.0,
                 ),
                 TextButton(
@@ -457,12 +451,12 @@ class _UserLogFormState extends State<UserLogForm> {
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 50.0),
+                      const EdgeInsets.symmetric(horizontal: 50.0),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).primaryColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       ),
                     ),
@@ -475,7 +469,7 @@ class _UserLogFormState extends State<UserLogForm> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
               ],

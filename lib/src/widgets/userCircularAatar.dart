@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../helpers/app_constants.dart' as Constants;
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
 import 'package:global_configuration/global_configuration.dart';
 
 class UserCircularAvatar extends StatelessWidget {
@@ -9,7 +7,7 @@ class UserCircularAvatar extends StatelessWidget {
   final double height;
   final String imgUrl;
   final BoxFit adjustment;
-  UserCircularAvatar(
+  const UserCircularAvatar(
       {this.height, this.width, @required this.imgUrl, this.adjustment});
   @override
   Widget build(BuildContext context) {
@@ -21,8 +19,8 @@ class UserCircularAvatar extends StatelessWidget {
           decoration: BoxDecoration(
             // borderRadius: BorderRadius.circular(5),
             shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("assets/img/loading.gif"),
+            image: const DecorationImage(
+              image: const AssetImage("assets/img/loading.gif"),
               fit: BoxFit.contain,
             ),
           ),
@@ -49,11 +47,11 @@ class UserCircularAvatar extends StatelessWidget {
         return Container(
           height: height ?? 100.0,
           width: width ?? 100.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             // borderRadius: BorderRadius.circular(5),
             shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("assets/img/profile_placeholder.png"),
+            image: const DecorationImage(
+              image: const AssetImage("assets/img/profile_placeholder.png"),
               fit: BoxFit.contain,
             ),
           ),

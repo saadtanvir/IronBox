@@ -53,18 +53,18 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
               ),
               decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 50,
                       color: Theme.of(context).hintColor.withOpacity(0.2),
                     )
                   ]),
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              padding:
-                  EdgeInsets.only(top: 50, right: 27, left: 27, bottom: 20),
+              padding: const EdgeInsets.only(
+                  top: 50, right: 27, left: 27, bottom: 20),
               child: Form(
                 key: _trainerRegFormKey,
                 child: SingleChildScrollView(
@@ -83,7 +83,7 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                           labelText: "Experience In Years",
                           labelStyle:
                               TextStyle(color: Theme.of(context).accentColor),
-                          contentPadding: EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                           hintText: '0.8 year',
                           hintStyle: TextStyle(
                               color: Theme.of(context)
@@ -108,7 +108,7 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                                       .withOpacity(0.2))),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         onSaved: (input) =>
@@ -144,7 +144,7 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                                       .withOpacity(0.2))),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       BlockButtonWidget(
                         text: Text(
                           "Register as a Trainer",
@@ -168,7 +168,7 @@ class _TrainerRegistrationFormState extends State<TrainerRegistrationForm> {
                           }
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                     ],
                   ),
                 ),

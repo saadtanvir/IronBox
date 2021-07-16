@@ -1,17 +1,14 @@
 import 'dart:async';
-
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/models/workoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/widgets/circularProgressIndicator.dart';
+import 'dart:developer';
+import '../models/category.dart';
+import '../models/userWorkoutPlanDetails.dart';
+import '../models/workoutPlanDetails.dart';
+import '../widgets/circularProgressIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pedometer/pedometer.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../helpers/app_constants.dart' as Constants;
 

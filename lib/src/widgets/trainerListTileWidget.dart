@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 
@@ -22,7 +20,7 @@ class TrainerListTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Text(
@@ -32,14 +30,14 @@ class TrainerListTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text("${trainer.userRating.rating.toStringAsFixed(1)}"),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.yellow,
                   size: 20.0,

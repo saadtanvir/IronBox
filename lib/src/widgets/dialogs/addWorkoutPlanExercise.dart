@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
 import 'package:ironbox/src/pages/showVideoLib.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/gamesListWidget.dart';
 import '../../helpers/app_constants.dart' as Constants;
 
 class AddWorkoutPlanExerciseWidget extends StatelessWidget {
   Map<String, String> exerciseData = {};
-  GlobalKey<FormState> _workoutPlanExerciseFormKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _workoutPlanExerciseFormKey =
+      new GlobalKey<FormState>();
   var _videoUrlTextFieldController = new TextEditingController().obs;
   String selectedVideoUrl = "";
   AddWorkoutPlanExerciseWidget({Key key}) : super(key: key);

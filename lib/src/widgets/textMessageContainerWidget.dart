@@ -40,7 +40,7 @@ class MessageContainer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5.0,
           ),
           Text(
