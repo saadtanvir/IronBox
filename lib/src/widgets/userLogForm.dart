@@ -20,8 +20,7 @@ class _UserLogFormState extends State<UserLogForm> {
   Logs log = new Logs();
   GlobalKey<FormState> _logFormKey;
   TextEditingController _dateController = TextEditingController();
-  var _videoUrlTextFieldController =
-      new TextEditingController(text: "Select Video").obs;
+  var _videoUrlTextFieldController = new TextEditingController().obs;
 
   var categoryId = 0.obs;
 

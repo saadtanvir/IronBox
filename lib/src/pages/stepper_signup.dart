@@ -320,7 +320,7 @@ class _StepperSignupState extends State<StepperSignup> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // adding age, gender, height, weight
     signUpSteps.add(Step(
-      title: const Text("Body Info"),
+      title: const Text("Personal Info"),
       isActive: _currentIndex == 1,
       content: SingleChildScrollView(
         child: Column(
@@ -411,70 +411,91 @@ class _StepperSignupState extends State<StepperSignup> {
               ),
             ),
             const SizedBox(height: 15.0),
-            Obx(() {
-              return Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Radio(
-                            value: Constants.weightUnits[0],
-                            groupValue: _weightUnitValueO.value,
-                            activeColor: Theme.of(context).primaryColor,
-                            onChanged: (value) {
-                              // _weightUnitValue = value;
-                              _weightUnitValueO.value = value;
-                            }),
-                        const Text("${Constants.kg}"),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Radio(
-                            value: Constants.weightUnits[1],
-                            groupValue: _weightUnitValueO.value,
-                            activeColor: Theme.of(context).primaryColor,
-                            onChanged: (value) {
-                              // _weightUnitValue = value;
-                              _weightUnitValueO.value = value;
-                            }),
-                        const Text("${Constants.pound}"),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            }),
+            // Obx(() {
+            //   return Row(
+            //     children: [
+            //       Expanded(
+            //         flex: 1,
+            //         child: Row(
+            //           children: [
+            //             Radio(
+            //                 value: Constants.weightUnits[0],
+            //                 groupValue: _weightUnitValueO.value,
+            //                 activeColor: Theme.of(context).primaryColor,
+            //                 onChanged: (value) {
+            //                   // _weightUnitValue = value;
+            //                   _weightUnitValueO.value = value;
+            //                 }),
+            //             const Text("${Constants.kg}"),
+            //           ],
+            //         ),
+            //       ),
+            //       Expanded(
+            //         flex: 1,
+            //         child: Row(
+            //           children: [
+            //             Radio(
+            //                 value: Constants.weightUnits[1],
+            //                 groupValue: _weightUnitValueO.value,
+            //                 activeColor: Theme.of(context).primaryColor,
+            //                 onChanged: (value) {
+            //                   // _weightUnitValue = value;
+            //                   _weightUnitValueO.value = value;
+            //                 }),
+            //             const Text("${Constants.pound}"),
+            //           ],
+            //         ),
+            //       )
+            //     ],
+            //   );
+            // }),
             const SizedBox(height: 10.0),
-            Obx(() {
-              return TextFormField(
-                keyboardType: TextInputType.number,
-                onSaved: (input) => _con.user.weight = double.parse(input),
-                validator: (input) => input.length > 3 || input.length < 1
-                    ? Constants.enter_weight_in_cm
-                    : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: _weightUnitValueO.value == Constants.weightUnits[0]
-                      ? Constants.enterWeight
-                      : Constants.enterWeightPound,
-                  labelStyle: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontWeight: FontWeight.bold),
-                  contentPadding: const EdgeInsets.all(10),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 2.0,
-                        color: Theme.of(context).accentColor.withOpacity(0.2)),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
+            // Obx(() {
+            //   return TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     onSaved: (input) => _con.user.weight = double.parse(input),
+            //     validator: (input) => input.length > 3 || input.length < 1
+            //         ? Constants.enter_weight_in_cm
+            //         : null,
+            //     autovalidateMode: AutovalidateMode.onUserInteraction,
+            //     decoration: InputDecoration(
+            //       labelText: _weightUnitValueO.value == Constants.weightUnits[0]
+            //           ? Constants.enterWeight
+            //           : Constants.enterWeightPound,
+            //       labelStyle: TextStyle(
+            //           color: Theme.of(context).secondaryHeaderColor,
+            //           fontWeight: FontWeight.bold),
+            //       contentPadding: const EdgeInsets.all(10),
+            //       border: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //             width: 2.0,
+            //             color: Theme.of(context).accentColor.withOpacity(0.2)),
+            //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            //       ),
+            //     ),
+            //   );
+            // }),
+            TextFormField(
+              keyboardType: TextInputType.number,
+              onSaved: (input) => _con.user.weight = double.parse(input),
+              validator: (input) => input.length > 3 || input.length < 1
+                  ? Constants.enter_weight_in_kg
+                  : null,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                labelText: Constants.enterWeight,
+                labelStyle: TextStyle(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    fontWeight: FontWeight.bold),
+                contentPadding: const EdgeInsets.all(10),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 2.0,
+                      color: Theme.of(context).accentColor.withOpacity(0.2)),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
-              );
-            }),
+              ),
+            ),
             const SizedBox(height: 15.0),
           ],
         ),
@@ -556,13 +577,22 @@ class _StepperSignupState extends State<StepperSignup> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 1,
+                  // flex: 1,
                   child: RadioListTile(
                     value: 1,
                     groupValue: groupValue,
-                    title: Text(Constants.joinAsA[
-                        0]), // the value of joinAsA[0] will be known at runtime, so that it can not be constant
-                    subtitle: const Text("Joining as a:"),
+                    title: Text(
+                      Constants.joinAsA[0],
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "Joining as a:",
+                      style: TextStyle(
+                        fontSize: 10.0,
+                      ),
+                    ),
                     activeColor: Theme.of(context).primaryColor,
                     selected: groupValue == 1 ? true : false,
                     onChanged: (val) {
@@ -582,12 +612,22 @@ class _StepperSignupState extends State<StepperSignup> {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  // flex: 1,
                   child: RadioListTile(
                     value: 2,
                     groupValue: groupValue,
-                    title: Text(Constants.joinAsA[1]),
-                    subtitle: const Text("Joining as a:"),
+                    title: Text(
+                      Constants.joinAsA[1],
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "Joining as a:",
+                      style: TextStyle(
+                        fontSize: 10.0,
+                      ),
+                    ),
                     activeColor: Theme.of(context).primaryColor,
                     selected: groupValue == 2 ? true : false,
                     onChanged: (val) {

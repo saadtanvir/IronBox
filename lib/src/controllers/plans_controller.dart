@@ -1,19 +1,19 @@
 import 'dart:io';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/models/plan.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/models/workoutPlanExercise.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
-import 'package:ironbox/src/pages/T_btmNavBar.dart';
-import 'package:ironbox/src/pages/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/pages/workoutPlanDetails.dart';
-import 'package:ironbox/src/repositories/plan_repo.dart' as planRepo;
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/addGames.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/selectWeek.dart';
+import '../helpers/helper.dart';
+import '../models/category.dart';
+import '../models/plan.dart';
+import '../models/reviews.dart';
+import '../models/userWorkoutPlan.dart';
+import '../models/workoutPlan.dart';
+import '../models/workoutPlanDetails.dart';
+import '../models/workoutPlanExercise.dart';
+import '../models/workoutPlanGame.dart';
+import '../pages/T_btmNavBar.dart';
+import '../pages/userWorkoutPlanDetails.dart';
+import '../pages/workoutPlanDetails.dart';
+import '../repositories/plan_repo.dart' as planRepo;
+import '../widgets/workoutPlansWidget.dart/addGames.dart';
+import '../widgets/workoutPlansWidget.dart/selectWeek.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
 import 'package:ironbox/src/services/stripe_payments.dart';
@@ -23,7 +23,7 @@ import 'package:get/get.dart';
 
 class PlansController extends GetxController {
   // class objects
-  StripePaymentServices _stripePaymentServices = StripePaymentServices();
+  // StripePaymentServices _stripePaymentServices = StripePaymentServices();
   Plan plan = new Plan();
   WorkoutPlan workoutPlan = new WorkoutPlan();
   WorkoutPlanDetails workoutPlanDetails = new WorkoutPlanDetails();
@@ -585,23 +585,23 @@ class PlansController extends GetxController {
     });
   }
 
-  void buyPlan(
-      {BuildContext context, String planId, String category, String userId}) {
-    // check if plan already exist
-    // if not, initialize payments
-    // if payment successful
-    // call add plan api
-    _stripePaymentServices.initializeStripePayments();
-    _stripePaymentServices
-        .payWithNewCard("100", "usd")
-        .then((confirmed) {
-          if (confirmed) {
-            // show snackbar
-          } else {
-            // show snackbar
-          }
-        })
-        .catchError((e) {})
-        .whenComplete(() {});
-  }
+  // void buyPlan(
+  //     {BuildContext context, String planId, String category, String userId}) {
+  //   // check if plan already exist
+  //   // if not, initialize payments
+  //   // if payment successful
+  //   // call add plan api
+  //   _stripePaymentServices.initializeStripePayments();
+  //   _stripePaymentServices
+  //       .payWithNewCard("100", "usd")
+  //       .then((confirmed) {
+  //         if (confirmed) {
+  //           // show snackbar
+  //         } else {
+  //           // show snackbar
+  //         }
+  //       })
+  //       .catchError((e) {})
+  //       .whenComplete(() {});
+  // }
 }

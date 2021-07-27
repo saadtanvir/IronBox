@@ -112,7 +112,7 @@ const String name_should_be_min_three_char =
     "Name should be minimum 3 characters";
 const String invalid_age = "Invalid age";
 const String enter_height_in_inches = "Enter height in inches";
-const String enter_weight_in_cm = "Enter weight in kg";
+const String enter_weight_in_kg = "Enter weight in kg";
 const String invalid_bmi = "Invalid BMI";
 const String choose_background_image = "Choose Background Image";
 const String password_should_be_greater_than_seven =
@@ -208,4 +208,7 @@ const double appBarIconSize = 20.0;
 ConnectionStatusSingleton connectionStatus =
     ConnectionStatusSingleton.getInstance();
 
-// enums
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Sharedpreference keys
+String spk_upcomingChallengesList = "upcoming_challenges_list";

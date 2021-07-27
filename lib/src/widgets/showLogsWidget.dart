@@ -149,6 +149,8 @@ class _ShowLogsWidgetState extends State<ShowLogsWidget> {
     List<Step> logSteps = [];
     if (logsList.isNotEmpty) {
       logsList.forEach((log) {
+        print("log video url:");
+        print(log.videoUrl);
         int index = logsList.indexOf(log);
         logSteps.add(Step(
           // isActive: true,

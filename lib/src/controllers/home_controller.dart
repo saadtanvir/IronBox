@@ -111,18 +111,26 @@ class HomeController extends GetxController {
   }
 
   Future<void> getUpComingChallenges(String userId, String date) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     doneFetchingChallenges.value = false;
     upComingChallenges.clear();
+    // if (prefs.containsKey(Constants.spk_upcomingChallengesList)) {
+    //   upComingChallenges
+    //       .assignAll(prefs.getStringList(Constants.spk_upcomingChallengesList));
+    // }
     final Stream<Logs> stream = await getUserLogs(userId, date);
     stream.listen((Logs log) {
       print(log.isCompleted);
       if (log.isCompleted == 0) {
+        print(upComingChallenges.contains(log.title));
         upComingChallenges.add(log.title);
       }
     }, onError: (e) {
       print(e);
     }, onDone: () {
       doneFetchingChallenges.value = true;
+      prefs.setStringList(
+          Constants.spk_upcomingChallengesList, upComingChallenges);
     });
   }
 

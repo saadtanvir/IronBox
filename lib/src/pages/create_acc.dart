@@ -1,8 +1,6 @@
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/pages/signup.dart';
-import 'package:ironbox/src/pages/stepper_signup.dart';
-import 'package:ironbox/src/widgets/loginWidget.dart';
-import 'package:ironbox/src/widgets/signupWidget.dart';
+import '../helpers/helper.dart';
+import '../pages/stepper_signup.dart';
+import '../widgets/loginWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -128,12 +126,13 @@ class _CreateAccountState extends State<CreateAccount>
           ),
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
-                EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0)),
+                const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0)),
             backgroundColor: MaterialStateProperty.all(
                 Theme.of(context).scaffoldBackgroundColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              const RoundedRectangleBorder(
+                borderRadius:
+                    const BorderRadius.all(const Radius.circular(15.0)),
               ),
             ),
           ),

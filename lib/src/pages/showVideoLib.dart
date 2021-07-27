@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/youtube_video_controller.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:ironbox/src/models/youtubeVideo.dart';
-import 'package:ironbox/src/widgets/youtubeVideosListWidget.dart';
+import '../controllers/youtube_video_controller.dart';
+import '../models/youtubeVideo.dart';
+import '../widgets/youtubeVideosListWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 
 class VideoLib extends StatefulWidget {

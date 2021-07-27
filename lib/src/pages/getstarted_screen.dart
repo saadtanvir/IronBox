@@ -1,6 +1,5 @@
 import '../helpers/helper.dart';
 import '../pages/create_acc.dart';
-import '../pages/create_acc_screen.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 import 'package:get/get.dart';

@@ -35,7 +35,7 @@ Future<Stream<Logs>> getUserLogs(String id, String date) async {
         .expand((data) => (data as List))
         .map((data) {
           print("printing logs data");
-          // print(data);
+          print(data);
           return Logs.fromJSON(data);
         });
   } on SocketException {

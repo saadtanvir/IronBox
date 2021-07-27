@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ironbox/src/helpers/app_constants.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:global_configuration/global_configuration.dart';
 // import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -148,12 +146,11 @@ Future<User> login(User user) async {
     // print(response.body);
 
     Map jsonBody = json.decode(response.body);
-    print("user object: ${jsonBody['data'][0]}");
+    // print("user object: ${jsonBody['data'][0]}");
 
     if (response.statusCode == 200 && jsonBody['data'][0]['token'] != null) {
       setCurrentUser(response.body);
       setUserRole(json.decode(response.body)['data'][0]['usertype']);
-      print("response 200");
       currentUser.value = User.fromJSON(json.decode(response.body)['data'][0]);
 
       return currentUser.value;
