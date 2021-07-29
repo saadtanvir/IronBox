@@ -11,6 +11,8 @@ import 'package:global_configuration/global_configuration.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 
+// if user has not bought the plan
+
 class ShowWOPDetails extends StatefulWidget {
   final WorkoutPlan plan;
   ShowWOPDetails(this.plan, {Key key}) : super(key: key);
@@ -68,7 +70,7 @@ class _ShowWOPDetailsState extends State<ShowWOPDetails> {
                         "${GlobalConfiguration().get('storage_base_url')}${widget.plan.coverImg}",
                     placeholder: (context, url) {
                       return const Image(
-                        image: AssetImage("assets/img/loading.gif"),
+                        image: const AssetImage("assets/img/loading.gif"),
                         fit: BoxFit.cover,
                       );
                     },
@@ -175,6 +177,28 @@ class _ShowWOPDetailsState extends State<ShowWOPDetails> {
                         ],
                       ),
                       const SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Reviews",
+                            style: const TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "View All",
+                              style: const TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
                         height: 10.0,
                       ),
                       Obx(() {

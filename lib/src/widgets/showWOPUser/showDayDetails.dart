@@ -1,16 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:http/http.dart';
-import 'package:ironbox/src/controllers/WOPGameController.dart';
-import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/models/userWorkoutPlanGame.dart';
-import 'package:ironbox/src/widgets/showWOPUser/selectWeek.dart';
+import '../../controllers/WOPGameController.dart';
+import '../../models/userWorkoutPlanDetails.dart';
+import '../../models/userWorkoutPlanGame.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:ironbox/src/widgets/showWOPUser/showUserWOPGameDetails.dart';
-import 'package:ironbox/src/widgets/showWOPUser/userWOPGamesListWidget.dart';
-import '../../repositories/user_repo.dart' as userRepo;
-import '../../helpers/app_constants.dart' as Constants;
+import '../../widgets/showWOPUser/showUserWOPGameDetails.dart';
+import '../../widgets/showWOPUser/userWOPGamesListWidget.dart';
 
 class ShowUserWOPDayDetails extends StatefulWidget {
   final UserWorkoutPlanDetails details;

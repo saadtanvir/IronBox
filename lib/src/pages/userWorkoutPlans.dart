@@ -1,17 +1,7 @@
-import 'package:ironbox/src/controllers/plans_controller.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
-import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/pages/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/widgets/userPlansListWidget.dart';
-import 'package:ironbox/src/widgets/workoutPlansWidget.dart/childCategoriesList.dart';
-
-import '../widgets/workoutPlansWidget.dart/subCategoriesList.dart';
-import '../helpers/helper.dart';
-import '../models/category.dart';
-import '../pages/userPlans.dart';
-import '../widgets/categoryCardWidget.dart';
-import '../widgets/userSubscribedTrainers.dart';
-import '../helpers/app_constants.dart' as Constants;
+import '../controllers/plans_controller.dart';
+import '../models/userWorkoutPlan.dart';
+import '../pages/userWorkoutPlanDetails.dart';
+import '../widgets/userPlansListWidget.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

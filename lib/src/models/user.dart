@@ -29,6 +29,7 @@ class User {
   int accountStatus = 0;
   double height;
   double weight;
+  double calBurn;
   File avatarImageFile;
   Rating userRating;
   // to check if user is logged in or not
@@ -74,6 +75,9 @@ class User {
           jsonMap['height'] != null ? double.parse(jsonMap['height']) : 0.0;
       weight =
           jsonMap['weight'] != null ? double.parse(jsonMap['weight']) : 0.0;
+      calBurn = jsonMap['calories_burn'] != null
+          ? double.parse(jsonMap['calories_burn'])
+          : 0.0;
       specializesIn =
           jsonMap['specializesIn'] != null ? jsonMap['specializesIn'] : '';
       description =

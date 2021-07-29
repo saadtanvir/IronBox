@@ -15,20 +15,20 @@ class BlockButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          // BoxShadow(
-          //   color: this.color.withOpacity(0.4),
-          //   blurRadius: 70,
-          //   offset: Offset(0, 10),
-          // ),
-          BoxShadow(
-            color: Theme.of(context).primaryColor,
-            blurRadius: 13,
-            offset: Offset(0, 2),
-          ),
-        ],
-        borderRadius: BorderRadius.all(Radius.circular(100)),
+      decoration: const BoxDecoration(
+        // boxShadow: [
+        //   // BoxShadow(
+        //   //   color: this.color.withOpacity(0.4),
+        //   //   blurRadius: 70,
+        //   //   offset: Offset(0, 10),
+        //   // ),
+        //   BoxShadow(
+        //     color: Theme.of(context).primaryColor,
+        //     blurRadius: 10,
+        //     offset: Offset(0, 2),
+        //   ),
+        // ],
+        borderRadius: const BorderRadius.all(const Radius.circular(100)),
       ),
       child: TextButton(
         onPressed: this.onPressed,

@@ -594,7 +594,7 @@ Future<User> getCurrentUser() async {
     print("User Repo: user found from shared prefs");
     // next both statement will call listeners
     currentUser.value.role = await prefs.getString("user_role");
-    print(json.decode(await prefs.get("current_user")));
+    // print(json.decode(await prefs.get("current_user")));
     currentUser.value =
         User.fromJSON(json.decode(await prefs.get("current_user")));
     // print(await prefs.get("current_user"));

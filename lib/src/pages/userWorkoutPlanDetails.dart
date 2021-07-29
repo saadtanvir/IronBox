@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ironbox/src/widgets/loadingWidgets/categoriesLoadingWidget.dart';
+import 'package:ironbox/src/widgets/reviewCardWidget.dart';
 import '../widgets/showWOPUser/selectWeek.dart';
 import '../controllers/plans_controller.dart';
 import '../models/userWorkoutPlan.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import '../helpers/app_constants.dart' as Constants;
+
+// full details when user has already bought the plan
 
 class ShowUserWorkoutPlanDetails extends StatefulWidget {
   final UserWorkoutPlan plan;
@@ -20,9 +24,15 @@ class ShowUserWorkoutPlanDetails extends StatefulWidget {
 class _ShowUserWorkoutPlanDetailsState
     extends State<ShowUserWorkoutPlanDetails> {
   PlansController _con = Get.put(PlansController());
+
+  @override
+  void initState() {
+    _con.getWOPReviews(widget.plan.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("yes u right");
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -62,7 +72,7 @@ class _ShowUserWorkoutPlanDetailsState
                         "${GlobalConfiguration().get('storage_base_url')}${widget.plan.coverImg}",
                     placeholder: (context, url) {
                       return const Image(
-                        image: AssetImage("assets/img/loading.gif"),
+                        image: const AssetImage("assets/img/loading.gif"),
                         fit: BoxFit.cover,
                       );
                     },
@@ -168,23 +178,42 @@ class _ShowUserWorkoutPlanDetailsState
                       //     ),
                       //   ],
                       // ),
-                      // SizedBox(
-                      //   height: 10.0,
-                      // ),
-                      // Obx(() {
-                      //   return _con.workoutPlanReviews.isEmpty &&
-                      //           !_con.doneFetchingReviews.value
-                      //       ? CategoriesLoadingWidget(
-                      //           cardCount: 1,
-                      //         )
-                      //       : _con.workoutPlanReviews.isEmpty &&
-                      //               _con.doneFetchingReviews.value
-                      //           ? Text(
-                      //               "No reviews!",
-                      //             )
-                      //           : ReviewCardWidget(
-                      //               _con.workoutPlanReviews.last);
-                      // }),
+                      Row(
+                        children: [
+                          const Text(
+                            "Reviews",
+                            style: const TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "View All",
+                              style: const TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Obx(() {
+                        return _con.workoutPlanReviews.isEmpty &&
+                                !_con.doneFetchingReviews.value
+                            ? CategoriesLoadingWidget(
+                                cardCount: 1,
+                              )
+                            : _con.workoutPlanReviews.isEmpty &&
+                                    _con.doneFetchingReviews.value
+                                ? Text(
+                                    "No reviews!",
+                                  )
+                                : ReviewCardWidget(
+                                    _con.workoutPlanReviews.last);
+                      }),
                       const SizedBox(
                         height: 40.0,
                       ),

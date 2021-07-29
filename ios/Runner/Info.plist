@@ -45,5 +45,54 @@
 	<string>To select image from gallery</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To take image from camera</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This application tracks your steps</string>
+	<key>UIBackgroundModes</key>
+	<array>
+    	<string>processing</string>
+	</array>
+	<!-- Permission options for the `health kit` -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>We will sync your data with the Apple Health app to give you better insights</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>We will sync your data with the Apple Health app to give you better insights</string>
+	<!-- Permission options for the `location` group -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Always and when in use!</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Older devices need location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Can I have location always?</string>
+	<!-- Permission options for the `mediaLibrary` group -->
+	<key>NSAppleMusicUsageDescription</key>
+    <string>Music!</string>
+    <key>kTCCServiceMediaLibrary</key>
+    <string>Media</string>
+	<!-- Permission options for the `calendar` group -->
+    <key>NSCalendarsUsageDescription</key>
+    <string>Calendars</string>
+	<!-- Permission options for the `camera` group -->
+    <key>NSCameraUsageDescription</key>
+    <string>Camera</string>
+	<!-- Permission options for the `contacts` group -->
+    <key>NSContactsUsageDescription</key>
+    <string>Contacts</string>
+	<!-- Permission options for the `microphone` group -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Microphone</string>
+	<!-- Permission options for the `speech` group -->
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Speech</string>
+	<!-- Permission options for the `sensors` group -->
+    <key>NSMotionUsageDescription</key>
+    <string>Steps tracking</string>
+	<!-- Permission options for the `photos` group -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Photos</string>
+	<!-- Permission options for the `reminder` group -->
+    <key>NSRemindersUsageDescription</key>
+    <string>Reminders</string>
 </dict>
 </plist>

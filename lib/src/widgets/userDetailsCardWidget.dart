@@ -297,7 +297,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "15",
+                          "${widget.currentUser.calBurn}",
                           style: Helper.of(context)
                               .textStyle(size: 12.0, font: FontWeight.bold),
                         ),

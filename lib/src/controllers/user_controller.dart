@@ -176,7 +176,7 @@ class UserController extends GetxController {
   void updateCurrentUser(BuildContext context, User currentUser) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
-    print(currentUser.accountStatus);
+    print("current user acc status: ${currentUser.accountStatus}");
     userRepo.updateCurrentUser(currentUser).then((value) {
       print(value.role);
       print(value.id);

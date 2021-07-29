@@ -26,7 +26,18 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: _con.scaffoldKey,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.cancel,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
@@ -34,24 +45,26 @@ class _TraineeRegistrationFormState extends State<TraineeRegistrationForm> {
             top: 0,
             child: Container(
               width: Helper.of(context).getScreenWidth(),
-              height: Helper.of(context).getScreenHeight() * 0.40,
+              height: Helper.of(context).getScreenHeight() * 0.30,
               decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-              child: Center(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 50),
                 child: Text(
                   "Become a Trainee",
-                  style: Theme.of(context).textTheme.headline4.merge(TextStyle(
+                  style: Theme.of(context).textTheme.headline5.merge(TextStyle(
                       color: Theme.of(context).scaffoldBackgroundColor)),
                 ),
               ),
             ),
           ),
           Positioned(
-            top: (Helper.of(context).getScreenHeight() * 0.37) - 50,
+            top: (Helper.of(context).getScreenHeight() * 0.20),
             child: Container(
               width: Helper.of(context).getScreenWidth() * 0.88,
               height: Helper.of(context).getScreenHeight() * 0.50,
               constraints: BoxConstraints(
-                maxHeight: Helper.of(context).getScreenHeight() * 0.60,
+                maxHeight: Helper.of(context).getScreenHeight() * 0.40,
               ),
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
