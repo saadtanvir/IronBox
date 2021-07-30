@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:ironbox/src/widgets/dialogs/successDialog.dart';
+
 import '../helpers/helper.dart';
 import '../models/category.dart';
 import '../models/plan.dart';
@@ -16,7 +18,6 @@ import '../widgets/workoutPlansWidget.dart/addGames.dart';
 import '../widgets/workoutPlansWidget.dart/selectWeek.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/category_repo.dart' as categoryRepo;
-import 'package:ironbox/src/services/stripe_payments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -580,6 +581,30 @@ class PlansController extends GetxController {
       }
     }).onError((error, stackTrace) {
       print("plans controller error: $error");
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void addUserWOPWeekToLogs(
+      {@required BuildContext context,
+      @required String planId,
+      @required int weekNum}) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    await planRepo.addUserWOPWeekToLogs(planId, weekNum).then((value) {
+      if (value) {
+        Get.dialog(SuccessDialog());
+      }
+    }).onError((error, stackTrace) {
+      Get.snackbar(
+        "Failed!",
+        "Check your connection and try again",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: new Duration(seconds: 1),
+      );
     }).whenComplete(() {
       Helper.hideLoader(loader);
     });

@@ -23,7 +23,8 @@ class ShowUserWorkoutPlanDetails extends StatefulWidget {
 
 class _ShowUserWorkoutPlanDetailsState
     extends State<ShowUserWorkoutPlanDetails> {
-  PlansController _con = Get.put(PlansController());
+  PlansController _con =
+      Get.put(PlansController(), tag: Constants.userWOPDetailsController);
 
   @override
   void initState() {

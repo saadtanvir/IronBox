@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/category.dart';
 import '../models/userWorkoutPlanDetails.dart';
 import '../models/workoutPlanDetails.dart';
@@ -121,21 +123,34 @@ class Helper {
     return differenceInDay > 0 ? monthDayTime : formattedTime;
   }
 
-  static int calculateTodaySteps(
-      int totalSteps, int lastCountedSteps, DateTime lastRecordedDate) {
-    int todaySteps;
-    int differenceInDays = DateTime.now().difference(lastRecordedDate).inDays;
-    if (differenceInDays >= 1) {
-      if (totalSteps > lastCountedSteps) {
-        todaySteps = totalSteps - lastCountedSteps;
-        print("returning today's steps");
-        return todaySteps;
-      } else {
-        return lastCountedSteps;
-      }
-    } else {
-      return lastCountedSteps;
+  static Future<int> calculateTodaySteps(int totalSteps) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int todaySteps = 0;
+    int lastKnownStepCount =
+        prefs.getInt("lastKnownSteps") ?? 0; // last knonw step count
+    int currentDayOfMonth = DateTime.now().day; // current day of the month
+
+    if (totalSteps < lastKnownStepCount) {
+      // on device restart, reset the saved counter
+      lastKnownStepCount = 0;
+      prefs.setInt("lastKnownSteps", lastKnownStepCount);
     }
+
+    int lastKnownDayOfMonth =
+        prefs.getInt("lastKnownDay") ?? 0; // last known day of the month
+
+    if (lastKnownDayOfMonth < currentDayOfMonth) {
+      // when the day changes, reset the day and last known steps
+      lastKnownDayOfMonth = currentDayOfMonth;
+      lastKnownStepCount = totalSteps;
+      prefs.setInt("lastKnownDay", lastKnownDayOfMonth);
+      prefs.setInt("lastKnownSteps", lastKnownStepCount);
+    }
+
+    todaySteps = totalSteps - lastKnownStepCount;
+    prefs.setInt("lastKnownDay", lastKnownDayOfMonth);
+    prefs.setInt("lastKnownSteps", todaySteps);
+    return todaySteps;
   }
 
   static List<Category> getSpecificSubCategories(String appCategoryId) {

@@ -790,6 +790,37 @@ Future<UserWorkoutPlan> subscribeWorkoutPlan(String pid, String uid) async {
   }
 }
 
+Future<bool> addUserWOPWeekToLogs(String planId, int weekNum) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}weeks_auto_map/week_number=$weekNum/plan_id=$planId";
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.post(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+    );
+    print("URL For Mapping WOP Week to Logs: $url");
+    print(response.statusCode);
+    print(response.body);
+
+    // Map responseBody = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
+  }
+}
+
 Future<bool> editPlan(Plan plan) async {
   String url = "${GlobalConfiguration().get("api_base_url")}plans/${plan.id}";
   Map<String, String> body = {
@@ -825,9 +856,7 @@ Future<bool> editPlan(Plan plan) async {
     } else {
       print("throws exception");
       return false;
-//    throw new Exception(response.body);
     }
-//  return currentUser.value;
   } catch (e) {
     print("error caught");
     print(e.toString());

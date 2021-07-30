@@ -72,7 +72,7 @@ class HomeController extends GetxController {
     _stepCountStream = Pedometer.stepCountStream; // apply await if not working
     _pedestrianStatusStream =
         Pedometer.pedestrianStatusStream; // apply await if not working
-    _stepCountStream.listen(_getTodaySteps).onError(_onError);
+    _stepCountStream.listen(_getTodaySteps, onDone: _onDone, onError: _onError);
     _pedestrianStatusStream
         .listen(_onPedestrianStatusChanged)
         .onError(_onPedestrianStatusError);
@@ -85,18 +85,7 @@ class HomeController extends GetxController {
     print("Total steps");
     print(event.steps);
     print(event.timeStamp.toString());
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey("steps")) {
-      var lastCountedSteps = json.decode(await prefs.get("steps"));
-      print("last recorded date: ${lastCountedSteps["date"]}");
-      print("last known steps: ${lastCountedSteps["steps"]}");
-      steps.value = Helper.calculateTodaySteps(event.steps,
-          lastCountedSteps["steps"], DateTime.parse(lastCountedSteps["date"]));
-    } else {
-      steps.value = event.steps;
-    }
-    stepMap = {"steps": steps, "date": event.timeStamp.toString()};
-    await prefs.setString("steps", json.encode(stepMap));
+    steps.value = await Helper.calculateTodaySteps(event.steps);
   }
 
   void _onPedestrianStatusChanged(PedestrianStatus event) {

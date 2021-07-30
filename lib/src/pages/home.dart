@@ -74,7 +74,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Obx(() {
-                print("Total observable steps: ${_con.steps.value}");
+                print("Printing steps count: ${_con.steps.value}");
                 return _con.steps.value >= 0
                     ? UserDetailsCardWidget(
                         userRepo.currentUser.value,

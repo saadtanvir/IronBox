@@ -3,7 +3,6 @@ import '../../widgets/displayWeeksWidget.dart';
 import '../../widgets/showWOPTrainer/showPlanDays.dart';
 import '../../models/workoutPlan.dart';
 import 'package:flutter/material.dart';
-import '../../helpers/app_constants.dart' as Constants;
 
 class ShowPlanWeeksList extends StatefulWidget {
   final WorkoutPlan plan;
@@ -35,8 +34,10 @@ class _ShowPlanWeeksListState extends State<ShowPlanWeeksList> {
         child: Column(
           children: [
             DisplayWeeksListWidget(
-                totalWeeks: widget.plan.durationInWeeks,
-                onWeekSelect: _onWeekTap),
+              totalWeeks: widget.plan.durationInWeeks,
+              onWeekSelect: _onWeekTap,
+              isTrainee: false,
+            ),
           ],
         ),
       ),

@@ -39,7 +39,10 @@ class _SelectWeekState extends State<SelectWeek> {
         child: Column(
           children: [
             DisplayWeeksListWidget(
-                totalWeeks: widget.totalWeeks, onWeekSelect: _onWeekSelect),
+              totalWeeks: widget.totalWeeks,
+              onWeekSelect: _onWeekSelect,
+              isTrainee: false,
+            ),
             const SizedBox(
               height: 50.0,
             ),

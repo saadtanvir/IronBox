@@ -157,6 +157,7 @@ const Color messageSearchBarColor = Color(0xffF0F3F4);
 
 // controllers tags
 const String createWorkoutPlanController = "createWorkoutPlanController";
+const String userWOPDetailsController = "userWorkoutPlanDetailsController";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
