@@ -1,7 +1,5 @@
 import 'package:ironbox/src/controllers/T_homeController.dart';
 import 'package:ironbox/src/pages/messages.dart';
-import 'package:ironbox/src/widgets/conversationsListWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';

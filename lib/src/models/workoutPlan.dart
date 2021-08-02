@@ -12,6 +12,7 @@ class WorkoutPlan {
   String muscleType;
   String categoryId;
   String version;
+  String whatsnew;
   int status;
   int durationInWeeks; // 4 or 6
   int difficultyLevel; // 1 or 2 or 3 [easy, intermediate, hard]
@@ -34,6 +35,7 @@ class WorkoutPlan {
       muscleType = jsonMap['muscle_type'] != null ? jsonMap['muscle_type'] : "";
       categoryId = jsonMap['category'] != null ? jsonMap['category'] : "";
       version = jsonMap['version'] != null ? jsonMap['version'] : "";
+      whatsnew = jsonMap['whats_new'] != null ? jsonMap['whats_new'] : "";
       status = jsonMap['status'] != null
           ? int.parse(jsonMap['status'].toString())
           : 0;

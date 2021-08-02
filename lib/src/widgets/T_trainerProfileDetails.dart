@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ironbox/src/controllers/user_controller.dart';
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/user.dart';
 import 'package:ironbox/src/widgets/T_trainerProfileCardWidget.dart';
 import 'package:ironbox/src/widgets/playYoutubeVideoWidget.dart';
 import 'package:ironbox/src/widgets/reviewCardWidget.dart';
-import 'package:ironbox/src/widgets/showTrainerReviews.dart';
+import 'package:ironbox/src/widgets/reviewsList.dart';
+import 'package:ironbox/src/widgets/showReviews.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 import 'loadingWidgets/categoriesLoadingWidget.dart';
@@ -22,6 +24,10 @@ class TrainerProfileDetails extends StatefulWidget {
 class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
   UserController _con = Get.put(UserController());
   DateFormat _dateFormatter;
+
+  void onReviewTap(Review review) {
+    // calls when a review taps
+  }
 
   @override
   void initState() {
@@ -203,8 +209,13 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
                     onPressed: () async {
                       if (_con.reviews.isNotEmpty) {
                         Get.to(
-                            TrainerReviewsList(_con.reviews.reversed.toList()),
-                            transition: Transition.rightToLeft);
+                          ShowReviews(
+                            reviews: _con.reviews.reversed.toList(),
+                            onReviewTap: onReviewTap,
+                            canAddReview: false,
+                          ),
+                          transition: Transition.rightToLeft,
+                        );
                       }
                     },
                     style: ButtonStyle(

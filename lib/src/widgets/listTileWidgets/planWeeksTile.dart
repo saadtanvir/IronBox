@@ -41,7 +41,7 @@ class PlanWeeksTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "30%",
+                    "${weekProgress}%",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,

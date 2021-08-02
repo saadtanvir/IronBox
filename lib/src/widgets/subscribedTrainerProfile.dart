@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/models/reviews.dart';
 import 'package:ironbox/src/models/subscriptions.dart';
 import 'package:ironbox/src/widgets/dialogs/trainerUnsubBottomSheet.dart';
-// import 'package:timer_count_down/timer_controller.dart';
+import 'package:ironbox/src/widgets/showReviews.dart';
 import '../controllers/user_controller.dart';
 import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../widgets/playYoutubeVideoWidget.dart';
 import '../widgets/reviewCardWidget.dart';
-import '../widgets/showTrainerReviews.dart';
 import '../widgets/subscribedTrainerProfileCardWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
-// import 'package:timer_count_down/timer_count_down.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class SubscribedTrainerProfile extends StatefulWidget {
@@ -37,6 +36,10 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
       // take review and ratings here
       // Get.to(TrainerRatingReviewsDialog(widget.subscription));
     });
+  }
+
+  void onReviewTap(Review review) {
+    // calls when review tap
   }
 
   @override
@@ -403,8 +406,13 @@ class _SubscribedTrainerProfileState extends State<SubscribedTrainerProfile> {
                     onPressed: () async {
                       if (_con.reviews.isNotEmpty) {
                         Get.to(
-                            TrainerReviewsList(_con.reviews.reversed.toList()),
-                            transition: Transition.rightToLeft);
+                          ShowReviews(
+                            reviews: _con.reviews.reversed.toList(),
+                            onReviewTap: onReviewTap,
+                            canAddReview: false,
+                          ),
+                          transition: Transition.rightToLeft,
+                        );
                       }
                     },
                     style: ButtonStyle(

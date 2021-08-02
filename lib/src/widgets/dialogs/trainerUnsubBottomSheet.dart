@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:ironbox/src/controllers/user_controller.dart';
-import 'package:ironbox/src/models/subscriptions.dart';
+import '../../controllers/user_controller.dart';
+import '../../models/subscriptions.dart';
 import 'package:get/get.dart';
 import '../../helpers/app_constants.dart' as Constants;
 import '../../repositories/user_repo.dart' as userRepo;

@@ -48,6 +48,7 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
               totalWeeks: widget.plan.durationInWeeks,
               onWeekSelect: _onWeekTap,
               isTrainee: true,
+              // userWorkoutPlanDetailsList: widget.plan.detailsList,
               addWeekToLogs: _addWeekToLogs,
             ),
           ],

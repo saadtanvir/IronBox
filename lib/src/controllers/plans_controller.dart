@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:ironbox/src/widgets/dialogs/successDialog.dart';
-
+import '../widgets/dialogs/successDialog.dart';
 import '../helpers/helper.dart';
 import '../models/category.dart';
 import '../models/plan.dart';
@@ -510,6 +509,81 @@ class PlansController extends GetxController {
       print("Error getting WP games exercises: $e");
     }, onDone: () {
       doneFetchingGameExercises.value = true;
+    });
+  }
+
+  void postWOPRating(BuildContext context, String planId, String rating) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo.postWOPRating(planId, rating).then((value) {
+      if (value) {
+        Get.snackbar(
+          "Success",
+          "Rated Successfully",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+        );
+      } else {
+        Get.snackbar(
+          Constants.failed,
+          Constants.check_internet_connection,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+        );
+      }
+    }).onError((error, stackTrace) {
+      Get.snackbar(
+        Constants.failed,
+        Constants.check_internet_connection,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  void postWOPReview(BuildContext context,
+      {@required String planId,
+      @required String review,
+      @required String rating,
+      @required String userId}) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    planRepo
+        .postWOPReview(
+            planId: planId, review: review, rating: rating, userId: userId)
+        .then((value) {
+      if (value) {
+        Get.snackbar(
+          "Success",
+          "Posted Successfully",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+        );
+      } else {
+        Get.snackbar(
+          Constants.failed,
+          Constants.check_internet_connection,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+        );
+      }
+    }).onError((error, stackTrace) {
+      Get.snackbar(
+        Constants.failed,
+        Constants.check_internet_connection,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
     });
   }
 

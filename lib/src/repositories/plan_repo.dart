@@ -351,6 +351,7 @@ Future<WorkoutPlan> updateWorkoutPlan(WorkoutPlan plan, File image) async {
       "title": plan.title,
       "description": plan.description,
       "caution": plan.caution,
+      "whats_new": plan.whatsnew ?? "",
       "price": plan.price.toString(),
       "trainer_id": plan.trainerId,
       "cover_video": plan.videoUrl,
@@ -725,6 +726,79 @@ Future<Stream<WorkoutPlanExercise>> getWorkoutPlanGameExercises(
     print("error caught");
     print("Plan Repo Error: $e");
     return new Stream.value(new WorkoutPlanExercise.fromJSON({}));
+  }
+}
+
+Future<bool> postWOPRating(String planId, String rating) async {
+  Uri uri = Helper.getUri('plan_ratings/$planId');
+  Map<String, String> body = {"avg_rating": rating};
+  try {
+    final client = new http.Client();
+    final response = await client.put(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(body),
+    );
+    print("URL For Rating WOP: ${uri.toString()}");
+    print(json.encode(body));
+    print(response.statusCode);
+    // print(response.body);
+
+    // Map responseBody = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<bool> postWOPReview(
+    {@required String planId,
+    @required String review,
+    @required String rating,
+    @required String userId}) async {
+  Uri uri = Helper.getUri('plan_reviews');
+  Map<String, String> body = {
+    "plan_id": planId,
+    "user_id": userId,
+    "message": review,
+    "rating": rating,
+  };
+  try {
+    final client = new http.Client();
+    final response = await client.post(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
+      },
+      body: json.encode(body),
+    );
+    print("URL For Reviewing WOP: ${uri.toString()}");
+    print(json.encode(body));
+    print(response.statusCode);
+    // print(response.body);
+
+    // Map responseBody = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("throws exception");
+      return false;
+    }
+  } catch (e) {
+    print("error caught");
+    print(e.toString());
+    return false;
   }
 }
 

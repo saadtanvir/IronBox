@@ -57,28 +57,30 @@ class ReviewCardWidget extends StatelessWidget {
                           fontSize: 12.0,
                         ),
                       ),
-                      review.rating != null
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "${review.rating}",
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                const Expanded(
-                                  child: const Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                    size: 20.0,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : const SizedBox(
-                              height: 0.0,
-                            ),
+                      // review.rating != null
+                      //     ? Row(
+                      //         mainAxisAlignment: MainAxisAlignment.end,
+                      //         children: [
+                      //           Expanded(
+                      //             // flex: 1,
+                      //             child: Text(
+                      //               "${review.rating}",
+                      //               overflow: TextOverflow.ellipsis,
+                      //             ),
+                      //           ),
+                      //           const Expanded(
+                      //             // flex: 1,
+                      //             child: const Icon(
+                      //               Icons.star,
+                      //               color: Colors.yellow,
+                      //               size: 20.0,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       )
+                      //     : const SizedBox(
+                      //         height: 0.0,
+                      //       ),
                     ],
                   ),
                   const Spacer(),

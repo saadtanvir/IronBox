@@ -737,6 +737,51 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        Constants.comments + ":",
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      onSaved: (input) => _con.workoutPlan.whatsnew = input,
+                      validator: (input) =>
+                          input.length < 1 ? "required" : null,
+                      initialValue: widget.originalPlan.whatsnew ?? "",
+                      decoration: InputDecoration(
+                        labelText: Constants
+                            .write_comments_about_what_you_are_changing_in_plan,
+                        labelStyle: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).accentColor.withOpacity(0.5),
+                        ),
+                        hintText: Constants.short_plan_descp,
+                        hintStyle: TextStyle(
+                          fontSize: 12.0,
+                          // fontWeight: FontWeight.bold,
+                          color: Theme.of(context).accentColor.withOpacity(0.3),
+                        ),
+                        contentPadding: const EdgeInsets.all(10),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0.0,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 40.0),
                     TextButton(
                       onPressed: () async {
@@ -759,6 +804,7 @@ class _EditWorkoutPlanState extends State<EditWorkoutPlan> {
                           _con.workoutPlan.id = widget.originalPlan.id;
                           _con.workoutPlan.trainerId =
                               userRepo.currentUser.value.id;
+                          // send plan again in review
                           _con.workoutPlan.status = 0;
                           // call function to update plan
                           print("calling to update plan");

@@ -44,6 +44,7 @@ const String reviews = "Reviews";
 const String view_all = "View All";
 const String brief_descp = "Brief Description";
 const String caution = "Caution";
+const String comments = "Comments";
 const String short_plan_descp = "Short plan description";
 const String plan_details = "Plan Details";
 const String task_desc = "Task Description";
@@ -88,6 +89,7 @@ const String contact = "contacts";
 const String none = "None";
 const String joining_as_a = "Joining as a";
 const String dateStringFormat = "yyyy-MM-dd";
+const String addReview = "Add Review";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -134,6 +136,8 @@ const String this_field_cannt_be_empty = "This field cannt be empty";
 const String pass_should_contain_special_char =
     "Password should contain a special character";
 const String write_a_message = "Write a message";
+const String write_comments_about_what_you_are_changing_in_plan =
+    "Write comments about what you are changing in the plan";
 const String no_message_to_show = "No message to show.";
 const String you_have_no_challenges_to_meet_hurrah =
     "You have no challenges to meet. Hurrah!";

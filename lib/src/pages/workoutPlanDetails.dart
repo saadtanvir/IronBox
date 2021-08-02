@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ironbox/src/models/reviews.dart';
+import 'package:ironbox/src/widgets/showReviews.dart';
 import '../controllers/plans_controller.dart';
 import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../widgets/playYoutubeVideoWidget.dart';
 import '../widgets/reviewCardWidget.dart';
-import '../widgets/showTrainerReviews.dart';
+import '../widgets/reviewsList.dart';
 import '../models/workoutPlan.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,11 @@ class ShowWOPDetails extends StatefulWidget {
 
 class _ShowWOPDetailsState extends State<ShowWOPDetails> {
   PlansController _con = Get.put(PlansController());
+
+  void onReviewTap(Review review) {
+    // calls when review tap
+  }
+
   @override
   void initState() {
     _con.getWOPReviews(widget.plan.id);
@@ -159,9 +166,12 @@ class _ShowWOPDetailsState extends State<ShowWOPDetails> {
                             onPressed: () async {
                               if (_con.workoutPlanReviews.isNotEmpty) {
                                 Get.to(
-                                    TrainerReviewsList(_con
-                                        .workoutPlanReviews.reversed
-                                        .toList()),
+                                    ShowReviews(
+                                      reviews: _con.workoutPlanReviews.reversed
+                                          .toList(),
+                                      onReviewTap: onReviewTap,
+                                      canAddReview: false,
+                                    ),
                                     transition: Transition.rightToLeft);
                               }
                             },

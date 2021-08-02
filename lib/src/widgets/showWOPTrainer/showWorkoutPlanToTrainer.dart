@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ironbox/src/models/reviews.dart';
+import 'package:ironbox/src/widgets/showReviews.dart';
 import '../../controllers/plans_controller.dart';
 import '../../helpers/helper.dart';
 import '../../widgets/loadingWidgets/categoriesLoadingWidget.dart';
 import '../../widgets/reviewCardWidget.dart';
-import '../../widgets/showTrainerReviews.dart';
+import '../reviewsList.dart';
 import '../../widgets/showWOPTrainer/showPlanWeeks.dart';
 import '../../widgets/workoutPlansWidget.dart/editPlan.dart';
 import '../../models/workoutPlan.dart';
@@ -27,6 +29,10 @@ class ShowWorkoutPlanToTrainer extends StatefulWidget {
 
 class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
   PlansController _con = Get.put(PlansController());
+
+  void onReviewTap(Review review) {
+    // calls when review tap
+  }
 
   @override
   void initState() {
@@ -128,8 +134,7 @@ class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                        "${widget.plan.description} description it is just to test the UI and stuff you know so yeah duhh"),
+                    Text("${widget.plan.description}"),
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -167,10 +172,14 @@ class _ShowWorkoutPlanToTrainerState extends State<ShowWorkoutPlanToTrainer> {
                             onPressed: () async {
                               if (_con.workoutPlanReviews.isNotEmpty) {
                                 Get.to(
-                                    TrainerReviewsList(_con
-                                        .workoutPlanReviews.reversed
-                                        .toList()),
-                                    transition: Transition.rightToLeft);
+                                  ShowReviews(
+                                    reviews: _con.workoutPlanReviews.reversed
+                                        .toList(),
+                                    onReviewTap: onReviewTap,
+                                    canAddReview: false,
+                                  ),
+                                  transition: Transition.rightToLeft,
+                                );
                               }
                             },
                             child: Text(
