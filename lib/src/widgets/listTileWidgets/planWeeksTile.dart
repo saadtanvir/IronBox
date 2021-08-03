@@ -67,12 +67,6 @@ class PlanWeeksTile extends StatelessWidget {
                       }
                     }
                     break;
-                  case 1:
-                    {}
-                    break;
-                  case 2:
-                    {}
-                    break;
                   default:
                     {
                       print("not a valid option selected");

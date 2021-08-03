@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -153,6 +154,30 @@ class Helper {
     return todaySteps;
   }
 
+  static void storeAppMainCategoryInSP(data, SharedPreferences prefs) {
+    List<String> mainCategories = [];
+    if (prefs.containsKey(Constants.spk_appMainCategoriesList)) {
+      mainCategories = prefs.getStringList(Constants.spk_appMainCategoriesList);
+      mainCategories.add(json.encode(data));
+      prefs.setStringList(Constants.spk_appMainCategoriesList, mainCategories);
+    } else {
+      mainCategories.add(json.encode(data));
+      prefs.setStringList(Constants.spk_appMainCategoriesList, mainCategories);
+    }
+  }
+
+  static List<Category> getAppMainCategoryList(SharedPreferences prefs) {
+    List<Category> categoryList = [];
+    if (prefs.containsKey(Constants.spk_appMainCategoriesList)) {
+      List<String> temp =
+          prefs.getStringList(Constants.spk_appMainCategoriesList);
+      temp.forEach((String cat) {
+        categoryList.add(Category.fromJSON(json.decode(cat)));
+      });
+    }
+    return categoryList;
+  }
+
   static List<Category> getSpecificSubCategories(String appCategoryId) {
     List<Category> specificCategoryList = [];
     Constants.subCategories.forEach((category) {
@@ -225,6 +250,20 @@ class Helper {
       }
     });
     return singleDayDetail;
+  }
+
+  static double getUserWOPWeekProgress(
+      String weekNum, List<UserWorkoutPlanDetails> userWOPDetailsList) {
+    double progress = 0.0;
+    int count = 0;
+    userWOPDetailsList.forEach((UserWorkoutPlanDetails details) {
+      if (details.weekNumber == weekNum) {
+        progress = progress + details.dayProgress;
+        count++;
+      }
+    });
+    print(progress / count);
+    return count > 0 ? progress / count : 0.0;
   }
 
   static int calAvgCal({@required int minCal, @required int maxCal}) {

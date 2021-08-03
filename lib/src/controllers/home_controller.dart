@@ -124,18 +124,23 @@ class HomeController extends GetxController {
   }
 
   Future<void> listenForCategories() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     print("fetching categories from home controller");
-    categories.clear();
-    final Stream<Category> stream = await categoryRepo.getAppCategories();
+    print(categories.length);
+    // categories.clear();
+    categories.addAll(Helper.getAppMainCategoryList(prefs));
+    if (categories.isEmpty) {
+      final Stream<Category> stream = await categoryRepo.getAppCategories();
 
-    stream.listen((Category _category) {
-      print(_category.backgroundImgUrl);
-      categories.add(_category);
-    }, onError: (e) {
-      print("Error thrown while getting categories: $e");
-    }, onDone: () {
-      print("Done fetching categories");
-    });
+      stream.listen((Category _category) {
+        print(_category.backgroundImgUrl);
+        categories.add(_category);
+      }, onError: (e) {
+        print("Error thrown while getting categories: $e");
+      }, onDone: () {
+        print("Done fetching categories");
+      });
+    }
   }
 
   Future<void> getSubCategories() async {

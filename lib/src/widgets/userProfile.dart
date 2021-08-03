@@ -338,7 +338,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ? Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: PlayYoutubeVideoWidget(
-                        "https://www.youtube.com/watch?v=f8fv4FuYyqM"),
+                        "https://www.youtube.com/watch?v=HGKmeBvBZbU"),
                   )
                 : const SizedBox(
                     height: 0.0,

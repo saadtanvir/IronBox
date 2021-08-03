@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
+import '../../controllers/plans_controller.dart';
 import '../../widgets/showWOPUser/selectDay.dart';
 import '../../models/userWorkoutPlan.dart';
 import '../../widgets/displayWeeksWidget.dart';
 import 'package:flutter/material.dart';
 import '../../helpers/app_constants.dart' as Constants;
+import '../../repositories/user_repo.dart' as userRepo;
 
 class SelectUserWOPWeek extends StatefulWidget {
   final UserWorkoutPlan plan;
@@ -29,7 +30,12 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
     // progress of previous week is not 100
     // add week to logs
     _con.addUserWOPWeekToLogs(
-        context: context, planId: widget.plan.id, weekNum: weekNum);
+        context: context,
+        planId: widget.plan.id,
+        weekNum: weekNum,
+        categoryId: "1",
+        createdBy: userRepo.currentUser.value.id,
+        userId: userRepo.currentUser.value.id);
   }
 
   @override
@@ -48,7 +54,7 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
               totalWeeks: widget.plan.durationInWeeks,
               onWeekSelect: _onWeekTap,
               isTrainee: true,
-              // userWorkoutPlanDetailsList: widget.plan.detailsList,
+              userWorkoutPlanDetailsList: widget.plan.detailsList,
               addWeekToLogs: _addWeekToLogs,
             ),
           ],

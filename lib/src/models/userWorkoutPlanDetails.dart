@@ -7,7 +7,7 @@ class UserWorkoutPlanDetails extends WorkoutPlanDetails {
   String userPlanId;
   int avgCal; // user specific
   double calBurn;
-  double progress;
+  double dayProgress;
   List<UserWorkoutPlanGame> userGamesList;
 
   UserWorkoutPlanDetails();
@@ -27,7 +27,7 @@ class UserWorkoutPlanDetails extends WorkoutPlanDetails {
       calBurn =
           jsonMap['cal_burn'] != null ? double.parse(jsonMap['cal_burn']) : 0.0;
       avgCal = jsonMap['avg_cal'] != null ? int.parse(jsonMap['avg_cal']) : 0;
-      progress =
+      dayProgress =
           jsonMap['progress'] != null ? double.parse(jsonMap['progress']) : 0.0;
       minCal = jsonMap['min_calories'] != null
           ? int.parse(jsonMap['min_calories'])

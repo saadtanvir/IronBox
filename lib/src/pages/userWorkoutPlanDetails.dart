@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/widgets/loadingWidgets/categoriesLoadingWidget.dart';
-import 'package:ironbox/src/widgets/reviewCardWidget.dart';
-import 'package:ironbox/src/widgets/showReviews.dart';
+import '../models/reviews.dart';
+import '../widgets/loadingWidgets/categoriesLoadingWidget.dart';
+import '../widgets/reviewCardWidget.dart';
+import '../widgets/showReviews.dart';
 import '../widgets/showWOPUser/selectWeek.dart';
 import '../controllers/plans_controller.dart';
 import '../models/userWorkoutPlan.dart';
@@ -35,14 +35,16 @@ class _ShowUserWorkoutPlanDetailsState
 
   void addReview(Map<String, String> data) {
     // post a review
-    if (data['message'] != null && data['message'].isNotEmpty) {
-      _con.postWOPReview(context,
-          planId: widget.plan.id,
-          review: data['message'],
-          rating: data['rating'],
-          userId: userRepo.currentUser.value.id);
-    } else {
-      _con.postWOPRating(context, widget.plan.id, data['rating']);
+    if (data != null) {
+      if (data['message'] != null && data['message'].isNotEmpty) {
+        _con.postWOPReview(context,
+            planId: widget.plan.id,
+            review: data['message'],
+            rating: data['rating'],
+            userId: userRepo.currentUser.value.id);
+      } else {
+        _con.postWOPRating(context, widget.plan.id, data['rating']);
+      }
     }
   }
 
@@ -215,8 +217,9 @@ class _ShowUserWorkoutPlanDetailsState
                                       _con.workoutPlanReviews.reversed.toList(),
                                   onReviewTap: onReviewTap,
                                   addReview: addReview,
-                                  canAddReview:
-                                      true, // check review status then pass value
+                                  canAddReview: widget.plan.reviewStatus == 1
+                                      ? false
+                                      : true, // check review status then pass value
                                 ),
                                 transition: Transition.rightToLeft,
                               );

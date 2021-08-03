@@ -7,6 +7,7 @@ class UserWorkoutPlan extends WorkoutPlan {
   String originalPid;
   String version;
   double progress;
+  int reviewStatus; // 0 = not yet reviewed, 1 = reviewed
   List<UserWorkoutPlanDetails> detailsList;
 
   UserWorkoutPlan();
@@ -29,7 +30,9 @@ class UserWorkoutPlan extends WorkoutPlan {
       muscleType = jsonMap['muscle_type'] != null ? jsonMap['muscle_type'] : "";
       categoryId = jsonMap['category'] != null ? jsonMap['category'] : "";
       version = jsonMap['version'] != null ? jsonMap['version'] : "";
-
+      reviewStatus = jsonMap['review_status'] != null
+          ? int.parse(jsonMap['review_status'])
+          : "";
       status = jsonMap['status'] != null
           ? int.parse(jsonMap['status'].toString())
           : 0;

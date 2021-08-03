@@ -14,16 +14,22 @@ class StepperSignup extends StatefulWidget {
 class _StepperSignupState extends State<StepperSignup> {
   UserController _con = Get.put(UserController());
   GlobalKey<FormState> _signupFormKey;
+
+  // controllers
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
   bool _isTrainer = false;
   bool _isTrainee = false;
   bool _roleSelected = false;
   String _gender = "";
   int _currentIndex = 0;
   int groupValue = 0;
-  var _weightUnitValueO = Constants.weightUnits[0].obs;
+  var specialisedCategoryGroupValue = 0.obs;
+  var _weightUnitValue = Constants.weightUnits[0].obs;
+
+  // image file variables
   File _imageFile;
   var imageName = "".obs;
   final ImagePicker _picker = ImagePicker();
@@ -678,6 +684,84 @@ class _StepperSignupState extends State<StepperSignup> {
                       ),
                     ),
                   ),
+
+            _isTrainer
+                ? const SizedBox(
+                    height: 15.0,
+                  )
+                : const SizedBox(height: 0.0),
+            !_isTrainer
+                ? const SizedBox(
+                    height: 0.0,
+                  )
+                : Container(
+                    height: 150.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          // flex: 1,
+                          child: Obx(() {
+                            return RadioListTile(
+                              value: 1,
+                              groupValue: specialisedCategoryGroupValue.value,
+                              title: Text(
+                                "Workout",
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              subtitle: const Text(
+                                "Training Expertise in:",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                              activeColor: Theme.of(context).primaryColor,
+                              selected: specialisedCategoryGroupValue.value == 1
+                                  ? true
+                                  : false,
+                              onChanged: (val) {
+                                print(val);
+                                specialisedCategoryGroupValue.value = val;
+                                _con.user.specializationCategory = 1;
+                              },
+                            );
+                          }),
+                        ),
+                        Expanded(
+                          // flex: 1,
+                          child: Obx(() {
+                            return RadioListTile(
+                              value: 2,
+                              groupValue: specialisedCategoryGroupValue.value,
+                              title: Text(
+                                "Diet",
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              subtitle: const Text(
+                                "Training Expertise in:",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                              activeColor: Theme.of(context).primaryColor,
+                              selected: specialisedCategoryGroupValue.value == 2
+                                  ? true
+                                  : false,
+                              onChanged: (val) {
+                                print(val);
+                                specialisedCategoryGroupValue.value = val;
+                                _con.user.specializationCategory = 2;
+                              },
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
+                  ),
             _isTrainer
                 ? const SizedBox(
                     height: 15.0,
@@ -1013,7 +1097,8 @@ class _StepperSignupState extends State<StepperSignup> {
             TextButton(
               onPressed: () async {
                 FocusScope.of(context).requestFocus(new FocusNode());
-                if (!_signupFormKey.currentState.validate()) {
+                if (!_signupFormKey.currentState.validate() ||
+                    _con.user.specializationCategory == null) {
                   // get this snackbar from helper in future
                   // by sending message and title
                   Get.snackbar(

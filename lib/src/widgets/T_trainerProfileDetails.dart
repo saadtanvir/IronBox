@@ -267,7 +267,7 @@ class _TrainerProfileDetailsState extends State<TrainerProfileDetails> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: PlayYoutubeVideoWidget(
-                "https://www.youtube.com/watch?v=f8fv4FuYyqM",
+                "https://www.youtube.com/watch?v=HGKmeBvBZbU",
                 width: 390,
               ),
             ),

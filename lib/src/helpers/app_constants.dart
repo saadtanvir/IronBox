@@ -216,4 +216,5 @@ ConnectionStatusSingleton connectionStatus =
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Sharedpreference keys
-String spk_upcomingChallengesList = "upcoming_challenges_list";
+const String spk_upcomingChallengesList = "upcoming_challenges_list";
+const String spk_appMainCategoriesList = "app_main_categories_list";

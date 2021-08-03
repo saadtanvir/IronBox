@@ -663,10 +663,20 @@ class PlansController extends GetxController {
   void addUserWOPWeekToLogs(
       {@required BuildContext context,
       @required String planId,
-      @required int weekNum}) async {
+      @required int weekNum,
+      @required String categoryId,
+      @required String createdBy,
+      @required String userId}) async {
     OverlayEntry loader = Helper.overlayLoader(context);
     Overlay.of(context).insert(loader);
-    await planRepo.addUserWOPWeekToLogs(planId, weekNum).then((value) {
+    await planRepo
+        .addUserWOPWeekToLogs(
+            planId: planId,
+            weekNum: weekNum,
+            categoryId: categoryId,
+            createdBy: createdBy,
+            userId: userId)
+        .then((value) {
       if (value) {
         Get.dialog(SuccessDialog());
       }

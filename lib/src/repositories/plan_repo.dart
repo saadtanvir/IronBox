@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/plan.dart';
+import '../helpers/helper.dart';
+import '../models/plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/models/userWorkoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlan.dart';
-import 'package:ironbox/src/models/workoutPlanDetails.dart';
-import 'package:ironbox/src/models/workoutPlanExercise.dart';
-import 'package:ironbox/src/models/workoutPlanGame.dart';
+import '../models/reviews.dart';
+import '../models/userWorkoutPlan.dart';
+import '../models/workoutPlan.dart';
+import '../models/workoutPlanDetails.dart';
+import '../models/workoutPlanExercise.dart';
+import '../models/workoutPlanGame.dart';
 
 Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
   print("creating plan");
@@ -864,9 +864,19 @@ Future<UserWorkoutPlan> subscribeWorkoutPlan(String pid, String uid) async {
   }
 }
 
-Future<bool> addUserWOPWeekToLogs(String planId, int weekNum) async {
+Future<bool> addUserWOPWeekToLogs(
+    {@required String planId,
+    @required int weekNum,
+    @required String categoryId,
+    @required String createdBy,
+    @required String userId}) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}weeks_auto_map/week_number=$weekNum/plan_id=$planId";
+  Map<String, String> body = {
+    "category_id": categoryId,
+    "created_by": createdBy,
+    "user_id": userId,
+  };
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();
@@ -875,6 +885,7 @@ Future<bool> addUserWOPWeekToLogs(String planId, int weekNum) async {
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json;charset=utf-8'
       },
+      body: json.encode(body),
     );
     print("URL For Mapping WOP Week to Logs: $url");
     print(response.statusCode);

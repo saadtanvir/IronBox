@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/planWeeksTile.dart';
 
@@ -24,6 +25,14 @@ class DisplayWeeksListWidget extends StatelessWidget {
       itemCount: totalWeeks,
       itemBuilder: (context, index) {
         int weekNumber = index + 1;
+        double weekProgress = 0.0;
+        if (userWorkoutPlanDetailsList != null) {
+          if (userWorkoutPlanDetailsList.isNotEmpty) {
+            weekProgress = Helper.getUserWOPWeekProgress(
+                weekNumber.toString(), userWorkoutPlanDetailsList);
+          }
+        }
+        print(weekProgress);
         return GestureDetector(
           onTap: () {
             onWeekSelect(weekNumber);
@@ -32,7 +41,7 @@ class DisplayWeeksListWidget extends StatelessWidget {
             weekNumber: weekNumber,
             isTrainee: isTrainee,
             addWeekToLogs: addWeekToLogs,
-            // weekProgress: userWorkoutPlanDetailsList[index].progress,
+            weekProgress: weekProgress,
           ),
         );
       },

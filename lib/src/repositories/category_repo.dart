@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/category.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/helper.dart';
+import '../models/category.dart';
 import 'package:http/http.dart' as http;
 
 Future<Stream<Category>> getAppCategories({String id}) async {
   print("getting categories");
   Uri uri = Helper.getUri('categories');
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   print('URI for gettiing categories: ' + uri.toString());
   try {
     final client = new http.Client();
@@ -22,6 +23,7 @@ Future<Stream<Category>> getAppCategories({String id}) async {
         .map((data) {
       print("printing categories data");
       // print(data);
+      Helper.storeAppMainCategoryInSP(data, prefs);
       return Category.fromJSON(data);
     });
   } on SocketException {

@@ -39,14 +39,17 @@ class _ShowReviewsState extends State<ShowReviews> {
                 : Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 50.0),
-                      child: Text("No reviews!"),
+                      child: const Text("No reviews!"),
                     ),
                   ),
             const SizedBox(
               height: 50.0,
             ),
             !widget.canAddReview
-                ? null
+                ? const SizedBox(
+                    height: 0.0,
+                    width: 0.0,
+                  )
                 : TextButton(
                     onPressed: () async {
                       // show custom dialog

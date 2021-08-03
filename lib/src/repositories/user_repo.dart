@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/models/subscriptions.dart';
-import 'package:ironbox/src/models/user.dart';
+import '../helpers/helper.dart';
+import '../models/reviews.dart';
+import '../models/subscriptions.dart';
+import '../models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:global_configuration/global_configuration.dart';
@@ -68,6 +68,7 @@ Future<User> registerUserWithImage(User user) async {
     "is_trainer": user.isTrainer,
     "price": user.price ?? "",
     "video": user.videoUrl ?? "",
+    "specialisation_category": user.specializationCategory.toString() ?? "",
     "isPremiumUser":
         user.isPremiumUser != null ? user.isPremiumUser.toString() : "0",
     "height": user.height.toString(),
@@ -105,7 +106,7 @@ Future<User> registerUserWithImage(User user) async {
     var res = await http.Response.fromStream(response);
 
     print(response.statusCode);
-    // print(res.body);
+    print(res.body);
     Map jsonBody = json.decode(res.body);
     print("json body: $jsonBody");
     print("has errors: ${jsonBody.containsKey("errors")}");
@@ -143,7 +144,7 @@ Future<User> login(User user) async {
     );
     print("login params: ${json.encode(user.toMap())}");
     print(response.statusCode);
-    // print(response.body);
+    print(response.body);
 
     Map jsonBody = json.decode(response.body);
     // print("user object: ${jsonBody['data'][0]}");
