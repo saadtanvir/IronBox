@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ironbox/src/models/reviews.dart';
-import 'package:ironbox/src/widgets/userCircularAatar.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../models/reviews.dart';
+import '../widgets/userCircularAatar.dart';
 
 class ReviewCardWidget extends StatelessWidget {
   final Review review;
@@ -49,38 +50,37 @@ class ReviewCardWidget extends StatelessWidget {
                           fontSize: 15.0,
                         ),
                       ),
-                      Text(
-                        "${review.trainee.userName}",
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      // review.rating != null
-                      //     ? Row(
-                      //         mainAxisAlignment: MainAxisAlignment.end,
-                      //         children: [
-                      //           Expanded(
-                      //             // flex: 1,
-                      //             child: Text(
-                      //               "${review.rating}",
-                      //               overflow: TextOverflow.ellipsis,
-                      //             ),
-                      //           ),
-                      //           const Expanded(
-                      //             // flex: 1,
-                      //             child: const Icon(
-                      //               Icons.star,
-                      //               color: Colors.yellow,
-                      //               size: 20.0,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       )
-                      //     : const SizedBox(
-                      //         height: 0.0,
-                      //       ),
+                      review.rating != null && review.rating.isNotEmpty
+                          ? RatingBar.builder(
+                              initialRating: double.parse(review.rating),
+                              allowHalfRating: false,
+                              ignoreGestures: true,
+                              glowColor: Colors.yellow,
+                              itemSize: 15.0,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                    ),
+                                    const SizedBox(
+                                      width: 5.0,
+                                    ),
+                                  ],
+                                );
+                              },
+                              onRatingUpdate: (rating) {
+                                // print(rating);
+                                // givenRating = rating.toInt();
+                                // data['rating'] = givenRating.toString();
+                              },
+                            )
+                          : const SizedBox(
+                              height: 0.0,
+                              width: 0.0,
+                            ),
                     ],
                   ),
                   const Spacer(),

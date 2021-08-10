@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/models/userWorkoutPlanDetails.dart';
-import 'package:ironbox/src/widgets/listTileWidgets/planWeeksTile.dart';
+import '../helpers/helper.dart';
+import '../models/userWorkoutPlanDetails.dart';
+import '../widgets/listTileWidgets/planWeeksTile.dart';
 
 class DisplayWeeksListWidget extends StatelessWidget {
   final int totalWeeks;

@@ -1,14 +1,14 @@
-import 'package:ironbox/src/controllers/user_controller.dart';
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/widgets/T_miniRegistration.dart';
-import 'package:ironbox/src/widgets/miniRegistrationWidget.dart';
+import '../controllers/user_controller.dart';
+import '../helpers/helper.dart';
+import '../widgets/T_miniRegistration.dart';
+import '../widgets/miniRegistrationWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/widgets/userCircularAatar.dart';
-import 'package:ironbox/src/widgets/userProfile.dart';
+import '../widgets/userCircularAatar.dart';
+import '../widgets/userProfile.dart';
 import '../helpers/app_constants.dart' as Constants;
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
+import '../repositories/user_repo.dart' as userRepo;
 
 class DrawerWidget extends StatefulWidget {
   @override
@@ -118,6 +118,29 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
+          userRepo.currentUser.value.isTrainer == "1"
+              ? ListTile(
+                  onTap: () {
+                    // go on user profile page
+                    Get.to(UserProfilePage(
+                        userRepo.currentUser.value,
+                        userRepo.currentUser.value.role.capitalizeFirst ==
+                                Constants.joinAsA[1]
+                            ? true
+                            : false));
+                  },
+                  leading: Icon(
+                    Icons.checklist,
+                    color: Theme.of(context).focusColor.withOpacity(1),
+                  ),
+                  title: Text(
+                    "Plan Requests",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                )
+              : SizedBox(
+                  height: 0.0,
+                ),
           const Divider(
             thickness: 2.0,
           ),

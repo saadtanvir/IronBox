@@ -1,11 +1,8 @@
-import 'package:ironbox/src/helpers/helper.dart';
-import 'package:ironbox/src/pages/dietPackages.dart';
-import 'package:ironbox/src/pages/home.dart';
-import 'package:ironbox/src/pages/logs.dart';
-import 'package:ironbox/src/pages/showTrainers.dart';
-import 'package:ironbox/src/pages/trainingPackages.dart';
-import 'package:ironbox/src/pages/workoutPackages.dart';
-import 'package:ironbox/src/widgets/drawerWidget.dart';
+import '../pages/home.dart';
+import '../pages/logs.dart';
+import '../pages/showTrainers.dart';
+import '../pages/workoutPackages.dart';
+import '../widgets/drawerWidget.dart';
 import 'package:flutter/material.dart';
 import '../helpers/app_constants.dart' as Constants;
 

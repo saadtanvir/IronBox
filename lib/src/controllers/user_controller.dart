@@ -1,3 +1,4 @@
+import '../pages/T_addPlanQuestionsOnLogin.dart';
 import '../models/reviews.dart';
 import '../models/subscriptions.dart';
 import '../widgets/T_trainerProfileDetails.dart';
@@ -140,11 +141,15 @@ class UserController extends GetxController {
         if (value.isTrainee == "1") {
           Get.offAllNamed('/BottomNavBarPage');
         } else if (value.isTrainer == "1") {
-          if (value.accountStatus == 1) {
-            Get.offAllNamed('/TrainerBtmNavBar');
+          if (value.questionareStatus == 1) {
+            if (value.accountStatus == 1) {
+              Get.offAllNamed('/TrainerBtmNavBar');
+            } else {
+              Get.offAllNamed('/TrainerUnApprovedAccount');
+            }
           } else {
-            print("Trainer not approved yet");
-            Get.offAllNamed('/TrainerUnApprovedAccount');
+            Get.offAll(TrainerAddPlanQuestionsOnLogin(
+                value.specializationCategory, value.accountStatus));
           }
         }
       } else {

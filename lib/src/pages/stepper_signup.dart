@@ -1112,9 +1112,6 @@ class _StepperSignupState extends State<StepperSignup> {
                 } else if (_signupFormKey.currentState.validate()) {
                   print("saving form state");
                   _signupFormKey.currentState.save();
-                  // Todo:
-                  // create registerUser function in user controller
-                  // call that function
                   // _con.registerUser(context);
                   _con.registerUserWithImage(context);
                 }

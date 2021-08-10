@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import 'package:ironbox/src/widgets/dialogs/confirmationDialog.dart';
 import '../../controllers/plans_controller.dart';
 import '../../widgets/showWOPUser/selectDay.dart';
 import '../../models/userWorkoutPlan.dart';
@@ -26,16 +30,52 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
   }
 
   void _addWeekToLogs(int weekNum) async {
-    // show popup if week num is > 1 and
+    // show alert if week num is > 1 and
     // progress of previous week is not 100
     // add week to logs
-    _con.addUserWOPWeekToLogs(
-        context: context,
-        planId: widget.plan.id,
-        weekNum: weekNum,
-        categoryId: "1",
-        createdBy: userRepo.currentUser.value.id,
-        userId: userRepo.currentUser.value.id);
+
+    if (weekNum > 1) {
+      int previousWeekNum = weekNum - 1;
+      double previousWeekProgress = Helper.getUserWOPWeekProgress(
+          previousWeekNum.toString(), widget.plan.detailsList);
+      if (previousWeekProgress < 100.0) {
+        // show alert
+        // previous week is not completed
+        // do you want to map next week from Monday ?
+        // if yes, then map
+        Platform.isAndroid
+            ? showDialog(
+                context: context,
+                builder: (_) {
+                  return _confirmationDialog(
+                      "Your previous week is incomplete. Do you want to add this to logs?",
+                      weekNum);
+                })
+            : showCupertinoDialog(
+                context: context,
+                builder: (_) {
+                  return _confirmationDialog(
+                      "Your previous week is incomplete. Do you want to add this to logs?",
+                      weekNum);
+                });
+      } else {
+        _con.addUserWOPWeekToLogs(
+            context: context,
+            planId: widget.plan.id,
+            weekNum: weekNum,
+            categoryId: "1",
+            createdBy: userRepo.currentUser.value.id,
+            userId: userRepo.currentUser.value.id);
+      }
+    } else {
+      _con.addUserWOPWeekToLogs(
+          context: context,
+          planId: widget.plan.id,
+          weekNum: weekNum,
+          categoryId: "1",
+          createdBy: userRepo.currentUser.value.id,
+          userId: userRepo.currentUser.value.id);
+    }
   }
 
   @override
@@ -61,5 +101,109 @@ class _SelectUserWOPWeekState extends State<SelectUserWOPWeek> {
         ),
       ),
     );
+  }
+
+  Widget _confirmationDialog(String message, int weekNum) {
+    return Platform.isAndroid
+        ? AlertDialog(
+            title: Text(
+              message,
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                  _con.addUserWOPWeekToLogs(
+                      context: context,
+                      planId: widget.plan.id,
+                      weekNum: weekNum,
+                      categoryId: "1",
+                      createdBy: userRepo.currentUser.value.id,
+                      userId: userRepo.currentUser.value.id);
+                },
+                // style: ButtonStyle(
+                //   padding: MaterialStateProperty.all(
+                //     const EdgeInsets.symmetric(horizontal: 30.0),
+                //   ),
+                //   backgroundColor:
+                //       MaterialStateProperty.all(Theme.of(context).primaryColor),
+                //   overlayColor: MaterialStateProperty.all(
+                //     Theme.of(context).accentColor.withOpacity(0.3),
+                //   ),
+                //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                //     RoundedRectangleBorder(
+                //       borderRadius:
+                //           const BorderRadius.all(Radius.circular(15.0)),
+                //     ),
+                //   ),
+                // ),
+                child: Text(
+                  "Yes",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                },
+                // style: ButtonStyle(
+                //   padding: MaterialStateProperty.all(
+                //     const EdgeInsets.symmetric(horizontal: 30.0),
+                //   ),
+                //   backgroundColor:
+                //       MaterialStateProperty.all(Theme.of(context).primaryColor),
+                //   overlayColor: MaterialStateProperty.all(
+                //     Theme.of(context).accentColor.withOpacity(0.3),
+                //   ),
+                //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                //     RoundedRectangleBorder(
+                //       borderRadius:
+                //           const BorderRadius.all(Radius.circular(15.0)),
+                //     ),
+                //   ),
+                // ),
+                child: Text(
+                  "No",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : CupertinoAlertDialog(
+            content: Text(
+              message,
+            ),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Get.back();
+                  _con.addUserWOPWeekToLogs(
+                      context: context,
+                      planId: widget.plan.id,
+                      weekNum: weekNum,
+                      categoryId: "1",
+                      createdBy: userRepo.currentUser.value.id,
+                      userId: userRepo.currentUser.value.id);
+                },
+                child: Text("Yes"),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text("No"),
+              ),
+            ],
+          );
   }
 }

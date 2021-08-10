@@ -28,6 +28,7 @@ class User {
   int isPremiumUser = 0;
   int accountStatus = 0;
   int specializationCategory; // 1 = Workout, 2 = Diet
+  int questionareStatus; // 0 = incomplete, 1 = completed
   double height;
   double weight;
   double calBurn;
@@ -56,6 +57,9 @@ class User {
       age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       specializationCategory = jsonMap['specialisation_category'] != null
           ? int.parse(jsonMap['specialisation_category'])
+          : 0;
+      questionareStatus = jsonMap['questionare_status'] != null
+          ? int.parse(jsonMap['questionare_status'])
           : 0;
       isTrainee = jsonMap['is_trainee'] != null
           ? jsonMap['is_trainee'].toString()

@@ -127,7 +127,9 @@ class HomeController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print("fetching categories from home controller");
     print(categories.length);
-    // categories.clear();
+    if (categories.length > 0) {
+      categories.clear();
+    }
     categories.addAll(Helper.getAppMainCategoryList(prefs));
     if (categories.isEmpty) {
       final Stream<Category> stream = await categoryRepo.getAppCategories();

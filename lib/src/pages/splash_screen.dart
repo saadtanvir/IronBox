@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
-import 'package:ironbox/src/controllers/splash_controller.dart';
-import 'package:ironbox/src/pages/create_acc_screen.dart';
-import 'package:ironbox/src/pages/getstarted_screen.dart';
-import 'package:ironbox/src/pages/home.dart';
+import '../controllers/splash_controller.dart';
+import '../pages/getstarted_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/repositories/user_repo.dart' as userRepo;
+import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 
 class SplashScreen extends StatefulWidget {
@@ -49,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _redirectUser(true);
     // compute(_redirectUser, true);
