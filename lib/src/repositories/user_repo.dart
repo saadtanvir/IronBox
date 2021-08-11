@@ -202,6 +202,43 @@ Future<User> updateCurrentUser(User u) async {
   }
 }
 
+Future<Stream<User>> fetchSpecialisedTrainers(
+    String specialisationCategoryId) async {
+  Uri uri = Helper.getUri('get_trainers/category=$specialisationCategoryId');
+  // Map<String, dynamic> _queryParams = {"category": category};
+  // uri = uri.replace(queryParameters: _queryParams);
+  print("URI For Getting Specialised Trainers: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    // print(streamedRest.stream.map((data) {
+    //   print(data);
+    // }));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          // print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing specialised trainers data");
+          // print(data);
+          return User.fromJSON(data);
+        });
+  } on SocketException {
+    print("User Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("User Repo Error: $e");
+    return new Stream.value(new User.fromJSON({}));
+  }
+}
+
 Future<Stream<User>> fetchAllTrainers() async {
   Uri uri = Helper.getUri('trainers');
   // Map<String, dynamic> _queryParams = {"category": category};

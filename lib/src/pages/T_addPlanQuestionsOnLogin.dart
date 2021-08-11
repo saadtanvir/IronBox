@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_questions_controller.dart';
 import 'package:ironbox/src/widgets/lists/questionsList.dart';
 import '../repositories/user_repo.dart' as userRepo;
+import '../helpers/app_constants.dart' as Constants;
 
 class TrainerAddPlanQuestionsOnLogin extends StatefulWidget {
   final int questionsCategory; // specialisation category of trainer
@@ -35,9 +36,14 @@ class _TrainerAddPlanQuestionsOnLoginState
     return isAdded;
   }
 
-  void removeQuestion(String questionId) {
+  Future<bool> removeQuestion(String questionId) async {
     // remove question
     // decrease count
+    bool isRemoved = await _con.removeQuestionFromTrainer(
+        userRepo.currentUser.value.id, questionId);
+    questionAddedCount.value =
+        isRemoved ? questionAddedCount.value - 1 : questionAddedCount.value;
+    return isRemoved;
   }
 
   @override
@@ -82,10 +88,20 @@ class _TrainerAddPlanQuestionsOnLoginState
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              "${Constants.select_questions_to_be_answered}",
+            ),
+          ),
           Obx(() {
             return _con.planQuestionsList.isEmpty &&
                     !_con.doneFetchingPlanQuestions.value
-                ? Center(child: CircularProgressIndicator())
+                ? Center(
+                    child: Padding(
+                    padding: const EdgeInsets.only(top: 80.0),
+                    child: CircularProgressIndicator(),
+                  ))
                 : _con.planQuestionsList.isEmpty &&
                         _con.doneFetchingPlanQuestions.value
                     ? Center(
@@ -101,6 +117,7 @@ class _TrainerAddPlanQuestionsOnLoginState
                         removeQuestion: removeQuestion,
                       );
           }),
+          // SizedBox(height: 50.0,),
           Align(
             alignment: Alignment.center,
             child: Obx(() {

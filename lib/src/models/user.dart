@@ -24,10 +24,10 @@ class User {
   String isTrainee;
   String price;
   String videoUrl;
+  String specializationCategory; // 1 = Workout, 2 = Diet
   int age;
   int isPremiumUser = 0;
   int accountStatus = 0;
-  int specializationCategory; // 1 = Workout, 2 = Diet
   int questionareStatus; // 0 = incomplete, 1 = completed
   double height;
   double weight;
@@ -54,10 +54,10 @@ class User {
       avatar = jsonMap['imgUrl'] != null ? jsonMap['imgUrl'] : '';
       injury = jsonMap['injury'] != null ? jsonMap['injury'] : '';
       workout = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
-      age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       specializationCategory = jsonMap['specialisation_category'] != null
-          ? int.parse(jsonMap['specialisation_category'])
-          : 0;
+          ? jsonMap['specialisation_category']
+          : '0';
+      age = jsonMap['age'] != null ? int.parse(jsonMap['age'].toString()) : 0;
       questionareStatus = jsonMap['questionare_status'] != null
           ? int.parse(jsonMap['questionare_status'])
           : 0;

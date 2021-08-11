@@ -75,3 +75,41 @@ Future<bool> addQuestionForTrainer(
     return false;
   }
 }
+
+Future<bool> removeQuestionFromTrainer(
+    String trainerId, String originalQuestionId) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}delete_trainer_question/trainer_id=$trainerId/question_id=$originalQuestionId";
+  print("URL FOR Deleting Question From Trainer: $url");
+  // Map<String, String> body = {
+  //   "trainer_id": trainerId,
+  //   "question_id": questionId,
+  //   "optional": isOptional
+  // };
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.delete(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    // Map responseBody = json.decode(response.body);
+    // print(responseBody.containsKey("errors"));
+
+    if (response.statusCode == 200) {
+      print("question deleted successfully");
+      return true;
+    } else {
+      print("throws exception");
+      throw new Exception(response.body);
+    }
+  } catch (e) {
+    print("error caught");
+    print("Plans Question Repo Error: $e");
+    return false;
+  }
+}

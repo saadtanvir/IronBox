@@ -107,6 +107,19 @@ class CustomQuestionCard extends StatelessWidget {
                 onPressed: () async {
                   if (isQuestionAdded.value) {
                     // call remove func
+                    bool check = await removeQuestion(question.id);
+                    if (check) {
+                      Fluttertoast.showToast(
+                        msg: "Question Removed",
+                        backgroundColor: Colors.grey[600],
+                      );
+                      isQuestionAdded.value = false;
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Failed!",
+                        backgroundColor: Colors.grey[600],
+                      );
+                    }
                   } else {
                     bool check = await addQuestion(
                         question.id, isOptional.value ? 1 : 0);

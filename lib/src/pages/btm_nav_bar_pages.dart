@@ -1,3 +1,5 @@
+import 'package:ironbox/src/pages/dietSection.dart';
+
 import '../pages/home.dart';
 import '../pages/logs.dart';
 import '../pages/showTrainers.dart';
@@ -36,12 +38,6 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           break;
         case 1:
           {
-            // app category index is 0
-            // and name is training
-            // widget.currentPage = TrainingPackages(
-            //   Constants.appCategoriesName[0],
-            //   parentScaffoldKey: widget.scaffoldKey,
-            // );
             widget.currentPage = ShowTrainers(
               parentScaffoldKey: widget.scaffoldKey,
             );
@@ -61,15 +57,13 @@ class _BottomNavigationBarPagesState extends State<BottomNavigationBarPages> {
           break;
         case 3:
           {
-            // widget.currentPage = DietPackages(
-            //   Constants.appCategoriesName[2],
-            //   parentScaffoldKey: widget.scaffoldKey,
-            // );
+            widget.currentPage = DietSection(
+              parentScaffoldKey: widget.scaffoldKey,
+            );
           }
           break;
         case 4:
           {
-            // widget.currentPage = Center(child: Text("logs"));
             widget.currentPage = LogsScreen(
               parentScaffoldKey: widget.scaffoldKey,
             );

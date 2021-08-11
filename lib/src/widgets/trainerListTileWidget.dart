@@ -36,7 +36,9 @@ class TrainerListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text("${trainer.userRating.rating.toStringAsFixed(1)}"),
+                Text(trainer.userRating.rating != null
+                    ? trainer.userRating.rating.toStringAsFixed(1)
+                    : "0"),
                 const Icon(
                   Icons.star,
                   color: Colors.yellow,

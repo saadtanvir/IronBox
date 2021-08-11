@@ -724,7 +724,7 @@ class _StepperSignupState extends State<StepperSignup> {
                               onChanged: (val) {
                                 print(val);
                                 specialisedCategoryGroupValue.value = val;
-                                _con.user.specializationCategory = 1;
+                                _con.user.specializationCategory = '1';
                               },
                             );
                           }),
@@ -754,7 +754,7 @@ class _StepperSignupState extends State<StepperSignup> {
                               onChanged: (val) {
                                 print(val);
                                 specialisedCategoryGroupValue.value = val;
-                                _con.user.specializationCategory = 2;
+                                _con.user.specializationCategory = '2';
                               },
                             );
                           }),
@@ -1097,8 +1097,7 @@ class _StepperSignupState extends State<StepperSignup> {
             TextButton(
               onPressed: () async {
                 FocusScope.of(context).requestFocus(new FocusNode());
-                if (!_signupFormKey.currentState.validate() ||
-                    _con.user.specializationCategory == null) {
+                if (!_signupFormKey.currentState.validate()) {
                   // get this snackbar from helper in future
                   // by sending message and title
                   Get.snackbar(

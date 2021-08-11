@@ -132,6 +132,8 @@ const String username_shouldnt_contain_spaces =
     "Username shouldnt contain spaces, @, +";
 const String switch_to_trainee_mode = "Switch to Trainee mode";
 const String tell_us_about_yourself = "Tell us about yourself";
+const String select_questions_to_be_answered =
+    "Select questions that must be answered before requesting a custom plan from you.";
 const String this_field_cannt_be_empty = "This field cannt be empty";
 const String pass_should_contain_special_char =
     "Password should contain a special character";

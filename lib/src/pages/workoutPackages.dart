@@ -1,11 +1,6 @@
 import 'package:ironbox/src/controllers/plans_controller.dart';
-import 'package:ironbox/src/models/plan.dart';
 import 'package:ironbox/src/models/workoutPlan.dart';
-import 'package:ironbox/src/pages/appPlanDetails.dart';
 import 'package:ironbox/src/widgets/plansListWidget.dart';
-import 'package:ironbox/src/widgets/searchBarWidget.dart';
-import 'package:ironbox/src/widgets/trainingPlansWidget.dart';
-import 'package:ironbox/src/widgets/showMessageIconWidget.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

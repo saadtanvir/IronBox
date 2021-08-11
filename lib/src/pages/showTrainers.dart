@@ -82,7 +82,7 @@ class _ShowTrainersState extends State<ShowTrainers> {
                                 child: const CircularProgressIndicator()),
                           )
                         : TrainersListWidget(_con.trainers, onTrainerTap);
-              })
+              }),
             ],
           ),
         ),

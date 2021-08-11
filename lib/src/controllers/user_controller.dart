@@ -149,7 +149,7 @@ class UserController extends GetxController {
             }
           } else {
             Get.offAll(TrainerAddPlanQuestionsOnLogin(
-                value.specializationCategory, value.accountStatus));
+                int.parse(value.specializationCategory), value.accountStatus));
           }
         }
       } else {

@@ -42,4 +42,18 @@ class PlanQuestionController extends GetxController {
     }).whenComplete(() {});
     return isAdded;
   }
+
+  Future<bool> removeQuestionFromTrainer(
+      String trainerId, String originalQuestionId) async {
+    bool isRemoved;
+    await questionRepo
+        .removeQuestionFromTrainer(trainerId, originalQuestionId)
+        .then((value) {
+      isRemoved = value;
+    }).onError((error, stackTrace) {
+      print("Plan Question Controller Error: $error");
+      isRemoved = false;
+    }).whenComplete(() {});
+    return isRemoved;
+  }
 }
