@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ironbox/src/models/user.dart';
+import 'package:ironbox/src/pages/answerQuestionsPage.dart';
 import 'package:ironbox/src/widgets/trainerProfileDetails.dart';
 import '../helpers/app_constants.dart' as Constants;
 
@@ -25,7 +27,9 @@ class _RequestDietPlanScreenState extends State<RequestDietPlanScreen> {
           children: [
             TrainerProfileDetailsWidget(trainer: widget.trainer),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(AnswerQuestions(trainer: widget.trainer));
+              },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 20.0),

@@ -22,6 +22,7 @@ class CustomQuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("question statement: ${question.statement}");
     return Card(
       // margin: EdgeInsets.zero,
       color: Colors.blueGrey[400],
@@ -87,80 +88,97 @@ class CustomQuestionCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Obx(() {
-                return Checkbox(
-                    value: isOptional.value,
-                    activeColor: Colors.white,
-                    checkColor: Theme.of(context).primaryColor,
-                    onChanged: (value) {
-                      isOptional.value = value;
-                    });
-              }),
-              const Text(
-                "Optional",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              canAdd || canRemove
+                  ? Obx(() {
+                      return Checkbox(
+                          value: isOptional.value,
+                          activeColor: Colors.white,
+                          checkColor: Theme.of(context).primaryColor,
+                          onChanged: (value) {
+                            isOptional.value = value;
+                          });
+                    })
+                  : const SizedBox(
+                      width: 0.0,
+                      height: 0.0,
+                    ),
+              canAdd || canRemove
+                  ? const Text(
+                      "Optional",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )
+                  : const SizedBox(
+                      height: 0.0,
+                      width: 0.0,
+                    ),
               Spacer(),
-              TextButton(
-                onPressed: () async {
-                  if (isQuestionAdded.value) {
-                    // call remove func
-                    bool check = await removeQuestion(question.id);
-                    if (check) {
-                      Fluttertoast.showToast(
-                        msg: "Question Removed",
-                        backgroundColor: Colors.grey[600],
-                      );
-                      isQuestionAdded.value = false;
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "Failed!",
-                        backgroundColor: Colors.grey[600],
-                      );
-                    }
-                  } else {
-                    bool check = await addQuestion(
-                        question.id, isOptional.value ? 1 : 0);
-                    if (check) {
-                      Fluttertoast.showToast(
-                        msg: "Question Added",
-                        backgroundColor: Colors.grey[600],
-                      );
-                      isQuestionAdded.value = true;
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "Failed!",
-                        backgroundColor: Colors.grey[600],
-                      );
-                    }
-                  }
-                },
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(horizontal: 5.0),
-                  ),
-                  backgroundColor:
-                      MaterialStateProperty.all(Theme.of(context).primaryColor),
-                  overlayColor: MaterialStateProperty.all(
-                    Theme.of(context).accentColor,
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              canAdd || canRemove
+                  ? TextButton(
+                      onPressed: () async {
+                        if (isQuestionAdded.value) {
+                          // call remove func
+                          bool check = await removeQuestion(question.id);
+                          if (check) {
+                            Fluttertoast.showToast(
+                              msg: "Question Removed",
+                              backgroundColor: Colors.grey[600],
+                            );
+                            isQuestionAdded.value = false;
+                          } else {
+                            Fluttertoast.showToast(
+                              msg: "Failed!",
+                              backgroundColor: Colors.grey[600],
+                            );
+                          }
+                        } else {
+                          bool check = await addQuestion(
+                              question.id, isOptional.value ? 1 : 0);
+                          if (check) {
+                            Fluttertoast.showToast(
+                              msg: "Question Added",
+                              backgroundColor: Colors.grey[600],
+                            );
+                            isQuestionAdded.value = true;
+                          } else {
+                            Fluttertoast.showToast(
+                              msg: "Failed!",
+                              backgroundColor: Colors.grey[600],
+                            );
+                          }
+                        }
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 5.0),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
+                        overlayColor: MaterialStateProperty.all(
+                          Theme.of(context).accentColor,
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      child: Obx(() {
+                        return Text(
+                          isQuestionAdded.value ? "Remove" : "Add",
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        );
+                      }),
+                    )
+                  : const SizedBox(
+                      height: 0.0,
+                      width: 0.0,
                     ),
-                  ),
-                ),
-                child: Obx(() {
-                  return Text(
-                    isQuestionAdded.value ? "Remove" : "Add",
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  );
-                }),
-              ),
               const SizedBox(
                 width: 5.0,
               ),
