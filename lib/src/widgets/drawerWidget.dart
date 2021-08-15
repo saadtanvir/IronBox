@@ -1,3 +1,4 @@
+import '../pages/T_planRequestsPage.dart';
 import '../controllers/user_controller.dart';
 import '../helpers/helper.dart';
 import '../widgets/T_miniRegistration.dart';
@@ -121,13 +122,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           userRepo.currentUser.value.isTrainer == "1"
               ? ListTile(
                   onTap: () {
-                    // go on user profile page
-                    Get.to(UserProfilePage(
-                        userRepo.currentUser.value,
-                        userRepo.currentUser.value.role.capitalizeFirst ==
-                                Constants.joinAsA[1]
-                            ? true
-                            : false));
+                    if (userRepo.currentUser.value.isTrainer == "1") {
+                      Get.to(
+                        TrainerPlanRequestsPage(),
+                        transition: Transition.rightToLeft,
+                      );
+                    } else {
+                      // go to trainee request page
+                    }
                   },
                   leading: Icon(
                     Icons.checklist,

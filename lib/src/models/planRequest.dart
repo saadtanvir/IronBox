@@ -6,7 +6,7 @@ class PlanRequest {
   String trainerId;
   String traineeId;
   String date;
-  // 1 = pending, 2 = accepted, 3 = rejected, 4 = in process, 5 = completed
+  // 1 = pending, 2 = accepted, 3 = rejected, 4 = completed
   int reqStatus;
   int category; // 1 = workout, 2 = diet
   int paymentStatus; // 0 and 1
@@ -22,11 +22,13 @@ class PlanRequest {
       trainerId = jsonMap['trainer_id'] != null ? jsonMap['trainer_id'] : "";
       traineeId = jsonMap['trainee_id'] != null ? jsonMap['trainee_id'] : "";
       date = jsonMap['created_date'] != null ? jsonMap['created_date'] : "";
-      reqStatus = jsonMap['status'] != null ? jsonMap['status'] : "";
-      category = jsonMap['category'] != null ? jsonMap['category'] : "";
-      paymentStatus =
-          jsonMap['payment_status'] != null ? jsonMap['payment_status'] : "";
-      price = jsonMap['price'] != null ? jsonMap['price'] : "";
+      reqStatus = jsonMap['status'] != null ? int.parse(jsonMap['status']) : 0;
+      category =
+          jsonMap['category'] != null ? int.parse(jsonMap['category']) : 0;
+      paymentStatus = jsonMap['payment_status'] != null
+          ? int.parse(jsonMap['payment_status'])
+          : 0;
+      price = jsonMap['price'] != null ? double.parse(jsonMap['price']) : 0.0;
       trainee = jsonMap['trainee'] != null
           ? User.fromJSON(jsonMap['trainee'][0])
           : User.fromJSON({});

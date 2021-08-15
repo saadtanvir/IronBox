@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ironbox/src/models/planRequest.dart';
-import 'package:ironbox/src/models/questions.dart';
+import 'package:ironbox/src/helpers/helper.dart';
+import '../models/planRequest.dart';
+import '../models/questions.dart';
 import 'package:ironbox/src/models/trainerQuestion.dart';
-import 'package:ironbox/src/repositories/plan_questions_repo.dart'
-    as questionRepo;
+import '../helpers/app_constants.dart' as Constants;
+import '../repositories/plan_questions_repo.dart' as questionRepo;
 
 class PlanQuestionController extends GetxController {
   PlanRequest planRequest = new PlanRequest();
@@ -16,14 +17,43 @@ class PlanQuestionController extends GetxController {
   // var doneFetchingTrainerQuestions = false.obs;
   var doneFetchingQuestions = false.obs;
 
-  void submitPlanRequest(List<Map> answers) async {
-    questionRepo
-        .submitCustomPlanRequest(planRequest, answers)
-        .then((value) {
-          print(value);
-        })
-        .onError((error, stackTrace) {})
-        .whenComplete(() {});
+  void submitPlanRequest(BuildContext context, List<Map> answers) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    questionRepo.submitCustomPlanRequest(planRequest, answers).then((value) {
+      if (value) {
+        GetBar snackBar = new GetBar(
+          title: "Success",
+          message: "Request submitted successfully.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          duration: new Duration(seconds: 2),
+        );
+
+        Get.showSnackbar(snackBar).then((value) {
+          Get.back();
+        });
+      } else {
+        Get.snackbar(
+          Constants.failed,
+          Constants.check_internet_connection,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+        );
+      }
+    }).onError((error, stackTrace) {
+      Get.snackbar(
+        Constants.failed,
+        Constants.check_internet_connection,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+      print("Plan questions controller Error: $error");
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   void getQuestions(String categoryId) async {

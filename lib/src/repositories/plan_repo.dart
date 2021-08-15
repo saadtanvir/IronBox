@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:ironbox/src/models/planRequest.dart';
+
 import '../helpers/helper.dart';
 import '../models/plan.dart';
 import 'package:flutter/cupertino.dart';
@@ -946,5 +948,35 @@ Future<bool> editPlan(Plan plan) async {
     print("error caught");
     print(e.toString());
     return false;
+  }
+}
+
+Future<Stream<PlanRequest>> getTrainerPlanRequests(String trainerId) async {
+  Uri uri = Helper.getUri('get_plan_request/$trainerId');
+  print("URI For Getting Trainer Plan Requests: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          // print(data);
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing request data");
+          // print(data);
+          return PlanRequest.fromJSON(data);
+        });
+  } on SocketException {
+    print("Plan Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("Plan Repo Error: $e");
+    return new Stream.value(new PlanRequest.fromJSON({}));
   }
 }

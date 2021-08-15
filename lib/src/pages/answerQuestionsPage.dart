@@ -42,8 +42,11 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
-                "Answer the following questions to submit your request",
+              const Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: const Text(
+                  "Answer the following questions to submit your request",
+                ),
               ),
               Obx(() {
                 return _con.trainerQuestions.isEmpty &&
@@ -142,17 +145,32 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
                     _con.planRequest.category = 2;
                     _con.planRequest.date =
                         _dateFormatter.format(DateTime.now());
-                    _con.planRequest.paymentStatus = 1;
+                    _con.planRequest.paymentStatus = 1; // decide after payment
                     _con.planRequest.price = double.parse(widget.trainer.price);
                     _con.planRequest.reqStatus = 1;
                     _con.planRequest.traineeId = userRepo.currentUser.value.id;
                     _con.planRequest.trainerId = widget.trainer.id;
                     // make payment
+                    // show confirmation dialog for payment confirmation
                     // call submit req func from payment func
-                    _con.submitPlanRequest(answers);
+                    _con.submitPlanRequest(context, answers);
                   }
                 },
-                child: Text("Submit"),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Theme.of(context).primaryColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  "Submit",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),

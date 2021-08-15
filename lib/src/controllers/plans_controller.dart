@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ironbox/src/models/planRequest.dart';
 import '../widgets/dialogs/successDialog.dart';
 import '../helpers/helper.dart';
 import '../models/category.dart';
@@ -39,8 +40,11 @@ class PlansController extends GetxController {
   var workoutPlanGamesList = List<WorkoutPlanGame>().obs;
   var workoutPlanExercisesList = List<WorkoutPlanExercise>().obs;
   var workoutPlanReviews = List<Review>().obs;
-  var createdWorkoutPlanId = "".obs;
   var categories = List<Category>().obs;
+
+  // variables
+  OverlayEntry loader;
+  var createdWorkoutPlanId = "".obs;
 
   // progress variables
   var doneFetchingPlans = false.obs;
@@ -51,7 +55,8 @@ class PlansController extends GetxController {
   var doneFetchingGameExercises = false.obs;
   var doneAddingExercise = false.obs;
   var doneFetchingReviews = false.obs;
-  OverlayEntry loader;
+
+  //////////////////////////////////////////////////////////////////////////////
   PlansController() {
     print("constructor of plans controller");
   }
@@ -689,6 +694,7 @@ class PlansController extends GetxController {
         colorText: Colors.white,
         duration: new Duration(seconds: 1),
       );
+      print("Plans Controller Error: $error");
     }).whenComplete(() {
       Helper.hideLoader(loader);
     });
