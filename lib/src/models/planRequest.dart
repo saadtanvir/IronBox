@@ -5,13 +5,13 @@ class PlanRequest {
   String id;
   String trainerId;
   String traineeId;
-  String date;
+  String dateRequested;
   // 1 = pending, 2 = accepted, 3 = rejected, 4 = completed
   int reqStatus;
   int category; // 1 = workout, 2 = diet
   int paymentStatus; // 0 and 1
   double price;
-  User trainee;
+  User user; // trainee for trainer and vice versa
   List<RequestQuestionAnswer> requestQuestionsAnswersList;
 
   PlanRequest();
@@ -21,7 +21,8 @@ class PlanRequest {
       id = jsonMap['id'] != null ? jsonMap['id'].toString() : "";
       trainerId = jsonMap['trainer_id'] != null ? jsonMap['trainer_id'] : "";
       traineeId = jsonMap['trainee_id'] != null ? jsonMap['trainee_id'] : "";
-      date = jsonMap['created_date'] != null ? jsonMap['created_date'] : "";
+      dateRequested =
+          jsonMap['created_date'] != null ? jsonMap['created_date'] : "";
       reqStatus = jsonMap['status'] != null ? int.parse(jsonMap['status']) : 0;
       category =
           jsonMap['category'] != null ? int.parse(jsonMap['category']) : 0;
@@ -29,7 +30,7 @@ class PlanRequest {
           ? int.parse(jsonMap['payment_status'])
           : 0;
       price = jsonMap['price'] != null ? double.parse(jsonMap['price']) : 0.0;
-      trainee = jsonMap['trainee'] != null
+      user = jsonMap['trainee'] != null
           ? User.fromJSON(jsonMap['trainee'][0])
           : User.fromJSON({});
       requestQuestionsAnswersList =
@@ -51,7 +52,7 @@ class PlanRequest {
     map['status'] = reqStatus.toString();
     map['price'] = price.toString();
     map['category'] = category.toString();
-    map['created_date'] = date;
+    map['created_date'] = dateRequested;
     map['payment_status'] = paymentStatus.toString();
     // map['answers'] =
     return map;

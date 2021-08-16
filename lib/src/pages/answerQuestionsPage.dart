@@ -143,7 +143,7 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
                   } else {
                     _questionAnswerFormKey.currentState.save();
                     _con.planRequest.category = 2;
-                    _con.planRequest.date =
+                    _con.planRequest.dateRequested =
                         _dateFormatter.format(DateTime.now());
                     _con.planRequest.paymentStatus = 1; // decide after payment
                     _con.planRequest.price = double.parse(widget.trainer.price);

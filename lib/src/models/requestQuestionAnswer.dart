@@ -1,8 +1,11 @@
+import 'package:ironbox/src/models/trainerQuestion.dart';
+
 class RequestQuestionAnswer {
   String id;
   String statement;
   String trainerQuestionId;
   String planRequestId;
+  TrainerQuestion trainerQuestion;
 
   RequestQuestionAnswer();
 
@@ -17,6 +20,9 @@ class RequestQuestionAnswer {
           : "";
       planRequestId =
           jsonMap['plan_request_id'] != null ? jsonMap['plan_request_id'] : "";
+      trainerQuestion = jsonMap['trainer_question'] != null
+          ? TrainerQuestion.fromJSON(jsonMap['trainer_question'][0])
+          : TrainerQuestion.fromJSON({});
     } catch (e) {
       print("Request Question Answer Model Error: $e");
     }

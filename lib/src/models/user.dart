@@ -19,19 +19,19 @@ class User {
   String role;
   String userToken;
   String avatar;
-  String workout;
+  String dailyWorkoutTime;
   String isTrainer;
   String isTrainee;
   String price;
   String videoUrl;
   String specializationCategory; // 1 = Workout, 2 = Diet
   int age;
-  int isPremiumUser = 0;
+  int isPremiumUser = 0; // ads or without ads
   int accountStatus = 0;
   int questionareStatus; // 0 = incomplete, 1 = completed
   double height;
   double weight;
-  double calBurn;
+  double calBurn; // daily calories burn
   File avatarImageFile;
   Rating userRating;
   // to check if user is logged in or not
@@ -53,7 +53,7 @@ class User {
       password = jsonMap['password'] != null ? jsonMap['password'] : '';
       avatar = jsonMap['imgUrl'] != null ? jsonMap['imgUrl'] : '';
       injury = jsonMap['injury'] != null ? jsonMap['injury'] : '';
-      workout = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
+      dailyWorkoutTime = jsonMap['workout'] != null ? jsonMap['workout'] : "0";
       specializationCategory = jsonMap['specialisation_category'] != null
           ? jsonMap['specialisation_category']
           : '0';

@@ -18,7 +18,7 @@ Future<bool> submitCustomPlanRequest(
     "status": request.reqStatus.toString(),
     "price": request.price.toString(),
     "category": request.category.toString(),
-    "created_date": request.date,
+    "created_date": request.dateRequested,
     "payment_status": request.paymentStatus.toString(),
     "answers": reqAnswers,
   };

@@ -20,8 +20,6 @@ class PlanRequestController extends GetxController {
     Stream<PlanRequest> stream =
         await planRepo.getTrainerPlanRequests(trainerId);
     stream.listen((PlanRequest request) {
-      print("payment status");
-      print(request.paymentStatus);
       trainerPlanRequests.add(request);
       switch (request.reqStatus) {
         case 1:

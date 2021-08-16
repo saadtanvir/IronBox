@@ -49,6 +49,12 @@ class Helper {
     }
   }
 
+  static String getUserBMI(double heightInInches, double weightInKg) {
+    double heightInMeter = heightInInches * 0.0254;
+    double heightSquare = heightInMeter * heightInMeter;
+    return (weightInKg / heightSquare).toStringAsFixed(1);
+  }
+
   static RegExp passwordRegExp() {
     return new RegExp(r'[_!@#$%^&*(),.?":{}|<>]');
   }

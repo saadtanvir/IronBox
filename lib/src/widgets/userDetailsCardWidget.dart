@@ -261,7 +261,7 @@ class _UserDetailsCardWidgetState extends State<UserDetailsCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "${widget.currentUser.workout}m",
+                          "${widget.currentUser.dailyWorkoutTime}m",
                           style: Helper.of(context)
                               .textStyle(size: 12.0, font: FontWeight.bold),
                         ),

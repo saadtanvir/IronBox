@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_request_controller.dart';
-import 'package:ironbox/src/controllers/plans_controller.dart';
+import 'package:ironbox/src/models/planRequest.dart';
+import 'package:ironbox/src/pages/T_planRequestDetailsPage.dart';
+import 'package:ironbox/src/widgets/planRequests/T_completedPlanRequestWidget.dart';
 import 'package:ironbox/src/widgets/planRequests/T_newPlanRequestsWidget.dart';
+import 'package:ironbox/src/widgets/planRequests/T_pendingPlanRequestsWidget.dart';
+import 'package:ironbox/src/widgets/planRequests/T_rejectedPlanRequestsWidget.dart';
 import '../helpers/app_constants.dart' as Constants;
 import '../repositories/user_repo.dart' as userRepo;
 
@@ -32,6 +36,14 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
     ),
   ];
 
+  void onRequestTap(PlanRequest request) {
+    // go on request details
+    Get.to(
+      TrainerPlanRequestDetailsPage(request: request),
+      transition: Transition.rightToLeft,
+    );
+  }
+
   @override
   void initState() {
     _con.getTrainerPlanRequests(userRepo.currentUser.value.id);
@@ -53,7 +65,6 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
           ),
         ),
         body: TabBarView(
-          // physics: NeverScrollableScrollPhysics(),
           children: [
             Obx(() {
               return _con.trainerNewPlanRequests.isEmpty &&
@@ -63,13 +74,64 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                     )
                   : _con.trainerNewPlanRequests.isEmpty &&
                           _con.doneFetchingRequests.value
-                      ? Center(child: Text("No new requests!"))
+                      ? Center(
+                          child: Text("No new requests!"),
+                        )
                       : TrainerNewPlanRequestsWidget(
-                          newPlanRequestsList: _con.trainerNewPlanRequests);
+                          newPlanRequestsList: _con.trainerNewPlanRequests,
+                          onRequestTap: onRequestTap,
+                        );
             }),
-            Text("Pending"),
-            Text("Completed"),
-            Text("Rejected"),
+            Obx(() {
+              return _con.trainerPendingPlanRequests.isEmpty &&
+                      !_con.doneFetchingRequests.value
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : _con.trainerPendingPlanRequests.isEmpty &&
+                          _con.doneFetchingRequests.value
+                      ? Center(
+                          child: Text("No pending requests!"),
+                        )
+                      : TrainerPendingPlanRequestsListWidget(
+                          pendingRequestsList: _con.trainerPendingPlanRequests,
+                          onRequestTap: onRequestTap,
+                        );
+            }),
+            Obx(() {
+              return _con.trainerCompletedPlanRequests.isEmpty &&
+                      !_con.doneFetchingRequests.value
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : _con.trainerPendingPlanRequests.isEmpty &&
+                          _con.doneFetchingRequests.value
+                      ? Center(
+                          child: Text("No completed request!"),
+                        )
+                      : TrainerCompletedPlanRequestsListWidget(
+                          completedPlanRequests:
+                              _con.trainerCompletedPlanRequests,
+                          onRequestTap: onRequestTap,
+                        );
+            }),
+            Obx(() {
+              return _con.trainerRejectedPlanRequests.isEmpty &&
+                      !_con.doneFetchingRequests.value
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : _con.trainerRejectedPlanRequests.isEmpty &&
+                          _con.doneFetchingRequests.value
+                      ? Center(
+                          child: Text("No rejected request!"),
+                        )
+                      : TrainerRejectedPlanRequestsListWidget(
+                          rejectedRequestsList:
+                              _con.trainerRejectedPlanRequests,
+                          onRequestTap: onRequestTap,
+                        );
+            }),
           ],
         ),
       ),
