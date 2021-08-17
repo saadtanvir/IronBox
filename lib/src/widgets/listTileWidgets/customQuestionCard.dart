@@ -22,7 +22,6 @@ class CustomQuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("question statement: ${question.statement}");
     return Card(
       // margin: EdgeInsets.zero,
       color: Colors.blueGrey[400],

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/planRequest.dart';
-import '../repositories/plan_repo.dart' as planRepo;
+import '../repositories/plan_request_repo.dart' as planRequestRepo;
 import '../helpers/app_constants.dart' as Constants;
 import 'package:get/get.dart';
 
@@ -16,9 +18,12 @@ class PlanRequestController extends GetxController {
   void getTrainerPlanRequests(String trainerId) async {
     doneFetchingRequests.value = false;
     trainerPlanRequests.clear();
-
+    trainerNewPlanRequests.clear();
+    trainerPendingPlanRequests.clear();
+    trainerRejectedPlanRequests.clear();
+    trainerCompletedPlanRequests.clear();
     Stream<PlanRequest> stream =
-        await planRepo.getTrainerPlanRequests(trainerId);
+        await planRequestRepo.getTrainerPlanRequests(trainerId);
     stream.listen((PlanRequest request) {
       trainerPlanRequests.add(request);
       switch (request.reqStatus) {
@@ -56,5 +61,34 @@ class PlanRequestController extends GetxController {
       doneFetchingRequests.value = true;
       print("done getting requests");
     });
+  }
+
+  Future<bool> changePlanRequestStatus(
+      BuildContext context, String requestId, String status) async {
+    OverlayEntry loader = Helper.overlayLoader(context);
+    Overlay.of(context).insert(loader);
+    bool isChanged;
+    await planRequestRepo.changeRequestStatus(requestId, status).then((value) {
+      isChanged = value;
+      GetBar snackBar = new GetBar(
+        title: "Success",
+        message: "Requested accepted.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        duration: new Duration(seconds: 2),
+      );
+      Get.showSnackbar(snackBar).then((value) {
+        Get.back();
+      });
+    }).onError((error, stackTrace) {
+      isChanged = false;
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+    return isChanged;
+  }
+
+  Future<void> refreshPlanRequests(String trainerId) async {
+    getTrainerPlanRequests(trainerId);
   }
 }
