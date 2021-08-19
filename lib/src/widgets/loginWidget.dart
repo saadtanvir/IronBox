@@ -94,13 +94,22 @@ class _LoginWidgetState extends State<LoginWidget> {
               const SizedBox(height: 15.0),
               TextButton(
                   onPressed: () async {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    if (!_loginFormKey.currentState.validate()) {
-                      return;
-                    } else if (_loginFormKey.currentState.validate()) {
-                      _loginFormKey.currentState.save();
-                      // await _validate();
-                      _con.login(context);
+                    if (Constants.connectionStatus.hasConnection) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      if (!_loginFormKey.currentState.validate()) {
+                        return;
+                      } else if (_loginFormKey.currentState.validate()) {
+                        _loginFormKey.currentState.save();
+                        // await _validate();
+                        _con.login(context);
+                      }
+                    } else {
+                      Get.snackbar(
+                        "No internet!",
+                        Constants.check_internet_connection,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        colorText: Theme.of(context).scaffoldBackgroundColor,
+                      );
                     }
                   },
                   child: Text(

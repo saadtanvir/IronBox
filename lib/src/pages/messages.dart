@@ -102,9 +102,10 @@ class _MessagesState extends State<Messages> {
                                 if (contactDocs.isEmpty) {
                                   // no chats
                                   return Center(
-                                      child: Text(
-                                    "No chats. Start chatting now",
-                                  ));
+                                    child: Text(
+                                      "No chats. Start chatting now",
+                                    ),
+                                  );
                                 } else {
                                   print("contacts list");
                                   print(contactDocs);

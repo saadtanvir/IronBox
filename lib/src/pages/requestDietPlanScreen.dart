@@ -28,7 +28,8 @@ class _RequestDietPlanScreenState extends State<RequestDietPlanScreen> {
             TrainerProfileDetailsWidget(trainer: widget.trainer),
             TextButton(
               onPressed: () {
-                Get.to(AnswerQuestions(trainer: widget.trainer));
+                Get.to(AnswerQuestions(trainer: widget.trainer),
+                    transition: Transition.rightToLeft);
               },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(

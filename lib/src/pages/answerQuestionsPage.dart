@@ -68,18 +68,24 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
                               child: Column(
                                 children: [
                                   ListView.separated(
-                                    itemCount: _con.trainerQuestions.length,
+                                    itemCount: _con.trainerQuestions.length + 1,
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return CustomQuestionCard(
-                                          question: _con.trainerQuestions[index]
-                                              .originalQuestion,
-                                          canAdd: false,
-                                          canRemove: false);
+                                      return index <
+                                              _con.trainerQuestions.length
+                                          ? CustomQuestionCard(
+                                              question: _con
+                                                  .trainerQuestions[index]
+                                                  .originalQuestion,
+                                              canAdd: false,
+                                              canRemove: false)
+                                          : const SizedBox(
+                                              height: 0.0,
+                                              width: 0.0,
+                                            );
                                     },
                                     separatorBuilder: (context, index) {
-                                      // Question question = _con.trainerQuestions[index].question;
                                       return Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: TextFormField(

@@ -20,7 +20,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: Helper.of(context).getScreenHeight() * 0.50,
             decoration: BoxDecoration(
               color: Constants.primaryColor,
-              image: DecorationImage(
+              image: const DecorationImage(
                   image: const AssetImage("assets/img/bgimg.png"),
                   fit: BoxFit.fill),
             ),
@@ -53,7 +53,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   Get.offAll(CreateAccount());
                 },
                 child: const Image(
-                  image: AssetImage("assets/img/btn_get_started.png"),
+                  image: const AssetImage("assets/img/btn_get_started.png"),
                   fit: BoxFit.fill,
                 ),
               ),

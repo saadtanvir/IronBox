@@ -127,7 +127,36 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                   : _con.trainerNewPlanRequests.isEmpty &&
                           _con.doneFetchingRequests.value
                       ? Center(
-                          child: Text("No new requests!"),
+                          child: TextButton(
+                            onPressed: () {
+                              _con.refreshPlanRequests(
+                                  userRepo.currentUser.value.id);
+                            },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                              overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).accentColor.withOpacity(0.3),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "No new request!.\nTap to refresh",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
                       : RefreshIndicator(
                           onRefresh: () {
@@ -149,7 +178,36 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                   : _con.trainerPendingPlanRequests.isEmpty &&
                           _con.doneFetchingRequests.value
                       ? Center(
-                          child: Text("No pending requests!"),
+                          child: TextButton(
+                            onPressed: () {
+                              _con.refreshPlanRequests(
+                                  userRepo.currentUser.value.id);
+                            },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                              overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).accentColor.withOpacity(0.3),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "No pending request!.\nTap to refresh",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
                       : RefreshIndicator(
                           onRefresh: () {
@@ -172,7 +230,36 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                   : _con.trainerCompletedPlanRequests.isEmpty &&
                           _con.doneFetchingRequests.value
                       ? Center(
-                          child: Text("No completed request!"),
+                          child: TextButton(
+                            onPressed: () {
+                              _con.refreshPlanRequests(
+                                  userRepo.currentUser.value.id);
+                            },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                              overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).accentColor.withOpacity(0.3),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "No completed request!.\nTap to refresh",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
                       : RefreshIndicator(
                           onRefresh: () {
@@ -195,7 +282,36 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                   : _con.trainerRejectedPlanRequests.isEmpty &&
                           _con.doneFetchingRequests.value
                       ? Center(
-                          child: Text("No rejected request!"),
+                          child: TextButton(
+                            onPressed: () {
+                              _con.refreshPlanRequests(
+                                  userRepo.currentUser.value.id);
+                            },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                              overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).accentColor.withOpacity(0.3),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "No rejected request!.\nTap to refresh",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
                       : RefreshIndicator(
                           onRefresh: () {

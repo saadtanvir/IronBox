@@ -22,7 +22,10 @@ class _DietSectionState extends State<DietSection> {
   void onDiettitianTap(User dietitian) {
     // show trainer details
     // with request custom plan button
-    Get.to(RequestDietPlanScreen(trainer: dietitian));
+    Get.to(
+      RequestDietPlanScreen(trainer: dietitian),
+      transition: Transition.rightToLeft,
+    );
   }
 
   @override

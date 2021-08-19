@@ -1096,23 +1096,32 @@ class _StepperSignupState extends State<StepperSignup> {
             ),
             TextButton(
               onPressed: () async {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                if (!_signupFormKey.currentState.validate()) {
-                  // get this snackbar from helper in future
-                  // by sending message and title
+                if (Constants.connectionStatus.hasConnection) {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                  if (!_signupFormKey.currentState.validate()) {
+                    // get this snackbar from helper in future
+                    // by sending message and title
+                    Get.snackbar(
+                      "Failed !",
+                      "${Constants.invalidInput}",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      colorText: Theme.of(context).scaffoldBackgroundColor,
+                    );
+                    return;
+                  } else if (_signupFormKey.currentState.validate()) {
+                    print("saving form state");
+                    _signupFormKey.currentState.save();
+                    // _con.registerUser(context);
+                    _con.registerUserWithImage(context);
+                  }
+                } else {
                   Get.snackbar(
-                    "Failed !",
-                    "${Constants.invalidInput}",
-                    snackPosition: SnackPosition.BOTTOM,
+                    "No internet!",
+                    Constants.check_internet_connection,
                     backgroundColor: Theme.of(context).primaryColor,
                     colorText: Theme.of(context).scaffoldBackgroundColor,
                   );
-                  return;
-                } else if (_signupFormKey.currentState.validate()) {
-                  print("saving form state");
-                  _signupFormKey.currentState.save();
-                  // _con.registerUser(context);
-                  _con.registerUserWithImage(context);
                 }
               },
               child: const Text(

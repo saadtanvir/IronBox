@@ -184,8 +184,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
               } else {
                 // show snackbar that check your connectivity
                 Get.snackbar(
-                  "Connection Error !",
-                  "Check your connection and try again.",
+                  "No internet!",
+                  Constants.check_internet_connection,
                   backgroundColor: Theme.of(context).primaryColor,
                   colorText: Theme.of(context).scaffoldBackgroundColor,
                 );

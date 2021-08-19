@@ -255,52 +255,48 @@ class _TrainerPlanRequestDetailsPageState
                           );
                   },
                   separatorBuilder: (context, index) {
-                    return index <
-                            widget.request.requestQuestionsAnswersList.length
-                        ? Card(
-                            color: Colors.grey[300],
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 5.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Wrap(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Answer:",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(widget
-                                              .request
-                                              .requestQuestionsAnswersList[
-                                                  index]
-                                              .statement
-                                              .isNotEmpty ||
-                                          widget
-                                                  .request
-                                                  .requestQuestionsAnswersList[
-                                                      index]
-                                                  .statement !=
-                                              null
-                                      ? widget
-                                          .request
-                                          .requestQuestionsAnswersList[index]
-                                          .statement
-                                      : "N/A"),
-                                ],
+                    return Card(
+                      color: Colors.grey[300],
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 5.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Wrap(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Answer:",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0,
                               ),
                             ),
-                          )
-                        : const SizedBox(
-                            height: 0.0,
-                            width: 0.0,
-                          );
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(widget
+                                        .request
+                                        .requestQuestionsAnswersList[index]
+                                        .statement
+                                        .isNotEmpty ||
+                                    widget
+                                            .request
+                                            .requestQuestionsAnswersList[index]
+                                            .statement !=
+                                        null
+                                ? widget
+                                    .request
+                                    .requestQuestionsAnswersList[index]
+                                    .statement
+                                : "N/A"),
+                          ],
+                        ),
+                      ),
+                    );
+                    // : const SizedBox(
+                    //     height: 0.0,
+                    //     width: 0.0,
+                    //   );
                   },
                 ),
                 const SizedBox(
