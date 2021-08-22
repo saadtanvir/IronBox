@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/category.dart';
 import 'package:ironbox/src/models/logs.dart';
-import 'package:ironbox/src/repositories/logs_repo.dart';
+import 'package:ironbox/src/repositories/logs_repo.dart' as logsRepo;
 import 'package:get/get.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -103,11 +102,7 @@ class HomeController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     doneFetchingChallenges.value = false;
     upComingChallenges.clear();
-    // if (prefs.containsKey(Constants.spk_upcomingChallengesList)) {
-    //   upComingChallenges
-    //       .assignAll(prefs.getStringList(Constants.spk_upcomingChallengesList));
-    // }
-    final Stream<Logs> stream = await getUserLogs(userId, date);
+    final Stream<Logs> stream = await logsRepo.getUserLogs(userId, date);
     stream.listen((Logs log) {
       print(log.isCompleted);
       if (log.isCompleted == 0) {
@@ -132,6 +127,7 @@ class HomeController extends GetxController {
     }
     categories.addAll(Helper.getAppMainCategoryList(prefs));
     if (categories.isEmpty) {
+      print("have to fetch main categories from server");
       final Stream<Category> stream = await categoryRepo.getAppCategories();
 
       stream.listen((Category _category) {
@@ -170,7 +166,7 @@ class HomeController extends GetxController {
   Future<void> refreshHome() async {
     getChildCategories();
     getSubCategories();
-    listenForCategories();
+    // listenForCategories();
     getUpComingChallenges(userRepo.currentUser.value.id, currentDate);
   }
 }

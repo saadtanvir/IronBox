@@ -7,7 +7,7 @@ import '../models/category.dart';
 import 'package:http/http.dart' as http;
 
 Future<Stream<Category>> getAppCategories({String id}) async {
-  print("getting categories");
+  print("getting main categories");
   Uri uri = Helper.getUri('categories');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   print('URI for gettiing categories: ' + uri.toString());

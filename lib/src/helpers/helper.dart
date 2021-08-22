@@ -175,12 +175,16 @@ class Helper {
   static List<Category> getAppMainCategoryList(SharedPreferences prefs) {
     List<Category> categoryList = [];
     if (prefs.containsKey(Constants.spk_appMainCategoriesList)) {
+      print("got main categories in SP");
       List<String> temp =
           prefs.getStringList(Constants.spk_appMainCategoriesList);
+      print("main categories length");
+      print(temp.length);
       temp.forEach((String cat) {
         categoryList.add(Category.fromJSON(json.decode(cat)));
       });
     }
+    // prefs.remove(Constants.spk_appMainCategoriesList);
     return categoryList;
   }
 

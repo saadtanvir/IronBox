@@ -51,7 +51,7 @@ Future<bool> submitCustomPlanRequest(
   }
 }
 
-Future<Stream<Question>> getPlanQuestions(String categoryId) async {
+Future<Stream<Question>> getCustomPlanQuestions(String categoryId) async {
   Uri uri = Helper.getUri('all_questions/category=$categoryId');
   print("URI For Getting All Questions: ${uri.toString()}");
   try {
@@ -112,6 +112,40 @@ Future<Stream<TrainerQuestion>> getTrainerQuestions(String trainerId) async {
   }
 }
 
+// get all questions but exclude that are already added in Trainer Questions Table
+Future<Stream<Question>> getAllTrainerExcludedQuestions(
+    String trainerId, String categoryId) async {
+  Uri uri = Helper.getUri(
+      'trainer_all_questions/trainer_id=$trainerId/category=$categoryId');
+  print(
+      "URI For Getting All Questions except already added in Trainer Questions: ${uri.toString()}");
+  try {
+    final client = new http.Client();
+    final streamedRest = await client.send(http.Request('get', uri));
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          // print("plans response: $data");
+          return Helper.getData(data);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("printing all questions excluding trainer questions");
+          // print(data);
+          return Question.fromJSON(data);
+        });
+  } on SocketException {
+    print("Plan Questions Repo Socket Exception: ");
+    throw SocketException("Socket exception");
+  } catch (e) {
+    print("error caught");
+    print("Plan Questions Repo Error: $e");
+    return new Stream.value(new Question.fromJSON({}));
+  }
+}
+
 // to add question in TrainerQuestion table
 Future<bool> addQuestionForTrainer(
     {@required String questionId,
@@ -158,12 +192,45 @@ Future<bool> removeQuestionFromTrainer(
     String trainerId, String originalQuestionId) async {
   String url =
       "${GlobalConfiguration().get("api_base_url")}delete_trainer_question/trainer_id=$trainerId/question_id=$originalQuestionId";
-  print("URL FOR Deleting Question From Trainer: $url");
+  print("URL FOR Deleting Trainer Question From Original Question Id: $url");
   // Map<String, String> body = {
   //   "trainer_id": trainerId,
   //   "question_id": questionId,
   //   "optional": isOptional
   // };
+  try {
+    Uri uri = Uri.parse(url);
+    final client = new http.Client();
+    final response = await client.delete(
+      uri,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8'
+      },
+    );
+
+    print(response.statusCode);
+    // Map responseBody = json.decode(response.body);
+    // print(responseBody.containsKey("errors"));
+
+    if (response.statusCode == 200) {
+      print("question deleted successfully");
+      return true;
+    } else {
+      print("throws exception");
+      throw new Exception(response.body);
+    }
+  } catch (e) {
+    print("error caught");
+    print("Plans Question Repo Error: $e");
+    return false;
+  }
+}
+
+Future<bool> deleteTrainerQuestionFromTrainerTable(
+    String trainerQuestionId) async {
+  String url =
+      "${GlobalConfiguration().get("api_base_url")}delete_trainer_question/$trainerQuestionId";
+  print("URL FOR Deleting Trainer Question From Trainer Table: $url");
   try {
     Uri uri = Uri.parse(url);
     final client = new http.Client();

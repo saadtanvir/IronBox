@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_questions_controller.dart';
+import 'package:ironbox/src/models/questions.dart';
 import 'package:ironbox/src/widgets/lists/questionsList.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
@@ -26,9 +27,9 @@ class _TrainerAddPlanQuestionsOnLoginState
   PlanQuestionController _con = Get.put(PlanQuestionController());
   var questionAddedCount = 0.obs;
 
-  Future<bool> addQuestion(String questionId, int isOptional) async {
+  Future<bool> addQuestion(Question question, int isOptional) async {
     bool isAdded = await _con.addQuestionForTrainer(
-        questionId: questionId,
+        questionId: question.id,
         trainerId: userRepo.currentUser.value.id,
         isOptional: isOptional.toString());
     questionAddedCount.value =
@@ -36,11 +37,11 @@ class _TrainerAddPlanQuestionsOnLoginState
     return isAdded;
   }
 
-  Future<bool> removeQuestion(String questionId) async {
+  Future<bool> removeQuestion(Question question) async {
     // remove question
     // decrease count
     bool isRemoved = await _con.removeQuestionFromTrainer(
-        userRepo.currentUser.value.id, questionId);
+        userRepo.currentUser.value.id, question.id);
     questionAddedCount.value =
         isRemoved ? questionAddedCount.value - 1 : questionAddedCount.value;
     return isRemoved;
@@ -48,7 +49,7 @@ class _TrainerAddPlanQuestionsOnLoginState
 
   @override
   void initState() {
-    _con.getQuestions(widget.questionsCategory.toString());
+    _con.getCustomPlanQuestions(widget.questionsCategory.toString());
     super.initState();
   }
 

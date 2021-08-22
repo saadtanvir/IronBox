@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_request_controller.dart';
 import 'package:ironbox/src/models/planRequest.dart';
-import 'package:ironbox/src/pages/T_addPlanQuestionsOnLogin.dart';
 import 'package:ironbox/src/pages/T_editPlanQuestions.dart';
 import 'package:ironbox/src/pages/T_planRequestDetailsPage.dart';
 import 'package:ironbox/src/widgets/planRequests/T_completedPlanRequestWidget.dart';
@@ -22,7 +20,8 @@ class TrainerPlanRequestsPage extends StatefulWidget {
 }
 
 class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
-  PlanRequestController _con = Get.put(PlanRequestController());
+  PlanRequestController _con = Get.put(PlanRequestController(),
+      tag: Constants.trainerEditCustomPlanQuestions);
   List<Tab> planRequestTypes = [
     Tab(
       text: "New",
@@ -151,7 +150,7 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                               ),
                             ),
                             child: Text(
-                              "No new request!.\nTap to refresh",
+                              "No new request !\nTap to refresh",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -202,7 +201,7 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                               ),
                             ),
                             child: Text(
-                              "No pending request!.\nTap to refresh",
+                              "No pending request !\nTap to refresh",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -254,7 +253,7 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                               ),
                             ),
                             child: Text(
-                              "No completed request!.\nTap to refresh",
+                              "No completed request !\nTap to refresh",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -306,7 +305,7 @@ class _TrainerPlanRequestsPageState extends State<TrainerPlanRequestsPage> {
                               ),
                             ),
                             child: Text(
-                              "No rejected request!.\nTap to refresh",
+                              "No rejected request !\nTap to refresh",
                               style: TextStyle(
                                 color: Colors.white,
                               ),

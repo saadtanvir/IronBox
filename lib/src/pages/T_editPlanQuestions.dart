@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_questions_controller.dart';
-import 'package:ironbox/src/widgets/lists/questionsList.dart';
+import 'package:ironbox/src/models/trainerQuestion.dart';
+import 'package:ironbox/src/widgets/lists/trainerQuestionsList.dart';
+import 'package:ironbox/src/widgets/planRequests/T_addQuestionsWidget.dart';
 import '../repositories/user_repo.dart' as userRepo;
 import '../helpers/app_constants.dart' as Constants;
 
@@ -14,7 +17,22 @@ class TrainerEditPlanQuestions extends StatefulWidget {
 }
 
 class _TrainerEditPlanQuestionsState extends State<TrainerEditPlanQuestions> {
-  PlanQuestionController _con = Get.put(PlanQuestionController());
+  PlanQuestionController _con = Get.put(PlanQuestionController(),
+      tag: Constants.trainerEditCustomPlanQuestions);
+
+  void onTrainerQuestionRemove(TrainerQuestion question) async {
+    bool isDeleted =
+        await _con.deleteTrainerQuestionFromTrainerTable(question.id);
+    if (isDeleted) {
+      _con.trainerQuestions.removeWhere((element) {
+        return element.id == question.id;
+      });
+      Fluttertoast.showToast(
+          msg: "Question Removed", backgroundColor: Colors.grey[600]);
+    } else {
+      Get.snackbar("Failed!", Constants.check_internet_connection);
+    }
+  }
 
   @override
   void initState() {
@@ -27,15 +45,50 @@ class _TrainerEditPlanQuestionsState extends State<TrainerEditPlanQuestions> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Questions"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(
+                TrainerAddPlanQuestionsWidget(),
+                fullscreenDialog: true,
+              );
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Obx((){
-            //   return _con.trainerQuestions.isEmpty && !_con.doneFetchingQuestions.value ? Center(child: CircularProgressIndicator(),) : _con.trainerQuestions.isEmpty && _con.doneFetchingQuestions.value ? Center(child: Text("No question added!"),) :
-            // }),
-          ],
-        ),
+        // physics: NeverScrollableScrollPhysics(),
+        child: Obx(() {
+          return _con.trainerQuestions.isEmpty &&
+                  !_con.doneFetchingQuestions.value
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(80.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : _con.trainerQuestions.isEmpty &&
+                      _con.doneFetchingQuestions.value
+                  ? Center(
+                      child: Text("No question added!"),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () {
+                        return _con
+                            .getTrainerQuestions(userRepo.currentUser.value.id);
+                      },
+                      child: TrainerQuestionsList(
+                        trainerQuestionsList: _con.trainerQuestions,
+                        canAdd: false,
+                        canRemove: true,
+                        onRemove: onTrainerQuestionRemove,
+                      ),
+                    );
+        }),
       ),
     );
   }

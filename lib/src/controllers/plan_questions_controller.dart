@@ -56,11 +56,13 @@ class PlanQuestionController extends GetxController {
     });
   }
 
-  void getQuestions(String categoryId) async {
+  // get complete question set
+  void getCustomPlanQuestions(String categoryId) async {
     doneFetchingPlanQuestions.value = false;
     planQuestionsList.clear();
 
-    Stream<Question> stream = await questionRepo.getPlanQuestions(categoryId);
+    Stream<Question> stream =
+        await questionRepo.getCustomPlanQuestions(categoryId);
     stream.listen((Question question) {
       planQuestionsList.add(question);
     }, onError: (e) {
@@ -70,7 +72,8 @@ class PlanQuestionController extends GetxController {
     });
   }
 
-  void getTrainerQuestions(String trainerId) async {
+  // get trainer questions from Trainer Question table
+  Future<void> getTrainerQuestions(String trainerId) async {
     doneFetchingQuestions.value = false;
     trainerQuestions.clear();
 
@@ -83,6 +86,19 @@ class PlanQuestionController extends GetxController {
     }, onDone: () {
       doneFetchingQuestions.value = true;
     });
+  }
+
+  void getAllQuestionsExcludingTrainerQuestions(
+      String trainerId, String categoryId) async {
+    doneFetchingPlanQuestions.value = false;
+    planQuestionsList.clear();
+    Stream<Question> stream = await questionRepo.getAllTrainerExcludedQuestions(
+        trainerId, categoryId);
+    stream.listen((Question question) {
+      planQuestionsList.add(question);
+    }, onError: (e) {
+      print("Plan Question Controller Error: $e");
+    }, onDone: () {});
   }
 
   Future<bool> addQuestionForTrainer(
@@ -116,5 +132,25 @@ class PlanQuestionController extends GetxController {
       isRemoved = false;
     }).whenComplete(() {});
     return isRemoved;
+  }
+
+  Future<bool> deleteTrainerQuestionFromTrainerTable(
+      String trainerQuestionId) async {
+    bool isDeleted;
+    await questionRepo
+        .deleteTrainerQuestionFromTrainerTable(trainerQuestionId)
+        .then((value) {
+      isDeleted = value;
+      // if (value) {
+      // trainerQuestions.removeWhere((question) {
+      //   return question.id == trainerQuestionId;
+      // });
+      // trainerQuestions.clear();
+      // }
+    }).onError((error, stackTrace) {
+      print("Plan Question Controller Error: $error");
+      isDeleted = false;
+    }).whenComplete(() {});
+    return isDeleted;
   }
 }
