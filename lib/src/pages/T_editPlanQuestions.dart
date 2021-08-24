@@ -60,35 +60,42 @@ class _TrainerEditPlanQuestionsState extends State<TrainerEditPlanQuestions> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        // physics: NeverScrollableScrollPhysics(),
-        child: Obx(() {
-          return _con.trainerQuestions.isEmpty &&
-                  !_con.doneFetchingQuestions.value
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(80.0),
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : _con.trainerQuestions.isEmpty &&
-                      _con.doneFetchingQuestions.value
-                  ? Center(
-                      child: Text("No question added!"),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () {
-                        return _con
-                            .getTrainerQuestions(userRepo.currentUser.value.id);
-                      },
-                      child: TrainerQuestionsList(
-                        trainerQuestionsList: _con.trainerQuestions,
-                        canAdd: false,
-                        canRemove: true,
-                        onRemove: onTrainerQuestionRemove,
-                      ),
-                    );
-        }),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return _con.getTrainerQuestions(userRepo.currentUser.value.id);
+        },
+        child: SingleChildScrollView(
+          // physics: AlwaysScrollableScrollPhysics(),
+          // primary: true,
+          child: Column(
+            children: [
+              Obx(() {
+                return _con.trainerQuestions.isEmpty &&
+                        !_con.doneFetchingQuestions.value
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(80.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : _con.trainerQuestions.isEmpty &&
+                            _con.doneFetchingQuestions.value
+                        ? Center(
+                            child: Text("No question added!"),
+                          )
+                        : TrainerQuestionsList(
+                            trainerQuestionsList: _con.trainerQuestions,
+                            canAdd: false,
+                            canRemove: true,
+                            onRemove: onTrainerQuestionRemove,
+                          );
+              }),
+              const SizedBox(
+                height: 10.0,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

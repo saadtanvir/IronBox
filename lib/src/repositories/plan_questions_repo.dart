@@ -99,7 +99,7 @@ Future<Stream<TrainerQuestion>> getTrainerQuestions(String trainerId) async {
         .expand((data) => (data as List))
         .map((data) {
           print("trainer question data: ");
-          // print(data);
+          print(data);
           return TrainerQuestion.fromJSON(data);
         });
   } on SocketException {

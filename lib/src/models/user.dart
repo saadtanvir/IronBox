@@ -28,7 +28,7 @@ class User {
   int age;
   int isPremiumUser = 0; // ads or without ads
   int accountStatus = 0;
-  int questionareStatus; // 0 = incomplete, 1 = completed
+  int questionareStatus; // 0 = incomplete, 1 = completed (custom plan questions)
   double height;
   double weight;
   double calBurn; // daily calories burn

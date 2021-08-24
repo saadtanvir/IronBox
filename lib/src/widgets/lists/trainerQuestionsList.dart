@@ -19,19 +19,21 @@ class TrainerQuestionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: trainerQuestionsList.length,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return TrainerQuestionCardWidget(
-          question: trainerQuestionsList[index],
-          canAdd: canAdd,
-          canRemove: canRemove,
-          onRemove: onRemove,
-          onAdd: onAdd,
-        );
-      },
+    return Container(
+      child: ListView.builder(
+        itemCount: trainerQuestionsList.length,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return TrainerQuestionCardWidget(
+            question: trainerQuestionsList[index],
+            canAdd: canAdd,
+            canRemove: canRemove,
+            onRemove: onRemove,
+            onAdd: onAdd,
+          );
+        },
+      ),
     );
   }
 }

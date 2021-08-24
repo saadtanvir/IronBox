@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_questions_controller.dart';
 import 'package:ironbox/src/models/questions.dart';
-import 'package:ironbox/src/models/trainerQuestion.dart';
 import 'package:ironbox/src/widgets/lists/questionsList.dart';
-import 'package:ironbox/src/widgets/lists/trainerQuestionsList.dart';
 import '../../repositories/user_repo.dart' as userRepo;
 import '../../helpers/app_constants.dart' as Constants;
 
@@ -26,6 +24,11 @@ class _TrainerAddPlanQuestionsWidgetState
         questionId: question.id,
         trainerId: userRepo.currentUser.value.id,
         isOptional: isOptional.toString());
+    if (isAdded) {
+      _con.planQuestionsList.removeWhere((element) {
+        return element.id == question.id;
+      });
+    }
     return isAdded;
   }
 

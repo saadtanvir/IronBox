@@ -10,7 +10,7 @@ class WorkoutPlan {
   String coverImg;
   String videoUrl;
   String muscleType;
-  String categoryId;
+  String categoryId; // home or gym
   String version;
   String whatsnew;
   int status;

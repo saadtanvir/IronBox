@@ -169,7 +169,11 @@ class CustomQuestionCard extends StatelessWidget {
                         ),
                         child: Obx(() {
                           return Text(
-                            isQuestionAdded.value ? "Remove" : "Add",
+                            isQuestionAdded.value && canRemove
+                                ? "Remove"
+                                : !isQuestionAdded.value && canAdd
+                                    ? "Add"
+                                    : "",
                             style: const TextStyle(
                               color: Colors.white,
                             ),
