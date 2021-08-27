@@ -165,6 +165,7 @@ const Color messageSearchBarColor = Color(0xffF0F3F4);
 const String createWorkoutPlanController = "createWorkoutPlanController";
 const String userWOPDetailsController = "userWorkoutPlanDetailsController";
 const String trainerEditCustomPlanQuestions = "trainerEditCustomPlanQuestions";
+const String dietPlanCreationController = "dietPlanCreationController";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

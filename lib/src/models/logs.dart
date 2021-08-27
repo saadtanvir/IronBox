@@ -17,13 +17,13 @@ class Logs {
 
   Logs();
 
-  Logs.test(
-      {this.dueDate,
-      this.description,
-      this.duration,
-      this.id,
-      this.isCompleted,
-      this.title});
+  // Logs.test(
+  //     {this.dueDate,
+  //     this.description,
+  //     this.duration,
+  //     this.id,
+  //     this.isCompleted,
+  //     this.title});
 
   Logs.fromJSON(Map<String, dynamic> jsonMap) {
     try {

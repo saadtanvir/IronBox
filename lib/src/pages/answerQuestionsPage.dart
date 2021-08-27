@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/controllers/plan_questions_controller.dart';
-import 'package:ironbox/src/models/questions.dart';
 import 'package:ironbox/src/models/requestQuestionAnswer.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/customQuestionCard.dart';
 import '../models/user.dart';
@@ -86,51 +85,72 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
                                             );
                                     },
                                     separatorBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: TextFormField(
-                                          keyboardType:
-                                              TextInputType.emailAddress,
-                                          onSaved: (input) {
-                                            RequestQuestionAnswer answer =
-                                                new RequestQuestionAnswer();
-                                            answer.statement = input;
-                                            answer.trainerQuestionId =
-                                                _con.trainerQuestions[index].id;
-                                            answers.add(answer.toMap());
-                                          },
-                                          validator: (input) {
-                                            if (!_con.trainerQuestions[index]
-                                                    .isOptional &&
-                                                input.isEmpty) {
-                                              return "Required";
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            labelText: "Answer",
-                                            // floatingLabelBehavior:
-                                            //     FloatingLabelBehavior.never,
-                                            labelStyle: TextStyle(
-                                                color: Theme.of(context)
-                                                    .secondaryHeaderColor,
-                                                fontWeight: FontWeight.bold),
-                                            contentPadding:
-                                                const EdgeInsets.all(10),
-                                            border: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  width: 2.0,
-                                                  color: Theme.of(context)
-                                                      .accentColor
-                                                      .withOpacity(0.2)),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10.0)),
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      int trainerQuestionIndex =
+                                          index == _con.trainerQuestions.length
+                                              ? index - 1
+                                              : index;
+                                      print(_con
+                                          .trainerQuestions[
+                                              trainerQuestionIndex]
+                                          .id);
+                                      return index <=
+                                              _con.trainerQuestions.length
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: TextFormField(
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                                onSaved: (input) {
+                                                  RequestQuestionAnswer answer =
+                                                      new RequestQuestionAnswer();
+                                                  answer.statement = input;
+                                                  answer.trainerQuestionId = _con
+                                                      .trainerQuestions[
+                                                          trainerQuestionIndex]
+                                                      .id;
+                                                  answers.add(answer.toMap());
+                                                },
+                                                validator: (input) {
+                                                  if (!_con
+                                                          .trainerQuestions[
+                                                              trainerQuestionIndex]
+                                                          .isOptional &&
+                                                      input.isEmpty) {
+                                                    return "Required";
+                                                  } else {
+                                                    return null;
+                                                  }
+                                                },
+                                                decoration: InputDecoration(
+                                                  labelText: "Answer",
+                                                  // floatingLabelBehavior:
+                                                  //     FloatingLabelBehavior.never,
+                                                  labelStyle: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  contentPadding:
+                                                      const EdgeInsets.all(10),
+                                                  border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        width: 2.0,
+                                                        color: Theme.of(context)
+                                                            .accentColor
+                                                            .withOpacity(0.2)),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                10.0)),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox(
+                                              height: 0.0,
+                                              width: 0.0,
+                                            );
                                     },
                                   ),
                                 ],

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ironbox/src/models/planRequest.dart';
 import '../helpers/helper.dart';
 import '../models/plan.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +15,6 @@ import '../models/workoutPlanGame.dart';
 
 Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
   print("creating plan");
-  // Dio dio = new Dio();
   String url = "${GlobalConfiguration().get("api_base_url")}plans";
   String imageType = image.path.split('.').last;
 
@@ -70,7 +68,7 @@ Future<Plan> createPlan(Plan plan, {String imageBytes, File image}) async {
     Map responseBody = json.decode(res.body);
     // print(responseBody['data']);
     if (res.statusCode == 200 && responseBody['data'] != null) {
-      return Plan.fromJSON(json.decode(res.body)['data']);
+      return Plan.fromJSON(responseBody['data']);
     } else {
       print("Exception thrown");
       return Plan.fromJSON({});

@@ -31,7 +31,7 @@ Future<Stream<PlanRequest>> getTrainerPlanRequests(String trainerId) async {
         .expand((data) => (data as List))
         .map((data) {
           print("printing request data");
-          // print(data);
+          print(data);
           return PlanRequest.fromJSON(data);
         });
   } on SocketException {

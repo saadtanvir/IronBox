@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ironbox/src/helpers/helper.dart';
 import 'package:ironbox/src/models/planRequest.dart';
+import 'package:ironbox/src/pages/createCustomDietPlan.dart';
 import 'package:ironbox/src/widgets/listTileWidgets/customQuestionCard.dart';
 import 'package:ironbox/src/widgets/userCircularAatar.dart';
 import '../helpers/app_constants.dart' as Constants;
@@ -239,6 +240,12 @@ class _TrainerPlanRequestDetailsPageState
                       widget.request.requestQuestionsAnswersList.length + 1,
                   itemBuilder: (context, index) {
                     // this widget prints from 0 to length - 1
+                    print(widget.request.requestQuestionsAnswersList.length);
+                    print(index);
+                    print("is question null ?");
+                    // print(widget.request.requestQuestionsAnswersList[index]
+                    //         .trainerQuestion ==
+                    //     null);
                     return index <
                             widget.request.requestQuestionsAnswersList.length
                         ? CustomQuestionCard(
@@ -255,48 +262,52 @@ class _TrainerPlanRequestDetailsPageState
                           );
                   },
                   separatorBuilder: (context, index) {
-                    return Card(
-                      color: Colors.grey[300],
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 5.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Wrap(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Answer:",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
+                    return index <=
+                            widget.request.requestQuestionsAnswersList.length
+                        ? Card(
+                            color: Colors.grey[300],
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 5.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Wrap(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Answer:",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(widget
+                                              .request
+                                              .requestQuestionsAnswersList[
+                                                  index]
+                                              .statement
+                                              .isNotEmpty ||
+                                          widget
+                                                  .request
+                                                  .requestQuestionsAnswersList[
+                                                      index]
+                                                  .statement !=
+                                              null
+                                      ? widget
+                                          .request
+                                          .requestQuestionsAnswersList[index]
+                                          .statement
+                                      : "N/A"),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 5.0,
-                            ),
-                            Text(widget
-                                        .request
-                                        .requestQuestionsAnswersList[index]
-                                        .statement
-                                        .isNotEmpty ||
-                                    widget
-                                            .request
-                                            .requestQuestionsAnswersList[index]
-                                            .statement !=
-                                        null
-                                ? widget
-                                    .request
-                                    .requestQuestionsAnswersList[index]
-                                    .statement
-                                : "N/A"),
-                          ],
-                        ),
-                      ),
-                    );
-                    // : const SizedBox(
-                    //     height: 0.0,
-                    //     width: 0.0,
-                    //   );
+                          )
+                        : const SizedBox(
+                            height: 0.0,
+                            width: 0.0,
+                          );
                   },
                 ),
                 const SizedBox(
@@ -377,7 +388,13 @@ class _TrainerPlanRequestDetailsPageState
                         ? Align(
                             alignment: Alignment.center,
                             child: TextButton(
-                              onPressed: () async {},
+                              onPressed: () async {
+                                // to create plan
+                                Get.to(
+                                  CreateCustomDietPlan(request: widget.request),
+                                  transition: Transition.rightToLeft,
+                                );
+                              },
                               style: ButtonStyle(
                                 padding: MaterialStateProperty.all(
                                   const EdgeInsets.symmetric(horizontal: 15.0),

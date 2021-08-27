@@ -2,7 +2,7 @@ import 'dart:io';
 
 class Plan {
   String id;
-  String category;
+  String category; // 1 = workout, 2 = diet
   String name;
   String duration;
   String imgUrl;
@@ -10,7 +10,7 @@ class Plan {
   String description;
   String detail;
   String createdBy;
-  String imageBytes;
+  // String imageBytes;
   double price;
   File imageFile;
 
